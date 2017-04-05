@@ -5,9 +5,23 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="./reset.css" rel="stylesheet">
+        <link href="./styles/main.css" rel="stylesheet">
+        <link href="./styles/fonts.css" rel="stylesheet">
        
     </head>
     <body ng-controller='mainCtrl'>
+    
+    <nav class='main-nav'>
+        <div class='main-links'>
+            <img ng-src='https://s3.amazonaws.com/devmountain/www/img/logoonly.png'>
+            <h2><a ui-sref=''>HOME</a></h2>
+            <h2><a ui-sref=''>COHORT</a></h2>
+        </div>
+        <div class='main-dropdown'>
+            <h2>{{user}}</h2>
+            <img ng-src='./assets/arrow_svg-arrow.svg'>
+        </div>
+    </nav>
     
        
 
