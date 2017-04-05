@@ -1,22 +1,82 @@
  .home-background {
     height: 100vh;
     width: 100%;
-    padding-top: 100px;
+    padding-top: 80px;
     background: linear-gradient(-45deg, #282828, #1a1a1a);
     display: flex;
 }
 
 .home-alert {
-    width: 30%;
-    height: calc(100vh - 180px);
-    background: blue;
+    width: 27%;
+    height: calc(100vh - 160px);
+    background: #282828;
     margin: 40px 20px 40px 40px;
 }
 
+.home-alertTotalBar {
+    width: 100%;
+    height: 8vh;
+    background: linear-gradient(-45deg, #333, #444);
+    text-align: center;
+    padding-top: 2.5vh;
+}
+
+.home-alertTotalBar span {
+    color: #25aae1;
+}
+
+/*.home-alertsFeed {
+    width: 100px;
+    height: 30px;
+    background: white;
+}*/
+
 .home-graphs {
-    width: 60%;
-    height: calc(100vh - 180px);
-    background: green;
+    width: 63%;
+    height: calc(100vh - 160px);
     margin: 40px 40px 40px 20px;
 }
 
+.home-totalQTime {
+    width: 100%;
+    height: calc(60% - 20px);
+    background: #282828;
+    margin-bottom: 40px;
+}
+
+.home-totalGraphBar {
+    width: 100%;
+    height: 8vh;
+    background: linear-gradient(-45deg, #333, #444);
+    padding-left: 30px;
+    padding-top: 2.5vh;
+}
+
+.home-bottomGraphs {
+    width: 100%;
+    height: calc(40% - 20px);
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.home-waitQTime {
+    width: calc(50% - 20px);
+    height: 100%;
+    background: #282828;
+}
+
+.home-helpQTime {
+    width: calc(50% - 20px);
+    height: 100%;
+    background: #282828;
+}
+
+.home-bottomGraphsBar {
+    width: 100%;
+    height: 5vh;
+    background: linear-gradient(-45deg, #333, #444);
+    padding-left: 20px;
+    padding-top: 1.5vh;
+}
