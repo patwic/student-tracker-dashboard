@@ -5,14 +5,33 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="./reset.css" rel="stylesheet">
+        <link href="./styles/main.css" rel="stylesheet">
+        <link href="./styles/fonts.css" rel="stylesheet">
        
     </head>
     <body ng-controller='mainCtrl'>
     
+    <nav class='main-nav'>
+        <div class='main-links'>
+            <img ng-src='https://s3.amazonaws.com/devmountain/www/img/logoonly.png'>
+            <h2><a ui-sref=''>HOME</a></h2>
+            <h2><a ui-sref=''>COHORT</a></h2>
+        </div>
+        <div class='main-user'>
+            <h2>{{user}}</h2>
+            <img ng-src='./assets/arrow_svg-arrow.svg' ng-click='showDropdown()'>
+        </div>
+    </nav>
+    <div id='dropdown' class='main-dropdown'>
+        <p ng-click='showDropdown()'>Preferences</p>
+        <p ng-click='showDropdown()'>Logout</p>
+    </div>
+    
        
 
 
-    <script src='./angular.js'></script>
+    <script src='./libraries/angular.js'></script>
+    <script src='./libraries/jquery-3.2.0.js'></script>
     <script src='./app.js'></script>
     <script src='./controllers/mainCtrl.js'></script>
     </body>
