@@ -17,11 +17,15 @@
             <h2><a ui-sref=''>HOME</a></h2>
             <h2><a ui-sref=''>COHORT</a></h2>
         </div>
-        <div class='main-dropdown'>
+        <div class='main-user'>
             <h2>{{user}}</h2>
-            <img ng-src='./assets/arrow_svg-arrow.svg'>
+            <img ng-src='./assets/arrow_svg-arrow.svg' ng-click='showDropdown()'>
         </div>
     </nav>
+    <div id='dropdown' class='main-dropdown'>
+        <p ng-click='showDropdown()'>Preferences</p>
+        <p ng-click='showDropdown()'>Logout</p>
+    </div>
     
        
 
