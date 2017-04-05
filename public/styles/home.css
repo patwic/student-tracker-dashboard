@@ -1,0 +1,22 @@
+ .home-background {
+    height: 100vh;
+    width: 100%;
+    padding-top: 100px;
+    background: linear-gradient(-45deg, #282828, #1a1a1a);
+    display: flex;
+}
+
+.home-alert {
+    width: 30%;
+    height: calc(100vh - 180px);
+    background: blue;
+    margin: 40px 20px 40px 40px;
+}
+
+.home-graphs {
+    width: 60%;
+    height: calc(100vh - 180px);
+    background: green;
+    margin: 40px 40px 40px 20px;
+}
+

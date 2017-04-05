@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400');
+
 
 .main-nav {
     width: 100%;
@@ -8,7 +8,7 @@
     justify-content: space-between;
     align-items: center;
     position: absolute;
-    z-index: 2;
+    z-index: 3;
 }
 
 .main-links {
@@ -31,6 +31,12 @@
     align-items: center;
     border-bottom: 7px solid transparent;
     padding-top: 7px;
+
+}
+
+.main-links a {
+    text-decoration: none;
+    color: white;
 }
 
 .main-links h2:active {
@@ -39,7 +45,7 @@
 
 .main-user {
     width: 300px;
-    margin-right: 20px;
+    margin-right: 30px;
     display: flex;
     justify-content: space-around;
 }
@@ -52,13 +58,14 @@
 }
 
 .main-dropdown {
-    float: right;
     background: linear-gradient(-45deg, #333, #444);
     width: 280px;
-    margin-right: 30px;
     padding: 20px;
     margin-top: -150px;
     transition: margin-top 0.4s ease-in-out;
+    position: absolute;
+    right: 47px;
+    z-index: 2;
 }
 
 .main-dropdown > :first-child {
