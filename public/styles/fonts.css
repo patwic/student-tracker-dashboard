@@ -20,6 +20,18 @@ h3 {
     font-size: 16px;
 }
 
+h4 {
+    font-weight: 400;
+    color: #999999;
+    font-size: 14px;
+}
+
+h5 {
+    font-weight: 400;
+    color: white;
+    font-size: 12px;
+}
+
 p {
     font-weight: 300;
     color: white;
