@@ -8,6 +8,6 @@ const express = require('express')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-app.get('/api/questions', questions.attachQueries)
+app.get('/q/current', questions.getCurrentQ)
 
 app.listen(port, () => console.log(`Listening on port ${port} . . .`))
