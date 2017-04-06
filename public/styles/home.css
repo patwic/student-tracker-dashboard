@@ -31,22 +31,22 @@
     width: calc(100% - 40px);
     height: calc(100% - 95px);
     margin: 20px 20px;
-    overflow: auto;
+    overflow-y: scroll;
     
 }
 
 .home-alertFeed::-webkit-scrollbar {
-width: 6px;
-height: 6px;
+    width: 6px;
+    height: 6px;
 }
 
 .home-alertFeed::-webkit-scrollbar-track {
-background: #141414;
+    background: #141414;
 }
 
 .home-alertFeed::-webkit-scrollbar-thumb {
-background: #25aae1;  
-border-radius: 10px;
+    background: #25aae1;  
+
 }
 
 .home-alerts {
