@@ -21,6 +21,7 @@ const self = module.exports = {
             })
     },
 
+    //divides q data into 30-minute increments, such as 8:45-9:15AM and 4:45-5:15PM
     divideQ: (qbody) => {
         let tempQ = []
         for (let i = 0; i < 17; i++) {tempQ.push([])}
@@ -30,16 +31,22 @@ const self = module.exports = {
             tempQ[i].push(q)
         })
         self.setHelpQ(tempQ)
-        //self.setTotalQ(tempQ)
-        //self.setWaitQ(tempQ)
+        self.setTotalQ(tempQ)
+        self.setWaitQ(tempQ)
     },
 
+    //values in below data arrays are in minutes, fixed to two decimal places
+
+    //creates help data
     setHelpQ: (tempQ) => {
         let newQ = []
         tempQ.forEach((tQ) => {
             if (tQ.length > 0) {
                 let sum = 0
                 let count = 0
+                //checks for when mentor helps.
+                //if no mentor entry is available, they are still waiting and not being helped
+                //if no question answered data, they are still being helped, so upper is current time.
                 for (let i = 0; i < tQ.length; i++) {
                     if (tQ[i].timeMentorBegins) {
                         count++
@@ -48,7 +55,7 @@ const self = module.exports = {
                         sum += (upper - new Date(tQ[i].timeMentorBegins).getTime())
                     }
                 }
-                if (sum != 0) newQ.push(sum/(count * 60000))
+                if (sum != 0) newQ.push((sum/(count * 60000)).toFixed(2))
                 else newQ.push(-1)
             }
             else newQ.push(-1)
@@ -56,33 +63,45 @@ const self = module.exports = {
         app.setHelpQ(newQ)
     },
 
-    /*setTotalQ: (tempQ) => {
+    //creates total q data, combining help and wait times
+    setTotalQ: (tempQ) => {
         let newQ = []        
         tempQ.forEach((tQ) => {
             if (tQ.length > 0) {
                 let sum = 0
+                //checks if their question has been answered.
+                //if not, they are still in queue, so upper is current time.
                 for (let i = 0; i < tQ.length; i++) {
-                    sum += (new Date(tQ[i].timeQuestionAnswered).getTime() - new Date(tQ[i].timeWhenEntered).getTime())
+                    let upper = new Date().getTime()
+                    if (tQ[i].timeQuestionAnswered) upper = new Date(tQ[i].timeQuestionAnswered).getTime()
+                    sum += (upper - new Date(tQ[i].timeWhenEntered).getTime())
                 }
-                newQ.push(sum/(tQ.length * 60000))
+                newQ.push((sum/(tQ.length * 60000)).toFixed(2))
             }
             else newQ.push(-1)
         })
         app.setTotalQ(newQ)
     },
 
+    //creates wait q data
     setWaitQ: (tempQ) => {
         let newQ = []
         tempQ.forEach((tQ) => {
             if (tQ.length > 0) {
                 let sum = 0
+                //checks if mentor has helped
+                //if not, checks if they answered the question themselves
+                //if neither, they are still waiting for help, so upper is current time
                 for (let i = 0; i < tQ.length; i++) {
-                    sum += (new Date(tQ[i].timeMentorBegins).getTime() - new Date(tQ[i].timeWhenEntered).getTime())
+                    let upper = new Date().getTime()
+                    if (tQ[i].timeMentorBegins) upper = new Date(tQ[i].timeMentorBegins).getTime()
+                    else if (tQ[i].timeQuestionAnswered) upper = new Date(tQ[i].timeQuestionAnswered).getTime()
+                    sum += (upper - new Date(tQ[i].timeWhenEntered).getTime())
                 }
-                newQ.push(sum/(tQ.length * 60000))
+                newQ.push((sum/(tQ.length * 60000)).toFixed(2))
             }
             else newQ.push(-1)
         })
         app.setTotalQ(newQ)
-    }*/
+    }
 }
