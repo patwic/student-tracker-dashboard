@@ -23,7 +23,6 @@ const self = module.exports = {
 
     divideQ: (qbody) => {
         let tempQ = []
-        let newQ = []
         for (let i = 0; i < 17; i++) {tempQ.push([])}
         let day = new Date().toISOString().substring(0, 10)        
         qbody.forEach((q) => {
@@ -31,26 +30,35 @@ const self = module.exports = {
             tempQ[i].push(q)
         })
         self.setHelpQ(tempQ)
-        self.setTotalQ(tempQ)
-        self.setWaitQ(tempQ)
+        //self.setTotalQ(tempQ)
+        //self.setWaitQ(tempQ)
     },
 
-    setHelpQ: () => {
-        /*tempQ.forEach((tQ) => {
+    setHelpQ: (tempQ) => {
+        let newQ = []
+        tempQ.forEach((tQ) => {
             if (tQ.length > 0) {
                 let sum = 0
+                let count = 0
                 for (let i = 0; i < tQ.length; i++) {
-                    sum += (new Date(tQ[i].timeQuestionAnswered).getTime() - new Date(tQ[i].timeMentorBegins).getTime())
+                    if (tQ[i].timeMentorBegins) {
+                        count++
+                        let upper = new Date().getTime()
+                        if (tQ[i].timeQuestionAnswered) upper = new Date(tQ[i].timeQuestionAnswered).getTime()
+                        sum += (upper - new Date(tQ[i].timeMentorBegins).getTime())
+                    }
                 }
-                newQ.push(sum/(tQ.length * 60000))
+                if (sum != 0) newQ.push(sum/(count * 60000))
+                else newQ.push(-1)
             }
             else newQ.push(-1)
         })
-        app.setTotalQ(newQ)*/
+        app.setHelpQ(newQ)
     },
 
-    setTotalQ: () => {
-        /*tempQ.forEach((tQ) => {
+    /*setTotalQ: (tempQ) => {
+        let newQ = []        
+        tempQ.forEach((tQ) => {
             if (tQ.length > 0) {
                 let sum = 0
                 for (let i = 0; i < tQ.length; i++) {
@@ -60,11 +68,12 @@ const self = module.exports = {
             }
             else newQ.push(-1)
         })
-        app.setTotalQ(newQ)*/
+        app.setTotalQ(newQ)
     },
 
-    setWaitQ: () => {
-        /*tempQ.forEach((tQ) => {
+    setWaitQ: (tempQ) => {
+        let newQ = []
+        tempQ.forEach((tQ) => {
             if (tQ.length > 0) {
                 let sum = 0
                 for (let i = 0; i < tQ.length; i++) {
@@ -74,6 +83,6 @@ const self = module.exports = {
             }
             else newQ.push(-1)
         })
-        app.setTotalQ(newQ)*/
-    }
+        app.setTotalQ(newQ)
+    }*/
 }
