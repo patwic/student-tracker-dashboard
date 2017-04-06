@@ -1,16 +1,19 @@
+
 .login-mainSection {
-    width: 100%;
+    width: 101%;
     height: 100vh;
-    /*background: url('./assets/background-11.svg');*/
-    background: grey;
+    background: url('../assets/background-11.svg');
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    z-index: 4;
 }
 
 .login-box {
     width: 400px;
-    height: 320px;
+    height: 250px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -37,6 +40,7 @@
 
 
 .login-box h3 {
+    cursor: pointer;
     padding: 10px 70px;
     width: 200px;
     border: 1px solid white;
