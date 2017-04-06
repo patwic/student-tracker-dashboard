@@ -25,7 +25,7 @@ const self = module.exports = {
     divideQ: (qbody) => {
         let tempQ = []
         for (let i = 0; i < 17; i++) {tempQ.push([])}
-        let day = new Date().toISOString().substring(0, 10)        
+        let day = new Date().toISOString().substring(0, 10)
         qbody.forEach((q) => {
             let i = Math.floor((new Date(q.timeWhenEntered).getTime() - new Date(`${day}T14:45:00.000Z`).getTime())/1800000)
             tempQ[i].push(q)
