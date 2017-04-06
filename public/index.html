@@ -8,6 +8,7 @@
         <link href="./styles/main.css" rel="stylesheet">
         <link href="./styles/fonts.css" rel="stylesheet">
         <link href="./styles/home.css" rel="stylesheet">
+        <link href="./styles/login.css" rel="stylesheet">
        
     </head>
     <body ng-controller='mainCtrl'>
@@ -15,8 +16,8 @@
     <nav class='main-nav'>
         <div class='main-links'>
             <img ng-src='https://s3.amazonaws.com/devmountain/www/img/logoonly.png'>
-            <h2><a ui-sref='home'>HOME</a></h2>
-            <h2><a ui-sref='cohort'>COHORT</a></h2>
+            <h2><a ui-sref='root.home'>HOME</a></h2>
+            <h2><a ui-sref='root.cohort'>COHORT</a></h2>
         </div>
         <div class='main-user'>
             <h2>{{user}}</h2>
