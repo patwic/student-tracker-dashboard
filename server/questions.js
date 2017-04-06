@@ -3,7 +3,7 @@ const config = require('./config.js')
       app = require('./server')
 
 module.exports = {
-    getCurrentQ: (req, res) => {
+    getCurrentQ: () => {
         let day = new Date().toISOString().substring(0, 10)
         request.get(
             `${config.dev_mtn_api}historical/questions/?admin_token=${config.admin_token}&after=${day}`,
@@ -11,13 +11,17 @@ module.exports = {
                 if (err) console.log(err)
                 else {
                     qbody = JSON.parse(qbody)
-                    let oldQ = app.getTotalQ()
-                    let newQ = []
-                    if (qbody.length > oldQ.length) {
-                        newQ = oldQ.concat(qbody.slice(oldQ.length))
-                        app.setTotalQ(newQ)
-                    }
+                    //only care about data between 8:45 AM and 5:15 PM
+                    qbody = qbody.filter((q) => {
+                        let qTime = (new Date(q.timeWhenEntered).getTime() - new Date(`${day}T14:45:00.000Z`).getTime())/1000
+                        return 0 < qTime && qTime < 30600
+                    })
+
                 }
             })
+    },
+
+    divideQ: () => {
+        
     }
 }

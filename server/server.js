@@ -15,18 +15,20 @@ setTimeout(function dailyTasks() {
             totalQ = []
       }
       else console.log('Same day')
-      setTimeout(dailyTasks, 43200000)
-}, 43200000)
+      setTimeout(dailyTasks, 28800000)
+}, 28800000)
+
+function updateQ() {
+      questions.getCurrentQ()
+      setTimeout(updateQ, 300000)
+}
+
+updateQ()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.getTotalQ = () => {return totalQ}
-app.setTotalQ = (newQ) => {
-      totalQ = newQ
-      console.log(totalQ)
-}
-
-app.get('/q/current', questions.getCurrentQ)
+app.setTotalQ = (newQ) => {totalQ = newQ}
 
 app.listen(port, () => console.log(`Today is ${date}. Listening on port ${port} . . .`))
