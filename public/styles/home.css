@@ -31,18 +31,26 @@
     width: calc(100% - 40px);
     height: calc(100% - 95px);
     margin: 20px 20px;
-    overflow: scroll;
-    scrollbar-3dlight-color:gold;
-	scrollbar-arrow-color:yellow;
-	scrollbar-base-color:tomato;
-	scrollbar-darkshadow-color:orange;
-	scrollbar-face-color:teal;
-	scrollbar-highlight-color:hotpink;
-	scrollbar-shadow-color:magenta;
+    overflow: auto;
+    
+}
+
+.home-alertFeed::-webkit-scrollbar {
+width: 6px;
+height: 6px;
+}
+
+.home-alertFeed::-webkit-scrollbar-track {
+background: #141414;
+}
+
+.home-alertFeed::-webkit-scrollbar-thumb {
+background: #25aae1;  
+border-radius: 10px;
 }
 
 .home-alerts {
-    height: 110px;
+    height: 95px;
     width: 100%;
 }
 
@@ -54,7 +62,6 @@
     width: 100%;
     height: 80px;
     background: #444;
-    margin-bottom: 20px;
     border-top: 3px solid #b21818;
 }
 
@@ -83,7 +90,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 80px;
 }
 
 .home-buttonBox p {
