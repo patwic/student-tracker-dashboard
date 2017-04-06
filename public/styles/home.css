@@ -32,6 +32,7 @@
     height: calc(100% - 95px);
     margin: 20px 20px;
     overflow-y: scroll;
+    overflow: auto;
     
 }
 
