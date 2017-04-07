@@ -124,7 +124,6 @@
 
 .login-sidenavTitle h2 {
     padding-top: 40px;
-
 }
 
 .login-sidenavAllContent {
@@ -142,26 +141,47 @@
     justify-content: space-around;
 }
 
-.home-selectStyle {
+
+.login-sidenavChoices {
     display: flex;
     justify-content: space-between;
     text-align: justify;
 }
 
-.home-selectStyle  select {
-    color: #25aae1;
+.login-sidenavChoices h3 {
+    font-weight: 400;
+    padding-top: 9px;
+    letter-spacing: 2px;
+}
+
+.login-sidenavChoices img {
+    width: 20px;
+    height: 20px;
+    float: right;
+    padding-top: 5px;
+    margin-right: 15px;
+}
+
+.home-selectStyle {
     background: #141414;
     border: none;
-    width: 250px;
+    width: 270px;
     height: 25px;
+    color: #25aae1;
+    outline: none;
+    font-size: 14px;
+    /*padding-left: 15px;*/
 }
 
 .home-selectStyle  input {
     background: #141414;
     border: none;
-    width: 250px;
+    width: 270px;
     height: 25px;
     color: #25aae1;
+    outline: none;
+    font-size: 14px;
+    padding-left: 10px;
 }
 
 .login-sidenavBottomContent {
@@ -237,3 +257,6 @@
     background: #25aae1;  
 
 }
+
+/*_______________*/
+
