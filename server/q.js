@@ -13,9 +13,6 @@ const self = module.exports = {
             })
     },
 
-    //values in below data arrays are in minutes, fixed to two decimal places
-
-    //creates q data
     setQs: (qbody) => {
         let helpQ = []
             totalQ = []
@@ -25,7 +22,8 @@ const self = module.exports = {
             increments = Math.ceil((new Date().getTime() - beginTime)/300000)
         for (let i = 0; i < increments; i++) {
             let min = beginTime + (i * 300000)
-                max = beginTime + ((i + 1) * 300000)
+            if (i != increments - 1) max = beginTime + ((i + 1) * 300000)
+            else max = new Date().getTime()
             helpQ.push(self.pushSingleQ(min, max, qbody, 'timeMentorBegins', 'timeQuestionAnswered'))
             totalQ.push(self.pushSingleQ(min, max, qbody, 'timeWhenEntered', 'timeQuestionAnswered'))
             waitQ.push(self.pushSingleQ(min, max, qbody, 'timeWhenEntered', 'timeMentorBegins', 'timeQuestionAnswered'))
