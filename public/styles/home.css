@@ -111,11 +111,12 @@
 
 .home-alerts:hover .home-alertDisplay{
     display: none;
+    transition: ease-in-out;
 }
 
 .home-alerts:hover .home-alertButton{
     display: block;
-    transition-timing-function: ease-in-out;
+    transition: ease-in-out;
 }
 
 .home-graphs {

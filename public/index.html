@@ -26,11 +26,26 @@
         </div>
     </nav>
     <div id='dropdown' class='main-dropdown'>
-        <p ng-click='showDropdown()'>Preferences</p>
+        <p ng-click='showDropdown()' onclick="openNav()">Preferences</p>
         <p ng-click='showDropdown()'>Logout</p>
     </div>
-    
+
+    <div id="login-sidenav" class="login-sidenavContent">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    </div>
+
+
     <ui-view></ui-view>
+
+    <script>
+        function openNav() {
+            document.getElementById("login-sidenav").style.width = "500px";
+        }
+
+        function closeNav() {
+            document.getElementById("login-sidenav").style.width = "0";
+        }
+    </script>
 
 
     <script src='./libraries/angular.js'></script>
