@@ -1,14 +1,21 @@
 
 .login-mainSection {
-    width: 101%;
+    width: 100%;
+    height: 100vh;
+    background: #333;
+    z-index: 4;
+    position: absolute;
+}
+
+.login-background {
+    width: 100%;
     height: 100vh;
     background: url('../assets/background-11.svg');
     background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    z-index: 4;
+
 }
 
 .login-box {

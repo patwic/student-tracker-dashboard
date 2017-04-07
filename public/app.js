@@ -10,23 +10,12 @@ angular.module('app', ['ui.router'])
             templateUrl: "./views/login.html"
         })
 
-        .state('root', {
-            abstract: true,
-            views: {
-                '@': {
-                    template: '<ui-view />'
-                }
-            }
-        })
-
-        .state('root.home', {
-            parent: 'root',
+        .state('home', {
             url: '/',
             templateUrl: "./views/home.html"
         })
 
-        .state('root.cohort', {
-            parent: 'root',
+        .state('cohort', {
             url: '/cohort',
             templateUrl: "./views/cohort.html"
         })
