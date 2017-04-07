@@ -1,3 +1,4 @@
+ 
  .home-background {
     height: 100vh;
     width: 100%;
@@ -30,22 +31,43 @@
     width: calc(100% - 40px);
     height: calc(100% - 95px);
     margin: 20px 20px;
+    overflow-y: scroll;
+    overflow: auto;
+    
 }
 
-.home-redAlert {
-    height: 110px;
+.home-alertFeed::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.home-alertFeed::-webkit-scrollbar-track {
+    background: #141414;
+}
+
+.home-alertFeed::-webkit-scrollbar-thumb {
+    background: #25aae1;  
+
+}
+
+.home-alerts {
+    height: 95px;
     width: 100%;
-    position: relative;
+}
+
+.home-alerts h5 {
+    padding: 10px 15px;
 }
 
 .home-alertDisplay {
     width: 100%;
     height: 80px;
     background: #444;
-    margin-bottom: 20px;
     border-top: 3px solid #b21818;
-    position: absolute;
-    z-index: 2;
+}
+
+.home-yellowDisplay {
+    border-top: none;
 }
 
 .home-alertDisplay h4 {
@@ -56,54 +78,46 @@
     padding-top: 9px;
 }
 
-.home-alertDisplay:hover {
-    display: none;
-}
-
 .home-alertButton {
-    position: absolute;
-    display: none;
     width: 100%;
-    height: 100%;
+    height: 80px;
     background: #141414;
     border-top: 3px solid #282828;
-    z-index: 3;
+    display: none;
     
 }
 
-.home-alertButton:hover {
-    display: block;
-}
-
-
-
-.home-redAlert h5 {
-    padding: 10px 15px;
-}
-
-.home-yellowAlert {
-    width: 100%;
+.home-buttonBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 80px;
-    background: #444;
-    margin-bottom: 20px;
 }
 
-.home-yellowAlert h5 {
-    padding: 10px 15px;
+.home-buttonBox p {
+    cursor: pointer;
+    padding: 10px 10px;
+    width: 100px;
+    background: #282828;
+    text-align: center;
+    font-size: 14px;
+    color: #a0a0a0;
+    font-weight: 400;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-.home-yellowAlert h4 {
-    width: 100%;
-    height: 30px;
-    background: #141414;
-    padding-left: 20px;
-    padding-top: 9px;
+
+
+.home-alerts:hover .home-alertDisplay{
+    display: none;
+    transition: ease-in-out;
 }
 
-
-
-
-
+.home-alerts:hover .home-alertButton{
+    display: block;
+    transition: ease-in-out;
+}
 
 .home-graphs {
     width: 100%;
