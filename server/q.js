@@ -26,23 +26,23 @@ const self = module.exports = {
         for (let i = 0; i < increments; i++) {
             let min = beginTime + (i * 300000)
                 max = beginTime + ((i + 1) * 300000)
-            helpQ.push(self.setQSingleton(min, max, qbody, 'timeMentorBegins', 'timeQuestionAnswered'))
-            totalQ.push(self.setQSingleton(min, max, qbody, 'timeWhenEntered', 'timeQuestionAnswered'))
-            waitQ.push(self.setQSingleton(min, max, qbody, 'timeWhenEntered', 'timeMentorBegins'))
+            helpQ.push(self.pushSingleQ(min, max, qbody, 'timeMentorBegins', 'timeQuestionAnswered'))
+            totalQ.push(self.pushSingleQ(min, max, qbody, 'timeWhenEntered', 'timeQuestionAnswered'))
+            waitQ.push(self.pushSingleQ(min, max, qbody, 'timeWhenEntered', 'timeMentorBegins', 'timeQuestionAnswered'))
         }
-        //console.log(helpQ)
-        //console.log(totalQ)
-        console.log(waitQ)
+        app.setHelpQ(helpQ)
+        app.setTotalQ(totalQ)
+        app.setWaitQ(waitQ)
     },
 
-    setQSingleton: (min, max, qbody, q1, q2) => {
+    pushSingleQ: (min, max, qbody, q1, q2, q3) => {
         let count = 0
             sum = 0
         for (let q of qbody) {
-            console.log(q[q1], q[q2], min, max)
             let qMin = new Date(q[q1]).getTime()
             if (qMin < max) {
-                qMax= new Date(q[q2]).getTime()
+                qMax = new Date(q[q2]).getTime()
+                if (!qMax && q3) qMax = new Date(q[q3]).getTime()
                 if (!qMax || qMax >= min) {
                     if (!qMax || qMax >= max) qMax = max
                     sum += qMax - qMin
