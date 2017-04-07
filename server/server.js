@@ -1,16 +1,17 @@
 const express = require('express')
       bodyParser = require('body-parser')
       massive = require('massive')
-      q = require('./q')
-      config = require('./config.js')
       app = module.exports = express()
+      q = require('./q')
+      config = require('./config')
       port = 3000
+      conn = massive.connectSync({
+            connectionString : config.eleSql
+      });
 
-const conn = massive.connectSync({
-  connectionString : config.eleSql
-});
 app.set('db', conn);
 const db = app.get('db');
+      dbComms = require('./dbComms')
 
 let helpQ = []
     totalQ = []
@@ -42,11 +43,14 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.getHelpQ = () => {return helpQ}
-app.setHelpQ = (newQ) => {helpQ = newQ; console.log(helpQ)}
+app.setHelpQ = (newQ) => {helpQ = newQ; console.log(`Help: ${helpQ}`)}
 app.getTotalQ = () => {return totalQ}
-app.setTotalQ = (newQ) => {totalQ = newQ; console.log(totalQ)}
+app.setTotalQ = (newQ) => {totalQ = newQ; console.log(`Total: ${totalQ}`)}
 app.getWaitQ = () => {return waitQ}
-app.setWaitQ = (newQ) => {waitQ = newQ; console.log(waitQ)}
+app.setWaitQ = (newQ) => {waitQ = newQ; console.log(`Wait: ${waitQ}`)}
+
+app.get('/api/prefs/:user_id', dbComms.getPrefs)
+app.post('/api/prefs/:user_id', dbComms.upsertPrefs)
 
 //for testing purposes; remove once live
 app.put('/api/reset', (req, res) => {
