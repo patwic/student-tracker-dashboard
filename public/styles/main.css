@@ -85,22 +85,21 @@
 
 /*--------------------*/
 
-.login-sidenavContent {
-
+.login-sidenavContent {   
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 5;
+    z-index: 10;
     top: 0;
     right: 0;
-    background-color: #111;
+    background: linear-gradient(-45deg, #1a1a1a, #282828);
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+
 }
 
 .login-sidenavContent a {
-    padding: 8px 8px 8px 32px;
+    padding: 8px 8px 8px 20px;
     text-decoration: none;
     font-size: 25px;
     color: white;
@@ -110,7 +109,92 @@
 
 .login-sidenavContent .closebtn {
     position: absolute;
-    top: 0;
-    font-size: 36px;
+    /*top: 0;*/
+    font-size: 46px;
 
+}
+
+.login-sidenavTitle {
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(-45deg, #444, #333);
+    text-align: center;
+    
+}
+
+.login-sidenavTitle h2 {
+    padding-top: 40px;
+
+}
+
+.login-sidenavAllContent {
+    width: 100%;
+    height: calc(100vh - 100px);
+}
+
+.login-sidenavTopContent {
+    padding: 30px 50px;;
+    width: 100%;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.home-selectStyle {
+    display: flex;
+    justify-content: space-between;
+    text-align: justify;
+}
+
+.home-selectStyle  select {
+    color: #25aae1;
+    background: black;
+    border: none;
+    width: 250px;
+    height: 25px;
+}
+
+.home-selectStyle  input {
+    background: black;
+    border: none;
+    width: 250px;
+    height: 25px;
+    color: #25aae1;
+}
+
+.login-sidenavBottomContent {
+    margin: auto;
+    width: calc(100% - 120px);
+    height: 55vh;
+}
+
+
+.login-sidenavClassBox {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #fff3fd;
+    background: #444;
+}
+
+.login-sidenavClassBox p {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.login-sidenavClassRemove {
+    display: none;
+}
+
+.login-sidenavBottomContent:hover .login-sidenavClassBox{
+    display: none;
+    transition: ease-in-out;
+}
+
+.login-sidenavBottomContent:hover .login-sidenavClassRemove{
+    display: block;
+    transition: ease-in-out;
 }
