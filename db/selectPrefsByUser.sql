@@ -1,0 +1,1 @@
+select cohort_ids from prefs where user_id = $1;

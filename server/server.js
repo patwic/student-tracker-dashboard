@@ -48,6 +48,7 @@ app.setTotalQ = (newQ) => {totalQ = newQ; console.log(totalQ)}
 app.getWaitQ = () => {return waitQ}
 app.setWaitQ = (newQ) => {waitQ = newQ; console.log(waitQ)}
 
+//for testing purposes; remove once live
 app.put('/api/reset', (req, res) => {
       db.resetSchema((err) => {
             if (err) res.status(500).send(err)
