@@ -167,8 +167,9 @@
 .login-sidenavBottomContent {
     margin: auto;
     width: calc(100% - 120px);
-    height: calc(45vh - 20px);
-    overflow: scroll;
+    height: calc(43vh - 20px);
+    overflow-y: scroll;
+    overflow: auto;
 }
 
 
@@ -186,7 +187,7 @@
 
 .login-sidenavClassBox p {
     padding-left: 20px;
-    padding-right: 20px;
+    padding-right: 26px;
     color: #a0a0a0;
 }
 
@@ -221,4 +222,18 @@
 .login-sidenavClassList:hover .login-sidenavClassRemove{
     display: block;
     transition: ease-in-out;
+}
+
+.login-sidenavBottomContent::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.login-sidenavBottomContent::-webkit-scrollbar-track {
+    background: #141414;
+}
+
+.login-sidenavBottomContent::-webkit-scrollbar-thumb {
+    background: #25aae1;  
+
 }
