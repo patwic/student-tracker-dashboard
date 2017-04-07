@@ -1,7 +1,7 @@
 const express = require('express')
       bodyParser = require('body-parser')
       massive = require('massive')
-      questions = require('./questions')
+      q = require('./q')
       config = require('./config.js')
       app = module.exports = express()
       port = 3000
@@ -32,7 +32,7 @@ setTimeout(function dailyTasks() {
 
 //checks for new q data every 5 minutes
 function updateQ() {
-      questions.getCurrentQ()
+      q.getCurrentQ()
       setTimeout(updateQ, 300000)
 }
 
