@@ -22,6 +22,40 @@
     margin-top: 10px;
 }
 
+/*----------------*/
+
+.cohort-sidenavContent {   
+    height: calc(100% - 80px);
+    margin-top: 80px;
+    width: 0;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background: linear-gradient(-45deg, #1a1a1a, #282828);
+    transition: 0.5s;
+    box-shadow: -10px 0 25px 2px rgba(0, 0, 0, .4);
+}
+
+.cohort-sidenavContent a {
+    padding: 8px 8px 8px 20px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.cohort-sidenavContent .cohort-closebtn {
+    position: absolute;
+    /*top: 0;*/
+    right: 25px;
+    font-size: 46px;
+
+}
+
+/*----------------*/
+
 .cohort-topGraphBox {
     height: calc(100vh - 80px);
     width: calc(100% - 60px);
@@ -223,6 +257,45 @@
 }
 
 
+.cohort-projectScoresKey {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cohort-projectScoresSelector {
+    display: flex;
+}
+
+.cohort-projectScoresGraphBox img {
+    width: 20px;
+    height: 20px;
+    margin-left: 20px;
+    padding-bottom: 3px;
+}
+.cohort-projectScoresKeyValues {
+    width: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.cohort-projectScoresKeyValues div {
+    width: 12px;
+    height: 12px;
+    background: #1a1a1a;
+    margin-right: 6px;
+}
+
+.cohort-projectScoresKeyValues div:first-child {
+    background: #25aae1;
+
+}
+
+.cohort-projectScoresKeyValues h4 {
+    margin-right: 20px;
+}
 
 .cohort-bottomGraphBox {
     height: calc(100vh - 80px);

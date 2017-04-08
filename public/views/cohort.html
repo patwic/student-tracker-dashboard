@@ -1,7 +1,19 @@
 <section class='cohort-background'>
     <div class='cohort-fixedSideMenu'>
-        <img src='https://cdn3.iconfinder.com/data/icons/gray-toolbar/512/menu-512.png'>
+        <img onclick="openCohortNav()" src='https://cdn3.iconfinder.com/data/icons/gray-toolbar/512/menu-512.png'>
     </div>
+
+    <div id="cohort-sidenav" class="cohort-sidenavContent" >
+        <div class="cohort-sidenavTitle">
+            <a href="javascript:void(0)" class="cohort-closebtn" onclick="closeCohortNav()">&times;</a>
+        </div>
+         <div class='cohort-sidenavAllContent'>
+
+        </div>
+
+    </div>
+
+
     <div class='cohort-topGraphBox'>
         <div class='cohort-qTimeMentorGraphs'>
             <div class='cohort-qTimeGraphs'>
@@ -64,14 +76,41 @@
     <div class='cohort-middleGraphBox'>
         <div class='cohort-graduationGraphBox'>
             <h3>PROGRESS TO GRADUATION</h3>
-            
         </div>
         <div class='cohort-projectScoresGraphBox'>
             <h3>PROJECT SCORES</h3>
-
+            <div class='cohort-projectScoresKey'>
+                <div class='cohort-projectScoresSelector'>
+                    <h4>PERSONAL PROJECT</h4>
+                    <img src='./assets/arrow_svg-arrow.svg'>
+                </div>
+                <div class='cohort-projectScoresKeyValues'>
+                    <div></div>
+                    <h4>PASSED</h4>
+                    <div></div>
+                    <h4>FAILED</h4>
+                </div>
+            </div>
         </div>
     </div>
     <div class='cohort-bottomGraphBox'>
-
     </div>
 </section>
+
+
+    <!--***************************************-->
+    <!--*              Fix me                 *-->
+    <!--***************************************-->
+    <script>
+        function openCohortNav() {
+            document.getElementById("cohort-sidenav").style.width = "500px";
+
+        }
+
+        function closeCohortNav() {
+            document.getElementById("cohort-sidenav").style.width = "0";
+
+        }
+
+
+    </script>
