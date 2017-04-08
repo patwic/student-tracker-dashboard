@@ -140,6 +140,34 @@
 
 }
 
+.cohort-sidenavStudentContentBox {
+    margin-top: 20px;
+    width: 270px;
+    height: calc(100% - 20px);
+    float: right;
+}
+
+.cohort-sidenavStudentContentSelectButtonBox {
+    width: 100%;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+
+
+.cohort-sidenavStudentContentSelectButtonBox  h2 {
+    margin-top: 10px;
+    width: calc(100% - 40px);
+    background: #444;
+    padding: 12px 20px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    
+}
+
 /*------------*/
 
 .cohort-topGraphBox {
