@@ -3,23 +3,25 @@
         <img onclick="openCohortNav()" src='https://cdn3.iconfinder.com/data/icons/gray-toolbar/512/menu-512.png'>
     </div>
 
-    <div id="cohort-sidenav" class="cohort-sidenavContent">
+    <div id="cohort-sidenav" class="cohort-sidenavContent" style='width: 200px !important;'>
         <!--<div>
             <a href="javascript:void(0)" class="cohort-closebtn" onclick='closeCohortNav()'>&times;</a>
         </div>-->
          <div class='cohort-sidenavAllContent'>
             <div class='cohort-sidenavClassList'>
-                <h4 onclick='openCohortStudentNav()'>DM - 19</h4>
+                <h4 id='cohort-selectedCohort' onclick='openCohortStudentNav()'>DM - 19</h4>
 
             </div>
             <div class='cohort-sidenavFilterBox'>
                 <h3>LOCATION</h3>
-                <div>
-                    
+                <div class='cohort-selectStyle'>
+                    <h4>Provo, UT</h4>
+                    <img src='./assets/arrow_svg-arrow.svg'>
                 </div>
                 <h3>PROGRAM</h3>
-                <div>
-
+                <div class='cohort-selectStyle'>
+                    <h4>Web Development</h4>
+                    <img src='./assets/arrow_svg-arrow.svg'>
                 </div>
                 <h2>SHOW ALL</h2>
                 <h2>RESET FILTERS</h2>
