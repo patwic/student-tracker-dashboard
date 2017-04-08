@@ -10,7 +10,9 @@
     <link href="./styles/fonts.css" rel="stylesheet">
     <link href="./styles/home.css" rel="stylesheet">
     <link href="./styles/login.css" rel="stylesheet">
+    <link href="./styles/cohort.css" rel="stylesheet">
     <Link href="./styles/nv.d3.css" rel='stylesheet'>
+
 </head>
 
 <body ng-controller='mainCtrl'>
@@ -29,6 +31,10 @@
         <p ng-click='showDropdown()' onclick="openNav()" >Preferences</p>
         <p ng-click='showDropdown()'>Logout</p>
     </div>
+
+    <!--***************************************-->
+    <!--*              Fix me                 *-->
+    <!--***************************************-->
     
     <div id="login-sidenav" class="login-sidenavContent" >
         <div class="login-sidenavTitle">
@@ -84,6 +90,11 @@
     </div>
     <div id="login-sidenavOverlay" class="login-sidenavOverlay"></div>
     <ui-view></ui-view>
+
+
+    <!--***************************************-->
+    <!--*              Fix me                 *-->
+    <!--***************************************-->
     <script>
         function openNav() {
             document.getElementById("login-sidenav").style.width = "500px";

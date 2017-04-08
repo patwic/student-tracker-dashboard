@@ -9,6 +9,7 @@
     align-items: center;
     position: absolute;
     z-index: 3;
+    position: fixed;
 }
 
 .main-links {
@@ -82,8 +83,6 @@
 
 }
 
-
-/*--------------------*/
 
 .login-sidenavOverlay {
   position: absolute;

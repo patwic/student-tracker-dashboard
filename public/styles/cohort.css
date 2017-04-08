@@ -1,0 +1,36 @@
+.cohort-background {
+    height: 100vh;
+    width: 100%;
+    padding-top: 80px;
+    background: linear-gradient(-45deg, #282828, #1a1a1a);
+    background-attachment: fixed;
+}
+
+.cohort-fixedSideMenu {
+    height: 100vh;
+    width: 60px;
+    background: #282828;
+    position: fixed;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+}
+
+.cohort-topGraphBox {
+    height: calc(100vh - 80px);
+    width: calc(100% - 60px);
+    margin-left: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cohort-qTimeMentorGraphs {
+    width: 65%;
+    height: 75vh;
+    background: grey;
+}
+
+.cohort-attendenceCalender {
+    width: 25%;
+    height: 75vh;
+    background: pink;
+}
