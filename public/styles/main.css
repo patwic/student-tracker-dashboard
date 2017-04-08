@@ -85,6 +85,20 @@
 
 /*--------------------*/
 
+.login-sidenavOverlay {
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #000;
+  opacity: 0.7;
+  transition: 0.3s;
+  display: none;
+}
+
+
 .login-sidenavContent {   
     height: 100%;
     width: 0;
@@ -93,9 +107,8 @@
     top: 0;
     right: 0;
     background: linear-gradient(-45deg, #1a1a1a, #282828);
-    overflow-x: hidden;
     transition: 0.5s;
-
+    box-shadow: -10px 0 25px 2px rgba(0, 0, 0, .4);
 }
 
 .login-sidenavContent a {
@@ -116,19 +129,19 @@
 
 .login-sidenavTitle {
     width: 100%;
-    height: 100px;
+    height: 120px;
     background: linear-gradient(-45deg, #444, #333);
     text-align: center;
     
 }
 
 .login-sidenavTitle h2 {
-    padding-top: 40px;
+    padding-top: 50px;
 }
 
 .login-sidenavAllContent {
     width: 100%;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 120px);
 }
 
 .login-sidenavTopContent {
@@ -190,6 +203,7 @@
     height: calc(43vh - 20px);
     overflow-y: scroll;
     overflow: auto;
+    overflow-x: hidden;
 }
 
 
@@ -257,6 +271,3 @@
     background: #25aae1;  
 
 }
-
-/*_______________*/
-
