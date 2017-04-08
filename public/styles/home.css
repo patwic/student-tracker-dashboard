@@ -36,20 +36,6 @@
     
 }
 
-.home-alertFeed::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-
-.home-alertFeed::-webkit-scrollbar-track {
-    background: #141414;
-}
-
-.home-alertFeed::-webkit-scrollbar-thumb {
-    background: #25aae1;  
-
-}
-
 .home-alerts {
     height: 95px;
     width: 100%;

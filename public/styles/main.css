@@ -1,4 +1,17 @@
 
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #141414;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #25aae1;  
+
+}
 
 .main-nav {
     width: 100%;

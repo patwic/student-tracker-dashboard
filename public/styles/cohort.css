@@ -1,5 +1,5 @@
 .cohort-background {
-    height: 100vh;
+    height: 300vh;
     width: 100%;
     padding-top: 80px;
     /*background: linear-gradient(-45deg, #282828, #1a1a1a);*/
@@ -37,13 +37,6 @@
     margin-right: 15px;
 }
 
-.cohort-attendenceCalender {
-    width: 26%;
-    height: 78vh;
-    background: #282828;
-    margin-left: 15px;
-    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
-}
 
 .cohort-qTimeGraphs {
     width: 100%;
@@ -132,10 +125,68 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: steelblue;
+    background: #25aae1;
     
 }
 
 .cohort-mentorGraphKeyBoxes h5 {
     margin-left: 20px;
+}
+
+.cohort-attendenceCalender {
+    width: 26%;
+    height: 78vh;
+    background: #282828;
+    margin-left: 15px;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+}
+
+.cohort-attendenceCalenderBox {
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    margin: 20px 20px;
+    
+}
+
+.cohort-attendenceCalenderGraph {
+    height: 43vh;
+    /*background: grey;*/
+
+}
+
+.cohort-attencenceGraphKey {
+    height: 9vh;
+    /*background: purple;*/
+}
+
+.cohort-attencenceStudentList {
+    height: 20vh;
+    background: #1a1a1a;
+    overflow-y: scroll;
+    overflow: auto;
+}
+
+.cohort-attencenceStudentListBox {
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    margin: 20px 20px;
+
+}
+
+.cohort-attencenceStudentListBox h4 {
+    padding-bottom: 10px;
+}
+
+.cohort-attencenceStudentListBox span {
+    color: #25aae1;
+}
+
+
+.cohort-middleGraphBox {
+    height: calc(100vh - 80px);
+    width: calc(100% - 60px);
+    margin-left: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
