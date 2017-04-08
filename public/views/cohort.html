@@ -3,16 +3,38 @@
         <img onclick="openCohortNav()" src='https://cdn3.iconfinder.com/data/icons/gray-toolbar/512/menu-512.png'>
     </div>
 
-    <div id="cohort-sidenav" class="cohort-sidenavContent" >
-        <div class="cohort-sidenavTitle">
-            <a href="javascript:void(0)" class="cohort-closebtn" onclick="closeCohortNav()">&times;</a>
-        </div>
+    <div id="cohort-sidenav" class="cohort-sidenavContent">
+        <!--<div>
+            <a href="javascript:void(0)" class="cohort-closebtn" onclick='closeCohortNav()'>&times;</a>
+        </div>-->
          <div class='cohort-sidenavAllContent'>
+            <div class='cohort-sidenavClassList'>
+                <h4 onclick='openCohortStudentNav()'>DM - 19</h4>
+
+            </div>
+            <div class='cohort-sidenavFilterBox'>
+                <h3>LOCATION</h3>
+                <div>
+                    
+                </div>
+                <h3>PROGRAM</h3>
+                <div>
+
+                </div>
+                <h2>SHOW ALL</h2>
+                <h2>RESET FILTERS</h2>
+            </div>
+
 
         </div>
 
     </div>
 
+     <div id="cohort-sidenavStudent" class="cohort-sidenavStudentContent">
+         <div>
+            <a href="javascript:void(0)" class="cohort-closebtn" onclick="closeCohortStudentNav(), closeCohortNav()">&times;</a>
+        </div>
+    </div>
 
     <div class='cohort-topGraphBox'>
         <div class='cohort-qTimeMentorGraphs'>
@@ -98,19 +120,4 @@
 </section>
 
 
-    <!--***************************************-->
-    <!--*              Fix me                 *-->
-    <!--***************************************-->
-    <script>
-        function openCohortNav() {
-            document.getElementById("cohort-sidenav").style.width = "500px";
-
-        }
-
-        function closeCohortNav() {
-            document.getElementById("cohort-sidenav").style.width = "0";
-
-        }
-
-
-    </script>
+ 
