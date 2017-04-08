@@ -1,10 +1,10 @@
 .cohort-background {
-    height: 300vh;
+    height: 276vh;
     width: 100%;
     padding-top: 80px;
     /*background: linear-gradient(-45deg, #282828, #1a1a1a);*/
     background: #1a1a1a;
-    background-attachment: fixed;
+
 }
 
 .cohort-fixedSideMenu {
@@ -183,10 +183,53 @@
 
 
 .cohort-middleGraphBox {
+    height: calc(90vh - 80px);
+    width: calc(100% - 60px);
+    margin-left: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.cohort-graduationGraphBox {
+    width: calc(49% - 40px);
+    height: 78vh;
+    background: #282828;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+    margin-right: 20px;
+    text-align: center;
+}
+
+.cohort-graduationGraphBox h3 {
+    width: 100%;
+    height: 50px;
+    padding-top: 18px;
+    background: linear-gradient(-45deg, #333, #444);
+}
+
+.cohort-projectScoresGraphBox {
+    width: calc(49% - 40px);
+    height: 78vh;
+    background: #282828;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+    margin-left: 20px;
+    text-align: center;
+}
+
+.cohort-projectScoresGraphBox h3 {
+    width: 100%;
+    height: 50px;
+    padding-top: 18px;
+    background: linear-gradient(-45deg, #333, #444);
+}
+
+
+
+.cohort-bottomGraphBox {
     height: calc(100vh - 80px);
     width: calc(100% - 60px);
     margin-left: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: #1a1a1a;
 }
