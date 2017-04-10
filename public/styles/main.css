@@ -135,8 +135,13 @@
 .login-sidenavContent .closebtn {
     position: absolute;
     /*top: 0;*/
-    font-size: 46px;
+    font-size: 30px;
 
+}
+
+.closebtn img {
+    width: 20px;
+    height: 20px;
 }
 
 .login-sidenavTitle {
