@@ -426,3 +426,40 @@
     background: #282828;
     box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
 }
+
+.cohort-pieGraphsNav {
+    width: 100%;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    padding-top: 4vh;
+    padding-bottom: 4vh;
+
+}
+
+.cohort-pieGraphsNav h3 {
+    line-height: 20px;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.cohort-pieGraphsBox {
+    width: 100%;
+    height: 33vh;
+
+}
+
+.cohort-pieGraphsKeyBox {
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 4vh;
+    padding-bottom: 4vh;
+    padding-left: 7vh;
+
+}
