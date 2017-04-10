@@ -1,4 +1,3 @@
-
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -9,8 +8,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #25aae1;  
-
+    background: #25aae1;
 }
 
 .main-nav {
@@ -45,7 +43,6 @@
     align-items: center;
     border-bottom: 7px solid transparent;
     padding-top: 7px;
-
 }
 
 .main-links a {
@@ -55,7 +52,7 @@
 
 .main-links h2:active {
     border-bottom: 7px solid #25aae1;
-}   
+}
 
 .main-user {
     width: 300px;
@@ -83,7 +80,7 @@
     box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
 }
 
-.main-dropdown > :first-child {
+.main-dropdown> :first-child {
     margin-bottom: 20px;
 }
 
@@ -93,25 +90,22 @@
 
 .dropdown-transition {
     margin-top: 80px;
-
 }
-
 
 .login-sidenavOverlay {
-  position: absolute;
-  z-index: 9;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: #000;
-  opacity: 0.7;
-  transition: 0.3s;
-  display: none;
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #000;
+    opacity: 0.7;
+    transition: 0.3s;
+    display: none;
 }
 
-
-.login-sidenavContent {   
+.login-sidenavContent {
     height: 100%;
     width: 0;
     position: fixed;
@@ -136,7 +130,6 @@
     position: absolute;
     /*top: 0;*/
     font-size: 30px;
-
 }
 
 .closebtn img {
@@ -149,7 +142,6 @@
     height: 120px;
     background: linear-gradient(-45deg, #444, #333);
     text-align: center;
-    
 }
 
 .login-sidenavTitle h2 {
@@ -162,7 +154,8 @@
 }
 
 .login-sidenavTopContent {
-    padding: 30px 50px;;
+    padding: 30px 50px;
+    ;
     width: 100%;
     height: 30vh;
     margin-bottom: 20px;
@@ -170,7 +163,6 @@
     flex-direction: column;
     justify-content: space-around;
 }
-
 
 .login-sidenavChoices {
     display: flex;
@@ -203,7 +195,7 @@
     /*padding-left: 15px;*/
 }
 
-.home-selectStyle  input {
+.home-selectStyle input {
     background: #141414;
     border: none;
     width: 270px;
@@ -223,7 +215,6 @@
     overflow-x: hidden;
 }
 
-
 .login-sidenavClassBox {
     width: 100%;
     height: 45px;
@@ -233,7 +224,6 @@
     color: #a0a0a0;
     background: #444;
     margin-bottom: 15px;
-    
 }
 
 .login-sidenavClassBox p {
@@ -252,7 +242,7 @@
     margin-bottom: 15px;
 }
 
-.login-sidenavClassRemove p { 
+.login-sidenavClassRemove p {
     cursor: pointer;
     padding: 10px 10px;
     width: 100px;
@@ -265,12 +255,12 @@
     margin-right: 10px;
 }
 
-.login-sidenavClassList:hover .login-sidenavClassBox{
+.login-sidenavClassList:hover .login-sidenavClassBox {
     display: none;
     transition: ease-in-out;
 }
 
-.login-sidenavClassList:hover .login-sidenavClassRemove{
+.login-sidenavClassList:hover .login-sidenavClassRemove {
     display: block;
     transition: ease-in-out;
 }
@@ -285,6 +275,5 @@
 }
 
 .login-sidenavBottomContent::-webkit-scrollbar-thumb {
-    background: #25aae1;  
-
+    background: #25aae1;
 }
