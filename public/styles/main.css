@@ -1,4 +1,17 @@
 
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #141414;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #25aae1;  
+
+}
 
 .main-nav {
     width: 100%;
@@ -9,6 +22,7 @@
     align-items: center;
     position: absolute;
     z-index: 3;
+    position: fixed;
 }
 
 .main-links {
@@ -83,24 +97,34 @@
 }
 
 
-/*--------------------*/
+.login-sidenavOverlay {
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #000;
+  opacity: 0.7;
+  transition: 0.3s;
+  display: none;
+}
 
-.login-sidenavContent {
 
+.login-sidenavContent {   
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 5;
+    z-index: 10;
     top: 0;
     right: 0;
-    background-color: #111;
-    overflow-x: hidden;
+    background: linear-gradient(-45deg, #1a1a1a, #282828);
     transition: 0.5s;
-    padding-top: 60px;
+    box-shadow: -10px 0 25px 2px rgba(0, 0, 0, .4);
 }
 
 .login-sidenavContent a {
-    padding: 8px 8px 8px 32px;
+    padding: 8px 8px 8px 20px;
     text-decoration: none;
     font-size: 25px;
     color: white;
@@ -110,7 +134,152 @@
 
 .login-sidenavContent .closebtn {
     position: absolute;
-    top: 0;
-    font-size: 36px;
+    /*top: 0;*/
+    font-size: 46px;
+
+}
+
+.login-sidenavTitle {
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(-45deg, #444, #333);
+    text-align: center;
+    
+}
+
+.login-sidenavTitle h2 {
+    padding-top: 50px;
+}
+
+.login-sidenavAllContent {
+    width: 100%;
+    height: calc(100vh - 120px);
+}
+
+.login-sidenavTopContent {
+    padding: 30px 50px;;
+    width: 100%;
+    height: 30vh;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
+.login-sidenavChoices {
+    display: flex;
+    justify-content: space-between;
+    text-align: justify;
+}
+
+.login-sidenavChoices h3 {
+    font-weight: 400;
+    padding-top: 9px;
+    letter-spacing: 2px;
+}
+
+.login-sidenavChoices img {
+    width: 20px;
+    height: 20px;
+    float: right;
+    padding-top: 5px;
+    margin-right: 15px;
+}
+
+.home-selectStyle {
+    background: #141414;
+    border: none;
+    width: 270px;
+    height: 25px;
+    color: #25aae1;
+    outline: none;
+    font-size: 14px;
+    /*padding-left: 15px;*/
+}
+
+.home-selectStyle  input {
+    background: #141414;
+    border: none;
+    width: 270px;
+    height: 25px;
+    color: #25aae1;
+    outline: none;
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+.login-sidenavBottomContent {
+    margin: auto;
+    width: calc(100% - 120px);
+    height: calc(43vh - 20px);
+    overflow-y: scroll;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+
+.login-sidenavClassBox {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #a0a0a0;
+    background: #444;
+    margin-bottom: 15px;
+    
+}
+
+.login-sidenavClassBox p {
+    padding-left: 20px;
+    padding-right: 26px;
+    color: #a0a0a0;
+}
+
+.login-sidenavClassRemove {
+    display: none;
+    width: 100%;
+    height: 45px;
+    background: #141414;
+    padding-left: 130px;
+    padding-top: 5px;
+    margin-bottom: 15px;
+}
+
+.login-sidenavClassRemove p { 
+    cursor: pointer;
+    padding: 10px 10px;
+    width: 100px;
+    background: #282828;
+    text-align: center;
+    font-size: 14px;
+    color: #a0a0a0;
+    font-weight: 400;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.login-sidenavClassList:hover .login-sidenavClassBox{
+    display: none;
+    transition: ease-in-out;
+}
+
+.login-sidenavClassList:hover .login-sidenavClassRemove{
+    display: block;
+    transition: ease-in-out;
+}
+
+.login-sidenavBottomContent::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.login-sidenavBottomContent::-webkit-scrollbar-track {
+    background: #141414;
+}
+
+.login-sidenavBottomContent::-webkit-scrollbar-thumb {
+    background: #25aae1;  
 
 }

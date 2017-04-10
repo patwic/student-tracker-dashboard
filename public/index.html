@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" ng-app='app'>
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="./reset.css" rel="stylesheet">
-        <link href="./styles/main.css" rel="stylesheet">
-        <link href="./styles/fonts.css" rel="stylesheet">
-        <link href="./styles/home.css" rel="stylesheet">
-        <link href="./styles/login.css" rel="stylesheet">
-        <Link href="./styles/nv.d3.css" rel='stylesheet'>
-       
-    </head>
-    <body ng-controller='mainCtrl'>
-    
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./reset.css" rel="stylesheet">
+    <link href="./styles/main.css" rel="stylesheet">
+    <link href="./styles/fonts.css" rel="stylesheet">
+    <link href="./styles/home.css" rel="stylesheet">
+    <link href="./styles/login.css" rel="stylesheet">
+    <link href="./styles/cohort.css" rel="stylesheet">
+    <Link href="./styles/nv.d3.css" rel='stylesheet'>
+
+</head>
+
+<body ng-controller='mainCtrl'>
     <nav class='main-nav'>
         <div class='main-links'>
             <img ng-src='https://s3.amazonaws.com/devmountain/www/img/logoonly.png'>
@@ -26,27 +28,111 @@
         </div>
     </nav>
     <div id='dropdown' class='main-dropdown'>
-        <p ng-click='showDropdown()' onclick="openNav()">Preferences</p>
+        <p ng-click='showDropdown()' onclick="openNav()" >Preferences</p>
         <p ng-click='showDropdown()'>Logout</p>
     </div>
 
-    <div id="login-sidenav" class="login-sidenavContent">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <!--***************************************-->
+    <!--*              Fix me                 *-->
+    <!--***************************************-->
+    
+    <div id="login-sidenav" class="login-sidenavContent" >
+        <div class="login-sidenavTitle">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <h2>DEFAULT COHORT VIEW</h2>
+        </div>
+        <div class='login-sidenavAllContent'>
+            <div class='login-sidenavTopContent'>
+                <div class='login-sidenavChoices'>
+                    <h3>LOCATION</h3>
+                    <div class='home-selectStyle'>
+                        <!--<div>
+                            <option value="provo">Provo, UT</option>
+                            <option value="slc">SLC, UT</option>
+                            <option value="dallas">Dallas, TX</option>
+                        </div>-->
+                        <img ng-src='./assets/arrow_svg-arrow.svg'>
+                    </div>
+                </div>
+                <div class='login-sidenavChoices'>
+                    <h3>PROGRAM</h3>
+                    <div class='home-selectStyle'>
+                        <!--<div>
+                            <option value="provo">Web Development</option>
+                            <option value="slc">UX Design</option>
+                            <option value="dallas">iOS Development</option>
+                        </div>-->
+                        <img ng-src='./assets/arrow_svg-arrow.svg'>
+                    </div>
+                </div>
+                <div class='login-sidenavChoices'>
+                    <h3>COHORT</h3>
+                    <div class='home-selectStyle'>
+                        <input type="search">
+                    </div>
+                </div>
+            </div>
+            <div class='login-sidenavBottomContent'>
+                <div class='login-sidenavClassList'>
+                    <div class='login-sidenavClassBox'>
+                        <p>DM-19</p>
+                        -
+                        <p>Provo, UT</p>
+                        -
+                        <p>Web</p>
+                    </div>
+                    <div class='login-sidenavClassRemove'>
+                        <p>REMOVE</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-
+    <div id="login-sidenavOverlay" class="login-sidenavOverlay"></div>
     <ui-view></ui-view>
 
+
+    <!--***************************************-->
+    <!--*              Fix me                 *-->
+    <!--***************************************-->
     <script>
         function openNav() {
             document.getElementById("login-sidenav").style.width = "500px";
+            document.getElementById("login-sidenavOverlay").style.display = "block";
         }
 
         function closeNav() {
             document.getElementById("login-sidenav").style.width = "0";
+            document.getElementById("login-sidenavOverlay").style.display = "none";
         }
-    </script>
 
+        function openCohortNav() {
+            document.getElementById("cohort-sidenav").style.width = "200px";
+            document.getElementById("cohort-selectedCohort").style.backgroundColor = "#444";
+            document.getElementById ("cohort-selectedCohort").style.color = '#999999';
+
+        }
+
+        function closeCohortNav() {
+            document.getElementById("cohort-sidenav").style.width = "0";
+
+        }
+
+        function openCohortStudentNav() {
+            document.getElementById("cohort-sidenavStudent").style.width = "470px";
+            document.getElementById("cohort-selectedCohort").style.backgroundColor = "#1a1a1a";
+            document.getElementById ("cohort-selectedCohort").style.color = '#25aae1';
+
+        }
+
+        function closeCohortStudentNav() {
+            document.getElementById("cohort-sidenavStudent").style.width = "0";
+
+        }
+
+
+
+    </script>
 
     <script src='./libraries/angular.js'></script>
     <script src='./libraries/angular-ui-router.js'></script>
@@ -55,5 +141,6 @@
     <script src='./libraries/nv.d3.js'></script>
     <script src='./app.js'></script>
     <script src='./controllers/mainCtrl.js'></script>
-    </body>
+</body>
+
 </html>
