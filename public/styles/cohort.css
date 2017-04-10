@@ -64,7 +64,6 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    /*padding-bottom: 5px;*/
 }
 
 .cohort-sidenavFilterBox h3 {
@@ -148,7 +147,7 @@
 
 .cohort-sidenavStudentContentBox {
     margin-top: 10px;
-    width: 250px;
+    width: 227px;
     height: calc(100% - 10px);
     float: right;
 
