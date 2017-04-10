@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function($scope){
+angular.module('app').controller('mainCtrl', function($scope, qService){
   $scope.user= 'Jeremy Robertson'
   $scope.isDropdown = false;
 
@@ -11,6 +11,10 @@ angular.module('app').controller('mainCtrl', function($scope){
       }
       $scope.isDropdown = !$scope.isDropdown
   }
+
+  qService.getQ('2017-03-01', '2017-03-08').then((res) => {
+    console.log(qService.divideQDays(res.data, '2017-03-01', '2017-03-08'))
+  })
 
   // $scope.openNav = function() {
   //     document.getElementById("login-sidenav").style.width = "500px";
