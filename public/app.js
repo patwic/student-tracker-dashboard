@@ -2,7 +2,7 @@ angular.module('app', ['ui.router'])
 
 .config(function($stateProvider, $urlRouterProvider){
 
-    $urlRouterProvider.otherwise('/root');
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider
         .state('login', {
