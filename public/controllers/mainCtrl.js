@@ -12,8 +12,8 @@ angular.module('app').controller('mainCtrl', function($scope, qService){
       $scope.isDropdown = !$scope.isDropdown
   }
 
-  qService.getQ('2016-09-01', '2017-02-02').then((res) => {
-    qService.divideQDays(res.data, '2016-09-01', '2017-02-02')
+  qService.getQ('2017-04-10', '2017-04-11').then((res) => {
+    qService.divideQDays(res.data, '2017-04-10', '2017-04-11')
   })
 
   // $scope.openNav = function() {

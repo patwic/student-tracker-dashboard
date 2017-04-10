@@ -43,9 +43,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.getHelpQ = () => {return helpQ}
 app.getTotalQ = () => {return totalQ}
 app.getWaitQ = () => {return waitQ}
-app.setHelpQ = (newQ) => helpQ = newQ
-app.setTotalQ = (newQ) => totalQ = newQ
-app.setWaitQ = (newQ) => waitQ = newQ
+app.setHelpQ = (newQ) => {helpQ = newQ; console.log(helpQ)}
+app.setTotalQ = (newQ) => {totalQ = newQ; console.log(totalQ)}
+app.setWaitQ = (newQ) => {waitQ = newQ; console.log(waitQ)}
 
 app.get('/api/prefs/:user_id', dbComms.getPrefs)
 app.post('/api/prefs/:user_id', dbComms.upsertPrefs)
