@@ -28,9 +28,7 @@ const self = module.exports = {
             totalQ.push(self.pushSingleQ(min, max, qbody, 'timeWhenEntered', 'timeQuestionAnswered'))
             waitQ.push(self.pushSingleQ(min, max, qbody, 'timeWhenEntered', 'timeMentorBegins', 'timeQuestionAnswered'))
         }
-        app.setHelpQ(helpQ)
-        app.setTotalQ(totalQ)
-        app.setWaitQ(waitQ)
+        app.setQs(helpQ, totalQ, waitQ)
     },
 
     pushSingleQ: (min, max, qbody, q1, q2, q3) => {

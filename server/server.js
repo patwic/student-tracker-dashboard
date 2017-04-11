@@ -44,7 +44,7 @@ setTimeout(function dailyTasks() {
 }, 28800000)
 
 function updateQ() {
-      q.getCurrentQ()  
+      setTimeout(q.getCurrentQ, 30000)
       setTimeout(updateQ, 300000)
 }
 
@@ -53,15 +53,15 @@ updateQ()
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, '..', '/public')))
 
-io.sockets.emit('totalQ', ['hi'])
-io.emit('totalQ', ['hi'])
-
 app.getHelpQ = () => {return helpQ}
 app.getTotalQ = () => {return totalQ}
 app.getWaitQ = () => {return waitQ}
-app.setHelpQ = (newQ) => {helpQ = newQ; console.log(helpQ)}
-app.setTotalQ = (newQ) => {totalQ = newQ; console.log(totalQ); io.emit('totalQ', totalQ)}
-app.setWaitQ = (newQ) => {waitQ = newQ; console.log(waitQ)}
+app.setQs = (nHelpQ, nTotalQ, nWaitQ) => {
+      helpQ = nHelpQ
+      totalQ = nTotalQ
+      waitQ = nWaitQ
+      io.emit('updatedQs', [helpQ, totalQ, waitQ])
+}
 
 app.get('/api/prefs/:user_id', dbComms.getPrefs)
 app.post('/api/prefs/:user_id', dbComms.upsertPrefs)

@@ -13,8 +13,10 @@ angular.module('app').controller('mainCtrl', function($scope, qService){
   }
 
   let socket = io()
-  socket.on('totalQ', (totalQ) => {
-    console.log('totalQ', totalQ)
+  socket.on('updatedQs', (qArr) => {
+    console.log('helpQ', qArr[0])
+    console.log('totalQ', qArr[1])
+    console.log('waitQ', qArr[2])
   })
 
   /*qService.getQ('2017-04-01', '2017-04-11').then((res) => {
