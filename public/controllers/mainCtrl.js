@@ -1,6 +1,9 @@
 angular.module('app').controller('mainCtrl', function($scope, qService){
   $scope.user= 'Jeremy Robertson'
   $scope.isDropdown = false;
+  $scope.helpQ;
+  $scope.totalQ;
+  $scope.waitQ;
 
   $scope.showDropdown = function () {
     if (!$scope.isDropdown) {
@@ -13,6 +16,9 @@ angular.module('app').controller('mainCtrl', function($scope, qService){
 
   let socket = io()
   socket.on('updatedQs', (qArr) => {
+    $scope.helpQ = qArr[0]
+    $scope.totalQ = qArr[1]
+    $scope.waitQ = qArr[2]
     console.log('helpQ', qArr[0])
     console.log('totalQ', qArr[1])
     console.log('waitQ', qArr[2])
