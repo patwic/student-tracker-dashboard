@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400');
-
 body {
     font-family: 'Montserrat';
 }
@@ -30,6 +29,7 @@ h5 {
     font-weight: 400;
     color: white;
     font-size: 12px;
+    letter-spacing: 2px;
 }
 
 p {

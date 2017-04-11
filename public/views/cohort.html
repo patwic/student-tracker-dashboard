@@ -1,0 +1,193 @@
+<section class='cohort-background'>
+    <div class='cohort-fixedSideMenu'>
+        <img ng-click="openCohortNav()" src='https://cdn3.iconfinder.com/data/icons/gray-toolbar/512/menu-512.png'>
+    </div>
+    <div id="cohort-sidenav" class="cohort-sidenavContent">
+        <div class='cohort-sidenavAllContent'>
+            <div class='cohort-sidenavClassList'>
+                <h4 id='cohort-selectedCohort' ng-click='openCohortStudentNav()'>DM - 19</h4>
+            </div>
+            <div class='cohort-sidenavFilterBox'>
+                <h3>LOCATION</h3>
+                <div class='cohort-selectStyle'>
+                    <h4>Provo, UT</h4>
+                    <img src='./assets/arrow_svg-arrow.svg'>
+                </div>
+                <h3>PROGRAM</h3>
+                <div class='cohort-selectStyle'>
+                    <h4>Web Development</h4>
+                    <img src='./assets/arrow_svg-arrow.svg'>
+                </div>
+                <h2>SHOW ALL</h2>
+                <h2>RESET FILTERS</h2>
+            </div>
+        </div>
+    </div>
+    <div id="cohort-sidenavStudent" class="cohort-sidenavStudentContent">
+        <div>
+            <a href="javascript:void(0)" class="cohort-closebtn" ng-click="closeCohortStudentNav()" ng-click "closeCohortNav()"><img src='./assets/x-15.svg'></a>
+        </div>
+        <div class='cohort-sidenavStudentContentBox'>
+            <div class='cohort-sidenavStudentContentSelectButtonBox'>
+                <h2>SELECT ALL</h2>
+                <h2>DESELECT ALL</h2>
+            </div>
+        </div>
+    </div>
+    <div class='cohort-topGraphBox'>
+        <div class='cohort-qTimeMentorGraphs'>
+            <div class='cohort-qTimeGraphs'>
+                <div class='cohort-qTimeGraphsHeader'>
+                    <div class='cohort-qTimeGraphSelector'>
+                        <h3>AVERAGE Q HELP TIME</h3>
+                        <img src='./assets/arrow_svg-arrow.svg'>
+                    </div>
+                    <div class='cohort-graphDateSelector'>
+                        <h4>3/2/17 - 3/9/19</h4>
+                        <img src='./assets/arrow_svg-arrow.svg'>
+                    </div>
+                </div>
+            </div>
+            <div class='cohort-mentorHelpGraph'>
+                <div class='cohort-mentorGraphNav'>
+                    <h3>AVERAGE MENTOR <br>HELP TIME <br>PER REQUEST</h3>
+                    <div class='cohort-graphDateSelector'>
+                        <h4>3/2/17 - 3/9/19</h4>
+                        <img src='./assets/arrow_svg-arrow.svg'>
+                    </div>
+                </div>
+                <div class='cohort-mentorCircleGraph'></div>
+                <div class='cohort-mentorGraphKey'>
+                    <div class='cohort-mentorGraphKeyBoxes'>
+                        <div class='cohort-mentorCircleKey'></div>
+                        <h5>44% - Beaver McHelper</h5>
+                    </div>
+                    <div class='cohort-mentorGraphKeyBoxes'>
+                        <div class='cohort-mentorCircleKey'></div>
+                        <h5>40% - John Smithers</h5>
+                    </div>
+                    <div class='cohort-mentorGraphKeyBoxes'>
+                        <div class='cohort-mentorCircleKey'></div>
+                        <h5>5% - Eila DoNuthelnuff</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='cohort-attendenceCalender'>
+            <div class='cohort-attendenceCalenderBox'>
+                <div class='cohort-attendenceCalenderGraph'>
+                    <!--graph chart-->
+                </div>
+                <div class='cohort-attencenceGraphKey'>
+                    <div>1 Absence</div>
+                    <div>2 Absences</div>
+                    <div>3+ Absences</div>
+                </div>
+                <div class='cohort-attencenceStudentList'>
+                    <div class='cohort-attencenceStudentListBox'>
+                        <h4>Dorcu McFlowers (<span>2</span>)</h4>
+                        <h4>Duchess Margrett (<span>1</span>)</h4>
+                        <h4>Sally LaRue (<span>1</span>)</h4>
+                        <h4>Henry Von Eckleberry (<span>3</span>)</h4>
+                        <h4>John Smithers (<span>2</span>)</h4>
+                        <h4>Eila DoNuthelnuff (<span>1</span>)</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='cohort-middleGraphBox'>
+        <div class='cohort-graduationGraphBox'>
+            <h3>PROGRESS TO GRADUATION</h3>
+        </div>
+        <div class='cohort-projectScoresGraphBox'>
+            <h3>PROJECT SCORES</h3>
+            <div class='cohort-projectScoresKey'>
+                <div class='cohort-projectScoresSelector'>
+                    <h4>PERSONAL PROJECT</h4>
+                    <img src='./assets/arrow_svg-arrow.svg'>
+                </div>
+                <div class='cohort-projectScoresKeyValues'>
+                    <div></div>
+                    <h4>PASSED</h4>
+                    <div></div>
+                    <h4>FAILED</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='cohort-bottomGraphBox'>
+        <div class='cohort-pieTotalGraph'>
+            <div class='cohort-pieGraphsNav'>
+                <h3>MOST REQUESTED <br> TOTAL Q TIME</h3>
+                    <div class='cohort-graphDateSelector'>
+                        <h4>3/2/17 - 3/9/19</h4>
+                        <img src='./assets/arrow_svg-arrow.svg'>
+                    </div>
+            </div>
+            <div class='cohort-pieGraphsBox'></div>
+            <div class='cohort-pieGraphsKeyBox'>
+                    <div class='cohort-mentorGraphKeyBoxes'>
+                        <div class='cohort-mentorCircleKey'></div>
+                        <h5>44% - Beaver McHelper</h5>
+                    </div>
+                    <div class='cohort-mentorGraphKeyBoxes'>
+                        <div class='cohort-mentorCircleKey'></div>
+                        <h5>40% - John Smithers</h5>
+                    </div>
+                    <div class='cohort-mentorGraphKeyBoxes'>
+                        <div class='cohort-mentorCircleKey'></div>
+                        <h5>5% - Eila DoNuthelnuff</h5>
+                    </div>
+            </div>
+        </div>
+        <div class='cohort-pieHelpGraph'>
+            <div class='cohort-pieGraphsNav'>
+                <h3>MOST REQUESTED <br> Q HELP TIME</h3>
+                    <div class='cohort-graphDateSelector'>
+                        <h4>3/2/17 - 3/9/19</h4>
+                        <img src='./assets/arrow_svg-arrow.svg'>
+                    </div>              
+            </div>
+            <div class='cohort-pieGraphsBox'></div>
+            <div class='cohort-pieGraphsKeyBox'>
+                     <div class='cohort-mentorGraphKeyBoxes'>
+                        <div class='cohort-mentorCircleKey'></div>
+                        <h5>44% - Beaver McHelper</h5>
+                    </div>
+                    <div class='cohort-mentorGraphKeyBoxes'>
+                        <div class='cohort-mentorCircleKey'></div>
+                        <h5>40% - John Smithers</h5>
+                    </div>
+                    <div class='cohort-mentorGraphKeyBoxes'>
+                        <div class='cohort-mentorCircleKey'></div>
+                        <h5>5% - Eila DoNuthelnuff</h5>
+                    </div>
+            </div>
+        </div>
+        <div class='cohort-pieStudentRequestGraph'>
+            <div class='cohort-pieGraphsNav'>
+                 <h3>MOST REQUESTS <br> PER STUDENT</h3>
+                    <div class='cohort-graphDateSelector'>
+                        <h4>3/2/17 - 3/9/19</h4>
+                        <img src='./assets/arrow_svg-arrow.svg'>
+                    </div>
+            </div>
+            <div class='cohort-pieGraphsBox'></div>
+            <div class='cohort-pieGraphsKeyBox'>
+                    <div class='cohort-mentorGraphKeyBoxes'>
+                        <div class='cohort-mentorCircleKey'></div>
+                        <h5>44% - Beaver McHelper</h5>
+                    </div>
+                    <div class='cohort-mentorGraphKeyBoxes'>
+                        <div class='cohort-mentorCircleKey'></div>
+                        <h5>40% - John Smithers</h5>
+                    </div>
+                    <div class='cohort-mentorGraphKeyBoxes'>
+                        <div class='cohort-mentorCircleKey'></div>
+                        <h5>5% - Eila DoNuthelnuff</h5>
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>

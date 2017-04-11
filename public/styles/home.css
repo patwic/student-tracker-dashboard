@@ -1,175 +1,154 @@
- 
  .home-background {
-    height: 100vh;
-    width: 100%;
-    padding-top: 80px;
-    background: linear-gradient(-45deg, #282828, #1a1a1a);
-    display: flex;
-}
-
-.home-alert {
-    width: 42%;
-    height: calc(100vh - 160px);
-    background: #282828;
-    margin: 40px 20px 40px 40px;
-    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
-}
-
-.home-alertTotalBar {
-    width: 100%;
-    height: 55px;
-    background: linear-gradient(-45deg, #333, #444);
-    text-align: center;
-    padding-top: 20px;
-}
-
-.home-alertTotalBar span {
-    color: #25aae1;
-}
-
-.home-alertFeed {
-    width: calc(100% - 40px);
-    height: calc(100% - 95px);
-    margin: 20px 20px;
-    overflow-y: scroll;
-    overflow: auto;
-    
-}
-
-.home-alertFeed::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-
-.home-alertFeed::-webkit-scrollbar-track {
-    background: #141414;
-}
-
-.home-alertFeed::-webkit-scrollbar-thumb {
-    background: #25aae1;  
-
-}
-
-.home-alerts {
-    height: 95px;
-    width: 100%;
-}
-
-.home-alerts h5 {
-    padding: 10px 15px;
-}
-
-.home-alertDisplay {
-    width: 100%;
-    height: 80px;
-    background: #444;
-    border-top: 3px solid #b21818;
-}
-
-.home-yellowDisplay {
-    border-top: none;
-}
-
-.home-alertDisplay h4 {
-    width: 100%;
-    height: 30px;
-    background: #141414;
-    padding-left: 20px;
-    padding-top: 9px;
-}
-
-.home-alertButton {
-    width: 100%;
-    height: 80px;
-    background: #141414;
-    border-top: 3px solid #282828;
-    display: none;
-    
-}
-
-.home-buttonBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80px;
-}
-
-.home-buttonBox p {
-    cursor: pointer;
-    padding: 10px 10px;
-    width: 100px;
-    background: #282828;
-    text-align: center;
-    font-size: 14px;
-    color: #a0a0a0;
-    font-weight: 400;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-
-
-.home-alerts:hover .home-alertDisplay{
-    display: none;
-    transition: ease-in-out;
-}
-
-.home-alerts:hover .home-alertButton{
-    display: block;
-    transition: ease-in-out;
-}
-
-.home-graphs {
-    width: 100%;
-    height: calc(100vh - 160px);
-    margin: 40px 40px 40px 20px;
-}
-
-.home-totalQTime {
-    width: 100%;
-    height: calc(60% - 20px);
-    background: #282828;
-    margin-bottom: 40px;
-    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
-}
-
-.home-totalGraphBar {
-    width: 100%;
-    height: 55px;
-    background: linear-gradient(-45deg, #333, #444);
-    padding-left: 30px;
-    padding-top: 20px;
-    
-}
-
-.home-bottomGraphs {
-    width: 100%;
-    height: calc(40% - 20px);
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-}
-
-.home-waitQTime {
-    width: calc(50% - 20px);
-    height: 100%;
-    background: #282828;
-    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
-}
-
-.home-helpQTime {
-    width: calc(50% - 20px);
-    height: 100%;
-    background: #282828;
-    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
-}
-
-.home-bottomGraphsBar {
-    width: 100%;
-    height: 35px;
-    background: linear-gradient(-45deg, #333, #444);
-    padding-left: 20px;
-    padding-top: 12px;
-
-}
+     height: 100vh;
+     width: 100%;
+     padding-top: 80px;
+     background: linear-gradient(-45deg, #282828, #1a1a1a);
+     display: flex;
+ }
+ 
+ .home-alert {
+     width: 42%;
+     height: calc(100vh - 160px);
+     background: #282828;
+     margin: 40px 20px 40px 40px;
+     box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+ }
+ 
+ .home-alertTotalBar {
+     width: 100%;
+     height: 55px;
+     background: linear-gradient(-45deg, #333, #444);
+     text-align: center;
+     padding-top: 20px;
+ }
+ 
+ .home-alertTotalBar span {
+     color: #25aae1;
+ }
+ 
+ .home-alertFeed {
+     width: calc(100% - 40px);
+     height: calc(100% - 95px);
+     margin: 20px 20px;
+     overflow-y: scroll;
+     overflow: auto;
+ }
+ 
+ .home-alerts {
+     height: 95px;
+     width: 100%;
+ }
+ 
+ .home-alerts h5 {
+     padding: 10px 15px;
+ }
+ 
+ .home-alertDisplay {
+     width: 100%;
+     height: 80px;
+     background: #444;
+     border-top: 3px solid #b21818;
+ }
+ 
+ .home-yellowDisplay {
+     border-top: none;
+ }
+ 
+ .home-alertDisplay h4 {
+     width: 100%;
+     height: 30px;
+     background: #141414;
+     padding-left: 20px;
+     padding-top: 9px;
+ }
+ 
+ .home-alertButton {
+     width: 100%;
+     height: 80px;
+     background: #141414;
+     border-top: 3px solid #282828;
+     display: none;
+ }
+ 
+ .home-buttonBox {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 80px;
+ }
+ 
+ .home-buttonBox p {
+     cursor: pointer;
+     padding: 10px 10px;
+     width: 100px;
+     background: #282828;
+     text-align: center;
+     font-size: 14px;
+     color: #a0a0a0;
+     font-weight: 400;
+     margin-left: 10px;
+     margin-right: 10px;
+ }
+ 
+ .home-alerts:hover .home-alertDisplay {
+     display: none;
+     transition: ease-in-out;
+ }
+ 
+ .home-alerts:hover .home-alertButton {
+     display: block;
+     transition: ease-in-out;
+ }
+ 
+ .home-graphs {
+     width: 100%;
+     height: calc(100vh - 160px);
+     margin: 40px 40px 40px 20px;
+ }
+ 
+ .home-totalQTime {
+     width: 100%;
+     height: calc(60% - 20px);
+     background: #282828;
+     margin-bottom: 40px;
+     box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+ }
+ 
+ .home-totalGraphBar {
+     width: 100%;
+     height: 55px;
+     background: linear-gradient(-45deg, #333, #444);
+     padding-left: 30px;
+     padding-top: 20px;
+ }
+ 
+ .home-bottomGraphs {
+     width: 100%;
+     height: calc(40% - 20px);
+     margin-top: 20px;
+     display: flex;
+     justify-content: space-between;
+     align-items: flex-end;
+ }
+ 
+ .home-waitQTime {
+     width: calc(50% - 20px);
+     height: 100%;
+     background: #282828;
+     box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+ }
+ 
+ .home-helpQTime {
+     width: calc(50% - 20px);
+     height: 100%;
+     background: #282828;
+     box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+ }
+ 
+ .home-bottomGraphsBar {
+     width: 100%;
+     height: 35px;
+     background: linear-gradient(-45deg, #333, #444);
+     padding-left: 20px;
+     padding-top: 12px;
+ }

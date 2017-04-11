@@ -46,7 +46,7 @@ const self = module.exports = {
                 }
             }
         }
-        if (count > 0) return (sum/(count * 60000)).toFixed(2)
-        else return '0'
+        if (count > 0) return [min, (sum/(count * 60000)).toFixed(2)]
+        else return [min, '0']
     }
 }
