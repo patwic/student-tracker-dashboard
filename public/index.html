@@ -12,7 +12,6 @@
     <link href="./styles/login.css" rel="stylesheet">
     <link href="./styles/cohort.css" rel="stylesheet">
     <Link href="./styles/nv.d3.css" rel='stylesheet'>
-
 </head>
 
 <body ng-controller='mainCtrl'>
@@ -28,17 +27,15 @@
         </div>
     </nav>
     <div id='dropdown' class='main-dropdown'>
-        <p ng-click='showDropdown()' onclick="openNav()" >Preferences</p>
+        <p ng-click='showDropdown(); openNav()'>Preferences</p>
         <p ng-click='showDropdown()'>Logout</p>
     </div>
-
     <!--***************************************-->
     <!--*              Fix me                 *-->
     <!--***************************************-->
-    
-    <div id="login-sidenav" class="login-sidenavContent" >
+    <div id="login-sidenav" class="login-sidenavContent">
         <div class="login-sidenavTitle">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="javascript:void(0)" class="closebtn" ng-click="closeNav()"><img src='./assets/x-15.svg'></a>
             <h2>DEFAULT COHORT VIEW</h2>
         </div>
         <div class='login-sidenavAllContent'>
@@ -90,50 +87,6 @@
     </div>
     <div id="login-sidenavOverlay" class="login-sidenavOverlay"></div>
     <ui-view></ui-view>
-
-
-    <!--***************************************-->
-    <!--*              Fix me                 *-->
-    <!--***************************************-->
-    <script>
-        function openNav() {
-            document.getElementById("login-sidenav").style.width = "500px";
-            document.getElementById("login-sidenavOverlay").style.display = "block";
-        }
-
-        function closeNav() {
-            document.getElementById("login-sidenav").style.width = "0";
-            document.getElementById("login-sidenavOverlay").style.display = "none";
-        }
-
-        function openCohortNav() {
-            document.getElementById("cohort-sidenav").style.width = "200px";
-            document.getElementById("cohort-selectedCohort").style.backgroundColor = "#444";
-            document.getElementById ("cohort-selectedCohort").style.color = '#999999';
-
-        }
-
-        function closeCohortNav() {
-            document.getElementById("cohort-sidenav").style.width = "0";
-
-        }
-
-        function openCohortStudentNav() {
-            document.getElementById("cohort-sidenavStudent").style.width = "470px";
-            document.getElementById("cohort-selectedCohort").style.backgroundColor = "#1a1a1a";
-            document.getElementById ("cohort-selectedCohort").style.color = '#25aae1';
-
-        }
-
-        function closeCohortStudentNav() {
-            document.getElementById("cohort-sidenavStudent").style.width = "0";
-
-        }
-
-
-
-    </script>
-
     <script src='./libraries/angular.js'></script>
     <script src='./libraries/angular-ui-router.js'></script>
     <script src='./libraries/jquery-3.2.0.js'></script>

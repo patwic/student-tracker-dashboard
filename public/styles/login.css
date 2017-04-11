@@ -1,4 +1,3 @@
-
 .login-mainSection {
     width: 100%;
     height: 100vh;
@@ -15,7 +14,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .login-box {
@@ -44,7 +42,6 @@
 .login-logoBox {
     letter-spacing: 4px;
 }
-
 
 .login-box h3 {
     cursor: pointer;
