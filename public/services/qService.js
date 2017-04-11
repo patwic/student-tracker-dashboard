@@ -124,4 +124,46 @@ angular.module('app').service('qService', function ($http, config) {
         }
         return mentors
     }
+
+    this.getAvgStudentTimes = (qbody) => {
+        let students = []
+        for (let i = 0; i < qbody.length; i++) {
+            if (qbody[i].timeMentorBegins) {
+                let isNewStudent = true;
+                for (let j = 0; j < students.length; j++) {
+                    if (students[j].name === qbody[i].name) {
+                        let max = new Date(qbody[i].timeQuestionAnswered).getTime()
+                        let min = new Date(qbody[i].timeMentorBegins).getTime()
+                        if (!max) {
+                            max = new Date().getTime()
+                        }
+                        students[j].count++
+                        students[j].sum += (max - min)
+                        isNewStudent = false;
+                    }
+                }
+                if (isNewStudent) {
+                    let max = new Date(qbody[i].timeQuestionAnswered).getTime()
+                    let min = new Date(qbody[i].timeMentorBegins).getTime()
+                    if (!max) {
+                        max = new Date().getTime()
+                    }
+                    let student = {
+                        name: qbody[i].name,
+                        count: 1,
+                        sum: max - min,
+                    }
+                    students.push(student)
+                }
+            }
+        }
+        for (let j = 0; j < students.length; j++) {
+            students[j].average = (students[j].sum / (students[j].count * 60000)).toFixed(2)
+        }
+        // return students
+        console.log(students)
+    }
+
+
+
 })

@@ -12,11 +12,17 @@ angular.module('app').controller('mainCtrl', function($scope, qService){
       $scope.isDropdown = !$scope.isDropdown
   }
 
-  qService.getQ('2017-04-10', '2017-04-11', 106).then((res) => {
+  let socket = io()
+  socket.on('totalQ', (totalQ) => {
+    console.log('totalQ', totalQ)
+  })
+
+  /*qService.getQ('2017-04-01', '2017-04-11').then((res) => {
     console.log(res.data)
    // qService.divideQDays(res.data, '2017-04-10', '2017-04-11')
-      qService.getAvgMentorTimes(res.data)
-  })
+      // qService.getAvgMentorTimes(res.data)
+      qService.getAvgStudentTimes(res.data)
+  })*/
 
   // $scope.openNav = function() {
   //     document.getElementById("login-sidenav").style.width = "500px";
