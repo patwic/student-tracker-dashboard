@@ -1,5 +1,5 @@
-angular.module('app').controller('mainCtrl', function ($scope) {
-  $scope.user = 'Jeremy Robertson'
+angular.module('app').controller('mainCtrl', function($scope, qService){
+  $scope.user= 'Jeremy Robertson'
   $scope.isDropdown = false;
 
   $scope.showDropdown = function () {
@@ -10,6 +10,13 @@ angular.module('app').controller('mainCtrl', function ($scope) {
     }
     $scope.isDropdown = !$scope.isDropdown
   }
+
+  let socket = io()
+  socket.on('updatedQs', (qArr) => {
+    console.log('helpQ', qArr[0])
+    console.log('totalQ', qArr[1])
+    console.log('waitQ', qArr[2])
+  })
 
   $scope.openNav = function () {
     document.getElementById("login-sidenav").style.width = "500px";

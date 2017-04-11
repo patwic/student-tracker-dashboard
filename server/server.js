@@ -2,6 +2,10 @@ const express = require('express')
       bodyParser = require('body-parser')
       massive = require('massive')
       app = module.exports = express()
+      http = require('http')
+      server = http.createServer(app)
+      io = require('socket.io').listen(server)
+      path = require('path')
       q = require('./q')
       config = require('./config')
       port = 3000
@@ -18,6 +22,15 @@ let helpQ = []
     waitQ = []
     date = new Date().toISOString().substring(0, 10)
 
+io.on('connection', (socket) => {
+      console.log('A user connected')
+
+      socket.on('disconnect', () => {
+            console.log('A user disconnected')
+      })
+})
+
+
 setTimeout(function dailyTasks() {
       let currentDate = new Date().toISOString().substring(0, 10)
       if (date != currentDate) {
@@ -31,21 +44,24 @@ setTimeout(function dailyTasks() {
 }, 28800000)
 
 function updateQ() {
-      q.getCurrentQ()
+      setTimeout(q.getCurrentQ, 30000)
       setTimeout(updateQ, 300000)
 }
 
 updateQ()
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.static(path.join(__dirname, '..', '/public')))
 
 app.getHelpQ = () => {return helpQ}
 app.getTotalQ = () => {return totalQ}
 app.getWaitQ = () => {return waitQ}
-app.setHelpQ = (newQ) => helpQ = newQ
-app.setTotalQ = (newQ) => totalQ = newQ
-app.setWaitQ = (newQ) => waitQ = newQ
+app.setQs = (nHelpQ, nTotalQ, nWaitQ) => {
+      helpQ = nHelpQ
+      totalQ = nTotalQ
+      waitQ = nWaitQ
+      io.emit('updatedQs', [helpQ, totalQ, waitQ])
+}
 
 app.get('/api/prefs/:user_id', dbComms.getPrefs)
 app.post('/api/prefs/:user_id', dbComms.upsertPrefs)
@@ -59,4 +75,4 @@ app.put('/api/reset', (req, res) => {
       })
 })
 
-app.listen(port, () => console.log(`Today is ${date}. Listening on port ${port} . . .`))
+server.listen(port, () => console.log(`Today is ${date}. Listening on port ${port} . . .`))
