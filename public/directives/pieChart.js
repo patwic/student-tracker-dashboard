@@ -4,7 +4,7 @@ angular.module('app')
       restrict: 'AE',
       template: '<div></div>',
       scope: {
-
+        data: '='
       },
       controller: function () {
 

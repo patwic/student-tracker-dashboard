@@ -1,8 +1,8 @@
-const config = require('./config.js')
-      request = require('request')
+const config = require('./config.js'),
+      request = require('request'),
       app = require('./server')
 
-const self = module.exports = {
+let self = module.exports = {
     getCurrentQ: () => {
         let day = new Date().toISOString().substring(0, 10)
         request.get(

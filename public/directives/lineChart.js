@@ -1,14 +1,16 @@
 angular.module('app')
-  .directive('line', function () {
+  .directive('lineChart', function () {
     return {
       restrict: 'AE',
-      template: '<div></div>',
+      template: '<div>{{test}}</div>',
       scope: {
-
+        originalData: '='
       },
-      controller: function () {
+      controller: function ($scope) {
 
-        var originalData;
+        $scope.test = ';ajklsdfl;jaeljkjlkf'
+
+        $scope.$watch(() => console.log('ORIGINAL DATA', $scope.originalData))
 
         function makeDataObject(arr) {
           let allDataArr = [];
@@ -18,10 +20,12 @@ angular.module('app')
               'number': Number(arr[i][1])
             })
           }
+          console.log('hhhhhhhheeeeeeyyyyy')
+          $scope.$apply();
           return allDataArr;
         }
 
-        var data = makeDataObject(originalData);
+        var data = makeDataObject($scope.originalData);
 
         var margin = {
             top: 20,
@@ -101,7 +105,7 @@ angular.module('app')
         let day = new Date().toISOString().substring(0, 10),
           endTime = new Date(`${day}T23:10:00.000Z`).getTime()
 
-        x.domain([new Date(originalData[0][0]), new Date(endTime)]);
+        x.domain([new Date($scope.originalData[0][0]), new Date(endTime)]);
 
         let maxDomain = 20;
         if ((d3.max(data, function (d) {
@@ -183,7 +187,7 @@ angular.module('app')
           .attr("x1", width)
           .attr("x2", width);
 
-        let overlayWidth = (width * ((originalData.length - 1) / 100)) - 1
+        let overlayWidth = (width * (($scope.originalData.length - 1) / 100)) - 1
 
         svg.append("rect")
           .attr("class", "overlay")

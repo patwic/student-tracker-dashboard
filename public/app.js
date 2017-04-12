@@ -12,6 +12,7 @@ angular.module('app', ['ui.router'])
 
             .state('home', {
                 url: '/',
+                controller: 'mainCtrl',
                 templateUrl: "./views/home.html"
             })
 

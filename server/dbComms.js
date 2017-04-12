@@ -1,5 +1,5 @@
-const app = require('./server')
-      db = app.get('db')
+const app = require('./server'),
+      db = app.get('db'),
       config = require('./config')
 
 module.exports = {

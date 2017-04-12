@@ -4,6 +4,7 @@ angular.module('app').controller('mainCtrl', function($scope, qService){
   $scope.helpQ;
   $scope.totalQ;
   $scope.waitQ;
+  $scope.redAlerts;
 
   $scope.showDropdown = function () {
     if (!$scope.isDropdown) {
@@ -19,9 +20,13 @@ angular.module('app').controller('mainCtrl', function($scope, qService){
     $scope.helpQ = qArr[0]
     $scope.totalQ = qArr[1]
     $scope.waitQ = qArr[2]
-    console.log('helpQ', qArr[0])
-    console.log('totalQ', qArr[1])
-    console.log('waitQ', qArr[2])
+    $scope.$apply();
+  })
+
+  socket.on('updateReds', (rA) => {
+    $scope.redAlerts = rA;
+    console.log($scope.redAlerts)
+    $scope.$apply();
   })
 
   $scope.openNav = function () {
