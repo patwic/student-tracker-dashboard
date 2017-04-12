@@ -1,10 +1,14 @@
-angular.module('app').controller('mainCtrl', function($scope, qService){
-  $scope.user= 'Jeremy Robertson'
+angular.module('app').controller('mainCtrl', function ($scope, qService) {
+  $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
   $scope.helpQ;
   $scope.totalQ;
   $scope.waitQ;
   $scope.redAlerts;
+
+  // $(function () {
+  //   $('input[name="daterange"]').daterangepicker();
+  // });
 
   $scope.showDropdown = function () {
     if (!$scope.isDropdown) {
@@ -25,6 +29,9 @@ angular.module('app').controller('mainCtrl', function($scope, qService){
 
   socket.on('updateReds', (rA) => {
     $scope.redAlerts = rA;
+    for(let i = 0; i < $scope.redAlerts.length; i++) {
+      $scope.redAlerts[i].waitTime = Math.floor($scope.redAlerts[i].waitTime / 60000);
+    }
     console.log($scope.redAlerts)
     $scope.$apply();
   })

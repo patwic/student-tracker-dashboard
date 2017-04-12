@@ -18,7 +18,8 @@ angular.module('app', ['ui.router'])
 
             .state('cohort', {
                 url: '/cohort',
-                templateUrl: "./views/cohort.html"
+                templateUrl: "./views/cohort.html",
+                controller: 'mainCtrl'
             })
 
 
