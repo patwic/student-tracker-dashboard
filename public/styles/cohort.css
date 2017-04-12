@@ -496,6 +496,9 @@
 
 }
 
+/**********************************
+*        Calendar Styling        *
+***********************************/
 
 .daterangepicker.dropdown-menu {
     background: #282828;
@@ -609,3 +612,4 @@
 .glyphicon-calendar:before {
     display: none;
 }
+

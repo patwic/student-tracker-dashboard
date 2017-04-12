@@ -32,10 +32,7 @@
         <p ng-click='showDropdown(); openNav()'>Preferences</p>
         <p ng-click='showDropdown()'>Logout</p>
     </div>
-    <!--***************************************-->
-    <!--*              Fix me                 *-->
-    <!--***************************************-->
-    <div id="login-sidenav" class="login-sidenavContent">
+    <div id="login-sidenav" class="login-sidenavContent" style='width: 500px !important'>
         <div class="login-sidenavTitle">
             <a href="javascript:void(0)" class="closebtn" ng-click="closeNav()"><img src='./assets/x-15.svg'></a>
             <h2>DEFAULT COHORT VIEW</h2>
@@ -44,25 +41,19 @@
             <div class='login-sidenavTopContent'>
                 <div class='login-sidenavChoices'>
                     <h3>LOCATION</h3>
-                    <div class='home-selectStyle'>
-                        <!--<div>
+                         <select id="selectbox" class='home-selectStyle'>
                             <option value="provo">Provo, UT</option>
                             <option value="slc">SLC, UT</option>
                             <option value="dallas">Dallas, TX</option>
-                        </div>-->
-                        <img ng-src='./assets/arrow_svg-arrow.svg'>
-                    </div>
+                        </select>
                 </div>
                 <div class='login-sidenavChoices'>
                     <h3>PROGRAM</h3>
-                    <div class='home-selectStyle'>
-                        <!--<div>
-                            <option value="provo">Web Development</option>
-                            <option value="slc">UX Design</option>
-                            <option value="dallas">iOS Development</option>
-                        </div>-->
-                        <img ng-src='./assets/arrow_svg-arrow.svg'>
-                    </div>
+                    <select id="selectbox" class='home-selectStyle'>
+                            <option value="web">Web Development</option>
+                            <option value="ios">iOS Development</option>
+                            <option value="us">UX Design</option>
+                        </select>
                 </div>
                 <div class='login-sidenavChoices'>
                     <h3>COHORT</h3>
@@ -90,6 +81,7 @@
 
     <div id="login-sidenavOverlay" class="login-sidenavOverlay"></div>
     <ui-view></ui-view>
+
     
     <script src='./libraries/angular.js'></script>
     <script src='./libraries/angular-ui-router.js'></script>
@@ -111,6 +103,59 @@
     <script src="./directives/pieChart.js"></script>
     <script type="text/javascript" src="./libraries/moment.js"></script>
 
+    <script>
+
+$('select').each(function () {
+
+    var $this = $(this),
+        numberOfOptions = $(this).children('option').length;
+
+    $this.addClass('s-hidden');
+
+    $this.wrap('<div class="select"></div>');
+
+    $this.after('<div class="styledSelect"></div>');
+
+    var $styledSelect = $this.next('div.styledSelect');
+
+    $styledSelect.text($this.children('option').eq(0).text());
+
+    var $list = $('<ul />', {
+        'class': 'options'
+    }).insertAfter($styledSelect);
+
+    for (var i = 0; i < numberOfOptions; i++) {
+        $('<li />', {
+            text: $this.children('option').eq(i).text(),
+            rel: $this.children('option').eq(i).val()
+        }).appendTo($list);
+    }
+
+    var $listItems = $list.children('li');
+
+    $styledSelect.click(function (e) {
+        e.stopPropagation();
+        $('div.styledSelect.active').each(function () {
+            $(this).removeClass('active').next('ul.options').hide();
+        });
+        $(this).toggleClass('active').next('ul.options').toggle();
+    });
+
+    $listItems.click(function (e) {
+        e.stopPropagation();
+        $styledSelect.text($(this).text()).removeClass('active');
+        $this.val($(this).attr('rel'));
+        $list.hide();
+    });
+
+    $(document).click(function () {
+        $styledSelect.removeClass('active');
+        $list.hide();
+    });
+
+});
+
+</script>
     
 </body>
 </html>
