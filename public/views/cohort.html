@@ -2,22 +2,24 @@
     <div class='cohort-fixedSideMenu'>
         <img ng-click="openCohortNav()" src='https://cdn3.iconfinder.com/data/icons/gray-toolbar/512/menu-512.png'>
     </div>
-    <div id="cohort-sidenav" class="cohort-sidenavContent">
+    <div id="cohort-sidenav" class="cohort-sidenavContent" >
         <div class='cohort-sidenavAllContent'>
             <div class='cohort-sidenavClassList'>
                 <h4 id='cohort-selectedCohort' ng-click='openCohortStudentNav()'>DM - 19</h4>
             </div>
             <div class='cohort-sidenavFilterBox'>
                 <h3>LOCATION</h3>
-                <div class='cohort-selectStyle'>
-                    <h4>Provo, UT</h4>
-                    <img src='./assets/arrow_svg-arrow.svg'>
-                </div>
+                <select id="selectbox" class='cohort-selectStyle'>
+                            <option value="provo">Provo, UT</option>
+                            <option value="slc">SLC, UT</option>
+                            <option value="dallas">Dallas, TX</option>
+                </select>
                 <h3>PROGRAM</h3>
-                <div class='cohort-selectStyle'>
-                    <h4>Web Development</h4>
-                    <img src='./assets/arrow_svg-arrow.svg'>
-                </div>
+                <select id="selectbox" class='cohort-selectStyle'>
+                            <option value="web">Web Development</option>
+                            <option value="ios">iOS Development</option>
+                            <option value="us">UX Design</option>
+                </select>
                 <h2>SHOW ALL</h2>
                 <h2>RESET FILTERS</h2>
             </div>
@@ -38,10 +40,11 @@
         <div class='cohort-qTimeMentorGraphs'>
             <div class='cohort-qTimeGraphs'>
                 <div class='cohort-qTimeGraphsHeader'>
-                    <div class='cohort-qTimeGraphSelector'>
-                        <h3>AVERAGE Q HELP TIME</h3>
-                        <img src='./assets/arrow_svg-arrow.svg'>
-                    </div>
+                     <select id="selectbox" class='cohort-qTimeGraphSelector'>
+                            <option value="web">AVERAGE Q HELP TIME</option>
+                            <option value="ios">AVERAGE Q WAIT TIME</option>
+                            <option value="us">TOTAL Q TIME </option>
+                    </select>
                     <input class='cohort-graphDateSelector' type="text" name="daterange" />
                 </div>
             </div>
@@ -97,10 +100,11 @@
         <div class='cohort-projectScoresGraphBox'>
             <h3>PROJECT SCORES</h3>
             <div class='cohort-projectScoresKey'>
-                <div class='cohort-projectScoresSelector'>
-                    <h4>PERSONAL PROJECT</h4>
-                    <img src='./assets/arrow_svg-arrow.svg'>
-                </div>
+                    <select id="selectbox" class='cohort-projectScoresSelector'>
+                            <option value="web">PERSONAL PROJECT</option>
+                            <option value="ios">GROUP PROJECT</option>
+                            <option value="us">NO SERVER PROJECT </option>
+                    </select>
                 <div class='cohort-projectScoresKeyValues'>
                     <div></div>
                     <h4>PASSED</h4>
