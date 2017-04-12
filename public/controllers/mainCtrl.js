@@ -17,16 +17,7 @@ angular.module('app').controller('mainCtrl', function ($scope, qService) {
     $scope.isDropdown = !$scope.isDropdown
   }
 
-  // document.getElementById('home-nav').addClass('active-link')
-  // $scope.activeLinks = function (link) {
-  //   if(link === 'cohort') {
-  //     document.getElementById('cohort-nav').addClass('active-link');
-  //     document.getElementById('home-nav').removeClass('active-link');      
-  //   } else {
-  //     document.getElementById('cohort-nav').removeClass('active-link');
-  //     document.getElementById('home-nav').addClass('active-link'); 
-  //   }
-  // }
+  $scope.activateLink = true;
 
   let socket = io()
   socket.on('updatedQs', (qArr) => {

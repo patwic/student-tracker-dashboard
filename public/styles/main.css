@@ -37,7 +37,15 @@
     height: 50px;
 }
 
-.main-links h2 {
+/*.main-links h2 {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 7px solid transparent;
+    padding-top: 7px;
+}*/
+
+.not-active-link {
     height: 100%;
     display: flex;
     align-items: center;
@@ -55,6 +63,10 @@
 }
 
 .active-link {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 7px;
     border-bottom: 7px solid #25aae1;
 }
 
