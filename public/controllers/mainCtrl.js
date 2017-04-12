@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, qService) {
+angular.module('app').controller('mainCtrl', function ($scope, qService, $location) {
   $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
   $scope.helpQ;
@@ -17,7 +17,11 @@ angular.module('app').controller('mainCtrl', function ($scope, qService) {
     $scope.isDropdown = !$scope.isDropdown
   }
 
-  $scope.activateLink = true;
+  if($location.path() === '/') $scope.activateLink = true;
+  else $scope.activateLink = false;
+  $scope.changeLink = function(status) {
+    $scope.activateLink = status;
+  }
 
   let socket = io()
   socket.on('updatedQs', (qArr) => {
