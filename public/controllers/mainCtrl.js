@@ -59,4 +59,8 @@ angular.module('app').controller('mainCtrl', function ($scope, qService) {
     document.getElementById("cohort-sidenavStudent").style.width = "0";
     document.getElementById("cohort-sidenav").style.width = "0";
   }
+
+  $(function() {
+    $('input[name="daterange"]').daterangepicker();
+});
 })
