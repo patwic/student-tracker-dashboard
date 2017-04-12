@@ -1,5 +1,5 @@
 const config = require('./config.js'),
-  request = require('request'),
+  request = require('request-promise')
   app = require('./server')
 
 let self = module.exports = {
@@ -28,7 +28,41 @@ let self = module.exports = {
       }
     }
     app.setRedAlerts(alerts)
-  }
+  },
 
+  getYellowAlerts: () => {},
 
+  absenceAlert: () => {
+    let today = new Date().toISOString().substring(0, 10)
+    let yesterday = new Date()
+    yesterday.setDate(new Date().getDate() - 1)
+    yesterday = yesterday.toISOString().substring(0, 10)
+    request.get(
+      `${config.dev_mtn_api}attendancedays/?admin_token=${config.admin_token}&after=${yesterday}&before=${today}`,
+      (err, qres, daysBody) => {
+        if (err) console.log(err)
+        else {
+          daysBody = JSON.parse(daysBody)
+          let promises = []
+          for (let day of daysBody) {
+            promises.push(request.get(
+              `${config.dev_mtn_api}attendancedays/${day.cohortId}/${day.day}?admin_token=${config.admin_token}`,
+              {headers: {'Access-Control-Allow-Origin': '*'}}))
+            }
+            Promise.all(promises).then((res) => {
+              
+            }).catch((err) => {
+              console.log(err)
+            })
+          }
+      })
+  },
+
+  progressAlert: () => {},
+
+  lateAlert: () => {},
+
+  noAttendanceAlert: () => {},
+
+  studentQAlert: () => {}
 }
