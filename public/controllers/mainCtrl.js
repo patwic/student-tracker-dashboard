@@ -17,9 +17,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.isDropdown = !$scope.isDropdown
   }
 
-  attendanceService.getDays('2017-03', 106).then((res) => {
-    console.log(res)
-  })
+  attendanceService.getDays('2017-03', 106)
 
   // document.getElementById('home-nav').addClass('active-link')
   // $scope.activeLinks = function (link) {
