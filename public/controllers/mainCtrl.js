@@ -18,6 +18,12 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   }
 
   attendanceService.getDays('2017-03', 106)
+    .then((res) => attendanceService.getDataFromDays(res.data))
+    .then((res) => {
+      let daysData = []
+      for (let day of res) daysData.push(day.data)
+      console.log(attendanceService.getAttendanceFromData(daysData))
+  })
 
   // document.getElementById('home-nav').addClass('active-link')
   // $scope.activeLinks = function (link) {

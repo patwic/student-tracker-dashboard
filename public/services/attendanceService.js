@@ -8,25 +8,19 @@ angular.module('app').service('attendanceService', function ($http, config) {
         if (splitDate[1] > 12) splitDate[1] = '01'
         else if (splitDate[1] < 10) splitDate[1] = '0' + splitDate[1]
         let endDate = splitDate.join('-')
-        $http.get(
+        return $http.get(
             `${this.url}?admin_token=${config.admin_token}&after=${beginDate}&before=${endDate}&cohortId=${cohortId}`,
             {headers: {'Access-Control-Allow-Origin': '*'}})
-            .then((res) => this.getDataFromDays(res.data))
     }
 
     this.getDataFromDays = (data) => {
-        let daysData = []
-        let count = 0
         let promises = []
         for (let datum of data) {
             promises.push($http.get(
                 `${this.url}/${datum.cohortId}/${datum.day}?admin_token=${config.admin_token}`,
                 {headers: {'Access-Control-Allow-Origin': '*'}}))
         }
-        Promise.all(promises).then((res) => {
-            for (let day of res) daysData.push(day.data)
-            this.getAttendanceFromData(daysData)
-        })
+        return Promise.all(promises)
     }
 
     this.getAttendanceFromData = (daysData) => {
@@ -35,7 +29,7 @@ angular.module('app').service('attendanceService', function ($http, config) {
             let attendDay = {day : '',
                             late: [],
                             leftEarly: [],
-                            abscent: []}
+                            absent: []}
             attendDay.day = attend.day.date.substring(0, 10)
             for (let student of attend.attendances) {
                 if (student.attendanceData) {
@@ -44,12 +38,12 @@ angular.module('app').service('attendanceService', function ($http, config) {
                     } if (student.attendanceData.leftEarly) {
                         attendDay.leftEarly.push(`${student.user.firstName} ${student.user.lastName}`)                    
                     } if (student.attendanceData.abscent) {
-                        attendDay.abscent.push(`${student.user.firstName} ${student.user.lastName}`)
+                        attendDay.absent.push(`${student.user.firstName} ${student.user.lastName}`)
                     }
                 }
             }
             attendance.push(attendDay)
         }
-        console.log(attendance)
+        return attendance
     }
 })
