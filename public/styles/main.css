@@ -50,7 +50,11 @@
     color: white;
 }
 
-.main-links h2:active {
+.main-links h2:hover {
+    border-bottom: 7px solid #25aae1;
+}
+
+.active-link {
     border-bottom: 7px solid #25aae1;
 }
 
