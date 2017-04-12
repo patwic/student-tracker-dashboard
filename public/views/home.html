@@ -39,7 +39,7 @@
                 <h2>TOTAL Q TIME</h2>
             </div>
             Q LENGTH: {{totalQ.length}}
-            <line-chart original-data='totalQ'></line-chart>
+            <line-chart ng-if='totalQ.length > 0' original-data='totalQ'></line-chart>
         </div>
         <div class='home-bottomGraphs'>
             <div class='home-waitQTime'>

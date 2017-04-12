@@ -49,7 +49,7 @@ setTimeout(function dailyTasks() {
 
 function updateQ() {
       setTimeout(q.getCurrentQ, 5000)
-      setTimeout(updateQ, 300000)
+      setTimeout(updateQ, 3000)
 }
 
 function getRedAlerts() {
