@@ -60,9 +60,7 @@ function getRedAlerts() {
 updateQ()
 getRedAlerts()
 
-alert.attendanceAlert()
 app.setAttendance = (obj) => {
-      console.log(obj)
       let absences = obj.absences;
       let lates = obj.lates;
       let leftEarly = obj.leftEarly;
@@ -85,7 +83,7 @@ app.setRedAlerts = (rA) => {
       io.emit('updateReds', redAlerts);
 }
 
-
+app.get('/api/attendance', alert.attendanceAlert)
 app.get('/api/prefs/:user_id', dbComms.getPrefs)
 app.post('/api/prefs/:user_id', dbComms.upsertPrefs)
 

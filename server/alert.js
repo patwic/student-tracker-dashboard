@@ -1,6 +1,7 @@
 const config = require('./config.js'),
-  request = require('request-promise')
-app = require('./server')
+  request = require('request-promise'),
+app = require('./server'),
+q = require('q')
 
 let self = module.exports = {
 
@@ -32,7 +33,7 @@ let self = module.exports = {
 
   getYellowAlerts: () => {},
 
-  attendanceAlert: () => {
+  attendanceAlert: (req, res, err) => {
     let today = new Date().toISOString().substring(0, 10)
     let yesterday = new Date()
     yesterday.setDate(new Date().getDate() - 1)
@@ -52,12 +53,12 @@ let self = module.exports = {
                 }
               }))
           }
-          Promise.all(promises).then((res) => {
+          Promise.all(promises).then((response) => {
             let attendObj = []
-            for (let i = 0; i < res.length; i++) {
-              attendObj.push(JSON.parse(res[i]))
+            for (let i = 0; i < response.length; i++) {
+              attendObj.push(JSON.parse(response[i]))
             }
-            self.attendanceObjectParsing(attendObj)
+            res.send(self.attendanceObjectParsing(attendObj))
           }).catch((err) => {
             console.log(err)
           })
@@ -86,11 +87,11 @@ let self = module.exports = {
         }
       }
     }
-    app.setAttendance({
+    return {
       absences: absences,
       lates: lates,
       leftEarly: leftEarly
-    })
+    }
   },
 
   progressAlert: () => {},
