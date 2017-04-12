@@ -489,3 +489,117 @@
     padding-left: 7vh;
 
 }
+
+
+.daterangepicker.dropdown-menu {
+    background: #282828;
+    color: white;
+    width: 500px;
+    border-radius: 0;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+    margin-top: -43px;
+    z-index: 1;
+}
+
+.daterangepicker.opensright:after {
+    display: none;
+}
+
+.daterangepicker.opensright:before {
+    display: none;
+}
+
+
+
+.month {
+    color: white;
+}
+
+.daterangepicker .calendar-table {
+    background: transparent;
+    border: none;
+}
+
+
+.daterangepicker .input-mini.active {
+    border-radius: 0;
+    border: none;
+}
+
+.daterangepicker .input-mini {
+    border-radius: 0;
+    border: none;
+    color: #999999;
+    background: #1a1a1a;
+}
+
+
+.daterangepicker td.off, .daterangepicker td.off.in-range, .daterangepicker td.off.start-date, .daterangepicker td.off.end-date {
+    background: transparent;
+}
+
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background: #25aae1;
+}
+
+.daterangepicker td.available:hover, .daterangepicker td.available:hover {
+    background: rgba(37, 170, 225, .4);
+}
+
+.daterangepicker td.in-range {
+    background: #25aae1;
+}
+
+.inport-inport-mini.form-control {
+    background: linear-gradient(-45deg, #1a1a1a, #333);
+    border: none;
+    border-radius: 0;
+    color: #a0a0a0;
+    /*color: white;*/
+}
+
+.btn-success {
+    background: #1a1a1a;
+    border-color: #25aae1;
+    width: 100px;
+    margin-left: 260px;
+}
+
+.btn-default {
+    background: #1a1a1a;
+    color: white;
+    border: 1px solid white;
+    width: 100px;
+    margin-left: 10px;
+}
+
+.btn-default:hover {
+    background: white;
+    border: 1px solid white;
+    color: #25aae1;
+}
+
+.btn-default:active:focus {
+    background: white;
+    border: 1px solid white;
+    outline: none;
+}
+
+.btn-success:hover {
+    background: #25aae1;
+    border-color: #25aae1;
+}
+
+.btn-success:active:focus {
+    background: #25aae1;
+    border: 1px solid #25aae1;
+    outline: none;
+}
+
+/*.btn-success:active {
+    background: #25aae1;
+}*/
+
+.glyphicon-calendar:before {
+    display: none;
+}
