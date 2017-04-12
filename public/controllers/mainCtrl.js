@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, attendanceService) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService) {
   $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
   $scope.helpQ;
