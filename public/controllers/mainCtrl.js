@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, qService) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService) {
   $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
   $scope.helpQ;
@@ -16,6 +16,10 @@ angular.module('app').controller('mainCtrl', function ($scope, qService) {
     }
     $scope.isDropdown = !$scope.isDropdown
   }
+
+  attendanceService.getDays('2017-03', 106).then((res) => {
+    console.log(res)
+  })
 
   // document.getElementById('home-nav').addClass('active-link')
   // $scope.activeLinks = function (link) {
