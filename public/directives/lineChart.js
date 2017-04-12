@@ -10,7 +10,7 @@ angular.module('app')
 
         $scope.test = ';ajklsdfl;jaeljkjlkf'
 
-        $scope.$watch(() => console.log('ORIGINAL DATA', $scope.originalData))
+        // $scope.$watch(() => console.log('ORIGINAL DATA', $scope.originalData))
 
         function makeDataObject(arr) {
           let allDataArr = [];
