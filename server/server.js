@@ -59,7 +59,14 @@ function getRedAlerts() {
 
 updateQ()
 getRedAlerts()
-console.log(alert.absenceAlert())
+
+alert.attendanceAlert()
+app.setAttendance = (obj) => {
+      console.log(obj)
+      let absences = obj.absences;
+      let lates = obj.lates;
+      let leftEarly = obj.leftEarly;
+}
 
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, '..', '/public')))

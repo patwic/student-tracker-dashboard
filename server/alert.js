@@ -1,6 +1,6 @@
 const config = require('./config.js'),
   request = require('request-promise')
-  app = require('./server')
+app = require('./server')
 
 let self = module.exports = {
 
@@ -15,15 +15,15 @@ let self = module.exports = {
   },
   redAlert: (qbody) => {
     let alerts = []
-    for(let i = 0; i < qbody.length; i++) {
-      if(!qbody[i].timeMentorBegins && !qbody[i].timeQuestionAnswered) {
+    for (let i = 0; i < qbody.length; i++) {
+      if (!qbody[i].timeMentorBegins && !qbody[i].timeQuestionAnswered) {
         let currentTime = new Date().getTime();
         let startTime = new Date(qbody[i].timeWhenEntered).getTime();
-        if(currentTime - startTime > 600000) {
-           alerts.push({
-             name: qbody[i].name,
-             waitTime: currentTime - startTime
-            })
+        if (currentTime - startTime > 600000) {
+          alerts.push({
+            name: qbody[i].name,
+            waitTime: currentTime - startTime
+          })
         }
       }
     }
@@ -32,7 +32,7 @@ let self = module.exports = {
 
   getYellowAlerts: () => {},
 
-  absenceAlert: () => {
+  attendanceAlert: () => {
     let today = new Date().toISOString().substring(0, 10)
     let yesterday = new Date()
     yesterday.setDate(new Date().getDate() - 1)
@@ -46,21 +46,54 @@ let self = module.exports = {
           let promises = []
           for (let day of daysBody) {
             promises.push(request.get(
-              `${config.dev_mtn_api}attendancedays/${day.cohortId}/${day.day}?admin_token=${config.admin_token}`,
-              {headers: {'Access-Control-Allow-Origin': '*'}}))
-            }
-            Promise.all(promises).then((res) => {
-              
-            }).catch((err) => {
-              console.log(err)
-            })
+              `${config.dev_mtn_api}attendancedays/${day.cohortId}/${day.day}?admin_token=${config.admin_token}`, {
+                headers: {
+                  'Access-Control-Allow-Origin': '*'
+                }
+              }))
           }
+          Promise.all(promises).then((res) => {
+            let attendObj = []
+            for (let i = 0; i < res.length; i++) {
+              attendObj.push(JSON.parse(res[i]))
+            }
+            self.attendanceObjectParsing(attendObj)
+          }).catch((err) => {
+            console.log(err)
+          })
+        }
       })
   },
 
-  progressAlert: () => {},
+  attendanceObjectParsing: (attendObj) => {
+    let absences = []
+    let lates = []
+    let leftEarly = []
+    for (let i = 0; i < attendObj.length; i++) {
+      let aobj = attendObj[i].attendances
+      let k = 0
+      for (let j = 0; j < aobj.length; j++) {
+        if (aobj[j].attendanceData) {
+          if (aobj[j].attendanceData.abscent === true) {
+            absences.push([aobj[j].user.firstName, aobj[j].user.lastName])
+          }
+          if (aobj[j].attendanceData.late === true) {
+            lates.push([aobj[j].user.firstName, aobj[j].user.lastName])
+          }
+          if (aobj[j].attendanceData.leftEarly === true) {
+            leftEarly.push([aobj[j].user.firstName, aobj[j].user.lastName])
+          }
+        }
+      }
+    }
+    app.setAttendance({
+      absences: absences,
+      lates: lates,
+      leftEarly: leftEarly
+    })
+  },
 
-  lateAlert: () => {},
+  progressAlert: () => {},
 
   noAttendanceAlert: () => {},
 
