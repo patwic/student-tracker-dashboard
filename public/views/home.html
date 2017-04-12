@@ -4,10 +4,10 @@
             <h2>ALERTS ( <span>12</span> )</h2>
         </div>
         <div class='home-alertFeed' >
-            <div class='home-alerts'>
+            <div class='home-alerts' ng-repeat='red in redAlerts'>
                 <div class='home-alertDisplay'>
                     <h4>RED ALERT</h4>
-                    <h5>The Q time is 32% above average.</h5>
+                    <h5>{{red.name}} has been waiting in the Q for {{red.waitTime}} minutes.</h5>
                 </div>
                 <div class='home-alertButton'>
                     <div class='home-buttonBox'>
@@ -38,6 +38,8 @@
             <div class='home-totalGraphBar'>
                 <h2>TOTAL Q TIME</h2>
             </div>
+            Q LENGTH: {{totalQ.length}}
+            <line-chart original-data='totalQ'></line-chart>
         </div>
         <div class='home-bottomGraphs'>
             <div class='home-waitQTime'>

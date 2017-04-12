@@ -12,12 +12,14 @@ angular.module('app', ['ui.router'])
 
             .state('home', {
                 url: '/',
+                controller: 'mainCtrl',
                 templateUrl: "./views/home.html"
             })
 
             .state('cohort', {
                 url: '/cohort',
-                templateUrl: "./views/cohort.html"
+                templateUrl: "./views/cohort.html",
+                controller: 'mainCtrl'
             })
 
 

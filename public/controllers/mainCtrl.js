@@ -1,6 +1,12 @@
-angular.module('app').controller('mainCtrl', function($scope, qService){
-  $scope.user= 'Jeremy Robertson'
+angular.module('app').controller('mainCtrl', function ($scope, qService) {
+  $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
+  $scope.helpQ;
+  $scope.totalQ;
+  $scope.waitQ;
+  $scope.redAlerts;
+
+  
 
   $scope.showDropdown = function () {
     if (!$scope.isDropdown) {
@@ -13,9 +19,18 @@ angular.module('app').controller('mainCtrl', function($scope, qService){
 
   let socket = io()
   socket.on('updatedQs', (qArr) => {
-    console.log('helpQ', qArr[0])
-    console.log('totalQ', qArr[1])
-    console.log('waitQ', qArr[2])
+    $scope.helpQ = qArr[0]
+    $scope.totalQ = qArr[1]
+    $scope.waitQ = qArr[2]
+    $scope.$apply();
+  })
+
+  socket.on('updateReds', (rA) => {
+    $scope.redAlerts = rA;
+    for(let i = 0; i < $scope.redAlerts.length; i++) {
+      $scope.redAlerts[i].waitTime = Math.floor($scope.redAlerts[i].waitTime / 60000);
+    }
+    $scope.$apply();
   })
 
   $scope.openNav = function () {

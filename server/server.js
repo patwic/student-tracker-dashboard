@@ -1,14 +1,15 @@
-const express = require('express')
-      bodyParser = require('body-parser')
-      massive = require('massive')
-      app = module.exports = express()
-      http = require('http')
-      server = http.createServer(app)
-      io = require('socket.io').listen(server)
-      path = require('path')
-      q = require('./q')
-      config = require('./config')
-      port = 3000
+const express = require('express'),
+      bodyParser = require('body-parser'),
+      massive = require('massive'),
+      app = module.exports = express(),
+      http = require('http'),
+      server = http.createServer(app),
+      io = require('socket.io').listen(server),
+      path = require('path'),
+      q = require('./q'),
+      config = require('./config'),
+      alert = require('./alert'),
+      port = 3000,
       conn = massive.connectSync({
             connectionString : config.eleSql
       });
@@ -17,13 +18,16 @@ app.set('db', conn);
 const db = app.get('db');
       dbComms = require('./dbComms')
 
-let helpQ = []
-    totalQ = []
-    waitQ = []
-    date = new Date().toISOString().substring(0, 10)
+let helpQ = [],
+    totalQ = [],
+    waitQ = [],
+    date = new Date().toISOString().substring(0, 10),
+    redAlerts = [];
 
 io.on('connection', (socket) => {
       console.log('A user connected')
+      socket.emit('updateReds', redAlerts);
+      socket.emit('updatedQs', [helpQ, totalQ, waitQ])
 
       socket.on('disconnect', () => {
             console.log('A user disconnected')
@@ -44,11 +48,17 @@ setTimeout(function dailyTasks() {
 }, 28800000)
 
 function updateQ() {
-      setTimeout(q.getCurrentQ, 30000)
+      setTimeout(q.getCurrentQ, 5000)
       setTimeout(updateQ, 300000)
 }
 
+function getRedAlerts() {
+      setTimeout(alert.getCurrentRedAlert, 5000)
+      setTimeout(getRedAlerts, 300000)
+}
+
 updateQ()
+getRedAlerts()
 
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, '..', '/public')))
@@ -62,6 +72,11 @@ app.setQs = (nHelpQ, nTotalQ, nWaitQ) => {
       waitQ = nWaitQ
       io.emit('updatedQs', [helpQ, totalQ, waitQ])
 }
+app.setRedAlerts = (rA) => {
+      redAlerts = rA;
+      io.emit('updateReds', redAlerts);
+}
+
 
 app.get('/api/prefs/:user_id', dbComms.getPrefs)
 app.post('/api/prefs/:user_id', dbComms.upsertPrefs)

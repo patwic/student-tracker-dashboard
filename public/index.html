@@ -11,7 +11,7 @@
     <link href="./styles/home.css" rel="stylesheet">
     <link href="./styles/login.css" rel="stylesheet">
     <link href="./styles/cohort.css" rel="stylesheet">
-    <Link href="./styles/nv.d3.css" rel='stylesheet'>
+    <link rel="stylesheet" href="./styles/charts.css">
 </head>
 
 <body ng-controller='mainCtrl'>
@@ -93,11 +93,17 @@
     <script src='./libraries/angular-ui-router.js'></script>
     <script src='./libraries/jquery-3.2.0.js'></script>
     <script src='./libraries/d3.js'></script>
-    <script src='./libraries/nv.d3.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src='./app.js'></script>
     <script src='./app.config.js'></script>
     <script src='./controllers/mainCtrl.js'></script>
     <script src='./services/qService.js'></script>
+    <script src="./directives/barChart.js"></script>
+    <script src="./directives/lineChart.js"></script>
+    <script src="./directives/pieChart.js"></script>
+    <script type="text/javascript" src="./libraries/moment.js"></script>
+
+    
 </body>
 </html>
