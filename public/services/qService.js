@@ -100,7 +100,7 @@ angular.module('app').service('qService', function ($http, config) {
                             max = new Date().getTime()
                         }
                         mentors[j].count++
-                        mentors[j].sum += (max - min)
+                        mentors[j].sum += max - min
                         isNewMentor = false;
                     }
                 }
@@ -138,7 +138,7 @@ angular.module('app').service('qService', function ($http, config) {
                             max = new Date().getTime()
                         }
                         students[j].count++
-                        students[j].sum += (max - min)
+                        students[j].sum += max - min
                         isNewStudent = false;
                     }
                 }
@@ -158,21 +158,29 @@ angular.module('app').service('qService', function ($http, config) {
             }
         }
         for (let j = 0; j < students.length; j++) {
+            if (students[j].name == 'David Barrett') console.log(students[j])
             students[j].average = parseFloat((students[j].sum / (students[j].count * 60000)).toFixed(2))
         }
-        this.getHighest(students.slice(), 'sum')
-        this.getHighest(students.slice(), 'count')
-        this.getHighest(students.slice(), 'average')
+        this.getHighest(students.slice(), ["David Barrett"], 'sum')
     }
 
-    this.getHighest = (students, metric) => {
+    this.getHighest = (students, targetStudents, metric) => {
         console.log(metric)
-        students.sort((a, b) => {
+        let targetStudentMetrics = students.filter((s) => {
+            return targetStudents.indexOf(s.name) != -1
+        })
+        students = students.filter((s) => {
+            return targetStudents.indexOf(s.name) == -1
+        })
+        targetStudentMetrics.sort((a, b) => {
             return b[metric] - a[metric]
         })
-        let first = students.shift()
-        let second = students.shift()
-        let third = students.shift()
+        let first = targetStudentMetrics.shift()
+        let base = {sum: 0, count: 0, average: 0}
+        let second = base
+        if (targetStudents.length > 1) second = targetStudentMetrics.shift()
+        let third = base
+        if (targetStudents.length > 2) third = targetStudentMetrics.shift()
         let total = 0
         let totalCount = 0
         if (metric == 'average') {
@@ -194,9 +202,11 @@ angular.module('app').service('qService', function ($http, config) {
         let secondPercent = parseFloat((second[metric]/sum).toFixed(2))
         let thirdPercent = parseFloat((third[metric]/sum).toFixed(2))
         let totalPercent = parseFloat((1 - (firstPercent + secondPercent + thirdPercent)).toFixed(2))
-        console.log({name: first.name, percent: firstPercent},
-                    {name: second.name, percent: secondPercent},
-                    {name: third.name, percent: thirdPercent},
-                    {name: 'Other', percent: totalPercent})
+        let topStudents = []
+        topStudents.push({name: first.name, metric: first[metric], percent: firstPercent})
+        if (targetStudents.length > 1) topStudents.push({name: second.name, metric: first[metric], percent: secondPercent})
+        if (targetStudents.length > 2) topStudents.push({name: third.name, metric: first[metric], percent: thirdPercent})
+        topStudents.push({name: 'Other', metric: total, percent: totalPercent})        
+        console.log('topStudents:', topStudents)
     }
 })
