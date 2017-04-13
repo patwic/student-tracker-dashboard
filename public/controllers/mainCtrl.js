@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, $location) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location) {
 
   $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
@@ -11,9 +11,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.autoStartDate = new Date();
   $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
 
- 
-
-
     mostRequestingStudents = (startDate, endDate) => {
       return qService.getQ(startDate, endDate, $scope.cohortId).then(function(res){
         return qService.getAvgStudentTimes(res.data)
@@ -21,10 +18,13 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       })
     }
 
+    sheetsService.getSheet().then((res) => {
+      sheetsService.getProgress(res)
+    })
+
     highestQCount = () => {
       
     }
-
 
   $scope.showDropdown = function () {
     if (!$scope.isDropdown) {
@@ -34,6 +34,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     }
     $scope.isDropdown = !$scope.isDropdown
   }
+  
   /*
 
     attendanceService.getDays('2017-03', 106)
