@@ -9,27 +9,31 @@
     border-spacing: 0;
 }
 
+.ui-datepicker table {
+    margin-left: -20px !important;
+}
+
 .ui-datepicker {
-    display: none;
-    width: 300px;
     margin: 0 auto;
     cursor: default;
     text-transform: uppercase;
     font-size: 12px;
 }
 
-.hasDatepicker {
-    padding-right: 15px;
-}
+
+/*.hasDatepicker {
+    padding-right: 40px;
+}*/
 
 .ui-datepicker-header {
-    position: relative;
+    width: 230px;
     padding-bottom: 25px;
+    margin-left: -20px;
 }
  
 .ui-datepicker-title { 
   text-align: center; 
-  padding: 0 0 15px 10px;
+  padding: 15px 0 15px 10px;
   }
  
 .ui-datepicker-month {
@@ -44,7 +48,7 @@
 .ui-datepicker-next {
     position: absolute;
     top: -2px;
-    padding: 5px;
+    padding: 20px 5px 5px 5px;
     cursor: pointer;
     background: url(../assets/arrow_svg-arrow.svg) no-repeat center;
     background-size: 17px;
@@ -54,23 +58,16 @@
     left: 0;
     padding-left: 0;
     transform: rotate(90deg);
+    padding-top: 45px;
 }
  
 .ui-datepicker-next {
     right: 0;
     padding-right: 0;
     transform: rotate(-90deg);
-    padding-top: 20px;
+    padding-top: 48px;
     margin-right: -10px;
 }
- 
-/*.ui-datepicker-prev span,
-.ui-datepicker-next span{
-    display: block;
-    width: 5px;
-    height: 10px;
-    background-image: url(../assets/arrow_svg-arrow.svg);
-}*/
  
 .ui-datepicker-prev span { background-position: 0px 0px; }
  
@@ -94,18 +91,19 @@
 }
 
 .ui-datepicker-calendar td {
-    padding: 0 7px;
     text-align: center;
     line-height: 26px;
 }
  
 .ui-datepicker-calendar .ui-state-default {
     display: block;
-    width: 26px;
+    width: 33px;
+    height: 30px;
+    text-align: center;
     outline: none;
     text-decoration: none;
     color: #a8a8a8;
-    border: 1px solid transparent;
+    padding: 5px;
 }
 
 .ui-datepicker-calendar .ui-state-active {
@@ -113,3 +111,8 @@
 }
  
 .ui-datepicker-other-month .ui-state-default { color: #565656; }
+
+td.highlight {
+    background-color: #c41c1c;
+    border-radius: 50%;
+}

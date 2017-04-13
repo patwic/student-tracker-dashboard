@@ -1,4 +1,3 @@
-
 angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, $location) {
   $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
@@ -7,7 +6,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.waitQ;
   $scope.redAlerts;
 
-  
+
 
   $scope.showDropdown = function () {
     if (!$scope.isDropdown) {
@@ -16,19 +15,20 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById('dropdown').classList.remove('dropdown-transition')
     }
     $scope.isDropdown = !$scope.isDropdown
-  }/*
+  }
+  /*
 
-  attendanceService.getDays('2017-03', 106)
-    .then((res) => attendanceService.getDataFromDays(res.data))
-    .then((res) => {
-      let daysData = []
-      for (let day of res) daysData.push(day.data)
-      console.log(attendanceService.getAttendanceFromData(daysData))
-  })*/
+    attendanceService.getDays('2017-03', 106)
+      .then((res) => attendanceService.getDataFromDays(res.data))
+      .then((res) => {
+        let daysData = []
+        for (let day of res) daysData.push(day.data)
+        console.log(attendanceService.getAttendanceFromData(daysData))
+    })*/
 
-  if($location.path() === '/') $scope.activateLink = true;
+  if ($location.path() === '/') $scope.activateLink = true;
   else $scope.activateLink = false;
-  $scope.changeLink = function(status) {
+  $scope.changeLink = function (status) {
     $scope.activateLink = status;
   }
 
@@ -42,7 +42,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   socket.on('updateReds', (rA) => {
     $scope.redAlerts = rA;
-    for(let i = 0; i < $scope.redAlerts.length; i++) {
+    for (let i = 0; i < $scope.redAlerts.length; i++) {
       $scope.redAlerts[i].waitTime = Math.floor($scope.redAlerts[i].waitTime / 60000);
     }
     $scope.$apply();
@@ -78,12 +78,28 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   //-------------attendance calendar-----------------//
 
+  var absences = ['2017/04/02', '2017/04/04']
+
   $('#attendanceCalendar').datepicker({
-        inline: true,
-        firstDay: 1,
-        showOtherMonths: true,
-        dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-    });
+    inline: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    dateFormat: 'yy-mm-dd',
+    dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    beforeShowDay: highlightDays
+
+  });
+
+  function highlightDays(date) {
+    for (var i = 0; i < absences.length; i++) {
+      if (new Date(absences[i]).toString() == date.toString()) {
+        return [true, 'highlight'];
+      }
+    }
+    return [true, ''];
+  }
+
+  
 
 
 })
