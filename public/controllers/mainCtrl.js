@@ -191,7 +191,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   })
 
 
-// *************************** Preferences Select Menus ***************************
+// *************************** Select Menus ***************************
 
 
 $('select').each(function () {

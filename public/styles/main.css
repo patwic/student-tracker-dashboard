@@ -115,11 +115,12 @@
 
 .login-sidenavContent {
     height: 100%;
-    width: 0px;
+    width: 0;
     position: fixed;
     z-index: 10;
     top: 0;
     right: 0;
+    /*left: -500;*/
     background: linear-gradient(-45deg, #1a1a1a, #282828);
     transition: 0.5s;
     box-shadow: -10px 0 25px 2px rgba(0, 0, 0, .4);
