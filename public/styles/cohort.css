@@ -41,6 +41,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    float: right;
 }
 
 .cohort-sidenavContent a {
@@ -56,7 +57,6 @@
     width: 200px;
     height: 50vh;
     float: right; 
-    background: green;
 }
 
 .cohort-sidenavClassList h4 {

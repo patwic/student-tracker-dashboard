@@ -74,6 +74,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   $scope.closeNav = function () {
     document.getElementById("login-sidenav").style.width = "0";
+    document.getElementById("login-sidenav").style.transition = "1s";
     document.getElementById("login-sidenavOverlay").style.display = "none";
   }
 
