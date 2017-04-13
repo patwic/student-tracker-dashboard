@@ -103,8 +103,9 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 });
 
   $('#qTimeDateRange').on('apply.daterangepicker', function(ev, picker){
-    console.log(picker.startDate)
-    console.log(picker.endDate)
+    let endDate = new Date()
+    console.log(picker.startDate.format('YYYY-MM-DD'))
+    console.log(new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10))
   })
 
 // *************************** Calendars ***************************
@@ -116,8 +117,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 });
 
   $('#mentorHelpDateRange').on('apply.daterangepicker', function(ev, picker){
-    console.log(picker.startDate)
-    console.log(picker.endDate)
+    console.log(picker.startDate._d)
+    console.log(picker.endDate._d.setDate(new Date().getDate() + 1))
   })
 
   // *************************** Calendars ***************************
@@ -129,8 +130,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 });
 
   $('#daterange1').on('apply.daterangepicker', function(ev, picker){
-    console.log(picker.startDate)
-    console.log(picker.endDate)
+    console.log(picker.startDate._d)
+    console.log(picker.endDate._d.setDate(new Date().getDate() + 1))
   })
 
   // *************************** Calendars ***************************
@@ -142,8 +143,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 });
 
   $('#daterange2').on('apply.daterangepicker', function(ev, picker){
-    console.log(picker.startDate)
-    console.log(picker.endDate)
+    console.log(picker.startDate._d)
+    console.log(picker.endDate._d.setDate(new Date().getDate() + 1))
   })
 
   // *************************** Calendars ***************************
@@ -155,8 +156,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 });
 
   $('#daterange3').on('apply.daterangepicker', function(ev, picker){
-    console.log(picker.startDate)
-    console.log(picker.endDate)
+    console.log(picker.startDate._d)
+    console.log(picker.endDate._d.setDate(new Date().getDate() + 1))
   })
 
 // *************************** Preferences Select Menus ***************************
