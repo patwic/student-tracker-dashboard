@@ -7,6 +7,11 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.redAlerts;
 
   $scope.cohortId = 106;
+  $scope.autoStartDate = new Date();
+  $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
+
+ 
+
 
     mostRequestingStudents = (startDate, endDate) => {
       return qService.getQ(startDate, endDate, $scope.cohortId).then(function(res){
@@ -98,11 +103,11 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
 // *************************** Calendars ***************************
 
-   $(function() {
-    $('#qTimeDateRange').daterangepicker({}, function(){
 
-    });
-});
+
+   $(function() {
+    $('#qTimeDateRange').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate })
+  })
 
   $('#qTimeDateRange').on('apply.daterangepicker', function(ev, picker){
     let endDate = new Date()
@@ -113,10 +118,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 // *************************** Calendars ***************************
 
    $(function() {
-    $('#mentorHelpDateRange').daterangepicker({}, function(){
-
-    });
-});
+    $('#mentorHelpDateRange').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate })
+   })
 
   $('#mentorHelpDateRange').on('apply.daterangepicker', function(ev, picker){
     let endDate = new Date()
@@ -127,7 +130,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   // *************************** Calendars ***************************
 
   $(function() {
-    $('#daterange1').daterangepicker();
+    $('#daterange1').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
   })
 
   $('#daterange1').on('apply.daterangepicker', function(ev, picker){
@@ -142,7 +145,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   // *************************** Calendars ***************************
 
   $(function() {
-    $('#daterange2').daterangepicker();
+    $('#daterange2').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
   })
 
   $('#daterange2').on('apply.daterangepicker', function(ev, picker){
@@ -157,7 +160,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   // *************************** Calendars ***************************
 
   $(function() {
-    $('#daterange3').daterangepicker();
+    $('#daterange3').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
   })
 
   $('#daterange3').on('apply.daterangepicker', function(ev, picker){

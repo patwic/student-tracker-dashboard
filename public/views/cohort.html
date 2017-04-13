@@ -2,7 +2,7 @@
     <div class='cohort-fixedSideMenu'>
         <img ng-click="openCohortNav()" src='https://cdn3.iconfinder.com/data/icons/gray-toolbar/512/menu-512.png'>
     </div>
-    <div id="cohort-sidenav" class="cohort-sidenavContent" >
+    <div id="cohort-sidenav" class="cohort-sidenavContent">
         <div class='cohort-sidenavAllContent'>
             <div class='cohort-sidenavClassList'>
                 <h4 id='cohort-selectedCohort' ng-click='openCohortStudentNav()'>DM - 19</h4>
@@ -20,8 +20,10 @@
                             <option value="ios">iOS Development</option>
                             <option value="us">UX Design</option>
                 </select>
-                <h2>SHOW ALL</h2>
+                
+                <h2 class='cohort-showAll'>SHOW ALL</h2>
                 <h2>RESET FILTERS</h2>
+                
             </div>
         </div>
     </div>
@@ -30,16 +32,23 @@
             <a href="javascript:void(0)" class="cohort-closebtn" ng-click="closeCohortStudentNav()" ng-click "closeCohortNav()"><img src='./assets/x-15.svg'></a>
         </div>
         <div class='cohort-sidenavStudentContentBox'>
-            <div class='cohort-sidenavStudentContentSelectButtonBox'>
+            <div class='cohort-sidenavStudentContentSelectButtonBox'> 
                 <h2>SELECT ALL</h2>
                 <h2>DESELECT ALL</h2>
+                
+            </div>
+            <div class='cohort-cohortStudentList'>
+
+            </div>
+            <div class='cohort-applyButton'>
+                <h2 ng-click="closeCohortStudentNav()" ng-click "closeCohortNav()">APPLY</h2>
             </div>
         </div>
     </div>
     <div class='cohort-topGraphBox'>
         <div class='cohort-qTimeMentorGraphs'>
             <div class='cohort-qTimeGraphs'>
-                <div class='cohort-qTimeGraphsHeader'>
+                <div class='cohort-qTimeGraphsHeader cohort-dropdown'>
                      <select id="selectbox" class='cohort-qTimeGraphSelector'>
                             <option value="web">AVERAGE Q HELP TIME</option>
                             <option value="ios">AVERAGE Q WAIT TIME</option>
@@ -99,7 +108,7 @@
         </div>
         <div class='cohort-projectScoresGraphBox'>
             <h3>PROJECT SCORES</h3>
-            <div class='cohort-projectScoresKey'>
+            <div class='cohort-projectScoresKey cohort-dropdown'>
                     <select id="selectbox" class='cohort-projectScoresSelector'>
                             <option value="web">PERSONAL PROJECT</option>
                             <option value="ios">GROUP PROJECT</option>
