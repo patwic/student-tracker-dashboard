@@ -74,7 +74,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   $scope.closeNav = function () {
     document.getElementById("login-sidenav").style.width = "0";
-    document.getElementById("login-sidenav").style.transition = "1s";
+    document.getElementById("login-sidenav").style.transition = "1.5s";
     document.getElementById("login-sidenavOverlay").style.display = "none";
   }
 
@@ -83,6 +83,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
     document.getElementById("cohort-selectedCohort").style.backgroundColor = "#444";
     document.getElementById("cohort-selectedCohort").style.color = '#999999';
+    document.getElementById("login-sidenavOverlay").style.display = "block";
+  
   }
 
   $scope.openCohortStudentNav = function () {
@@ -95,6 +97,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.closeCohortStudentNav = function () {
     document.getElementById("cohort-sidenavStudent").style.width = "0";
     document.getElementById("cohort-sidenav").style.width = "0";
+    document.getElementById("login-sidenavOverlay").style.display = "none";
   }
 
 

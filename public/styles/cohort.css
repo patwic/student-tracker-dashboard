@@ -57,6 +57,9 @@
     width: 200px;
     height: 50vh;
     float: right; 
+    overflow-y: scroll;
+    overflow: auto;
+    overflow-x: hidden;
 }
 
 .cohort-sidenavClassList h4 {
@@ -66,6 +69,7 @@
 
 #cohort-selectedCohort {
     cursor: pointer;
+ 
 }
 
 .cohort-sidenavFilterBox {
@@ -155,26 +159,37 @@
 
 .cohort-sidenavStudentContentSelectButtonBox {
     width: 100%;
-    height: 130px;
+    height: 90px;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 40px;
+    margin-bottom: 15px;
 }
 
 .cohort-sidenavStudentContentSelectButtonBox h2 {
     margin-top: 10px;
-    width: calc(100% - 40px);
+    width: calc(100% - 30px);
     background: #444;
-    padding: 8px 20px;
+    padding: 8px 15px;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
 }
 
 .cohort-cohortStudentList {
-    width: 100%;
-    height: 50vh;
+    width: calc(100% - 30px);
+    height: 55vh;
+    margin-left: 15px;
+    overflow-y: scroll;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.cohort-cohortStudentList h5{
+    color: #999999;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .cohort-applyButton {
