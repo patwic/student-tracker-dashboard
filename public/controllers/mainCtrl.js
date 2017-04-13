@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService) {
   $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
   $scope.helpQ;
@@ -6,6 +6,19 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.waitQ;
   $scope.redAlerts;
 
+  console.log($scope.qTime)
+
+  $scope.mostOverall = () => {
+        qService.getQ()
+    }
+
+    $scope.mostAverage = () => {
+
+    }
+
+    $scope.mostRequest = () => {
+
+    }
   
 
   $scope.showDropdown = function () {
@@ -80,9 +93,71 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.getElementById("cohort-sidenav").style.width = "0";
   }
 
-  $(function() {
-    $('input[name="daterange"]').daterangepicker();
+
+// *************************** Calendars ***************************
+
+   $(function() {
+    $('#qTimeDateRange').daterangepicker({}, function(){
+
+    });
 });
+
+  $('#qTimeDateRange').on('apply.daterangepicker', function(ev, picker){
+    console.log(picker.startDate)
+    console.log(picker.endDate)
+  })
+
+// *************************** Calendars ***************************
+
+   $(function() {
+    $('#mentorHelpDateRange').daterangepicker({}, function(){
+
+    });
+});
+
+  $('#mentorHelpDateRange').on('apply.daterangepicker', function(ev, picker){
+    console.log(picker.startDate)
+    console.log(picker.endDate)
+  })
+
+  // *************************** Calendars ***************************
+
+  $(function() {
+    $('#daterange1').daterangepicker({}, function(){
+
+    });
+});
+
+  $('#daterange1').on('apply.daterangepicker', function(ev, picker){
+    console.log(picker.startDate)
+    console.log(picker.endDate)
+  })
+
+  // *************************** Calendars ***************************
+
+  $(function() {
+    $('#daterange2').daterangepicker({}, function(){
+
+    });
+});
+
+  $('#daterange2').on('apply.daterangepicker', function(ev, picker){
+    console.log(picker.startDate)
+    console.log(picker.endDate)
+  })
+
+  // *************************** Calendars ***************************
+
+  $(function() {
+    $('#daterange3').daterangepicker({}, function(){
+
+    });
+});
+
+  $('#daterange3').on('apply.daterangepicker', function(ev, picker){
+    console.log(picker.startDate)
+    console.log(picker.endDate)
+  })
 
 // *************************** Preferences Select Menus ***************************
 
