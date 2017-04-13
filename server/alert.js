@@ -96,7 +96,39 @@ let self = module.exports = {
 
   progressAlert: () => {},
 
-  noAttendanceAlert: () => {},
+  noAttendanceAlert: (req, res, err) => {
+    let today = new Date().toISOString().substring(0, 10)
+    let yesterday = new Date()
+    yesterday.setDate(new Date().getDate() - 1)
+    yesterday = yesterday.toISOString().substring(0, 10)
+    request.get(
+      `${config.dev_mtn_api}attendancedays/?admin_token=${config.admin_token}&after=${yesterday}&before=${today}`,
+      (err, response, body) => {
+        if (err) console.log(err)
+        else {
+          let daysBody = JSON.parse(body)
+          let cohorts = []
+          daysBody.forEach((d) => {
+            if (cohorts.indexOf(d.cohortId) == -1) cohorts.push(d.cohortId)
+          })
+          self.checkActiveCohorts(cohorts, res)
+        }
+      })
+  },
+
+  checkActiveCohorts: (cohorts, res) => {
+    request.get(
+      `${config.dev_mtn_api}aliases?admin_token=${config.admin_token}`,
+      (err, response, body) => {
+        cohortBody = JSON.parse(body)
+        let noAttendCohorts = cohortBody.filter((c) => {
+          return c.active
+            && cohorts.indexOf(c.cohortId) == -1
+        })
+        console.log(noAttendCohorts)
+        res.send(cohorts)
+      })
+  },
 
   studentQAlert: () => {}
 }

@@ -38,6 +38,7 @@ io.on('connection', (socket) => {
 setTimeout(function dailyTasks() {
       let currentDate = new Date().toISOString().substring(0, 10)
       if (date != currentDate) {
+            console.log('New day')
             date = currentDate
             helpQ = []
             totalQ = []
@@ -83,6 +84,7 @@ app.setRedAlerts = (rA) => {
       io.emit('updateReds', redAlerts);
 }
 
+app.get('/api/attendancerecorded', alert.noAttendanceAlert)
 app.get('/api/attendance', alert.attendanceAlert)
 app.get('/api/prefs/:user_id', dbComms.getPrefs)
 app.post('/api/prefs/:user_id', dbComms.upsertPrefs)

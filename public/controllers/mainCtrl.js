@@ -34,21 +34,11 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     }
     $scope.isDropdown = !$scope.isDropdown
   }
-  
-  /*
-
-    attendanceService.getDays('2017-03', 106)
-      .then((res) => attendanceService.getDataFromDays(res.data))
-      .then((res) => {
-        let daysData = []
-        for (let day of res) daysData.push(day.data)
-        console.log(attendanceService.getAttendanceFromData(daysData))
-    })*/
 
   if ($location.path() === '/') $scope.activateLink = true;
-  else $scope.activateLink = false;
-  $scope.changeLink = function (status) {
-    $scope.activateLink = status;
+    else $scope.activateLink = false;
+    $scope.changeLink = function (status) {
+      $scope.activateLink = status;
   }
 
   let socket = io()
