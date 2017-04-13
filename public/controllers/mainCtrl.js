@@ -65,6 +65,8 @@ angular.module('app').controller('mainCtrl', function ($scope, qService) {
     $('input[name="daterange"]').daterangepicker();
 });
 
+// *************************** Preferences Select Menus ***************************
+
 
 $('select').each(function () {
 
@@ -115,8 +117,6 @@ $('select').each(function () {
     });
 
 });
-
-
 
 
 })
