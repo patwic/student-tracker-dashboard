@@ -6,19 +6,21 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.waitQ;
   $scope.redAlerts;
 
-  console.log($scope.qTime)
+  $scope.cohortId = 106;
 
-  $scope.mostOverall = () => {
-        qService.getQ()
+    mostRequestingStudents = (startDate, endDate) => {
+      return qService.getQ(startDate, endDate, $scope.cohortId).then(function(res){
+        return qService.getAvgStudentTimes(res.data)
+      
+      })
     }
 
-    $scope.mostAverage = () => {
-
+    highestQCount = () => {
+      
     }
 
-    $scope.mostRequest = () => {
 
-    }
+
   
 
   $scope.showDropdown = function () {
@@ -104,8 +106,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   $('#qTimeDateRange').on('apply.daterangepicker', function(ev, picker){
     let endDate = new Date()
-    console.log(picker.startDate.format('YYYY-MM-DD'))
-    console.log(new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10))
+    picker.startDate.format('YYYY-MM-DD')
+    new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
   })
 
 // *************************** Calendars ***************************
@@ -117,48 +119,56 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 });
 
   $('#mentorHelpDateRange').on('apply.daterangepicker', function(ev, picker){
-    console.log(picker.startDate._d)
-    console.log(picker.endDate._d.setDate(new Date().getDate() + 1))
+    let endDate = new Date()
+    picker.startDate.format('YYYY-MM-DD')
+    new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
   })
 
   // *************************** Calendars ***************************
 
   $(function() {
-    $('#daterange1').daterangepicker({}, function(){
-
-    });
-});
+    $('#daterange1').daterangepicker();
+  })
 
   $('#daterange1').on('apply.daterangepicker', function(ev, picker){
-    console.log(picker.startDate._d)
-    console.log(picker.endDate._d.setDate(new Date().getDate() + 1))
+    let endDate = new Date()
+    let startDate = picker.startDate.format('YYYY-MM-DD')
+    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+    mostRequestingStudents(startDate, endDate).then(function(res){
+
+    })
   })
 
   // *************************** Calendars ***************************
 
   $(function() {
-    $('#daterange2').daterangepicker({}, function(){
-
-    });
-});
+    $('#daterange2').daterangepicker();
+  })
 
   $('#daterange2').on('apply.daterangepicker', function(ev, picker){
-    console.log(picker.startDate._d)
-    console.log(picker.endDate._d.setDate(new Date().getDate() + 1))
+    let endDate = new Date()
+    let startDate = picker.startDate.format('YYYY-MM-DD')
+    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+    mostRequestingStudents(startDate, endDate).then(function(res){
+
+    })
   })
 
   // *************************** Calendars ***************************
 
   $(function() {
-    $('#daterange3').daterangepicker({}, function(){
-
-    });
-});
+    $('#daterange3').daterangepicker();
+  })
 
   $('#daterange3').on('apply.daterangepicker', function(ev, picker){
-    console.log(picker.startDate._d)
-    console.log(picker.endDate._d.setDate(new Date().getDate() + 1))
+    let endDate = new Date()
+    let startDate = picker.startDate.format('YYYY-MM-DD')
+    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+    mostRequestingStudents(startDate, endDate).then(function(res){
+        console.log(res)
+    })
   })
+
 
 // *************************** Preferences Select Menus ***************************
 
