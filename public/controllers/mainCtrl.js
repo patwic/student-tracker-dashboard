@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, qService) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService) {
   $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
   $scope.helpQ;
@@ -15,7 +15,26 @@ angular.module('app').controller('mainCtrl', function ($scope, qService) {
       document.getElementById('dropdown').classList.remove('dropdown-transition')
     }
     $scope.isDropdown = !$scope.isDropdown
-  }
+  }/*
+
+  attendanceService.getDays('2017-03', 106)
+    .then((res) => attendanceService.getDataFromDays(res.data))
+    .then((res) => {
+      let daysData = []
+      for (let day of res) daysData.push(day.data)
+      console.log(attendanceService.getAttendanceFromData(daysData))
+  })*/
+
+  // document.getElementById('home-nav').addClass('active-link')
+  // $scope.activeLinks = function (link) {
+  //   if(link === 'cohort') {
+  //     document.getElementById('cohort-nav').addClass('active-link');
+  //     document.getElementById('home-nav').removeClass('active-link');      
+  //   } else {
+  //     document.getElementById('cohort-nav').removeClass('active-link');
+  //     document.getElementById('home-nav').addClass('active-link'); 
+  //   }
+  // }
 
   let socket = io()
   socket.on('updatedQs', (qArr) => {

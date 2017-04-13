@@ -60,6 +60,12 @@ function getRedAlerts() {
 updateQ()
 getRedAlerts()
 
+app.setAttendance = (obj) => {
+      let absences = obj.absences;
+      let lates = obj.lates;
+      let leftEarly = obj.leftEarly;
+}
+
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, '..', '/public')))
 
@@ -77,7 +83,7 @@ app.setRedAlerts = (rA) => {
       io.emit('updateReds', redAlerts);
 }
 
-
+app.get('/api/attendance', alert.attendanceAlert)
 app.get('/api/prefs/:user_id', dbComms.getPrefs)
 app.post('/api/prefs/:user_id', dbComms.upsertPrefs)
 

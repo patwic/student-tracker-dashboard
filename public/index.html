@@ -20,8 +20,8 @@
     <nav class='main-nav'>
         <div class='main-links'>
             <img ng-src='https://s3.amazonaws.com/devmountain/www/img/logoonly.png'>
-            <h2><a ui-sref='home'>HOME</a></h2>
-            <h2><a ui-sref='cohort'>COHORT</a></h2>
+            <h2 id='home-nav' ng-click='activeLinks(home)'><a ui-sref='home'>HOME</a></h2>
+            <h2 id='cohort-nav' ng-click='activeLinks(cohort)'><a ui-sref='cohort'>COHORT</a></h2>
         </div>
         <div class='main-user'>
             <h2>{{user}}</h2>
@@ -98,6 +98,8 @@
     <script src='./app.config.js'></script>
     <script src='./controllers/mainCtrl.js'></script>
     <script src='./services/qService.js'></script>
+    <script src='./services/attendanceService.js'></script>
+    <script src='./services/alertService.js'></script>
     <script src="./directives/barChart.js"></script>
     <script src="./directives/lineChart.js"></script>
     <script src="./directives/pieChart.js"></script>
