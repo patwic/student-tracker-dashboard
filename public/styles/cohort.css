@@ -389,11 +389,15 @@
     text-align: start;
 }
 
+.cohort-projectScoresSelector {
+    width: 330px;
+}
+
 
 .cohort-projectScoresKeyValues {
-    width: 200px;
+    width: 180px;    
     display: flex;
-    align-items: center;
+
 }
 
 .cohort-projectScoresKeyValues div {
