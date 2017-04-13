@@ -31,9 +31,10 @@ angular.module('app')
               right: 40,
               bottom: 20,
               left: 40
-            },
-            width = 400 - margin.left - margin.right,
-            height = 200 - margin.top - margin.bottom;
+            }
+          
+          var width = document.getElementById('helpQDiv').offsetWidth - margin.right - margin.left;
+          var height = document.getElementById('helpQDiv').offsetHeight - margin.top - margin.bottom - 50;
 
 
           var bisectDate = d3.bisector(function (d) {
@@ -47,7 +48,7 @@ angular.module('app')
             .range([height, 0]);
 
           var xAxis = d3.axisBottom(x)
-            .ticks(d3.timeMinute.every(30))
+            .ticks(d3.timeMinute.every(60))
             .tickFormat(d3.timeFormat("%I:%M"));
 
           var yAxis = d3.axisLeft(y)
@@ -141,20 +142,6 @@ angular.module('app')
             .style("fill", "url(#areaGradient)")
             .attr("d", areaFunction(data));
 
-          svg.selectAll(".lineDots")
-            .data(data, function (d) {
-              return d.date;
-            })
-            .enter().append("circle")
-            .attr("class", "lineDots")
-            .attr("r", 3)
-            .attr("cx", function (d) {
-              return x(d.date);
-            })
-            .attr("cy", function (d) {
-              return y(d.number);
-            })
-
           var focus = svg.append("g")
             .attr("class", "focus")
             .style("display", "none");
@@ -180,6 +167,7 @@ angular.module('app')
             .attr("dy", -31)
             .attr("offset", "100%")
             .attr('fill', '#21AAE1')
+            .style('font-size', '11px')
 
           focus.append("line")
             .attr("class", "x-hover-line hover-line")
