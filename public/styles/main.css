@@ -111,7 +111,7 @@
 
 .login-sidenavContent {
     height: 100%;
-    width: 0;
+    width: 0px;
     position: fixed;
     z-index: 10;
     top: 0;
@@ -316,7 +316,7 @@
     width:0;
     height:0;
     border:5px solid transparent;
-    border-color:grey transparent transparent transparent;
+    /*border-color:grey transparent transparent transparent;*/
     position:absolute;
     top:9px;
     right:6px;

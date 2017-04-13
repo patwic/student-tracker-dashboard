@@ -2,7 +2,6 @@
     height: 270vh;
     width: 100%;
     padding-top: 80px;
-    /*background: linear-gradient(-45deg, #282828, #1a1a1a);*/
     background: #1a1a1a;
 }
 
@@ -19,6 +18,7 @@
     height: 30px;
     margin-left: 15px;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .cohort-sidenavContent {
@@ -52,6 +52,10 @@
 .cohort-sidenavClassList h4 {
     font-size: 20px;
     padding: 10px 25px;
+}
+
+#cohort-selectedCohort {
+    cursor: pointer;
 }
 
 .cohort-sidenavFilterBox {
@@ -281,11 +285,17 @@
     background: #25aae1;
 }
 
-.cohort-mentorCircleKey:nth-child(2) {
+.cohort-mentorCircleKey1 {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
     background: #297faa;
 }
 
-.cohort-mentorCircleKey:nth-child(3) {
+.cohort-mentorCircleKey2 {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
     background: #1c648c;
 }
 
