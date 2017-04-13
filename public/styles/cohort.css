@@ -130,6 +130,10 @@
     width: 217px;
     height: calc(100% - 10px);
     float: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .cohort-sidenavStudentContentSelectButtonBox {
@@ -149,6 +153,18 @@
     text-align: center;
     font-size: 18px;
     cursor: pointer;
+}
+
+.cohort-applyButton {
+   margin-bottom: 20px;
+    width: calc(100% - 40px);
+    background: #444;
+    padding: 8px 20px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    
+
 }
 
 .cohort-topGraphBox {
