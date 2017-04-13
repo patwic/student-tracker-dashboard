@@ -158,12 +158,45 @@ angular.module('app').service('qService', function ($http, config) {
             }
         }
         for (let j = 0; j < students.length; j++) {
-            students[j].average = (students[j].sum / (students[j].count * 60000)).toFixed(2)
+            students[j].average = parseFloat((students[j].sum / (students[j].count * 60000)).toFixed(2))
         }
-        // return students
-        console.log(students)
+        this.getHighest(students.slice(), 'sum')
+        this.getHighest(students.slice(), 'count')
+        this.getHighest(students.slice(), 'average')
     }
 
-
-
+    this.getHighest = (students, metric) => {
+        console.log(metric)
+        students.sort((a, b) => {
+            return b[metric] - a[metric]
+        })
+        let first = students.shift()
+        let second = students.shift()
+        let third = students.shift()
+        let total = 0
+        let totalCount = 0
+        if (metric == 'average') {
+            total = students.reduce((total, student) => {
+                return total + student.sum
+            }, 0)
+            totalCount = students.reduce((total, student) => {
+                return total + student.count
+            }, 0)
+        }
+        else {
+            total = students.reduce((total, student) => {
+                return total + student[metric]
+            }, 0)
+        }
+        if (totalCount != 0) total = parseFloat((total/(totalCount * 60000)).toFixed(2))
+        let sum = first[metric]+ second[metric]+ third[metric]+ total
+        let firstPercent = parseFloat((first[metric]/sum).toFixed(2))
+        let secondPercent = parseFloat((second[metric]/sum).toFixed(2))
+        let thirdPercent = parseFloat((third[metric]/sum).toFixed(2))
+        let totalPercent = parseFloat((1 - (firstPercent + secondPercent + thirdPercent)).toFixed(2))
+        console.log({name: first.name, percent: firstPercent},
+                    {name: second.name, percent: secondPercent},
+                    {name: third.name, percent: thirdPercent},
+                    {name: 'Other', percent: totalPercent})
+    }
 })
