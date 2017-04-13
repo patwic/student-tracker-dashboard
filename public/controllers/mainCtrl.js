@@ -74,4 +74,16 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.getElementById("cohort-sidenavStudent").style.width = "0";
     document.getElementById("cohort-sidenav").style.width = "0";
   }
+
+
+  //-------------attendance calendar-----------------//
+
+  $('#attendanceCalendar').datepicker({
+        inline: true,
+        firstDay: 1,
+        showOtherMonths: true,
+        dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    });
+
+
 })
