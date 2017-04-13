@@ -161,7 +161,6 @@ angular.module('app').service('qService', function ($http, config) {
             students[j].average = (students[j].sum / (students[j].count * 60000)).toFixed(2)
         }
         return students
-        // console.log(students)
     }
 
 
