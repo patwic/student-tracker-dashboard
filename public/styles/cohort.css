@@ -385,18 +385,9 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    text-align: start;
 }
 
-.cohort-projectScoresSelector {
-    display: flex;
-}
-
-.cohort-projectScoresGraphBox img {
-    width: 20px;
-    height: 20px;
-    margin-left: 20px;
-    padding-bottom: 3px;
-}
 
 .cohort-projectScoresKeyValues {
     width: 200px;
@@ -606,7 +597,7 @@
 }
 
 /**********************************
-*       Select Menu Styling       *
+*       Top Select Menu Styling    *
 ***********************************/
 
 
@@ -615,18 +606,18 @@
     padding-right:10px;
 }
 
-.cohort-qTimeGraphsHeader .select {
+.cohort-dropdown .select {
     cursor:pointer;
     display:inline-block;
     position:relative;
-    /*color:#25aae1;*/
     color: white;
     letter-spacing: 2px;
     
 }
-.cohort-qTimeGraphsHeader .styledSelect {
+.cohort-dropdown .styledSelect {
     position:absolute;
     width: 300px;
+    height: 30px;
     top:0;
     right:0;
     bottom:0;
@@ -636,23 +627,23 @@
     font-size: 16px;
     font-weight: 300;
 }
-.cohort-qTimeGraphsHeader .styledSelect:after {
+.cohort-dropdown .styledSelect:after {
     content:"";
     width:0;
-    height:0;
-    border:5px solid transparent;
+    /*height:0;*/
+    /*border:5px solid transparent;*/
     border-color:grey transparent transparent transparent;
     position:absolute;
     top:9px;
     right:6px;
   
 }
-.cohort-qTimeGraphsHeader.styledSelect:active, .styledSelect.active {
+.cohort-dropdown.styledSelect:active, .styledSelect.active {
     background-color:#333;
     /*color: #25aae1;*/
     color: white;
 }
-.cohort-qTimeGraphsHeader .options {
+.cohort-dropdown .options {
     display:none;
     position:absolute;
     width: 300px;
@@ -661,7 +652,7 @@
     left:0;
     z-index:1;
     margin:0 0;
-    padding:10px 15px;
+    padding:6px 15px;
     list-style:none;
     /*border:1px solid #ccc;*/
     color: white;
@@ -670,11 +661,13 @@
     -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
     box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
 }
-.cohort-qTimeGraphsHeader .options li {
+.cohort-dropdown .options li {
     margin:0 0;
-    padding:5px 10px;
+    font-size: 14px;
+    margin-left: -9px;
+
 }
-.cohort-qTimeGraphsHeader .options li:hover {
+.cohort-dropdown .options li:hover {
     background-color:#25aae1;
     color: white;
 }
