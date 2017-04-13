@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, $location) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location) {
 
   $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
@@ -35,9 +35,9 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     })
   }
 
-  highestQCount = () => {
-
-  }
+    sheetsService.getSheet().then((res) => {
+      sheetsService.getProgress(res)
+    })
 
 
   $scope.showDropdown = function () {

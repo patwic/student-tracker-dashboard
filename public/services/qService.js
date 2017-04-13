@@ -100,7 +100,7 @@ angular.module('app').service('qService', function ($http, config) {
                             max = new Date().getTime()
                         }
                         mentors[j].count++
-                        mentors[j].sum += (max - min)
+                        mentors[j].sum += max - min
                         isNewMentor = false;
                     }
                 }
@@ -138,7 +138,7 @@ angular.module('app').service('qService', function ($http, config) {
                             max = new Date().getTime()
                         }
                         students[j].count++
-                        students[j].sum += (max - min)
+                        students[j].sum += max - min
                         isNewStudent = false;
                     }
                 }
@@ -158,11 +158,56 @@ angular.module('app').service('qService', function ($http, config) {
             }
         }
         for (let j = 0; j < students.length; j++) {
-            students[j].average = (students[j].sum / (students[j].count * 60000)).toFixed(2)
+            if (students[j].name == 'David Barrett') console.log(students[j])
+            students[j].average = parseFloat((students[j].sum / (students[j].count * 60000)).toFixed(2))
         }
+        this.getHighest(students.slice(), ["David Barrett"], 'sum')
         return students
     }
 
-
-
+    this.getHighest = (students, targetStudents, metric) => {
+        console.log(metric)
+        let targetStudentMetrics = students.filter((s) => {
+            return targetStudents.indexOf(s.name) != -1
+        })
+        students = students.filter((s) => {
+            return targetStudents.indexOf(s.name) == -1
+        })
+        targetStudentMetrics.sort((a, b) => {
+            return b[metric] - a[metric]
+        })
+        let first = targetStudentMetrics.shift()
+        let base = {sum: 0, count: 0, average: 0}
+        let second = base
+        if (targetStudents.length > 1) second = targetStudentMetrics.shift()
+        let third = base
+        if (targetStudents.length > 2) third = targetStudentMetrics.shift()
+        let total = 0
+        let totalCount = 0
+        if (metric == 'average') {
+            total = students.reduce((total, student) => {
+                return total + student.sum
+            }, 0)
+            totalCount = students.reduce((total, student) => {
+                return total + student.count
+            }, 0)
+        }
+        else {
+            total = students.reduce((total, student) => {
+                return total + student[metric]
+            }, 0)
+        }
+        if (totalCount != 0) total = parseFloat((total/(totalCount * 60000)).toFixed(2))
+        let sum = first[metric]+ second[metric]+ third[metric]+ total
+        let firstPercent = parseFloat((first[metric]/sum).toFixed(2))
+        let secondPercent = parseFloat((second[metric]/sum).toFixed(2))
+        let thirdPercent = parseFloat((third[metric]/sum).toFixed(2))
+        let totalPercent = parseFloat((1 - (firstPercent + secondPercent + thirdPercent)).toFixed(2))
+        let topStudents = []
+        topStudents.push({name: first.name, metric: first[metric], percent: firstPercent})
+        if (targetStudents.length > 1) topStudents.push({name: second.name, metric: first[metric], percent: secondPercent})
+        if (targetStudents.length > 2) topStudents.push({name: third.name, metric: first[metric], percent: thirdPercent})
+        topStudents.push({name: 'Other', metric: total, percent: totalPercent})        
+        console.log('topStudents:', topStudents)
+    }
 })
