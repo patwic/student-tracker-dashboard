@@ -1,4 +1,5 @@
-angular.module('app').controller('mainCtrl', function ($scope, qService, $location) {
+
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, $location) {
   $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
   $scope.helpQ;
@@ -15,7 +16,15 @@ angular.module('app').controller('mainCtrl', function ($scope, qService, $locati
       document.getElementById('dropdown').classList.remove('dropdown-transition')
     }
     $scope.isDropdown = !$scope.isDropdown
-  }
+  }/*
+
+  attendanceService.getDays('2017-03', 106)
+    .then((res) => attendanceService.getDataFromDays(res.data))
+    .then((res) => {
+      let daysData = []
+      for (let day of res) daysData.push(day.data)
+      console.log(attendanceService.getAttendanceFromData(daysData))
+  })*/
 
   if($location.path() === '/') $scope.activateLink = true;
   else $scope.activateLink = false;
