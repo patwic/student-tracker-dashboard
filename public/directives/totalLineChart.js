@@ -1,20 +1,15 @@
 angular.module('app')
-  .directive('lineChart', function () {
+  .directive('totalLineChart', function () {
     return {
       restrict: 'AE',
-      templateUrl: './directives/lineChart.html',
+      template: "<div id='totalLineChart'></div>",
       scope: {
-        originalData: '='
+        totalTimeData: '='
       },
       controller: function ($scope) {
 
-        $scope.originalData
+        $scope.totalTimeData
         getDataForLineChart()
-        // $scope.$watch('originalData', () => {
-        //   console.log('hey')
-        //   $scope.originalData
-        // })
-        // getDataForLineChart()
 
         function makeDataObject(arr) {
           let allDataArr = [];
@@ -27,12 +22,9 @@ angular.module('app')
           return allDataArr;
         }
 
-
-
         function getDataForLineChart() {
 
-
-          var data = makeDataObject($scope.originalData);
+          var data = makeDataObject($scope.totalTimeData);
 
           var margin = {
               top: 20,
@@ -40,7 +32,7 @@ angular.module('app')
               bottom: 20,
               left: 40
             },
-            width = 560 - margin.left - margin.right,
+            width = 400 - margin.left - margin.right,
             height = 200 - margin.top - margin.bottom;
 
 
@@ -78,7 +70,7 @@ angular.module('app')
               return y(d.number);
             });
 
-          var svg = d3.select("#lineChart").append("svg")
+          var svg = d3.select("#totalLineChart").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
@@ -117,7 +109,7 @@ angular.module('app')
           let day = new Date().toISOString().substring(0, 10),
             endTime = new Date(`${day}T23:10:00.000Z`).getTime()
 
-          x.domain([new Date($scope.originalData[0][0]), new Date(endTime)]);
+          x.domain([new Date($scope.totalTimeData[0][0]), new Date(endTime)]);
 
           let maxDomain = 20;
           if ((d3.max(data, function (d) {
@@ -199,7 +191,7 @@ angular.module('app')
             .attr("x1", width)
             .attr("x2", width);
 
-          let overlayWidth = (width * (($scope.originalData.length - 1) / 100)) - 1
+          let overlayWidth = (width * (($scope.totalTimeData.length - 1) / 100)) - 1
 
           svg.append("rect")
             .attr("class", "overlay")
