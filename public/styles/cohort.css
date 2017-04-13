@@ -1,5 +1,5 @@
 .cohort-background {
-    height: 267vh;
+    height: 270vh;
     width: 100%;
     padding-top: 80px;
     /*background: linear-gradient(-45deg, #282828, #1a1a1a);*/
@@ -32,6 +32,7 @@
     overflow-x: hidden;
     padding-top: 80px;
     transition: 0.5s;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
 }
 
 .cohort-sidenavContent a {
@@ -71,24 +72,10 @@
     border: none;
     width: 100%;
     height: 25px;
-    color: #25aae1;
+    color: #999999;
     outline: none;
-    font-size: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 20px;
-}
-
-.cohort-selectStyle h4 {
-    padding-left: 10px;
-    font-size: 12px;
-}
-
-.cohort-selectStyle img {
-    width: 25px;
-    height: 25px;
-    padding-right: 10px;
+     font-size: 10px;
 }
 
 .cohort-sidenavFilterBox h2 {
@@ -197,11 +184,6 @@
     padding-left: 25px;
 }
 
-.cohort-qTimeGraphsHeader img {
-    width: 20px;
-    height: 20px;
-    margin-left: 15px;
-}
 
 .cohort-qTimeGraphSelector {
     display: flex;
@@ -214,16 +196,16 @@
     align-items: center;
     width: 200px;
     height: 35px;
-    background: linear-gradient(-45deg, #1a1a1a, #333);
+    background: url("../assets/dropdown-calendar-15.svg");
+    background-size: cover;
     margin-right: 15px;
+    border: none;
+    outline: none;
+    color: #999999;
+    font-size: 12px;
+    padding-left: 10px;
 }
 
-.cohort-graphDateSelector img {
-    width: 20px;
-    height: 20px;
-    padding-top: 3px;
-    margin-left: 35px;
-}
 
 .cohort-mentorHelpGraph {
     width: 100%;
@@ -489,3 +471,196 @@
     padding-left: 7vh;
 
 }
+
+/**********************************
+*        Calendar Styling        *
+***********************************/
+
+.daterangepicker.dropdown-menu {
+    background: #282828;
+    color: white;
+    width: 500px;
+    border-radius: 0;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+    margin-top: -43px;
+    z-index: 1;
+}
+
+.daterangepicker.opensright:after {
+    display: none;
+}
+
+.daterangepicker.opensright:before {
+    display: none;
+}
+
+
+
+.month {
+    color: white;
+}
+
+.daterangepicker .calendar-table {
+    background: transparent;
+    border: none;
+}
+
+
+.daterangepicker .input-mini.active {
+    border-radius: 0;
+    border: none;
+}
+
+.daterangepicker .input-mini {
+    border-radius: 0;
+    border: none;
+    color: #999999;
+    background: #1a1a1a;
+}
+
+
+.daterangepicker td.off, .daterangepicker td.off.in-range, .daterangepicker td.off.start-date, .daterangepicker td.off.end-date {
+    background: transparent;
+}
+
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background: #25aae1;
+}
+
+.daterangepicker td.available:hover, .daterangepicker td.available:hover {
+    background: rgba(37, 170, 225, .4);
+}
+
+.daterangepicker td.in-range {
+    background: #25aae1;
+}
+
+.inport-inport-mini.form-control {
+    background: linear-gradient(-45deg, #1a1a1a, #333);
+    border: none;
+    border-radius: 0;
+    color: #a0a0a0;
+    /*color: white;*/
+}
+
+.btn-success {
+    background: #1a1a1a;
+    border-color: #25aae1;
+    width: 100px;
+    margin-left: 260px;
+}
+
+.btn-default {
+    background: #1a1a1a;
+    color: white;
+    border: 1px solid white;
+    width: 100px;
+    margin-left: 10px;
+}
+
+.btn-default:hover {
+    background: white;
+    border: 1px solid white;
+    color: #25aae1;
+}
+
+.btn-default:active:focus {
+    background: white;
+    border: 1px solid white;
+    outline: none;
+}
+
+.btn-success:hover {
+    background: #25aae1;
+    border-color: #25aae1;
+}
+
+.btn-success:active:focus {
+    background: #25aae1;
+    border: 1px solid #25aae1;
+    outline: none;
+}
+
+/*.btn-success:active {
+    background: #25aae1;
+}*/
+
+.glyphicon-calendar:before {
+    display: none;
+}
+
+/**********************************
+*       Select Menu Styling       *
+***********************************/
+
+
+.c-hidden {
+    visibility:hidden;
+    padding-right:10px;
+}
+
+.cohort-qTimeGraphsHeader .select {
+    cursor:pointer;
+    display:inline-block;
+    position:relative;
+    /*color:#25aae1;*/
+    color: white;
+    letter-spacing: 2px;
+    
+}
+.cohort-qTimeGraphsHeader .styledSelect {
+    position:absolute;
+    width: 300px;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background: transparent;
+    padding:6px 15px;
+    font-size: 16px;
+    font-weight: 300;
+}
+.cohort-qTimeGraphsHeader .styledSelect:after {
+    content:"";
+    width:0;
+    height:0;
+    border:5px solid transparent;
+    border-color:grey transparent transparent transparent;
+    position:absolute;
+    top:9px;
+    right:6px;
+  
+}
+.cohort-qTimeGraphsHeader.styledSelect:active, .styledSelect.active {
+    background-color:#333;
+    /*color: #25aae1;*/
+    color: white;
+}
+.cohort-qTimeGraphsHeader .options {
+    display:none;
+    position:absolute;
+    width: 300px;
+    top:100%;
+    right:0;
+    left:0;
+    z-index:1;
+    margin:0 0;
+    padding:10px 15px;
+    list-style:none;
+    /*border:1px solid #ccc;*/
+    color: white;
+    background-color:#141414;
+    -webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.cohort-qTimeGraphsHeader .options li {
+    margin:0 0;
+    padding:5px 10px;
+}
+.cohort-qTimeGraphsHeader .options li:hover {
+    background-color:#25aae1;
+    color: white;
+}
+
+

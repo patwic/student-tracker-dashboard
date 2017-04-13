@@ -1,10 +1,25 @@
-angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService) {
   $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
   $scope.helpQ;
   $scope.totalQ;
   $scope.waitQ;
   $scope.redAlerts;
+
+  $scope.cohortId = 106;
+
+    mostRequestingStudents = (startDate, endDate) => {
+      return qService.getQ(startDate, endDate, $scope.cohortId).then(function(res){
+        return qService.getAvgStudentTimes(res.data)
+      
+      })
+    }
+
+    highestQCount = () => {
+      
+    }
+
+
 
   
 
@@ -72,10 +87,141 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.getElementById("cohort-sidenavStudent").style.width = "420px";
     document.getElementById("cohort-selectedCohort").style.backgroundColor = "#1a1a1a";
     document.getElementById("cohort-selectedCohort").style.color = '#25aae1';
+    document.getElementById("cohort-sidenav").style.boxShadow = "none";
   }
 
   $scope.closeCohortStudentNav = function () {
     document.getElementById("cohort-sidenavStudent").style.width = "0";
     document.getElementById("cohort-sidenav").style.width = "0";
   }
+
+
+// *************************** Calendars ***************************
+
+   $(function() {
+    $('#qTimeDateRange').daterangepicker({}, function(){
+
+    });
+});
+
+  $('#qTimeDateRange').on('apply.daterangepicker', function(ev, picker){
+    let endDate = new Date()
+    picker.startDate.format('YYYY-MM-DD')
+    new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+  })
+
+// *************************** Calendars ***************************
+
+   $(function() {
+    $('#mentorHelpDateRange').daterangepicker({}, function(){
+
+    });
+});
+
+  $('#mentorHelpDateRange').on('apply.daterangepicker', function(ev, picker){
+    let endDate = new Date()
+    picker.startDate.format('YYYY-MM-DD')
+    new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+  })
+
+  // *************************** Calendars ***************************
+
+  $(function() {
+    $('#daterange1').daterangepicker();
+  })
+
+  $('#daterange1').on('apply.daterangepicker', function(ev, picker){
+    let endDate = new Date()
+    let startDate = picker.startDate.format('YYYY-MM-DD')
+    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+    mostRequestingStudents(startDate, endDate).then(function(res){
+
+    })
+  })
+
+  // *************************** Calendars ***************************
+
+  $(function() {
+    $('#daterange2').daterangepicker();
+  })
+
+  $('#daterange2').on('apply.daterangepicker', function(ev, picker){
+    let endDate = new Date()
+    let startDate = picker.startDate.format('YYYY-MM-DD')
+    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+    mostRequestingStudents(startDate, endDate).then(function(res){
+
+    })
+  })
+
+  // *************************** Calendars ***************************
+
+  $(function() {
+    $('#daterange3').daterangepicker();
+  })
+
+  $('#daterange3').on('apply.daterangepicker', function(ev, picker){
+    let endDate = new Date()
+    let startDate = picker.startDate.format('YYYY-MM-DD')
+    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+    mostRequestingStudents(startDate, endDate).then(function(res){
+        console.log(res)
+    })
+  })
+
+
+// *************************** Preferences Select Menus ***************************
+
+
+$('select').each(function () {
+
+    var $this = $(this),
+        numberOfOptions = $(this).children('option').length;
+
+    $this.addClass('s-hidden');
+
+    $this.wrap('<div class="select"></div>');
+
+    $this.after('<div class="styledSelect"></div>');
+
+    var $styledSelect = $this.next('div.styledSelect');
+
+    $styledSelect.text($this.children('option').eq(0).text());
+
+    var $list = $('<ul />', {
+        'class': 'options'
+    }).insertAfter($styledSelect);
+
+    for (var i = 0; i < numberOfOptions; i++) {
+        $('<li />', {
+            text: $this.children('option').eq(i).text(),
+            rel: $this.children('option').eq(i).val()
+        }).appendTo($list);
+    }
+
+    var $listItems = $list.children('li');
+
+    $styledSelect.click(function (e) {
+        e.stopPropagation();
+        $('div.styledSelect.active').each(function () {
+            $(this).removeClass('active').next('ul.options').hide();
+        });
+        $(this).toggleClass('active').next('ul.options').toggle();
+    });
+
+    $listItems.click(function (e) {
+        e.stopPropagation();
+        $styledSelect.text($(this).text()).removeClass('active');
+        $this.val($(this).attr('rel'));
+        $list.hide();
+    });
+
+    $(document).click(function () {
+        $styledSelect.removeClass('active');
+        $list.hide();
+    });
+
+});
+
+
 })
