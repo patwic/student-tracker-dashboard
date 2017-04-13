@@ -19,6 +19,11 @@
   fill: #21AAE1;
 }
 
+#totalLineChart {
+  width: 400px;
+  margin: 0;
+}
+
 
 /*hover on line chart*/
 

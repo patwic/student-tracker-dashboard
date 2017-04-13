@@ -37,7 +37,7 @@
     height: 50px;
 }
 
-.main-links h2 {
+.not-active-link {
     height: 100%;
     display: flex;
     align-items: center;
@@ -55,6 +55,10 @@
 }
 
 .active-link {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 7px;
     border-bottom: 7px solid #25aae1;
 }
 

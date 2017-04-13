@@ -14,14 +14,17 @@
     <link href="./styles/login.css" rel="stylesheet">
     <link href="./styles/cohort.css" rel="stylesheet">
     <link rel="stylesheet" href="./styles/charts.css">
+    <link rel="stylesheet" href="./styles/attendanceCalendar.css">
+    <link rel="stylesheet" href="./styles/jquery-ui.css">
+    <link rel="stylesheet" href="./styles/jquery-ui.structure.css">
 </head>
 
 <body ng-controller='mainCtrl'>
     <nav class='main-nav'>
         <div class='main-links'>
             <img ng-src='https://s3.amazonaws.com/devmountain/www/img/logoonly.png'>
-            <h2 id='home-nav' ng-click='activeLinks(home)'><a ui-sref='home'>HOME</a></h2>
-            <h2 id='cohort-nav' ng-click='activeLinks(cohort)'><a ui-sref='cohort'>COHORT</a></h2>
+            <h2 ng-class='activateLink ? "active-link" : "not-active-link"'><a ng-click='changeLink(true)' ui-sref='home'>HOME</a></h2>
+            <h2  ng-class='activateLink ? "not-active-link" : "active-link"'><a ng-click='changeLink(false)' ui-sref='cohort'>COHORT</a></h2>
         </div>
         <div class='main-user'>
             <h2>{{user}}</h2>
@@ -102,9 +105,12 @@
     <script src='./services/attendanceService.js'></script>
     <script src='./services/alertService.js'></script>
     <script src="./directives/barChart.js"></script>
-    <script src="./directives/lineChart.js"></script>
+    <script src="./directives/totalLineChart.js"></script>
+    <script src="./directives/waitLineChart.js"></script>
+    <script src="./directives/helpLineChart.js"></script>
     <script src="./directives/pieChart.js"></script>
     <script type="text/javascript" src="./libraries/moment.js"></script>
+    <script src="./libraries/jquery-ui.js"></script>
 
    
 </body>

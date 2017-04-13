@@ -1,4 +1,5 @@
-angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, $location) {
+
   $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
   $scope.helpQ;
@@ -25,9 +26,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     }
 
 
-
-  
-
   $scope.showDropdown = function () {
     if (!$scope.isDropdown) {
       document.getElementById('dropdown').classList.add('dropdown-transition')
@@ -35,26 +33,22 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById('dropdown').classList.remove('dropdown-transition')
     }
     $scope.isDropdown = !$scope.isDropdown
-  }/*
+  }
+  /*
 
-  attendanceService.getDays('2017-03', 106)
-    .then((res) => attendanceService.getDataFromDays(res.data))
-    .then((res) => {
-      let daysData = []
-      for (let day of res) daysData.push(day.data)
-      console.log(attendanceService.getAttendanceFromData(daysData))
-  })*/
+    attendanceService.getDays('2017-03', 106)
+      .then((res) => attendanceService.getDataFromDays(res.data))
+      .then((res) => {
+        let daysData = []
+        for (let day of res) daysData.push(day.data)
+        console.log(attendanceService.getAttendanceFromData(daysData))
+    })*/
 
-  // document.getElementById('home-nav').addClass('active-link')
-  // $scope.activeLinks = function (link) {
-  //   if(link === 'cohort') {
-  //     document.getElementById('cohort-nav').addClass('active-link');
-  //     document.getElementById('home-nav').removeClass('active-link');      
-  //   } else {
-  //     document.getElementById('cohort-nav').removeClass('active-link');
-  //     document.getElementById('home-nav').addClass('active-link'); 
-  //   }
-  // }
+  if ($location.path() === '/') $scope.activateLink = true;
+  else $scope.activateLink = false;
+  $scope.changeLink = function (status) {
+    $scope.activateLink = status;
+  }
 
   let socket = io()
   socket.on('updatedQs', (qArr) => {
@@ -66,7 +60,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   socket.on('updateReds', (rA) => {
     $scope.redAlerts = rA;
-    for(let i = 0; i < $scope.redAlerts.length; i++) {
+    for (let i = 0; i < $scope.redAlerts.length; i++) {
       $scope.redAlerts[i].waitTime = Math.floor($scope.redAlerts[i].waitTime / 60000);
     }
     $scope.$apply();
@@ -101,6 +95,30 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   }
 
 
+  //-------------attendance calendar-----------------//
+
+  var absences = ['2017/04/02', '2017/04/04']
+
+  $('#attendanceCalendar').datepicker({
+    inline: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    dateFormat: 'yy-mm-dd',
+    dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    beforeShowDay: highlightDays
+
+  });
+
+  function highlightDays(date) {
+    for (var i = 0; i < absences.length; i++) {
+      if (new Date(absences[i]).toString() == date.toString()) {
+        return [true, 'highlight'];
+      }
+    }
+    return [true, ''];
+  }
+
+  
 // *************************** Calendars ***************************
 
 
