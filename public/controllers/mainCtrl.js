@@ -1,4 +1,5 @@
-angular.module('app').controller('mainCtrl', function ($scope, alertService, attendanceService, qService, sheetsService) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, $location) {
+
   $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
   $scope.helpQ;
@@ -6,7 +7,24 @@ angular.module('app').controller('mainCtrl', function ($scope, alertService, att
   $scope.waitQ;
   $scope.redAlerts;
 
-  
+  $scope.cohortId = 106;
+  $scope.autoStartDate = new Date();
+  $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
+
+ 
+
+
+    mostRequestingStudents = (startDate, endDate) => {
+      return qService.getQ(startDate, endDate, $scope.cohortId).then(function(res){
+        return qService.getAvgStudentTimes(res.data)
+      
+      })
+    }
+
+    highestQCount = () => {
+      
+    }
+
 
   $scope.showDropdown = function () {
     if (!$scope.isDropdown) {
@@ -16,21 +34,22 @@ angular.module('app').controller('mainCtrl', function ($scope, alertService, att
     }
     $scope.isDropdown = !$scope.isDropdown
   }
+  
+  /*
 
-  qService.getQ('2017-04-10', '2017-04-14', 106).then((res) => {
-    qService.getAvgStudentTimes(res.data)
-  })
+    attendanceService.getDays('2017-03', 106)
+      .then((res) => attendanceService.getDataFromDays(res.data))
+      .then((res) => {
+        let daysData = []
+        for (let day of res) daysData.push(day.data)
+        console.log(attendanceService.getAttendanceFromData(daysData))
+    })*/
 
-  // document.getElementById('home-nav').addClass('active-link')
-  // $scope.activeLinks = function (link) {
-  //   if(link === 'cohort') {
-  //     document.getElementById('cohort-nav').addClass('active-link');
-  //     document.getElementById('home-nav').removeClass('active-link');      
-  //   } else {
-  //     document.getElementById('cohort-nav').removeClass('active-link');
-  //     document.getElementById('home-nav').addClass('active-link'); 
-  //   }
-  // }
+  if ($location.path() === '/') $scope.activateLink = true;
+  else $scope.activateLink = false;
+  $scope.changeLink = function (status) {
+    $scope.activateLink = status;
+  }
 
   let socket = io()
   socket.on('updatedQs', (qArr) => {
@@ -42,7 +61,7 @@ angular.module('app').controller('mainCtrl', function ($scope, alertService, att
 
   socket.on('updateReds', (rA) => {
     $scope.redAlerts = rA;
-    for(let i = 0; i < $scope.redAlerts.length; i++) {
+    for (let i = 0; i < $scope.redAlerts.length; i++) {
       $scope.redAlerts[i].waitTime = Math.floor($scope.redAlerts[i].waitTime / 60000);
     }
     $scope.$apply();
@@ -68,10 +87,163 @@ angular.module('app').controller('mainCtrl', function ($scope, alertService, att
     document.getElementById("cohort-sidenavStudent").style.width = "420px";
     document.getElementById("cohort-selectedCohort").style.backgroundColor = "#1a1a1a";
     document.getElementById("cohort-selectedCohort").style.color = '#25aae1';
+    document.getElementById("cohort-sidenav").style.boxShadow = "none";
   }
 
   $scope.closeCohortStudentNav = function () {
     document.getElementById("cohort-sidenavStudent").style.width = "0";
     document.getElementById("cohort-sidenav").style.width = "0";
   }
+
+
+  //-------------attendance calendar-----------------//
+
+  var absences = ['2017/04/02', '2017/04/04']
+
+  $('#attendanceCalendar').datepicker({
+    inline: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    dateFormat: 'yy-mm-dd',
+    dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    beforeShowDay: highlightDays
+
+  });
+
+  function highlightDays(date) {
+    for (var i = 0; i < absences.length; i++) {
+      if (new Date(absences[i]).toString() == date.toString()) {
+        return [true, 'highlight'];
+      }
+    }
+    return [true, ''];
+  }
+
+  
+// *************************** Calendars ***************************
+
+
+
+   $(function() {
+    $('#qTimeDateRange').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate })
+  })
+
+  $('#qTimeDateRange').on('apply.daterangepicker', function(ev, picker){
+    let endDate = new Date()
+    picker.startDate.format('YYYY-MM-DD')
+    new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+  })
+
+// *************************** Calendars ***************************
+
+   $(function() {
+    $('#mentorHelpDateRange').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate })
+   })
+
+  $('#mentorHelpDateRange').on('apply.daterangepicker', function(ev, picker){
+    let endDate = new Date()
+    picker.startDate.format('YYYY-MM-DD')
+    new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+  })
+
+  // *************************** Calendars ***************************
+
+  $(function() {
+    $('#daterange1').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
+  })
+
+  $('#daterange1').on('apply.daterangepicker', function(ev, picker){
+    let endDate = new Date()
+    let startDate = picker.startDate.format('YYYY-MM-DD')
+    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+    mostRequestingStudents(startDate, endDate).then(function(res){
+
+    })
+  })
+
+  // *************************** Calendars ***************************
+
+  $(function() {
+    $('#daterange2').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
+  })
+
+  $('#daterange2').on('apply.daterangepicker', function(ev, picker){
+    let endDate = new Date()
+    let startDate = picker.startDate.format('YYYY-MM-DD')
+    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+    mostRequestingStudents(startDate, endDate).then(function(res){
+
+    })
+  })
+
+  // *************************** Calendars ***************************
+
+  $(function() {
+    $('#daterange3').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
+  })
+
+  $('#daterange3').on('apply.daterangepicker', function(ev, picker){
+    let endDate = new Date()
+    let startDate = picker.startDate.format('YYYY-MM-DD')
+    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+    mostRequestingStudents(startDate, endDate).then(function(res){
+        console.log(res)
+    })
+  })
+
+
+// *************************** Preferences Select Menus ***************************
+
+
+$('select').each(function () {
+
+    var $this = $(this),
+        numberOfOptions = $(this).children('option').length;
+
+    $this.addClass('s-hidden');
+
+    $this.wrap('<div class="select"></div>');
+
+    $this.after('<div class="styledSelect"></div>');
+
+    var $styledSelect = $this.next('div.styledSelect');
+
+    $styledSelect.text($this.children('option').eq(0).text());
+
+    var $list = $('<ul />', {
+        'class': 'options'
+    }).insertAfter($styledSelect);
+
+    for (var i = 0; i < numberOfOptions; i++) {
+        $('<li />', {
+            text: $this.children('option').eq(i).text(),
+            rel: $this.children('option').eq(i).val()
+        }).appendTo($list);
+    }
+
+    var $listItems = $list.children('li');
+
+    $styledSelect.click(function (e) {
+        e.stopPropagation();
+        $('div.styledSelect.active').each(function () {
+            $(this).removeClass('active').next('ul.options').hide();
+        });
+        $(this).toggleClass('active').next('ul.options').toggle();
+    });
+
+    $listItems.click(function (e) {
+        e.stopPropagation();
+        $styledSelect.text($(this).text()).removeClass('active');
+        $this.val($(this).attr('rel'));
+        $list.hide();
+    });
+
+    $(document).click(function () {
+        $styledSelect.removeClass('active');
+        $list.hide();
+    });
+
+});
+
+
 })

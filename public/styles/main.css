@@ -37,7 +37,7 @@
     height: 50px;
 }
 
-.main-links h2 {
+.not-active-link {
     height: 100%;
     display: flex;
     align-items: center;
@@ -55,6 +55,10 @@
 }
 
 .active-link {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 7px;
     border-bottom: 7px solid #25aae1;
 }
 
@@ -195,8 +199,10 @@
     height: 25px;
     color: #25aae1;
     outline: none;
+}
+
+.home-selectStyle option {
     font-size: 14px;
-    /*padding-left: 15px;*/
 }
 
 .home-selectStyle input {
@@ -280,4 +286,71 @@
 
 .login-sidenavBottomContent::-webkit-scrollbar-thumb {
     background: #25aae1;
+}
+
+/**********************************
+*       Select Menu Styling       *
+***********************************/
+
+
+.s-hidden {
+    visibility:hidden;
+    padding-right:10px;
+}
+
+.select {
+    cursor:pointer;
+    display:inline-block;
+    position:relative;
+    color:#25aae1;
+    letter-spacing: 2px;
+    
+}
+.styledSelect {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background-color:#1a1a1a;
+    padding:6px 15px;
+}
+.styledSelect:after {
+    content:"";
+    width:0;
+    height:0;
+    border:5px solid transparent;
+    border-color:grey transparent transparent transparent;
+    position:absolute;
+    top:9px;
+    right:6px;
+}
+
+.styledSelect:active, .styledSelect.active {
+    background-color:#444;
+}
+
+.options {
+    display:none;
+    position:absolute;
+    top:100%;
+    right:0;
+    left:0;
+    z-index:1;
+    margin:0 0;
+    padding:6px 5px;
+    list-style:none;
+    color: white;
+    background-color:#141414;
+    -webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.options li {
+    margin:0 0;
+    padding:5px 10px;
+}
+.options li:hover {
+    background-color:#25aae1;
+    color:white;
 }

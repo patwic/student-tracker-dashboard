@@ -9,17 +9,21 @@
             </div>
             <div class='cohort-sidenavFilterBox'>
                 <h3>LOCATION</h3>
-                <div class='cohort-selectStyle'>
-                    <h4>Provo, UT</h4>
-                    <img src='./assets/arrow_svg-arrow.svg'>
-                </div>
+                <select id="selectbox" class='cohort-selectStyle'>
+                            <option value="provo">Provo, UT</option>
+                            <option value="slc">SLC, UT</option>
+                            <option value="dallas">Dallas, TX</option>
+                </select>
                 <h3>PROGRAM</h3>
-                <div class='cohort-selectStyle'>
-                    <h4>Web Development</h4>
-                    <img src='./assets/arrow_svg-arrow.svg'>
-                </div>
-                <h2>SHOW ALL</h2>
+                <select id="selectbox" class='cohort-selectStyle'>
+                            <option value="web">Web Development</option>
+                            <option value="ios">iOS Development</option>
+                            <option value="us">UX Design</option>
+                </select>
+                
+                <h2 class='cohort-showAll'>SHOW ALL</h2>
                 <h2>RESET FILTERS</h2>
+                
             </div>
         </div>
     </div>
@@ -28,30 +32,35 @@
             <a href="javascript:void(0)" class="cohort-closebtn" ng-click="closeCohortStudentNav()" ng-click "closeCohortNav()"><img src='./assets/x-15.svg'></a>
         </div>
         <div class='cohort-sidenavStudentContentBox'>
-            <div class='cohort-sidenavStudentContentSelectButtonBox'>
+            <div class='cohort-sidenavStudentContentSelectButtonBox'> 
                 <h2>SELECT ALL</h2>
                 <h2>DESELECT ALL</h2>
+                
+            </div>
+            <div class='cohort-cohortStudentList'>
+
+            </div>
+            <div class='cohort-applyButton'>
+                <h2 ng-click="closeCohortStudentNav()" ng-click "closeCohortNav()">APPLY</h2>
             </div>
         </div>
     </div>
     <div class='cohort-topGraphBox'>
         <div class='cohort-qTimeMentorGraphs'>
             <div class='cohort-qTimeGraphs'>
-                <div class='cohort-qTimeGraphsHeader'>
-                    <div class='cohort-qTimeGraphSelector'>
-                        <h3>AVERAGE Q HELP TIME</h3>
-                        <img src='./assets/arrow_svg-arrow.svg'>
-                    </div>
-                    <input id='dom-id' type="text" name="daterange" value="01/01/2015 - 01/31/2015" />
+                <div class='cohort-qTimeGraphsHeader cohort-dropdown'>
+                     <select id="selectbox" class='cohort-qTimeGraphSelector'>
+                            <option value="web">AVERAGE Q HELP TIME</option>
+                            <option value="ios">AVERAGE Q WAIT TIME</option>
+                            <option value="us">TOTAL Q TIME </option>
+                    </select>
+                    <input class='cohort-graphDateSelector' type="text" id='qTimeDateRange' />
                 </div>
             </div>
             <div class='cohort-mentorHelpGraph'>
                 <div class='cohort-mentorGraphNav'>
                     <h3>AVERAGE MENTOR <br>HELP TIME <br>PER REQUEST</h3>
-                    <div class='cohort-graphDateSelector'>
-                        <h4>3/2/17 - 3/9/19</h4>
-                        <img src='./assets/arrow_svg-arrow.svg'>
-                    </div>
+                    <input class='cohort-graphDateSelector' type="text" id="mentorHelpDateRange" />
                 </div>
                 <div class='cohort-mentorCircleGraph'></div>
                 <div class='cohort-mentorGraphKey'>
@@ -73,7 +82,7 @@
         <div class='cohort-attendenceCalender'>
             <div class='cohort-attendenceCalenderBox'>
                 <div class='cohort-attendenceCalenderGraph'>
-                    <!--graph chart-->
+                    <div id='attendanceCalendar'></div>
                 </div>
                 <div class='cohort-attencenceGraphKey'>
                     <div>1 Absence</div>
@@ -99,11 +108,12 @@
         </div>
         <div class='cohort-projectScoresGraphBox'>
             <h3>PROJECT SCORES</h3>
-            <div class='cohort-projectScoresKey'>
-                <div class='cohort-projectScoresSelector'>
-                    <h4>PERSONAL PROJECT</h4>
-                    <img src='./assets/arrow_svg-arrow.svg'>
-                </div>
+            <div class='cohort-projectScoresKey cohort-dropdown'>
+                    <select id="selectbox" class='cohort-projectScoresSelector'>
+                            <option value="web">PERSONAL PROJECT</option>
+                            <option value="ios">GROUP PROJECT</option>
+                            <option value="us">NO SERVER PROJECT </option>
+                    </select>
                 <div class='cohort-projectScoresKeyValues'>
                     <div></div>
                     <h4>PASSED</h4>
@@ -117,10 +127,7 @@
         <div class='cohort-pieTotalGraph'>
             <div class='cohort-pieGraphsNav'>
                 <h3>MOST REQUESTED <br> TOTAL Q TIME</h3>
-                    <div class='cohort-graphDateSelector'>
-                        <h4>3/2/17 - 3/9/19</h4>
-                        <img src='./assets/arrow_svg-arrow.svg'>
-                    </div>
+                    <input class='cohort-graphDateSelector' type="text" id="daterange1" />
             </div>
             <div class='cohort-pieGraphsBox'></div>
             <div class='cohort-pieGraphsKeyBox'>
@@ -141,10 +148,7 @@
         <div class='cohort-pieHelpGraph'>
             <div class='cohort-pieGraphsNav'>
                 <h3>MOST REQUESTED <br> Q HELP TIME</h3>
-                    <div class='cohort-graphDateSelector'>
-                        <h4>3/2/17 - 3/9/19</h4>
-                        <img src='./assets/arrow_svg-arrow.svg'>
-                    </div>              
+                    <input class='cohort-graphDateSelector' type="text" id="daterange2" />            
             </div>
             <div class='cohort-pieGraphsBox'></div>
             <div class='cohort-pieGraphsKeyBox'>
@@ -165,10 +169,7 @@
         <div class='cohort-pieStudentRequestGraph'>
             <div class='cohort-pieGraphsNav'>
                  <h3>MOST REQUESTS <br> PER STUDENT</h3>
-                    <div class='cohort-graphDateSelector'>
-                        <h4>3/2/17 - 3/9/19</h4>
-                        <img src='./assets/arrow_svg-arrow.svg'>
-                    </div>
+                    <input class='cohort-graphDateSelector' type="text" id="daterange3" />
             </div>
             <div class='cohort-pieGraphsBox'></div>
             <div class='cohort-pieGraphsKeyBox'>
@@ -188,3 +189,4 @@
         </div>
     </div>
 </section>
+   

@@ -5,6 +5,8 @@
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <link href="./reset.css" rel="stylesheet">
     <link href="./styles/main.css" rel="stylesheet">
     <link href="./styles/fonts.css" rel="stylesheet">
@@ -12,14 +14,17 @@
     <link href="./styles/login.css" rel="stylesheet">
     <link href="./styles/cohort.css" rel="stylesheet">
     <link rel="stylesheet" href="./styles/charts.css">
+    <link rel="stylesheet" href="./styles/attendanceCalendar.css">
+    <link rel="stylesheet" href="./styles/jquery-ui.css">
+    <link rel="stylesheet" href="./styles/jquery-ui.structure.css">
 </head>
 
 <body ng-controller='mainCtrl'>
     <nav class='main-nav'>
         <div class='main-links'>
             <img ng-src='https://s3.amazonaws.com/devmountain/www/img/logoonly.png'>
-            <h2 id='home-nav' ng-click='activeLinks(home)'><a ui-sref='home'>HOME</a></h2>
-            <h2 id='cohort-nav' ng-click='activeLinks(cohort)'><a ui-sref='cohort'>COHORT</a></h2>
+            <h2 ng-class='activateLink ? "active-link" : "not-active-link"'><a ng-click='changeLink(true)' ui-sref='home'>HOME</a></h2>
+            <h2  ng-class='activateLink ? "not-active-link" : "active-link"'><a ng-click='changeLink(false)' ui-sref='cohort'>COHORT</a></h2>
         </div>
         <div class='main-user'>
             <h2>{{user}}</h2>
@@ -30,9 +35,6 @@
         <p ng-click='showDropdown(); openNav()'>Preferences</p>
         <p ng-click='showDropdown()'>Logout</p>
     </div>
-    <!--***************************************-->
-    <!--*              Fix me                 *-->
-    <!--***************************************-->
     <div id="login-sidenav" class="login-sidenavContent">
         <div class="login-sidenavTitle">
             <a href="javascript:void(0)" class="closebtn" ng-click="closeNav()"><img src='./assets/x-15.svg'></a>
@@ -42,25 +44,19 @@
             <div class='login-sidenavTopContent'>
                 <div class='login-sidenavChoices'>
                     <h3>LOCATION</h3>
-                    <div class='home-selectStyle'>
-                        <!--<div>
+                         <select id="selectbox" class='home-selectStyle'>
                             <option value="provo">Provo, UT</option>
                             <option value="slc">SLC, UT</option>
                             <option value="dallas">Dallas, TX</option>
-                        </div>-->
-                        <img ng-src='./assets/arrow_svg-arrow.svg'>
-                    </div>
+                        </select>
                 </div>
                 <div class='login-sidenavChoices'>
                     <h3>PROGRAM</h3>
-                    <div class='home-selectStyle'>
-                        <!--<div>
-                            <option value="provo">Web Development</option>
-                            <option value="slc">UX Design</option>
-                            <option value="dallas">iOS Development</option>
-                        </div>-->
-                        <img ng-src='./assets/arrow_svg-arrow.svg'>
-                    </div>
+                    <select id="selectbox" class='home-selectStyle'>
+                            <option value="web">Web Development</option>
+                            <option value="ios">iOS Development</option>
+                            <option value="us">UX Design</option>
+                        </select>
                 </div>
                 <div class='login-sidenavChoices'>
                     <h3>COHORT</h3>
@@ -88,25 +84,35 @@
 
     <div id="login-sidenavOverlay" class="login-sidenavOverlay"></div>
     <ui-view></ui-view>
+
     
     <script src='./libraries/angular.js'></script>
     <script src='./libraries/angular-ui-router.js'></script>
     <script src='./libraries/jquery-3.2.0.js'></script>
     <script src='./libraries/d3.js'></script>
+
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src='./app.js'></script>
     <script src='./app.config.js'></script>
     <script src='./controllers/mainCtrl.js'></script>
+    <script src='./controllers/cohortCtrl.js'></script>
     <script src='./services/qService.js'></script>
     <script src='./services/attendanceService.js'></script>
     <script src='./services/sheetsService.js'></script>
     <script src='./services/alertService.js'></script>
     <script src="./directives/barChart.js"></script>
-    <script src="./directives/lineChart.js"></script>
+    <script src="./directives/totalLineChart.js"></script>
+    <script src="./directives/waitLineChart.js"></script>
+    <script src="./directives/helpLineChart.js"></script>
     <script src="./directives/pieChart.js"></script>
     <script type="text/javascript" src="./libraries/moment.js"></script>
+    <script src="./libraries/jquery-ui.js"></script>
 
-    
+   
 </body>
 </html>

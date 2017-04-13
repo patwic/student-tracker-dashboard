@@ -38,19 +38,20 @@
             <div class='home-totalGraphBar'>
                 <h2>TOTAL Q TIME</h2>
             </div>
-            Q LENGTH: {{totalQ.length}}
-            <line-chart original-data='totalQ'></line-chart>
+            <total-line-chart ng-if='totalQ.length > 0' total-time-data='totalQ'></total-line-chart>
         </div>
         <div class='home-bottomGraphs'>
             <div class='home-waitQTime'>
                 <div class='home-bottomGraphsBar'>
                     <h3>Q WAIT TIME</h3>
                 </div>
+                <wait-line-chart ng-if='waitQ.length > 0' wait-time-data='waitQ'></wait-line-chart>
             </div>
             <div class='home-helpQTime'>
                 <div class='home-bottomGraphsBar'>
                     <h3>Q HELP TIME</h3>
                 </div>
+                <help-line-chart ng-if='helpQ.length > 0' help-time-data='helpQ'></help-line-chart>
             </div>
         </div>
     </div>
