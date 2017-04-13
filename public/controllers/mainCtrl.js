@@ -67,7 +67,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   })
 
   $scope.openNav = function () {
-    document.getElementById("login-sidenav").style.width = "500px";
+    document.getElementById("login-sidenav").style.width = "1000px";
+    document.getElementById("login-sidenav").style.marginRight = "-500px";
     document.getElementById("login-sidenavOverlay").style.display = "block";
   }
 
@@ -77,7 +78,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   }
 
   $scope.openCohortNav = function () {
-    document.getElementById("cohort-sidenav").style.width = "200px";
+    document.getElementById("cohort-sidenav").style.width = "400px";
+    document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
     document.getElementById("cohort-selectedCohort").style.backgroundColor = "#444";
     document.getElementById("cohort-selectedCohort").style.color = '#999999';
   }

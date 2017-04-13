@@ -120,7 +120,6 @@
     z-index: 10;
     top: 0;
     right: 0;
-    /*left: -500;*/
     background: linear-gradient(-45deg, #1a1a1a, #282828);
     transition: 0.5s;
     box-shadow: -10px 0 25px 2px rgba(0, 0, 0, .4);
@@ -147,7 +146,8 @@
 }
 
 .login-sidenavTitle {
-    width: 100%;
+    width: 500px;
+    float: left;
     height: 120px;
     background: linear-gradient(-45deg, #444, #333);
     text-align: center;
@@ -158,7 +158,7 @@
 }
 
 .login-sidenavAllContent {
-    width: 100%;
+    width: 500px;
     height: calc(100vh - 120px);
 }
 
