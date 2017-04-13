@@ -31,9 +31,10 @@ angular.module('app')
               right: 40,
               bottom: 20,
               left: 40
-            },
-            width = 400 - margin.left - margin.right,
-            height = 200 - margin.top - margin.bottom;
+            };
+
+          var width = document.getElementById('totalQDiv').offsetWidth - margin.right - margin.left;
+          var height = document.getElementById('totalQDiv').offsetHeight - margin.top - margin.bottom - 80;
 
 
           var bisectDate = d3.bisector(function (d) {
@@ -147,12 +148,12 @@ angular.module('app')
             })
             .enter().append("circle")
             .attr("class", "lineDots")
-            .attr("r", 3)
+            .attr("r", 2)
             .attr("cx", function (d) {
-              return x(d.date);
+              if(d.number > 0.25)return x(d.date);
             })
             .attr("cy", function (d) {
-              return y(d.number);
+              if(d.number > 0.25) return y(d.number);
             })
 
           var focus = svg.append("g")
@@ -160,7 +161,7 @@ angular.module('app')
             .style("display", "none");
 
           focus.append("circle")
-            .attr("r", 3);
+            .attr("r", 2);
 
           focus.append("rect")
             .attr("width", 55)
@@ -180,6 +181,7 @@ angular.module('app')
             .attr("dy", -31)
             .attr("offset", "100%")
             .attr('fill', '#21AAE1')
+            .style('font-size', '11px')
 
           focus.append("line")
             .attr("class", "x-hover-line hover-line")
