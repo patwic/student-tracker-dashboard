@@ -66,6 +66,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.$apply();
   })
 
+  //--------------Preference SideNav Functions----------------//
+
   $scope.openNav = function () {
     document.getElementById("login-sidenav").style.width = "1000px";
     document.getElementById("login-sidenav").style.marginRight = "-500px";
@@ -77,6 +79,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.getElementById("login-sidenav").style.transition = "1.5s";
     document.getElementById("login-sidenavOverlay").style.display = "none";
   }
+
+  //--------------Cohort SideNav Functions----------------//
 
   $scope.openCohortNav = function () {
     document.getElementById("cohort-sidenav").style.width = "400px";
@@ -101,7 +105,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   }
 
 
-  //-------------attendance calendar-----------------//
+  //--------------Attendance Calendar----------------//
 
   var absences = ['2017/04/02', '2017/04/04']
 
@@ -125,8 +129,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   }
 
   
-// *************************** Calendars ***************************
-
+  //--------------q Time Calendar----------------//
 
 
    $(function() {
@@ -139,7 +142,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
   })
 
-// *************************** Calendars ***************************
+//--------------Mentor Help Calendar----------------//
 
    $(function() {
     $('#mentorHelpDateRange').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate })
@@ -151,7 +154,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
   })
 
-  // *************************** Calendars ***************************
+ //--------------Average q Time Calendar----------------//
 
   $(function() {
     $('#daterange1').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
@@ -166,7 +169,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     })
   })
 
-  // *************************** Calendars ***************************
+ //--------------Most Requested Q Time Calendar----------------//
 
   $(function() {
     $('#daterange2').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
@@ -181,7 +184,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     })
   })
 
-  // *************************** Calendars ***************************
+  //--------------Most Reqesting Student Calendar----------------//
 
   $(function() {
     $('#daterange3').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
@@ -197,8 +200,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   })
 
 
-// *************************** Select Menus ***************************
-
+//--------------All Select Menus----------------//
 
 $('select').each(function () {
 
