@@ -5,8 +5,8 @@
     <div id="cohort-sidenav" class="cohort-sidenavContent">
         <div class='cohort-sidenavAllContent'>
             <div class='cohort-sidenavClassList'>
-                <div ng-repeat="cohortPreference in cohortPreferences">
-                <h4 id='cohort-selectedCohort' ng-click='openCohortStudentNav()'>{{cohortPreference.nickname}}</h4>
+                <div>
+                <h4 id='cohort-selectedCohort' ng-repeat="cohortPreference in cohortPreferences" ng-click='openCohortStudentNav()'>{{cohortPreference.nickname}}</h4>
                 </div>
             </div>
             <div class='cohort-sidenavFilterBox'>

@@ -60,12 +60,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.getElementById("login-sidenav").style.width = "1000px";
     document.getElementById("login-sidenav").style.marginRight = "-500px";
     document.getElementById("login-sidenavOverlay").style.display = "block";
+    document.body.style.overflow = 'hidden';
   }
 
   $scope.closeNav = function () {
     document.getElementById("login-sidenav").style.width = "0";
     document.getElementById("login-sidenav").style.transition = "1.5s";
     document.getElementById("login-sidenavOverlay").style.display = "none";
+    document.body.style.overflow = 'visible';
   }
 
   //--------------Cohort SideNav Functions----------------//
