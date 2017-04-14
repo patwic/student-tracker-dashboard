@@ -84,6 +84,7 @@ app.setRedAlerts = (rA) => {
       io.emit('updateReds', redAlerts);
 }
 
+app.get('/api/studentprogress', alert.progressAlert)
 app.get('/api/studentexcessq', alert.studentQAlert)
 app.get('/api/attendancerecorded', alert.noAttendanceAlert)
 app.get('/api/attendance', alert.attendanceAlert)

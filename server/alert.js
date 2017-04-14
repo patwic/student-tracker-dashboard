@@ -94,7 +94,27 @@ let self = module.exports = {
     }
   },
 
-  progressAlert: () => {},
+  progressAlert: (req, res, err) => {
+    request.get('https://sheetsu.com/apis/v1.0/103e1fc72ac5').then(response => {
+      sheet = JSON.parse(response)
+      console.log(sheet)
+      let students = []
+      for (let student of sheet) {
+        let count = 0
+        if (student['HTML'] = 'Pass') count++
+        if (student['JS Basic v1'] == 'Pass'
+            || student['JS Basic v2'] == 'Pass') count++
+        if (student['JS Intermediate p1v1'] == 'Pass'
+            || student['JS Intermediate p1v2'] == 'Pass') count++
+        if (student['Angular'] == 'Pass') count++
+        if (student['Node'] == 'Pass') count++
+        if (student['SQL Week Passed'] != '') count++
+        console.log(count)
+        if (count < 3) students.push(student.Student)
+      }
+      res.send(students)
+    })
+  },
 
   noAttendanceAlert: (req, res, err) => {
     let today = new Date().toISOString().substring(0, 10)
