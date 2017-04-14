@@ -94,9 +94,119 @@ let self = module.exports = {
     }
   },
 
-  progressAlert: () => {},
+  progressAlert: (req, res, err) => {
+    request.get('https://sheetsu.com/apis/v1.0/103e1fc72ac5').then(response => {
+      sheet = JSON.parse(response)
+      console.log(sheet)
+      let students = []
+      for (let student of sheet) {
+        let count = 0
+        if (student['HTML'] = 'Pass') count++
+        if (student['JS Basic v1'] == 'Pass'
+            || student['JS Basic v2'] == 'Pass') count++
+        if (student['JS Intermediate p1v1'] == 'Pass'
+            || student['JS Intermediate p1v2'] == 'Pass') count++
+        if (student['Angular'] == 'Pass') count++
+        if (student['Node'] == 'Pass') count++
+        if (student['SQL Week Passed'] != '') count++
+        console.log(count)
+        if (count < 3) students.push(student.Student)
+      }
+      res.send(students)
+    })
+  },
 
-  noAttendanceAlert: () => {},
+  noAttendanceAlert: (req, res, err) => {
+    let today = new Date().toISOString().substring(0, 10)
+    let yesterday = new Date()
+    yesterday.setDate(new Date().getDate() - 1)
+    yesterday = yesterday.toISOString().substring(0, 10)
+    request.get(
+      `${config.dev_mtn_api}attendancedays/?admin_token=${config.admin_token}&after=${yesterday}&before=${today}`,
+      (err, response, body) => {
+        if (err) console.log(err)
+        else {
+          let daysBody = JSON.parse(body)
+          let cohorts = []
+          daysBody.forEach((d) => {
+            if (cohorts.indexOf(d.cohortId) == -1) cohorts.push(d.cohortId)
+          })
+          self.checkActiveCohorts(cohorts, res)
+        }
+      })
+  },
 
-  studentQAlert: () => {}
+  checkActiveCohorts: (cohorts, res) => {
+    request.get(
+      `${config.dev_mtn_api}aliases?admin_token=${config.admin_token}`,
+      (err, response, body) => {
+        cohortBody = JSON.parse(body)
+        let noAttendCohorts = cohortBody.filter((c) => {
+          return c.active
+            && cohorts.indexOf(c.cohortId) == -1
+        })
+        console.log(cohorts)
+        res.send(noAttendCohorts)
+      })
+  },
+
+  studentQAlert: (req, res, err) => {
+    let today = new Date().toISOString().substring(0, 10)
+    let yesterday = new Date()
+    yesterday.setDate(new Date().getDate() - 1)
+    yesterday = yesterday.toISOString().substring(0, 10)
+    console.log(`${config.dev_mtn_api}historical/questions/?admin_token=${config.admin_token}&after=${yesterday}&before=${today}`)
+    request.get(
+      `${config.dev_mtn_api}historical/questions/?admin_token=${config.admin_token}&after=${yesterday}&before=${today}`,
+      (err, response, body) => {
+        self.getStudentTimes(JSON.parse(body), res)
+      })
+  },
+
+  getStudentTimes: (qbody, res) => {
+    let students = []
+    for (let i = 0; i < qbody.length; i++) {
+        if (qbody[i].timeMentorBegins) {
+            let isNewStudent = true;
+            for (let j = 0; j < students.length; j++) {
+                if (students[j].name === qbody[i].name) {
+                    let max = new Date(qbody[i].timeQuestionAnswered).getTime()
+                    let min = new Date(qbody[i].timeMentorBegins).getTime()
+                    if (!max) {
+                        max = new Date().getTime()
+                    }
+                    students[j].count++
+                    students[j].sum += max - min
+                    isNewStudent = false;
+                }
+            }
+            if (isNewStudent) {
+                let max = new Date(qbody[i].timeQuestionAnswered).getTime()
+                let min = new Date(qbody[i].timeMentorBegins).getTime()
+                if (!max) {
+                    max = new Date().getTime()
+                }
+                let student = {
+                    name: qbody[i].name,
+                    count: 1,
+                    sum: max - min,
+                }
+                students.push(student)
+            }
+        }
+    }
+    for (let j = 0; j < students.length; j++) {
+        if (students[j].name == 'David Barrett') console.log(students[j])
+        students[j].average = parseFloat((students[j].sum / (students[j].count * 60000)).toFixed(2))
+    }
+    let total = 0
+    students.forEach((s) => {
+      total += s.sum
+    })
+    console.log(total)
+    res.send(students.filter((s) => {
+      s.percent = `${((s.sum * 100)/total).toFixed(2)}%`
+      return s.sum/total >= 0.1
+    }))
+  }
 }

@@ -38,14 +38,15 @@ io.on('connection', (socket) => {
 setTimeout(function dailyTasks() {
       let currentDate = new Date().toISOString().substring(0, 10)
       if (date != currentDate) {
+            console.log('New day')
             date = currentDate
             helpQ = []
             totalQ = []
             waitQ = []
       }
       else console.log('Same day')
-      setTimeout(dailyTasks, 28800000)
-}, 28800000)
+      setTimeout(dailyTasks, 3600000)
+}, 3600000)
 
 function updateQ() {
       setTimeout(q.getCurrentQ, 5000)
@@ -83,6 +84,9 @@ app.setRedAlerts = (rA) => {
       io.emit('updateReds', redAlerts);
 }
 
+app.get('/api/studentprogress', alert.progressAlert)
+app.get('/api/studentexcessq', alert.studentQAlert)
+app.get('/api/attendancerecorded', alert.noAttendanceAlert)
 app.get('/api/attendance', alert.attendanceAlert)
 app.get('/api/prefs/:user_id', dbComms.getPrefs)
 app.post('/api/prefs/:user_id', dbComms.upsertPrefs)
