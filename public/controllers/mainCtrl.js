@@ -11,20 +11,17 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.autoStartDate = new Date();
   $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
 
-    mostRequestingStudents = (startDate, endDate) => {
-      return qService.getQ(startDate, endDate, $scope.cohortId).then(function(res){
-        return qService.getAvgStudentTimes(res.data)
-      
-      })
-    }
+
+  mostRequestingStudents = (startDate, endDate) => {
+    return qService.getQ(startDate, endDate, $scope.cohortId).then(function (res) {
+      return qService.getAvgStudentTimes(res.data)
+    })
+  }
 
     sheetsService.getSheet().then((res) => {
       sheetsService.getProgress(res)
     })
 
-    highestQCount = () => {
-      
-    }
 
   $scope.showDropdown = function () {
     if (!$scope.isDropdown) {
@@ -34,16 +31,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     }
     $scope.isDropdown = !$scope.isDropdown
   }
-  
-  /*
-
-    attendanceService.getDays('2017-03', 106)
-      .then((res) => attendanceService.getDataFromDays(res.data))
-      .then((res) => {
-        let daysData = []
-        for (let day of res) daysData.push(day.data)
-        console.log(attendanceService.getAttendanceFromData(daysData))
-    })*/
 
   if ($location.path() === '/') $scope.activateLink = true;
   else $scope.activateLink = false;
@@ -119,28 +106,19 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     return [true, ''];
   }
 
-  
-// *************************** Calendars ***************************
+
+  // *************************** Calendars ***************************
 
 
 
-   $(function() {
-    $('#qTimeDateRange').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate })
+  $(function () {
+    $('#qTimeDateRange').daterangepicker({
+      startDate: $scope.autoStartDate,
+      endDate: $scope.autoEndDate
+    })
   })
 
-  $('#qTimeDateRange').on('apply.daterangepicker', function(ev, picker){
-    let endDate = new Date()
-    picker.startDate.format('YYYY-MM-DD')
-    new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-  })
-
-// *************************** Calendars ***************************
-
-   $(function() {
-    $('#mentorHelpDateRange').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate })
-   })
-
-  $('#mentorHelpDateRange').on('apply.daterangepicker', function(ev, picker){
+  $('#qTimeDateRange').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
     picker.startDate.format('YYYY-MM-DD')
     new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
@@ -148,57 +126,81 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   // *************************** Calendars ***************************
 
-  $(function() {
-    $('#daterange1').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
+  $(function () {
+    $('#mentorHelpDateRange').daterangepicker({
+      startDate: $scope.autoStartDate,
+      endDate: $scope.autoEndDate
+    })
   })
 
-  $('#daterange1').on('apply.daterangepicker', function(ev, picker){
+  $('#mentorHelpDateRange').on('apply.daterangepicker', function (ev, picker) {
+    let endDate = new Date()
+    picker.startDate.format('YYYY-MM-DD')
+    new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+  })
+
+  // *************************** Calendars ***************************
+
+  $(function () {
+    $('#daterange1').daterangepicker({
+      startDate: $scope.autoStartDate,
+      endDate: $scope.autoEndDate
+    });
+  })
+
+  $('#daterange1').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
     let startDate = picker.startDate.format('YYYY-MM-DD')
     endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostRequestingStudents(startDate, endDate).then(function(res){
+    mostRequestingStudents(startDate, endDate).then(function (res) {
 
     })
   })
 
   // *************************** Calendars ***************************
 
-  $(function() {
-    $('#daterange2').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
+  $(function () {
+    $('#daterange2').daterangepicker({
+      startDate: $scope.autoStartDate,
+      endDate: $scope.autoEndDate
+    });
   })
 
-  $('#daterange2').on('apply.daterangepicker', function(ev, picker){
+  $('#daterange2').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
     let startDate = picker.startDate.format('YYYY-MM-DD')
     endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostRequestingStudents(startDate, endDate).then(function(res){
+    mostRequestingStudents(startDate, endDate).then(function (res) {
 
     })
   })
 
   // *************************** Calendars ***************************
 
-  $(function() {
-    $('#daterange3').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
+  $(function () {
+    $('#daterange3').daterangepicker({
+      startDate: $scope.autoStartDate,
+      endDate: $scope.autoEndDate
+    });
   })
 
-  $('#daterange3').on('apply.daterangepicker', function(ev, picker){
+  $('#daterange3').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
     let startDate = picker.startDate.format('YYYY-MM-DD')
     endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostRequestingStudents(startDate, endDate).then(function(res){
-        console.log(res)
+    mostRequestingStudents(startDate, endDate).then(function (res) {
+      console.log(res)
     })
   })
 
 
-// *************************** Preferences Select Menus ***************************
+  // *************************** Preferences Select Menus ***************************
 
 
-$('select').each(function () {
+  $('select').each(function () {
 
     var $this = $(this),
-        numberOfOptions = $(this).children('option').length;
+      numberOfOptions = $(this).children('option').length;
 
     $this.addClass('s-hidden');
 
@@ -211,39 +213,39 @@ $('select').each(function () {
     $styledSelect.text($this.children('option').eq(0).text());
 
     var $list = $('<ul />', {
-        'class': 'options'
+      'class': 'options'
     }).insertAfter($styledSelect);
 
     for (var i = 0; i < numberOfOptions; i++) {
-        $('<li />', {
-            text: $this.children('option').eq(i).text(),
-            rel: $this.children('option').eq(i).val()
-        }).appendTo($list);
+      $('<li />', {
+        text: $this.children('option').eq(i).text(),
+        rel: $this.children('option').eq(i).val()
+      }).appendTo($list);
     }
 
     var $listItems = $list.children('li');
 
     $styledSelect.click(function (e) {
-        e.stopPropagation();
-        $('div.styledSelect.active').each(function () {
-            $(this).removeClass('active').next('ul.options').hide();
-        });
-        $(this).toggleClass('active').next('ul.options').toggle();
+      e.stopPropagation();
+      $('div.styledSelect.active').each(function () {
+        $(this).removeClass('active').next('ul.options').hide();
+      });
+      $(this).toggleClass('active').next('ul.options').toggle();
     });
 
     $listItems.click(function (e) {
-        e.stopPropagation();
-        $styledSelect.text($(this).text()).removeClass('active');
-        $this.val($(this).attr('rel'));
-        $list.hide();
+      e.stopPropagation();
+      $styledSelect.text($(this).text()).removeClass('active');
+      $this.val($(this).attr('rel'));
+      $list.hide();
     });
 
     $(document).click(function () {
-        $styledSelect.removeClass('active');
-        $list.hide();
+      $styledSelect.removeClass('active');
+      $list.hide();
     });
 
-});
+  });
 
 
 })
