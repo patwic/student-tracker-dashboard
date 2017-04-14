@@ -16,11 +16,9 @@ angular.module('app').service('sheetsService', function ($http, config) {
                 groupScore: student.Group
             })
         }
-        console.log(students)
     }
 
     this.getProgress = (sheet) => {
-        console.log(sheet)
         let students = []
         for (let student of sheet) {
             let studProg = {}
@@ -37,6 +35,5 @@ angular.module('app').service('sheetsService', function ($http, config) {
             if (parseInt(student['Group']) >= 100) studProg.group = true
             students.push(studProg)
         }
-        console.log(students)
     }
 })
