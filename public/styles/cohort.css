@@ -271,7 +271,7 @@
 
 .cohort-mentorGraphKeyBoxes {
     display: flex;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
 }
 
 .cohort-mentorCircleKey {
@@ -279,6 +279,7 @@
     height: 20px;
     border-radius: 50%;
     background: #25aae1;
+    padding: 3px 0;
 }
 
 .cohort-mentorCircleKey:nth-child(2) {
@@ -441,37 +442,29 @@
     background: #1a1a1a;
 }
 
-.cohort-pieTotalGraph {
-    width: 30%;
-    height: 78vh;
-    background: #282828;
-    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
-}
-
+.cohort-pieTotalGraph,
+.cohort-pieStudentRequestGraph, 
 .cohort-pieHelpGraph {
     width: 30%;
     height: 78vh;
     background: #282828;
     box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
-}
-
-.cohort-pieStudentRequestGraph {
-    width: 30%;
-    height: 78vh;
-    background: #282828;
-    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .cohort-pieGraphsNav {
     width: 100%;
-    height: 25vh;
+    height: 30vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     text-align: center;
     padding-top: 4vh;
-    padding-bottom: 4vh;
+    padding-bottom: 7vh;
 
 }
 
@@ -489,11 +482,11 @@
 
 .cohort-pieGraphsKeyBox {
     width: 100%;
-    height: 20vh;
+    height: 25vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding-top: 4vh;
+    padding-top: 7vh;
     padding-bottom: 4vh;
     padding-left: 7vh;
 

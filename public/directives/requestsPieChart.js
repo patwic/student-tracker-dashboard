@@ -9,8 +9,10 @@ angular.module('app')
       controller: function ($scope) {
 
         let requestsData = $scope.requestsData.sort((a, b) => {
-          return b - a;
+          return b.metric - a.metric;
         })
+
+        requestsData = [requestsData[0].metric, requestsData[1].metric, requestsData[2].metric, requestsData[3].metric]
 
         var height = document.getElementById('requestsDiv').offsetHeight/3;
         var width = height;
@@ -37,8 +39,27 @@ angular.module('app')
           .enter().append("g")
           .attr("class", "arc");
 
+        var gradient = svg.append("defs")
+          .append("linearGradient")
+          .attr("id", "gradient")
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "100%")
+          .attr("y2", "100%")
+          .attr("spreadMethod", "pad");
+
+        gradient.append("stop")
+          .attr("offset", "0%")
+          .attr("stop-color", "#999")
+          .attr("stop-opacity", 1);
+
+        gradient.append("stop")
+          .attr("offset", "100%")
+          .attr("stop-color", "#111")
+          .attr("stop-opacity", 1);
+
         var color = d3.scaleOrdinal()
-          .range(["#25AAE1", "#297FAA", "#1C648C"]);
+          .range(["#25AAE1", "#297FAA", "#1C648C", 'url(#gradient)']);
 
         g.append("path")
           .attr("d", arc)
