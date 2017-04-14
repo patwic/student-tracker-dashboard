@@ -33,9 +33,9 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   }
 
   if ($location.path() === '/') $scope.activateLink = true;
-  else $scope.activateLink = false;
-  $scope.changeLink = function (status) {
-    $scope.activateLink = status;
+    else $scope.activateLink = false;
+    $scope.changeLink = function (status) {
+      $scope.activateLink = status;
   }
 
   let socket = io()
