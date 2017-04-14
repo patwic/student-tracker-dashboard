@@ -11,23 +11,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.autoStartDate = new Date();
   $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
 
-  let apiEndDate = new Date().toISOString().substring(0, 10),
-    apiStartDate = new Date($scope.autoEndDate).toISOString().substring(0, 10)
-
-    //------------getting mentor pie data-----------------//
-
-  qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
-    let mentors = qService.getAvgMentorTimes(res.data).sort((a, b) => {
-      return b.count - a.count
-    })
-    for(let i = 0; i < 3; i++) {
-      mentors[i].average = Math.floor(mentors[i].average)
-    }
-    $scope.mentors = mentors.slice(0, 3).sort((a, b) => {
-      return b.average - a.average;
-    });
-    $scope.mentorPieData = [mentors[0].average, mentors[1].average, mentors[2].average]
-  })
 
   mostRequestingStudents = (startDate, endDate) => {
     return qService.getQ(startDate, endDate, $scope.cohortId).then(function (res) {

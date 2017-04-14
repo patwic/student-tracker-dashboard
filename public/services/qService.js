@@ -161,7 +161,6 @@ angular.module('app').service('qService', function ($http, config) {
             if (students[j].name == 'David Barrett') console.log(students[j])
             students[j].average = parseFloat((students[j].sum / (students[j].count * 60000)).toFixed(2))
         }
-        this.getHighest(students.slice(), ["David Barrett"], 'sum')
         return students
     }
 
