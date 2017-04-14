@@ -102,7 +102,7 @@
 
 .login-sidenavOverlay {
     position: absolute;
-    z-index: 9;
+    z-index: 1;
     top: 0;
     left: 0;
     bottom: 0;
@@ -111,6 +111,8 @@
     opacity: 0.7;
     transition: 0.3s;
     display: none;
+        height: 270vh;
+
 }
 
 .login-sidenavContent {
@@ -146,7 +148,8 @@
 }
 
 .login-sidenavTitle {
-    width: 100%;
+    width: 500px;
+    float: left;
     height: 120px;
     background: linear-gradient(-45deg, #444, #333);
     text-align: center;
@@ -157,7 +160,7 @@
 }
 
 .login-sidenavAllContent {
-    width: 100%;
+    width: 500px;
     height: calc(100vh - 120px);
 }
 
@@ -319,12 +322,14 @@
     content:"";
     width:0;
     height:0;
-    border:5px solid transparent;
-    border-color:grey transparent transparent transparent;
+    border:5px solid transparent; 
+    border-color:grey transparent transparent transparent; 
     position:absolute;
-    top:9px;
+    top:12px;
     right:6px;
+
 }
+
 
 .styledSelect:active, .styledSelect.active {
     background-color:#444;

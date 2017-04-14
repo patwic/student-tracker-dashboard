@@ -1,8 +1,12 @@
+.selected {
+  background-color : #1a1a1a;  
+  color: #25aae1;
+}
+
 .cohort-background {
     height: 270vh;
     width: 100%;
     padding-top: 80px;
-    /*background: linear-gradient(-45deg, #282828, #1a1a1a);*/
     background: #1a1a1a;
 }
 
@@ -19,6 +23,7 @@
     height: 30px;
     margin-left: 15px;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .cohort-sidenavContent {
@@ -33,6 +38,15 @@
     padding-top: 80px;
     transition: 0.5s;
     box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+
+}
+
+.cohort-sidenavAllContent {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    float: right;
 }
 
 .cohort-sidenavContent a {
@@ -41,12 +55,16 @@
     font-size: 25px;
     color: white;
     display: block;
-    transition: 0.3s
+    transition: 0.3s;
 }
 
 .cohort-sidenavClassList {
-    width: 100%;
-    height: 55vh;
+    width: 200px;
+    height: 50vh;
+    float: right; 
+    overflow-y: scroll;
+    overflow: auto;
+    overflow-x: hidden;
 }
 
 .cohort-sidenavClassList h4 {
@@ -54,15 +72,16 @@
     padding: 10px 25px;
 }
 
+#cohort-selectedCohort {
+    cursor: pointer;
+}
+
+
 .cohort-sidenavFilterBox {
-    width: calc(100% - 20px);
-    height: 33vh;
+    width: calc(200px - 20px);
+    height: 220px;
+    float: right;
     margin-left: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    position: absolute;
-    bottom: 20px;
 }
 
 .cohort-sidenavFilterBox h3 {
@@ -105,7 +124,7 @@
     background-color: #282828;
     overflow-x: hidden;
     padding-top: 60px;
-    transition: 0.5s;
+    transition: .5s;
     box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
 }
 
@@ -115,7 +134,7 @@
     font-size: 25px;
     color: white;
     display: block;
-    transition: 0.3s;
+    transition: 1.5s;
 }
 
 .cohort-sidenavStudentContent .cohort-closebtn {
@@ -145,31 +164,42 @@
 
 .cohort-sidenavStudentContentSelectButtonBox {
     width: 100%;
-    height: 130px;
+    height: 90px;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 40px;
+    margin-bottom: 15px;
 }
 
 .cohort-sidenavStudentContentSelectButtonBox h2 {
     margin-top: 10px;
-    width: calc(100% - 40px);
+    width: calc(100% - 30px);
     background: #444;
-    padding: 8px 20px;
+    padding: 8px 15px;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
 }
 
 .cohort-cohortStudentList {
-    width: 100%;
-    height: 50vh;
+    width: calc(100% - 30px);
+    height: 55vh;
+    margin-left: 15px;
+    overflow-y: scroll;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.cohort-cohortStudentList h5{
+    color: #999999;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .cohort-applyButton {
     width: calc(100% - 40px);
-    margin-bottom: 29px;
+    margin-bottom: 10px;
 }
 
 .cohort-applyButton  h2{
@@ -282,11 +312,17 @@
     padding: 3px 0;
 }
 
-.cohort-mentorCircleKey:nth-child(2) {
+.cohort-mentorCircleKey1 {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
     background: #297faa;
 }
 
-.cohort-mentorCircleKey:nth-child(3) {
+.cohort-mentorCircleKey2 {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
     background: #1c648c;
 }
 
@@ -411,7 +447,7 @@
 
 
 .cohort-projectScoresKeyValues {
-    width: 180px;    
+    width: 194px;    
     display: flex;
 
 }
