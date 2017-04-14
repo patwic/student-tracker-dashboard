@@ -4,7 +4,7 @@ angular.module('app').service('alertService', function ($http, config) {
         return $http.get(config.attendanceUrl, {
             headers: {'Access-Control-Allow-Origin': '*'}
         }).then(function(res){
-            console.log(res)
+            // console.log(res)
         })
     }
     getAttendanceAlerts();

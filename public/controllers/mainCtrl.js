@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, $location) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location) {
 
   $scope.user = 'Jeremy Robertson'
   $scope.isDropdown = false;
@@ -11,19 +11,16 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.autoStartDate = new Date();
   $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
 
- 
 
+  mostRequestingStudents = (startDate, endDate) => {
+    return qService.getQ(startDate, endDate, $scope.cohortId).then(function (res) {
+      return qService.getAvgStudentTimes(res.data)
+    })
+  }
 
-    mostRequestingStudents = (startDate, endDate) => {
-      return qService.getQ(startDate, endDate, $scope.cohortId).then(function(res){
-        return qService.getAvgStudentTimes(res.data)
-      
-      })
-    }
-
-    highestQCount = () => {
-      
-    }
+    sheetsService.getSheet().then((res) => {
+      sheetsService.getProgress(res)
+    })
 
 
   $scope.showDropdown = function () {
@@ -34,15 +31,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     }
     $scope.isDropdown = !$scope.isDropdown
   }
-  /*
-
-    attendanceService.getDays('2017-03', 106)
-      .then((res) => attendanceService.getDataFromDays(res.data))
-      .then((res) => {
-        let daysData = []
-        for (let day of res) daysData.push(day.data)
-        console.log(attendanceService.getAttendanceFromData(daysData))
-    })*/
 
   if ($location.path() === '/') $scope.activateLink = true;
   else $scope.activateLink = false;
@@ -85,8 +73,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.openCohortNav = function () {
     document.getElementById("cohort-sidenav").style.width = "400px";
     document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
-    document.getElementById("cohort-selectedCohort").style.backgroundColor = "#444";
-    document.getElementById("cohort-selectedCohort").style.color = '#999999';
+    // document.getElementById("cohort-selectedCohort").style.backgroundColor = "#444";
+    // document.getElementById("cohort-selectedCohort").style.color = '#999999';
     document.getElementById("login-sidenavOverlay").style.display = "block";
   
   }
@@ -128,15 +116,19 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     return [true, ''];
   }
 
-  
+
   //--------------q Time Calendar----------------//
 
 
-   $(function() {
-    $('#qTimeDateRange').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate })
+
+  $(function () {
+    $('#qTimeDateRange').daterangepicker({
+      startDate: $scope.autoStartDate,
+      endDate: $scope.autoEndDate
+    })
   })
 
-  $('#qTimeDateRange').on('apply.daterangepicker', function(ev, picker){
+  $('#qTimeDateRange').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
     picker.startDate.format('YYYY-MM-DD')
     new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
@@ -144,11 +136,15 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
 //--------------Mentor Help Calendar----------------//
 
-   $(function() {
-    $('#mentorHelpDateRange').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate })
-   })
 
-  $('#mentorHelpDateRange').on('apply.daterangepicker', function(ev, picker){
+  $(function () {
+    $('#mentorHelpDateRange').daterangepicker({
+      startDate: $scope.autoStartDate,
+      endDate: $scope.autoEndDate
+    })
+  })
+
+  $('#mentorHelpDateRange').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
     picker.startDate.format('YYYY-MM-DD')
     new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
@@ -156,56 +152,66 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
  //--------------Average q Time Calendar----------------//
 
-  $(function() {
-    $('#daterange1').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
+  $(function () {
+    $('#daterange1').daterangepicker({
+      startDate: $scope.autoStartDate,
+      endDate: $scope.autoEndDate
+    });
   })
 
-  $('#daterange1').on('apply.daterangepicker', function(ev, picker){
+  $('#daterange1').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
     let startDate = picker.startDate.format('YYYY-MM-DD')
     endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostRequestingStudents(startDate, endDate).then(function(res){
+    mostRequestingStudents(startDate, endDate).then(function (res) {
 
     })
   })
 
  //--------------Most Requested Q Time Calendar----------------//
 
-  $(function() {
-    $('#daterange2').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
+  $(function () {
+    $('#daterange2').daterangepicker({
+      startDate: $scope.autoStartDate,
+      endDate: $scope.autoEndDate
+    });
   })
 
-  $('#daterange2').on('apply.daterangepicker', function(ev, picker){
+  $('#daterange2').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
     let startDate = picker.startDate.format('YYYY-MM-DD')
     endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostRequestingStudents(startDate, endDate).then(function(res){
+    mostRequestingStudents(startDate, endDate).then(function (res) {
 
     })
   })
 
   //--------------Most Reqesting Student Calendar----------------//
 
-  $(function() {
-    $('#daterange3').daterangepicker({ startDate: $scope.autoStartDate, endDate: $scope.autoEndDate });
+  $(function () {
+    $('#daterange3').daterangepicker({
+      startDate: $scope.autoStartDate,
+      endDate: $scope.autoEndDate
+    });
   })
 
-  $('#daterange3').on('apply.daterangepicker', function(ev, picker){
+  $('#daterange3').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
     let startDate = picker.startDate.format('YYYY-MM-DD')
     endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostRequestingStudents(startDate, endDate).then(function(res){
-        console.log(res)
+    mostRequestingStudents(startDate, endDate).then(function (res) {
+      console.log(res)
     })
   })
 
 
 //--------------All Select Menus----------------//
 
-$('select').each(function () {
+
+  $('select').each(function () {
 
     var $this = $(this),
-        numberOfOptions = $(this).children('option').length;
+      numberOfOptions = $(this).children('option').length;
 
     $this.addClass('s-hidden');
 
@@ -218,39 +224,124 @@ $('select').each(function () {
     $styledSelect.text($this.children('option').eq(0).text());
 
     var $list = $('<ul />', {
-        'class': 'options'
+      'class': 'options'
     }).insertAfter($styledSelect);
 
     for (var i = 0; i < numberOfOptions; i++) {
-        $('<li />', {
-            text: $this.children('option').eq(i).text(),
-            rel: $this.children('option').eq(i).val()
-        }).appendTo($list);
+      $('<li />', {
+        text: $this.children('option').eq(i).text(),
+        rel: $this.children('option').eq(i).val()
+      }).appendTo($list);
     }
 
     var $listItems = $list.children('li');
 
     $styledSelect.click(function (e) {
-        e.stopPropagation();
-        $('div.styledSelect.active').each(function () {
-            $(this).removeClass('active').next('ul.options').hide();
-        });
-        $(this).toggleClass('active').next('ul.options').toggle();
+      e.stopPropagation();
+      $('div.styledSelect.active').each(function () {
+        $(this).removeClass('active').next('ul.options').hide();
+      });
+      $(this).toggleClass('active').next('ul.options').toggle();
     });
 
     $listItems.click(function (e) {
-        e.stopPropagation();
-        $styledSelect.text($(this).text()).removeClass('active');
-        $this.val($(this).attr('rel'));
-        $list.hide();
+      e.stopPropagation();
+      $styledSelect.text($(this).text()).removeClass('active');
+      $this.val($(this).attr('rel'));
+      $list.hide();
     });
 
     $(document).click(function () {
-        $styledSelect.removeClass('active');
-        $list.hide();
+      $styledSelect.removeClass('active');
+      $list.hide();
     });
 
-});
+  });
+
+
+    $scope.cohortId = 106; //!!!!!!!DUMMY DATA!!!!!
+
+    //date variables that set calendar ranges to one week prior on page load
+    let autoStartDate = new Date();
+    let autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
+
+    //converting the above date variables to correct format for api calls
+    let apiEndDate = new Date().toISOString().substring(0, 10),
+        apiStartDate = new Date(autoEndDate).toISOString().substring(0, 10)
+
+    
+    //---------------filtered students for cohort view from side menu-----------//
+
+    $scope.filteredStudents = [] //!!!!!!!DUMMY DATA!!!!!
+    let filteredStudents = $scope.filteredStudents;
+
+
+    //------------getting mentor pie data-----------------//
+
+    // gets pie data for cohort mentors and their average help time per request
+    qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
+        let mentors = qService.getAvgMentorTimes(res.data).sort((a, b) => {
+            return b.count - a.count
+        })
+        for (let i = 0; i < 3; i++) {
+            mentors[i].average = Math.floor(mentors[i].average)
+        }
+        $scope.mentors = mentors.slice(0, 3).sort((a, b) => {
+            return b.average - a.average;
+        });
+        $scope.mentorPieData = [mentors[0].average, mentors[1].average, mentors[2].average]
+    })
+
+    //-------------getting most requesting student pie data-------------//
+
+    let getAllRequestingPieData = () => { //gets student data ready to filter
+        return qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
+            return qService.getAvgStudentTimes(res.data);
+        })
+    }
+
+    $scope.mostAverage = () => { //gets pie data for the most requested average q time
+        getAllRequestingPieData().then(res => {
+            $scope.mostAverage = qService.getHighest(res, filteredStudents, 'average')
+        })
+    }
+
+    $scope.mostHelp = () => { //gets pie data for the most requested help q time
+        getAllRequestingPieData().then(res => {
+            $scope.mostHelped = qService.getHighest(res, filteredStudents, 'sum')
+        })
+    }
+
+    $scope.mostRequest = () => { //gets pie data for the most q requests
+        getAllRequestingPieData().then(res => {
+            $scope.mostRequests = qService.getHighest(res, filteredStudents, 'count')
+        })
+    }
+
+
+    var cohortPreferences = [{   //!!!!!!!DUMMY DATA!!!!!
+        cohortId: 106,
+        nickname: "DM-19"
+    },
+    {   
+        cohortId: 106,
+        nickname: "DM-20"
+    },
+    {   
+        cohortId: 106,
+        nickname: "DM-21"
+    },
+    {   
+        cohortId: 106,
+        nickname: "DM-22"
+    },
+    {   
+        cohortId: 106,
+        nickname: "DM-23"
+    }]
+
+console.log(cohortPreferences)
+
 
 
 })
