@@ -137,7 +137,7 @@ angular.module('app').service('qService', function ($http, config) {
                         if (!max) {
                             max = new Date().getTime()
                         }
-                        students[j].count++
+                        students[j].count++                      
                         students[j].sum += max - min
                         isNewStudent = false;
                     }
@@ -157,23 +157,26 @@ angular.module('app').service('qService', function ($http, config) {
                 }
             }
         }
-        for (let j = 0; j < students.length; j++) {
-            if (students[j].name == 'David Barrett') console.log(students[j])
+        for (let j = 0; j < students.length; j++) {          
             students[j].average = parseFloat((students[j].sum / (students[j].count * 60000)).toFixed(2))
         }
         return students
     }
 
     this.getHighest = (students, targetStudents, metric) => {
-        console.log(metric)
         let targetStudentMetrics = students.filter((s) => {
             return targetStudents.indexOf(s.name) != -1
         })
-        students = students.filter((s) => {
-            return targetStudents.indexOf(s.name) == -1
-        })
         targetStudentMetrics.sort((a, b) => {
             return b[metric] - a[metric]
+        })
+        students = students.filter((s) => {
+            let top = false
+            for (let i = 0; i <= 2; i++) {
+                if (targetStudentMetrics[i]
+                    && targetStudentMetrics[i].name == s.name) top = true
+            }
+            return !top
         })
         let first = targetStudentMetrics.shift()
         let base = {sum: 0, count: 0, average: 0}
@@ -204,9 +207,16 @@ angular.module('app').service('qService', function ($http, config) {
         let totalPercent = parseFloat((1 - (firstPercent + secondPercent + thirdPercent)).toFixed(2))
         let topStudents = []
         topStudents.push({name: first.name, metric: first[metric], percent: firstPercent})
-        if (targetStudents.length > 1) topStudents.push({name: second.name, metric: first[metric], percent: secondPercent})
-        if (targetStudents.length > 2) topStudents.push({name: third.name, metric: first[metric], percent: thirdPercent})
+        if (targetStudents.length > 1) topStudents.push({name: second.name, metric: second[metric], percent: secondPercent})
+        if (targetStudents.length > 2) topStudents.push({name: third.name, metric: third[metric], percent: thirdPercent})
         topStudents.push({name: 'Other', metric: total, percent: totalPercent})        
-        console.log('topStudents:', topStudents)
+        return topStudents
+    }
+
+
+    this.getStudentsForCohort = (cID) => {
+        return $http.get('http://q.devmountain.com/admin/user?cohort=' + cID + '&admin_token=' + config.admin_token).then(res => {
+            return res.data;
+        })
     }
 })

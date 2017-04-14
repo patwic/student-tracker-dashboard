@@ -33,9 +33,9 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   }
 
   if ($location.path() === '/') $scope.activateLink = true;
-  else $scope.activateLink = false;
-  $scope.changeLink = function (status) {
-    $scope.activateLink = status;
+    else $scope.activateLink = false;
+    $scope.changeLink = function (status) {
+      $scope.activateLink = status;
   }
 
   let socket = io()
@@ -264,6 +264,99 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       $styledSelect.removeClass('active');
       $list.hide();
     });
+
+    //-------------------get student list for cohort id--------------//
+    
+    $scope.cohortId = 106; //!!!!!!!DUMMY DATA!!!!!
+
+    var allStudents = [];
+
+    var getStudentsForCohort = () => { //make an array of all student names from specific cohort
+        return qService.getStudentsForCohort($scope.cohortId).then(res => {
+          for(let i = 0; i < res.length; i++) {
+            allStudents.push(res[i].firstName + ' ' + res[i].lastName)
+          }
+          return allStudents;
+        })
+    }
+
+    //---------------date variables----------------//
+
+
+    //date variables that set calendar ranges to one week prior on page load
+    let autoStartDate = new Date();
+    let autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
+
+    //converting the above date variables to correct format for api calls
+    let apiEndDate = new Date().toISOString().substring(0, 10),
+        apiStartDate = new Date(autoEndDate).toISOString().substring(0, 10)
+
+    
+    //---------------filtered students for cohort view from side menu-----------//
+
+    $scope.filteredStudents = [] //!!!!!!!DUMMY DATA!!!!!
+    let filteredStudents = $scope.filteredStudents;
+
+
+    //------------getting mentor pie data-----------------//
+
+    // gets pie data for cohort mentors and their average help time per request
+    qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
+        let mentors = qService.getAvgMentorTimes(res.data).sort((a, b) => {
+            return b.count - a.count
+        })
+        for (let i = 0; i < 3; i++) {
+            mentors[i].average = Math.floor(mentors[i].average)
+        }
+        $scope.mentors = mentors.slice(0, 3).sort((a, b) => {
+            return b.average - a.average;
+        });
+        $scope.mentorPieData = [mentors[0].average, mentors[1].average, mentors[2].average]
+    })
+
+    //-------------getting most requesting student pie data-------------//
+
+    let getAllRequestingPieData = () => { //gets student data ready to filter
+        return qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
+            return qService.getAvgStudentTimes(res.data);
+        })
+    }
+
+    $scope.mostAverage = () => { //gets pie data for the most requested average q time
+        getAllRequestingPieData().then(res => {
+            $scope.mostAverage = qService.getHighest(res, filteredStudents, 'average')
+            for(let i = 0; i < $scope.mostAverage.length; i++) {
+              $scope.mostAverage[i].percent = Math.floor($scope.mostAverage[i].percent * 100) 
+            }
+        })
+    }
+
+    $scope.mostHelp = () => { //gets pie data for the most requested help q time
+        getAllRequestingPieData().then(res => {
+            $scope.mostHelped = qService.getHighest(res, filteredStudents, 'sum')
+            for(let i = 0; i < $scope.mostHelped.length; i++) {
+              $scope.mostHelped[i].percent = Math.floor($scope.mostHelped[i].percent * 100) 
+            }
+        })
+    }
+
+    $scope.mostRequest = () => { //gets pie data for the most q requests
+        getAllRequestingPieData().then(res => {
+            $scope.mostRequests = qService.getHighest(res, filteredStudents, 'count')
+        })
+    }
+
+    let getPieDataOnPageLoad = () => {
+      getStudentsForCohort().then(res => {
+        filteredStudents = res;
+        $scope.mostHelp()
+        $scope.mostAverage()
+        $scope.mostRequest()
+      })
+    }
+
+    getPieDataOnPageLoad()
+
 
   });
 
