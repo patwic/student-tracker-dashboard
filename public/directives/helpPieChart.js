@@ -8,11 +8,7 @@ angular.module('app')
       },
       controller: function ($scope) {
 
-        let helpData = $scope.helpData.sort((a, b) => {
-          return b.percent - a.percent;
-        })
-
-        console.log(helpData)
+        let helpData = $scope.helpData
         helpData = [helpData[0].percent, helpData[1].percent, helpData[2].percent, helpData[3].percent]
 
         var height = document.getElementById('helpDiv').offsetHeight/3;

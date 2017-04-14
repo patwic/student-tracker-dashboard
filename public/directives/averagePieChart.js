@@ -8,13 +8,10 @@ angular.module('app')
       },
       controller: function ($scope) {
 
-        let averageData = $scope.averageData.sort((a, b) => {
-          return b.percent - a.percent;
-        })
-
+        let averageData = $scope.averageData
         averageData = [averageData[0].percent, averageData[1].percent, averageData[2].percent, averageData[3].percent]
 
-        var height = document.getElementById('averageDiv').offsetHeight/3;
+        var height = document.getElementById('averageDiv').offsetHeight / 3;
         var width = height;
         var radius = Math.min(width, height) / 2;
 
