@@ -158,14 +158,13 @@ angular.module('app').service('qService', function ($http, config) {
             }
         }
         for (let j = 0; j < students.length; j++) {
-            if (students[j].name == 'David Barrett') console.log(students[j])
             students[j].average = parseFloat((students[j].sum / (students[j].count * 60000)).toFixed(2))
         }
         return students
     }
 
     this.getHighest = (students, targetStudents, metric) => {
-        console.log(metric)
+
         let targetStudentMetrics = students.filter((s) => {
             return targetStudents.indexOf(s.name) != -1
         })
@@ -207,6 +206,13 @@ angular.module('app').service('qService', function ($http, config) {
         if (targetStudents.length > 1) topStudents.push({name: second.name, metric: first[metric], percent: secondPercent})
         if (targetStudents.length > 2) topStudents.push({name: third.name, metric: first[metric], percent: thirdPercent})
         topStudents.push({name: 'Other', metric: total, percent: totalPercent})        
-        console.log('topStudents:', topStudents)
+        return topStudents
+    }
+
+
+    this.getStudentsForCohort = (cID) => {
+        return $http.get('http://q.devmountain.com/admin/user?cohort=' + cID + '&admin_token=' + config.admin_token).then(res => {
+            return res.data;
+        })
     }
 })
