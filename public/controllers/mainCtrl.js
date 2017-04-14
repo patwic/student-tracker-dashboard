@@ -305,21 +305,24 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.mostAverage = () => { //gets pie data for the most requested average q time
         getAllRequestingPieData().then(res => {
             $scope.mostAverage = qService.getHighest(res, filteredStudents, 'average')
-            console.log($scope.mostAverage)
+            for(let i = 0; i < $scope.mostAverage.length; i++) {
+              $scope.mostAverage[i].percent = Math.floor($scope.mostAverage[i].percent * 100) 
+            }
         })
     }
 
     $scope.mostHelp = () => { //gets pie data for the most requested help q time
         getAllRequestingPieData().then(res => {
             $scope.mostHelped = qService.getHighest(res, filteredStudents, 'sum')
-            console.log($scope.mostHelped)
+            for(let i = 0; i < $scope.mostHelped.length; i++) {
+              $scope.mostHelped[i].percent = Math.floor($scope.mostHelped[i].percent * 100) 
+            }
         })
     }
 
     $scope.mostRequest = () => { //gets pie data for the most q requests
         getAllRequestingPieData().then(res => {
             $scope.mostRequests = qService.getHighest(res, filteredStudents, 'count')
-            console.log($scope.mostRequests)
         })
     }
 
@@ -327,8 +330,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       getStudentsForCohort().then(res => {
         filteredStudents = res;
         $scope.mostHelp()
-        // $scope.mostAverage()
-        // $scope.mostRequest()
+        $scope.mostAverage()
+        $scope.mostRequest()
       })
     }
 

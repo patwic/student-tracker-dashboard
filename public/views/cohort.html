@@ -133,15 +133,15 @@
             <div class='cohort-pieGraphsKeyBox'>
                     <div class='cohort-mentorGraphKeyBoxes'>
                         <div class='cohort-mentorCircleKey'></div>
-                        <h5>44% - Beaver McHelper</h5>
+                        <h5>{{mostAverage[0].percent}}% - {{mostAverage[0].name}}</h5>
                     </div>
                     <div class='cohort-mentorGraphKeyBoxes'>
                         <div class='cohort-mentorCircleKey'></div>
-                        <h5>40% - John Smithers</h5>
+                        <h5>{{mostAverage[1].percent}}% - {{mostAverage[1].name}}</h5>
                     </div>
                     <div class='cohort-mentorGraphKeyBoxes'>
                         <div class='cohort-mentorCircleKey'></div>
-                        <h5>5% - Eila DoNuthelnuff</h5>
+                        <h5>{{mostAverage[2].percent}}% - {{mostAverage[2].name}}</h5>
                     </div>
             </div>
         </div>
@@ -150,19 +150,19 @@
                 <h3>MOST REQUESTED <br> Q HELP TIME</h3>
                     <input class='cohort-graphDateSelector' type="text" id="daterange2" />            
             </div>
-            <help-pie ng-if='mostHelp.length > 0'  help-data='mostHelp'></help-pie>
+            <help-pie ng-if='mostHelped.length > 0'  help-data='mostHelped'></help-pie>
             <div class='cohort-pieGraphsKeyBox'>
                      <div class='cohort-mentorGraphKeyBoxes'>
                         <div class='cohort-mentorCircleKey'></div>
-                        <h5>44% - Beaver McHelper</h5>
+                        <h5>{{mostHelped[0].percent}}% - {{mostHelped[0].name}}</h5>
                     </div>
                     <div class='cohort-mentorGraphKeyBoxes'>
                         <div class='cohort-mentorCircleKey'></div>
-                        <h5>40% - John Smithers</h5>
+                        <h5>{{mostHelped[1].percent}}% - {{mostHelped[1].name}}</h5>
                     </div>
                     <div class='cohort-mentorGraphKeyBoxes'>
                         <div class='cohort-mentorCircleKey'></div>
-                        <h5>5% - Eila DoNuthelnuff</h5>
+                        <h5>{{mostHelped[2].percent}}% - {{mostHelped[2].name}}</h5>
                     </div>
             </div>
         </div>
@@ -175,15 +175,15 @@
             <div class='cohort-pieGraphsKeyBox'>
                     <div class='cohort-mentorGraphKeyBoxes'>
                         <div class='cohort-mentorCircleKey'></div>
-                        <h5>44% - Beaver McHelper</h5>
+                        <h5>{{mostRequests[0].metric}} - {{mostRequests[0].name}}</h5>
                     </div>
                     <div class='cohort-mentorGraphKeyBoxes'>
                         <div class='cohort-mentorCircleKey'></div>
-                        <h5>40% - John Smithers</h5>
+                        <h5>{{mostRequests[1].metric}} - {{mostRequests[1].name}}</h5>
                     </div>
                     <div class='cohort-mentorGraphKeyBoxes'>
                         <div class='cohort-mentorCircleKey'></div>
-                        <h5>5% - Eila DoNuthelnuff</h5>
+                        <h5>{{mostRequests[2].metric}} - {{mostRequests[2].name}}</h5>
                     </div>
             </div>
         </div>

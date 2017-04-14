@@ -441,25 +441,17 @@
     background: #1a1a1a;
 }
 
-.cohort-pieTotalGraph {
-    width: 30%;
-    height: 78vh;
-    background: #282828;
-    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
-}
-
+.cohort-pieTotalGraph,
+.cohort-pieStudentRequestGraph, 
 .cohort-pieHelpGraph {
     width: 30%;
     height: 78vh;
     background: #282828;
     box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
-}
-
-.cohort-pieStudentRequestGraph {
-    width: 30%;
-    height: 78vh;
-    background: #282828;
-    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .cohort-pieGraphsNav {
@@ -471,7 +463,7 @@
     align-items: center;
     text-align: center;
     padding-top: 4vh;
-    padding-bottom: 4vh;
+    padding-bottom: 7vh;
 
 }
 
@@ -493,7 +485,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding-top: 4vh;
+    padding-top: 7vh;
     padding-bottom: 4vh;
     padding-left: 7vh;
 
