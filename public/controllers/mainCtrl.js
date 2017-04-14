@@ -75,8 +75,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.openCohortNav = function () {
     document.getElementById("cohort-sidenav").style.width = "400px";
     document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
-    document.getElementById("cohort-selectedCohort").style.backgroundColor = "#444";
-    document.getElementById("cohort-selectedCohort").style.color = '#999999';
+    //document.getElementsByClassName("cohort-selectedCohort").style.backgroundColor = "#444";
+    // document.getElementsByClassName("cohort-selectedCohort").style.color = '#999999';
     document.getElementById("login-sidenavOverlay").style.display = "block";
     document.body.style.overflow = 'hidden';
   
@@ -84,8 +84,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   $scope.openCohortStudentNav = function () {
     document.getElementById("cohort-sidenavStudent").style.width = "420px";
-    document.getElementById("cohort-selectedCohort").style.backgroundColor = "#1a1a1a";
-    document.getElementById("cohort-selectedCohort").style.color = '#25aae1';
+    // document.getElementById("cohort-selectedCohort").style.backgroundColor = "#1a1a1a";
+    // document.getElementById("cohort-selectedCohort").style.color = '#25aae1';
     document.getElementById("cohort-sidenav").style.boxShadow = "none";
   }
 
@@ -96,6 +96,11 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.body.style.overflow = 'visible';
   }
 
+  $scope.cohortIdSelectedCohortPreference = null;
+  $scope.setSelected = function(cohortIdSelectedCohortPreference) {
+    $scope.cohortIdSelectedCohortPreference = cohortIdSelectedCohortPreference;
+
+  }
 
   //--------------Attendance Calendar----------------//
 
@@ -328,19 +333,19 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         nickname: "DM-19"
     },
     {   
-        cohortId: 106,
+        cohortId: 107,
         nickname: "DM-20"
     },
     {   
-        cohortId: 106,
+        cohortId: 108,
         nickname: "DM-21"
     },
     {   
-        cohortId: 106,
+        cohortId: 109,
         nickname: "DM-22"
     },
     {   
-        cohortId: 106,
+        cohortId: 110,
         nickname: "DM-23"
     }]
 
