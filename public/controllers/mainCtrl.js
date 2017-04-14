@@ -342,6 +342,12 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
 console.log(cohortPreferences)
 
+$scope.getCohortPreferences = function(){
+        $scope.cohortPreferences = cohortPreferences
+    }
+
+    $scope.getCohortPreferences();
+
 
 
 })
