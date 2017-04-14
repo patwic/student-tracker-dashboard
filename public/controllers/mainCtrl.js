@@ -73,9 +73,10 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.openCohortNav = function () {
     document.getElementById("cohort-sidenav").style.width = "400px";
     document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
-    // document.getElementById("cohort-selectedCohort").style.backgroundColor = "#444";
-    // document.getElementById("cohort-selectedCohort").style.color = '#999999';
+    document.getElementById("cohort-selectedCohort").style.backgroundColor = "#444";
+    document.getElementById("cohort-selectedCohort").style.color = '#999999';
     document.getElementById("login-sidenavOverlay").style.display = "block";
+    document.body.style.overflow = 'hidden';
   
   }
 
@@ -90,6 +91,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.getElementById("cohort-sidenavStudent").style.width = "0";
     document.getElementById("cohort-sidenav").style.width = "0";
     document.getElementById("login-sidenavOverlay").style.display = "none";
+    document.body.style.overflow = 'visible';
   }
 
 
@@ -340,7 +342,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         nickname: "DM-23"
     }]
 
-console.log(cohortPreferences)
 
 $scope.getCohortPreferences = function(){
         $scope.cohortPreferences = cohortPreferences
@@ -348,6 +349,6 @@ $scope.getCohortPreferences = function(){
 
     $scope.getCohortPreferences();
 
-
+  
 
 })
