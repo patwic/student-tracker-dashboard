@@ -312,30 +312,18 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     //-------------------get student list for cohort id--------------//
 
 
-    $scope.cohortId;
-    console.log($scope.cohortId)
-
-    $scope.ugh;
-    console.log($scope.ugh)
-
-    $scope.getId = function(selectedCohortId) {
-    $scope.cohortId = 106
-    $scope.ugh = selectedCohortId || 106
-    console.log($scope.ugh)
-    }
-    $scope.getId()
-
+    $scope.cohortId = 106;
 
     var allStudents = [];
-        console.log(allStudents)
+  
 
     var getStudentsForCohort = () => { //make an array of all student names from specific cohort
       return qService.getStudentsForCohort($scope.cohortId).then(res => {
         for (let i = 0; i < res.length; i++) {
           allStudents.push(res[i].firstName + ' ' + res[i].lastName)
         }
-        console.log(allStudents)
-        // return allStudents;
+
+        return allStudents;
       })
     }
 
@@ -391,10 +379,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     //------------getting mentor pie data-----------------//
 
     // gets pie data for cohort mentors and their average help time per request
-    qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
-      let mentors = qService.getAvgMentorTimes(res.data).sort((a, b) => {
+   qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
+      let mentors = qService.getAvgMentorTimes(res.data)
+      mentors.sort((a, b) => {
         return b.count - a.count
       })
+      while (mentors.length < 3) {
+        mentors.push({name:'',sum:0,count:0,total:0})
+      }
       for (let i = 0; i < 3; i++) {
         mentors[i].average = Math.floor(mentors[i].average)
       }

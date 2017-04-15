@@ -2,10 +2,10 @@
     <div class='cohort-fixedSideMenu'>
         <img ng-click="openCohortNav()" src='./assets/hamburger-15.svg'>
     </div>
-    <div id="cohort-sidenav" class="cohort-sidenavContent" style='width: 200px !important;'>
+    <div id="cohort-sidenav" class="cohort-sidenavContent">
         <div class='cohort-sidenavAllContent'>
             <div class='cohort-sidenavClassList'>
-                <div ng-repeat="cohortPreference in cohortPreferences" ng-click="setSelected(cohortPreference.cohortId); getId(cohortPreference.cohortId)">
+                <div ng-repeat="cohortPreference in cohortPreferences" ng-click="setSelected(cohortPreference.cohortId)">
                     <h4 ng-class='{selected : cohortPreference.cohortId === selectedCohortId}' ng-click='openCohortStudentNav()'>{{cohortPreference.nickname}}</h4>
                 </div>
             </div>
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <div id="cohort-sidenavStudent" class="cohort-sidenavStudentContent" style='width: 420px !important;'>
+    <div id="cohort-sidenavStudent" class="cohort-sidenavStudentContent">
         <div>
             <a href="javascript:void(0)" class="cohort-closebtn" ng-click="closeCohortStudentNav()" ng-click="closeCohortNav()"><img src='./assets/x-15.svg'></a>
         </div>
@@ -185,15 +185,15 @@
             <div class='cohort-pieGraphsKeyBox' ng-if='mostRequests.length > 0'>
                 <div class='cohort-mentorGraphKeyBoxes'>
                     <div class='cohort-mentorCircleKey'></div>
-                    <h5>{{mostRequests[0].metric}} - {{mostRequests[0].name}}</h5>
+                    <h5>{{mostRequests[0].percent}}% - {{mostRequests[0].name}}</h5>
                 </div>
                 <div class='cohort-mentorGraphKeyBoxes'>
                     <div class='cohort-mentorCircleKey1'></div>
-                    <h5>{{mostRequests[1].metric}} - {{mostRequests[1].name}}</h5>
+                    <h5>{{mostRequests[1].percent}}% - {{mostRequests[1].name}}</h5>
                 </div>
                 <div class='cohort-mentorGraphKeyBoxes'>
                     <div class='cohort-mentorCircleKey2'></div>
-                    <h5>{{mostRequests[2].metric}} - {{mostRequests[2].name}}</h5>
+                    <h5>{{mostRequests[2].percent}}% - {{mostRequests[2].name}}</h5>
                 </div>
             </div>
         </div>
