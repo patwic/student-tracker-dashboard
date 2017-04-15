@@ -2,10 +2,10 @@
     <div class='cohort-fixedSideMenu'>
         <img ng-click="openCohortNav()" src='./assets/hamburger-15.svg'>
     </div>
-    <div id="cohort-sidenav" class="cohort-sidenavContent">
+    <div id="cohort-sidenav" class="cohort-sidenavContent" style='width: 200px !important;'>
         <div class='cohort-sidenavAllContent'>
             <div class='cohort-sidenavClassList'>
-                <div ng-repeat="cohortPreference in cohortPreferences" ng-click="setSelected(cohortPreference.cohortId)" >
+                <div ng-repeat="cohortPreference in cohortPreferences" ng-click="setSelected(cohortPreference.cohortId); getId(cohortPreference.cohortId)" >
                 <h4 ng-class='{selected : cohortPreference.cohortId === selectedCohortId}' ng-click='openCohortStudentNav()'
                  >{{cohortPreference.nickname}}</h4>
                 </div>
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div id="cohort-sidenavStudent" class="cohort-sidenavStudentContent">
+    <div id="cohort-sidenavStudent" class="cohort-sidenavStudentContent" style='width: 420px !important;'>
         <div>
             <a href="javascript:void(0)" class="cohort-closebtn" ng-click="closeCohortStudentNav()" ng-click="closeCohortNav()"><img 
             src='./assets/x-15.svg'></a>

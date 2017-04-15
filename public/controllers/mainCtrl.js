@@ -117,8 +117,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.openCohortNav = function () {
     document.getElementById("cohort-sidenav").style.width = "400px";
     document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
-    //document.getElementsByClassName("cohort-selectedCohort").style.backgroundColor = "#444";
-    // document.getElementsByClassName("cohort-selectedCohort").style.color = '#999999';
     document.getElementById("login-sidenavOverlay").style.display = "block";
     document.body.style.overflow = 'hidden';
 
@@ -126,8 +124,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   $scope.openCohortStudentNav = function () {
     document.getElementById("cohort-sidenavStudent").style.width = "420px";
-    // document.getElementById("cohort-selectedCohort").style.backgroundColor = "#1a1a1a";
-    // document.getElementById("cohort-selectedCohort").style.color = '#25aae1';
     document.getElementById("cohort-sidenav").style.boxShadow = "none";
   }
 
@@ -138,12 +134,10 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.body.style.overflow = 'visible';
   }
 
-$scope.selectedCohortId;
 
-  $scope.selectedCohortId = null;
+  // $scope.selectedCohortId = null;
   $scope.setSelected = function (selectedCohortId) {
     $scope.selectedCohortId = selectedCohortId;
-        console.log($scope.selectedCohortId)
 
   }
 
@@ -316,17 +310,32 @@ $scope.selectedCohortId;
     });
 
     //-------------------get student list for cohort id--------------//
-    $scope.cohortId = 92;
+
+
+    $scope.cohortId;
+    console.log($scope.cohortId)
+
+    $scope.ugh;
+    console.log($scope.ugh)
+
+    $scope.getId = function(selectedCohortId) {
+    $scope.cohortId = 92
+    $scope.ugh = selectedCohortId || 92
+    console.log($scope.ugh)
+    }
+    $scope.getId()
+
 
     var allStudents = [];
-        // console.log(allStudents)
+        console.log(allStudents)
 
     var getStudentsForCohort = () => { //make an array of all student names from specific cohort
       return qService.getStudentsForCohort($scope.cohortId).then(res => {
         for (let i = 0; i < res.length; i++) {
           allStudents.push(res[i].firstName + ' ' + res[i].lastName)
         }
-        return allStudents;
+        console.log(allStudents)
+        // return allStudents;
       })
     }
 
@@ -338,24 +347,20 @@ $scope.selectedCohortId;
 
 
   var cohortPreferences = [{ //!!!!!!!DUMMY DATA!!!!!
-      cohortId: 106,
+      cohortId: 91,
       nickname: "DM-19"
     },
     {
-      cohortId: 107,
+      cohortId: 92,
       nickname: "DM-20"
     },
     {
-      cohortId: 108,
+      cohortId: 106,
       nickname: "DM-21"
     },
     {
-      cohortId: 109,
-      nickname: "DM-22"
-    },
-    {
       cohortId: 110,
-      nickname: "DM-23"
+      nickname: "DM-22"
     }
   ]
 
