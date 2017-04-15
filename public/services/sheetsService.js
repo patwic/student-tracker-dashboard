@@ -23,19 +23,20 @@ angular.module('app').service('sheetsService', function ($http, config) {
         let students = []
         for (let student of sheet) {
             let studProg = {}
-            if (student['HTML'] = 'Pass') studProg.html = true
+            studProg.name = student.Student
+            if (student['HTML'] = 'Pass') studProg.HTML = true
             if (student['JS Basic v1'] == 'Pass'
-                || student['JS Basic v2'] == 'Pass') studProg.jsb = true
-            if (student['JS Intermediate p1v1'] == 'Pass'
-                || student['JS Intermediate p1v2'] == 'Pass') studProg.jsi = true
-            if (student['Angular'] == 'Pass') studProg.ang = true
-            if (student['Node'] == 'Pass') studProg.node = true
-            if (student['SQL Week Passed'] != '') studProg.sql = true
-            if (parseInt(student['NoServer']) >= 7) studProg.noserver = true
-            if (parseInt(student['Personal']) >= 70) studProg.personal = true
-            if (parseInt(student['Group']) >= 100) studProg.group = true
+                || student['JS Basic v2'] == 'Pass') studProg.JS1 = true
+            if (student['JS Inter p1v1'] == 'Pass'
+                || student['JS Inter p1v2'] == 'Pass') studProg.JS2 = true
+            if (student['Angular'] == 'Pass') studProg.ANG = true
+            if (student['Node'] == 'Pass') studProg.NODE = true
+            if (student['SQL Week Passed'] != '') studProg.SQL = true
+            if (parseInt(student['NoServer']) >= 7) studProg.NoSERVER = true
+            if (parseInt(student['Personal']) >= 70) studProg.PERSONAL = true
+            if (parseInt(student['Group']) >= 100) studProg.GROUP = true
             students.push(studProg)
         }
-
+        return students;
     }
 })

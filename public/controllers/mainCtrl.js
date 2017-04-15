@@ -18,14 +18,18 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     })
   }
 
+  //-----------------get progress and project scores for students------------//
+
   sheetsService.getSheet().then((res) => {
-    sheetsService.getProgress(res)
+    $scope.progressData = sheetsService.getProgress(res)
   })
 
   sheetsService.getSheet().then((res) => {
     $scope.projectData = sheetsService.getProjectScores(res);
   })
 
+
+  //-----------------dropdowns----------------//
 
   $scope.showDropdown = function () {
     if (!$scope.isDropdown) {
@@ -41,6 +45,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.changeLink = function (status) {
     $scope.activateLink = status;
   }
+
+  //-------------------socket data--------------------//
 
   let socket = io()
   socket.on('updatedQs', (qArr) => {
@@ -106,7 +112,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   }
 
-  //--------------Attendance Calendar----------------//
+  //--------------Attendance Display Calendar----------------//
 
   var absences = ['2017/04/02', '2017/04/04']
 
