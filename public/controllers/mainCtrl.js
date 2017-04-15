@@ -13,9 +13,13 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   let mostRequest
   let getMentorPieData
 
-  // $scope.cohortId = 106;
+  //---------------date variables----------------//
+
   $scope.autoStartDate = new Date();
   $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
+  //converting the above date variables to correct format for api calls
+  let apiEndDate = new Date().toISOString().substring(0, 10),
+      apiStartDate = new Date($scope.autoEndDate).toISOString().substring(0, 10)
 
   //-----------------get progress and project scores for students------------//
 
@@ -322,16 +326,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.getCohortPreferences();
 
 
-
-
-    //---------------date variables----------------//
-
-
-    //converting the above date variables to correct format for api calls
-    let apiEndDate = new Date().toISOString().substring(0, 10),
-      apiStartDate = new Date($scope.autoEndDate).toISOString().substring(0, 10)
-
-
     //---------------filtered students for cohort view from side menu-----------//
 
     $scope.filteredStudents = [] //!!!!!!!DUMMY DATA!!!!!
@@ -440,7 +434,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById("login-sidenavOverlay").style.display = "none";
       document.body.style.overflow = 'visible';
       getStudentPieData()
-      getMentorPieData()
+      getMentorPieData(apiStartDate, apiEndDate, $scope.cohortId)
     }
 
 
