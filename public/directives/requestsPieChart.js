@@ -66,13 +66,15 @@ angular.module('app')
 
         let updateRequestsData = (data) => {
           requestsData = [data[0].percent, data[1].percent, data[2].percent, data[3].percent]
-
-          g.data(pie(requestsData));
-          g.transition().duration(750).attrTween('d', arcTween)
+          let pie = d3.pie().value(function (d) {
+            return d;
+          })(requestsData);
+          path = d3.select('#requestsPie').selectAll('path').data(pie)
+          path.transition().duration(500).attrTween("d", arcTween)
         }
 
         function arcTween(a) {
-          var i = d3.interpolate(this._current, a);
+          let i = d3.interpolate(this._current, a);
           this._current = i(0);
           return function (t) {
             return arc(i(t));

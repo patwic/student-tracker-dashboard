@@ -94,7 +94,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   }
   getstudentQAlert()
 
- 
+
 
   //--------------Preference SideNav Functions----------------//
 
@@ -112,39 +112,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.body.style.overflow = 'visible';
   }
 
-  //--------------Cohort SideNav Functions----------------//
 
-  $scope.openCohortNav = function () {
-    document.getElementById("cohort-sidenav").style.width = "400px";
-    document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
-    document.getElementById("login-sidenavOverlay").style.display = "block";
-    document.body.style.overflow = 'hidden';
-
-  }
-
-  $scope.openCohortStudentNav = function () {
-    document.getElementById("cohort-sidenavStudent").style.width = "420px";
-    document.getElementById("cohort-sidenav").style.boxShadow = "none";
-  }
-
-  $scope.closeCohortStudentNav = function () {
-    document.getElementById("cohort-sidenavStudent").style.width = "0";
-    document.getElementById("cohort-sidenav").style.width = "0";
-    document.getElementById("login-sidenavOverlay").style.display = "none";
-    document.body.style.overflow = 'visible';
-  }
-
-
-  // $scope.selectedCohortId = null;
-  $scope.setSelected = function (selectedCohortId) {
-    $scope.selectedCohortId = selectedCohortId;
-
-  }
-
-  $scope.selectedStudents = null;
-  $scope.getSelected = function(selectedStudents) {
-    $scope.selectedStudents = selectedStudents
-  }
 
   //--------------Attendance Display Calendar----------------//
 
@@ -315,7 +283,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.cohortId = 106;
 
     var allStudents = [];
-  
+
 
     var getStudentsForCohort = () => { //make an array of all student names from specific cohort
       return qService.getStudentsForCohort($scope.cohortId).then(res => {
@@ -327,37 +295,37 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       })
     }
 
-    $scope.getCohortStudents = function(){
+    $scope.getCohortStudents = function () {
       $scope.students = allStudents;
-        // console.log($scope.students)
+      // console.log($scope.students)
     }
     $scope.getCohortStudents()
 
 
-  var cohortPreferences = [{ //!!!!!!!DUMMY DATA!!!!!
-      cohortId: 91,
-      nickname: "DM-19"
-    },
-    {
-      cohortId: 92,
-      nickname: "DM-20"
-    },
-    {
-      cohortId: 106,
-      nickname: "DM-21"
-    },
-    {
-      cohortId: 110,
-      nickname: "DM-22"
+    var cohortPreferences = [{ //!!!!!!!DUMMY DATA!!!!!
+        cohortId: 91,
+        nickname: "DM-19"
+      },
+      {
+        cohortId: 92,
+        nickname: "DM-20"
+      },
+      {
+        cohortId: 106,
+        nickname: "DM-21"
+      },
+      {
+        cohortId: 110,
+        nickname: "DM-22"
+      }
+    ]
+
+
+    $scope.getCohortPreferences = function () {
+      $scope.cohortPreferences = cohortPreferences
     }
-  ]
 
-
-  $scope.getCohortPreferences = function () {
-    $scope.cohortPreferences = cohortPreferences
-  }
-
-  $scope.getCohortPreferences();
+    $scope.getCohortPreferences();
 
 
 
@@ -379,22 +347,30 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     //------------getting mentor pie data-----------------//
 
     // gets pie data for cohort mentors and their average help time per request
-   qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
-      let mentors = qService.getAvgMentorTimes(res.data)
-      mentors.sort((a, b) => {
-        return b.count - a.count
+    let getMentorPieData = () => {
+      qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
+        let mentors = qService.getAvgMentorTimes(res.data)
+        mentors.sort((a, b) => {
+          return b.count - a.count
+        })
+        while (mentors.length < 3) {
+          mentors.push({
+            name: '',
+            sum: 0,
+            count: 0,
+            total: 0
+          })
+        }
+        for (let i = 0; i < 3; i++) {
+          mentors[i].average = Math.floor(mentors[i].average)
+        }
+        $scope.mentors = mentors.slice(0, 3).sort((a, b) => {
+          return b.average - a.average;
+        });
+        $scope.mentorPieData = [mentors[0].average, mentors[1].average, mentors[2].average]
       })
-      while (mentors.length < 3) {
-        mentors.push({name:'',sum:0,count:0,total:0})
-      }
-      for (let i = 0; i < 3; i++) {
-        mentors[i].average = Math.floor(mentors[i].average)
-      }
-      $scope.mentors = mentors.slice(0, 3).sort((a, b) => {
-        return b.average - a.average;
-      });
-      $scope.mentorPieData = [mentors[0].average, mentors[1].average, mentors[2].average]
-    })
+    }
+    getMentorPieData()
 
     //-------------getting most requesting student pie data-------------//
 
@@ -419,7 +395,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       return [studs[0], studs[1], studs[2], other[0]]
     }
 
-    $scope.mostAverage = () => { //gets pie data for the most requested average q time
+    $scope.mostAveraged = () => { //gets pie data for the most requested average q time
       getAllRequestingPieData().then(res => {
         let ma = qService.getHighest(res, filteredStudents, 'average')
         $scope.mostAverage = sortPieData(ma)
@@ -440,20 +416,58 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       })
     }
 
-    let getPieDataOnPageLoad = () => {
+    let getStudentPieData = () => {
       getStudentsForCohort().then(res => {
         filteredStudents = res;
         $scope.mostHelp()
-        $scope.mostAverage()
+        $scope.mostAveraged()
         $scope.mostRequest()
       })
     }
 
-    getPieDataOnPageLoad()
+    getStudentPieData()
+
+
+    //--------------Cohort SideNav Functions----------------//
+
+    $scope.openCohortNav = function () {
+      document.getElementById("cohort-sidenav").style.width = "400px";
+      document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
+      document.getElementById("login-sidenavOverlay").style.display = "block";
+      document.body.style.overflow = 'hidden';
+
+    }
+
+    $scope.openCohortStudentNav = function () {
+      document.getElementById("cohort-sidenavStudent").style.width = "420px";
+      document.getElementById("cohort-sidenav").style.boxShadow = "none";
+    }
+
+    $scope.closeCohortStudentNav = function () {
+      document.getElementById("cohort-sidenavStudent").style.width = "0";
+      document.getElementById("cohort-sidenav").style.width = "0";
+      document.getElementById("login-sidenavOverlay").style.display = "none";
+      document.body.style.overflow = 'visible';
+      getStudentPieData()
+      getMentorPieData()
+    }
+
+
+    // $scope.selectedCohortId = null;
+    $scope.setSelected = function (selectedCohortId) {
+      $scope.selectedCohortId = selectedCohortId;
+      $scope.cohortId = selectedCohortId;
+
+    }
+
+    $scope.selectedStudents = null;
+    $scope.getSelected = function (selectedStudents) {
+      $scope.selectedStudents = selectedStudents
+    }
 
 
   });
 
 
- 
+
 })
