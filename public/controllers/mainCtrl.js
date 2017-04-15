@@ -65,7 +65,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   let getAttendanceAlerts = () => {
     alertService.getAttendanceAlerts().then((response) => {
       $scope.attendanceAlerts = response.data.absences;
-    console.log($scope.attendanceAlerts)
     })
   }
   getAttendanceAlerts()
@@ -73,7 +72,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   let getProgressAlerts = () => {
     alertService.getProgressAlerts().then((response) => {
       $scope.progressAlerts = response.data;
-      console.log($scope.progressAlerts)
     })
   }
   getProgressAlerts()
@@ -81,7 +79,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   let getNoAttendanceAlert = () => {
     alertService.getNoAttendanceAlert().then((response) => {
       $scope.noAttendanceAlerts = response.data;
-      console.log($scope.noAttendanceAlerts)
     })
   }
   getNoAttendanceAlert()
@@ -89,7 +86,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   let getstudentQAlert = () => {
     alertService.getstudentQAlert().then((response) => {
       $scope.studentQAlerts = response.data;
-      console.log($scope.studentQAlerts)
     })
   }
   getstudentQAlert()
@@ -317,7 +313,7 @@ $scope.selectedCohortId;
     $scope.cohortId = 92;
 
     var allStudents = [];
-        console.log(allStudents)
+        // console.log(allStudents)
 
     var getStudentsForCohort = () => { //make an array of all student names from specific cohort
       return qService.getStudentsForCohort($scope.cohortId).then(res => {
@@ -330,7 +326,7 @@ $scope.selectedCohortId;
 
     $scope.getCohortStudents = function(){
       $scope.students = allStudents;
-        console.log($scope.students)
+        // console.log($scope.students)
     }
     $scope.getCohortStudents()
 
