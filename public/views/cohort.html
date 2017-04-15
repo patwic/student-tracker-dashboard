@@ -132,8 +132,9 @@
         </div>
     </div>
     <div class='cohort-middleGraphBox'>
-        <div class='cohort-graduationGraphBox'>
+        <div class='cohort-graduationGraphBox' id='progressDiv'>
             <h3>PROGRESS TO GRADUATION</h3>
+            <progress-scatter-chart progress-data='progressData' ng-if='progressData.length > 0'></progress-scatter-chart>
         </div>
         <div class='cohort-projectScoresGraphBox' id='projectScoresDiv'>
             <h3>PROJECT SCORES</h3>

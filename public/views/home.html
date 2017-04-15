@@ -39,6 +39,7 @@
                 <h2>TOTAL Q TIME</h2>
             </div>
             <total-line-chart ng-if='totalQ.length > 0' total-time-data='totalQ'></total-line-chart>
+            <h3 ng-if='totalQ.length < 1' style='text-align: center; margin: 0 auto; padding: 70px;'>Looks like there's no data to show! It's probably past 5, go home! </h3>
         </div>
         <div class='home-bottomGraphs'>
             <div class='home-waitQTime' id='waitQDiv'>
