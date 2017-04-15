@@ -94,8 +94,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   }
   getstudentQAlert()
 
-
-
   //--------------Preference SideNav Functions----------------//
 
   $scope.openNav = function () {

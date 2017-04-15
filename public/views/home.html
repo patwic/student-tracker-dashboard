@@ -16,10 +16,10 @@
                     </div>
                 </div>
             </div>
-            <div class='home-alerts'>
+            <div class='home-alerts' ng-repeat='progressAlert in progressAlerts'>
                 <div class='home-alertDisplay home-yellowDisplay'>
-                    <h4>ATTENDANCE</h4>
-                    <h5>Sally LaRue was absent on 3/19.</h5>
+                    <h4>PROGRESS ALERT</h4>
+                    <h5>{{progressAlert}} is not on track for graduation</h5>
                 </div>
                 <div class='home-alertButton'>
                     <div class='home-buttonBox'>
