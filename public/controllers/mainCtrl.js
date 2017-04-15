@@ -141,16 +141,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   }
 
 
-  //--------------q Time Calendar----------------//
+  //--------------q Time DatePicker----------------//
 
-
-
-  $(function () {
+  let loadQTimeDatePicker = () => {
     $('#qTimeDateRange').daterangepicker({
       startDate: $scope.autoStartDate,
       endDate: $scope.autoEndDate
     })
-  })
+  }
 
   $('#qTimeDateRange').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
@@ -158,15 +156,15 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
   })
 
-  //--------------Mentor Help Calendar----------------//
+  //--------------Mentor Help DatePicker----------------//
 
 
-  $(function () {
+  let loadMentorDatePicker = () => {
     $('#mentorHelpDateRange').daterangepicker({
       startDate: $scope.autoStartDate,
       endDate: $scope.autoEndDate
     })
-  })
+  }
 
   $('#mentorHelpDateRange').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
@@ -175,14 +173,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     getMentorPieData(startDate, endDate, $scope.cohortId)
   })
 
-  //--------------Most Requested Average----------------//
+  //--------------Most Requested Average DatePicker----------------//
 
-  $(function () {
+  let loadAverageDatePicker = () => {
     $('#daterange1').daterangepicker({
       startDate: $scope.autoStartDate,
       endDate: $scope.autoEndDate
     });
-  })
+  }
 
   $('#daterange1').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
@@ -191,14 +189,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     mostAveraged(startDate, endDate, $scope.cohortId)
   })
 
-  //--------------Most Requested Help----------------//
+  //--------------Most Requested Help DatePicker----------------//
 
-  $(function () {
+  let loadHelpDatePicker = () => {
     $('#daterange2').daterangepicker({
       startDate: $scope.autoStartDate,
       endDate: $scope.autoEndDate
     });
-  })
+  }
 
   $('#daterange2').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
@@ -207,14 +205,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     mostHelp(startDate, endDate, $scope.cohortId)
   })
 
-  //--------------Most Reqested Requests----------------//
+  //--------------Most Reqested Requests DatePicker----------------//
 
-  $(function () {
+  let loadRequestsDatePicker = () => {
     $('#daterange3').daterangepicker({
       startDate: $scope.autoStartDate,
       endDate: $scope.autoEndDate
     });
-  })
+  }
 
   $('#daterange3').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
@@ -223,6 +221,17 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     mostRequest(startDate, endDate, $scope.cohortId)
   })
 
+  //-----------load all date pickers------------------//
+
+  let loadAllDatePickers = () => {
+    loadQTimeDatePicker()
+    loadMentorDatePicker()
+    loadAverageDatePicker()
+    loadHelpDatePicker()
+    loadRequestsDatePicker()
+  }
+
+  loadAllDatePickers()
 
   //--------------All Select Menus----------------//
 
@@ -435,6 +444,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.body.style.overflow = 'visible';
       getStudentPieData()
       getMentorPieData(apiStartDate, apiEndDate, $scope.cohortId)
+      loadAllDatePickers()
     }
 
 
