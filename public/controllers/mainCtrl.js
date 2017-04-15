@@ -12,6 +12,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
 
 
+
   mostRequestingStudents = (startDate, endDate) => {
     return qService.getQ(startDate, endDate, $scope.cohortId).then(function (res) {
       return qService.getAvgStudentTimes(res.data)
@@ -308,6 +309,9 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       $styledSelect.removeClass('active');
       $list.hide();
     });
+
+
+    
 
     //-------------------get student list for cohort id--------------//
 
