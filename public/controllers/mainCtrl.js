@@ -100,10 +100,16 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.body.style.overflow = 'visible';
   }
 
-  $scope.cohortIdSelectedCohortPreference = null;
-  $scope.setSelected = function (cohortIdSelectedCohortPreference) {
-    $scope.cohortIdSelectedCohortPreference = cohortIdSelectedCohortPreference;
+  $scope.selectedCohortPreference = null;
+  $scope.setSelected = function (selectedCohortPreference) {
+    $scope.selectedCohortPreference = selectedCohortPreference;
 
+  }
+
+
+  $scope.selectedStudents = null;
+  $scope.getSelected = function(selectedStudents) {
+    $scope.selectedStudents = selectedStudents
   }
 
   //--------------Attendance Calendar----------------//

@@ -2,11 +2,12 @@
     <div class='cohort-fixedSideMenu'>
         <img ng-click="openCohortNav()" src='./assets/hamburger-15.svg'>
     </div>
-    <div id="cohort-sidenav" class="cohort-sidenavContent">
+    <div id="cohort-sidenav" class="cohort-sidenavContent" style='width: 200px !important;'>
         <div class='cohort-sidenavAllContent'>
             <div class='cohort-sidenavClassList'>
                 <div ng-repeat="cohortPreference in cohortPreferences" ng-click="setSelected(cohortPreference.cohortId)" >
-                <h4 ng-class='{selected : cohortPreference.cohortId === cohortIdSelectedCohortPreference}' ng-click='openCohortStudentNav()' >{{cohortPreference.nickname}}</h4>
+                <h4 ng-class='{selected : cohortPreference.cohortId === selectedCohortPreference}' ng-click='openCohortStudentNav()'
+                 >{{cohortPreference.nickname}}</h4>
                 </div>
             </div>
             <div class='cohort-sidenavFilterBox'>
@@ -29,11 +30,10 @@
             </div>
         </div>
     </div>
-    <div id="cohort-sidenavStudent" class="cohort-sidenavStudentContent">
+    <div id="cohort-sidenavStudent" class="cohort-sidenavStudentContent" style='width: 430px !important;'>
         <div>
             <a href="javascript:void(0)" class="cohort-closebtn" ng-click="closeCohortStudentNav()" ng-click="closeCohortNav()"><img 
             src='./assets/x-15.svg'></a>
-            <!--//a;ejjaeoijgeojfaeij;ao-->
         </div>
         <div class='cohort-sidenavStudentContentBox'>
             <div>
@@ -43,33 +43,14 @@
                 
             </div>
             <div class='cohort-cohortStudentList'>
-                <h5>Dorcus McFlowers</h5>
-                <h5>John Smithers</h5>
-                <h5>Eila DoNuthelnuff</h5>
-                <h5>Sally LaRue</h5>
-                <h5>Henry Von Eckleberry</h5>
-                <h5>Duchess Margrett</h5>
-                <h5>Beaver McHelper</h5>
-                <h5>Dorcus McFlowers</h5>
-                <h5>John Smithers</h5>
-                <h5>Eila DoNuthelnuff</h5>
-                <h5>Sally LaRue</h5>
-                <h5>Henry Von Eckleberry</h5>
-                <h5>Duchess Margrett</h5>
-                <h5>Beaver McHelper</h5>
-                <h5>Dorcus McFlowers</h5>
-                <h5>John Smithers</h5>
-                <h5>Eila DoNuthelnuff</h5>
-                <h5>Sally LaRue</h5>
-                <h5>Henry Von Eckleberry</h5>
-                <h5>Duchess Margrett</h5>
-                <h5>Beaver McHelper</h5>
+            <div ng-repeat="student in students" ng-click="getSelected(student)">
+                <h5 ng-class='{selected : student === selectedStudents}'>{{student}}</h5>
 
+            </div>
             </div>
             </div>
             <div class='cohort-applyButton'>
                 <h2 ng-click="closeCohortStudentNav()" ng-click="closeCohortNav()">APPLY</h2>
-                <!--// lljaeojfaoejig;oeijagupeijaoifej-->
             </div>
         </div>
     </div>
