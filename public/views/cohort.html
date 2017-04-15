@@ -6,7 +6,7 @@
         <div class='cohort-sidenavAllContent'>
             <div class='cohort-sidenavClassList'>
                 <div ng-repeat="cohortPreference in cohortPreferences" ng-click="setSelected(cohortPreference.cohortId)">
-                    <h4 ng-class='{selected : cohortPreference.cohortId === selectedCohortId}' ng-click='openCohortStudentNav()'>{{cohortPreference.nickname}}</h4>
+                    <h4 ng-class='{selected : cohortPreference.cohortId === selectedCohortId}' ng-click='openCohortStudentNav()' style='cursor: pointer'>{{cohortPreference.nickname}}</h4>
                 </div>
             </div>
             <div class='cohort-sidenavFilterBox'>
@@ -40,7 +40,7 @@
                 <div class='cohort-cohortStudentList'>
                     <div>
                         <div ng-repeat="student in students" ng-click="getSelected(student)">
-                            <h5 ng-class='{selected : student === selectedStudents}'>{{student}}</h5>
+                            <h5 style='cursor: pointer' ng-class='{selected : student === selectedStudents}'>{{student}}</h5>
                         </div>
                     </div>
                 </div>

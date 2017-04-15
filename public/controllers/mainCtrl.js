@@ -6,9 +6,12 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.totalQ;
   $scope.waitQ;
   $scope.redAlerts;
+
+  //--------functions with dependencies----------//
   let mostAveraged
   let mostHelp
   let mostRequest
+  let getMentorPieData
 
   // $scope.cohortId = 106;
   $scope.autoStartDate = new Date();
@@ -163,8 +166,9 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   $('#mentorHelpDateRange').on('apply.daterangepicker', function (ev, picker) {
     let endDate = new Date()
-    picker.startDate.format('YYYY-MM-DD')
+    let startDate = picker.startDate.format('YYYY-MM-DD')
     new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+    getMentorPieData(startDate, endDate, $scope.cohortId)
   })
 
   //--------------Most Requested Average----------------//
@@ -337,8 +341,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     //------------getting mentor pie data-----------------//
 
     // gets pie data for cohort mentors and their average help time per request
-    let getMentorPieData = () => {
-      qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
+    getMentorPieData = (startDate, endDate, cohortId) => {
+      qService.getQ(startDate, endDate, cohortId).then(res => {
         let mentors = qService.getAvgMentorTimes(res.data)
         mentors.sort((a, b) => {
           return b.count - a.count
@@ -360,7 +364,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         $scope.mentorPieData = [mentors[0].average, mentors[1].average, mentors[2].average]
       })
     }
-    getMentorPieData()
+    getMentorPieData(apiStartDate, apiEndDate, $scope.cohortId)
 
     //-------------getting most requesting student pie data-------------//
 
