@@ -1,7 +1,7 @@
 <section class='home-background'>
     <div class='home-alert'>
         <div class='home-alertTotalBar'>
-            <h2>ALERTS ( <span>12</span> )</h2>
+            <h2>ALERTS (<span>{{attendanceAlerts.length + progressAlerts.length + noAttendanceAlerts.length + redAlerts.length + studentQAlerts.length}}</span>)</h2>
         </div>
         <div class='home-alertFeed' >
             <div class='home-alerts' ng-repeat='red in redAlerts'>
@@ -23,7 +23,7 @@
                 </div>
                 <div class='home-alertButton'>
                     <div class='home-buttonBox'>
-                        <p>IGNORE</p>
+                        <p ng-click='attendanceAlerts.splice(attendanceAlerts.length-1, 1)'>IGNORE</p>
                         <p>RESOLVE</p>
                     </div>
                 </div>
