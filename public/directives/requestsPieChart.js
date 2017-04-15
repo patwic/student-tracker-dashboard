@@ -8,10 +8,10 @@ angular.module('app')
       },
       controller: function ($scope) {
 
-        let rData = $scope.requestsData
-        let requestsData = [rData[0].percent, rData[1].percent, rData[2].percent, rData[3].percent]
-     
-        var height = document.getElementById('requestsDiv').offsetHeight/3;
+        let requestsData = $scope.requestsData
+        requestsData = [requestsData[0].percent, requestsData[1].percent, requestsData[2].percent, requestsData[3].percent]
+
+        var height = document.getElementById('requestsDiv').offsetHeight / 3;
         var width = height;
         var radius = Math.min(width, height) / 2;
 
@@ -63,6 +63,27 @@ angular.module('app')
           .style("fill", function (d, i) {
             return color(i);
           })
+
+        let updateRequestsData = (data) => {
+          requestsData = [data[0].percent, data[1].percent, data[2].percent, data[3].percent]
+          let pie = d3.pie().value(function (d) {
+            return d;
+          })(requestsData);
+          path = d3.select('#requestsPie').selectAll('path').data(pie)
+          path.transition().duration(500).attrTween("d", arcTween)
+        }
+
+        function arcTween(a) {
+          let i = d3.interpolate(this._current, a);
+          this._current = i(0);
+          return function (t) {
+            return arc(i(t));
+          };
+        }
+
+        $scope.$watch('requestsData', function (newValue, oldValue) {
+          updateRequestsData($scope.requestsData)
+        })
 
       }
     }
