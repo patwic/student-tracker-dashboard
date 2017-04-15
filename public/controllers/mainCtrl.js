@@ -7,7 +7,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.waitQ;
   $scope.redAlerts;
 
-  $scope.cohortId = 106;
+  // $scope.cohortId = 106;
   $scope.autoStartDate = new Date();
   $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
 
@@ -276,9 +276,10 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     });
 
     //-------------------get student list for cohort id--------------//
-
+    $scope.cohortId = 92;
 
     var allStudents = [];
+        console.log(allStudents)
 
     var getStudentsForCohort = () => { //make an array of all student names from specific cohort
       return qService.getStudentsForCohort($scope.cohortId).then(res => {
@@ -288,6 +289,45 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         return allStudents;
       })
     }
+
+    $scope.getCohortStudents = function(){
+      $scope.students = allStudents;
+        console.log($scope.students)
+    }
+    $scope.getCohortStudents()
+
+
+  var cohortPreferences = [{ //!!!!!!!DUMMY DATA!!!!!
+      cohortId: 106,
+      nickname: "DM-19"
+    },
+    {
+      cohortId: 107,
+      nickname: "DM-20"
+    },
+    {
+      cohortId: 108,
+      nickname: "DM-21"
+    },
+    {
+      cohortId: 109,
+      nickname: "DM-22"
+    },
+    {
+      cohortId: 110,
+      nickname: "DM-23"
+    }
+  ]
+
+
+  $scope.getCohortPreferences = function () {
+    $scope.cohortPreferences = cohortPreferences
+  }
+
+  $scope.getCohortPreferences();
+
+
+
 
     //---------------date variables----------------//
 
@@ -378,35 +418,5 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   });
 
 
-  var cohortPreferences = [{ //!!!!!!!DUMMY DATA!!!!!
-      cohortId: 106,
-      nickname: "DM-19"
-    },
-    {
-      cohortId: 107,
-      nickname: "DM-20"
-    },
-    {
-      cohortId: 108,
-      nickname: "DM-21"
-    },
-    {
-      cohortId: 109,
-      nickname: "DM-22"
-    },
-    {
-      cohortId: 110,
-      nickname: "DM-23"
-    }
-  ]
-
-
-  $scope.getCohortPreferences = function () {
-    $scope.cohortPreferences = cohortPreferences
-  }
-
-  $scope.getCohortPreferences();
-
-
-
+ 
 })
