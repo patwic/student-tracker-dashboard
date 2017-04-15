@@ -43,9 +43,11 @@
                 
             </div>
             <div class='cohort-cohortStudentList'>
+                <div>
             <div ng-repeat="student in students" ng-click="getSelected(student)">
                 <h5 ng-class='{selected : student === selectedStudents}'>{{student}}</h5>
 
+            </div>
             </div>
             </div>
             </div>
