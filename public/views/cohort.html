@@ -135,7 +135,7 @@
         <div class='cohort-graduationGraphBox'>
             <h3>PROGRESS TO GRADUATION</h3>
         </div>
-        <div class='cohort-projectScoresGraphBox'>
+        <div class='cohort-projectScoresGraphBox' id='projectScoresDiv'>
             <h3>PROJECT SCORES</h3>
             <div class='cohort-projectScoresKey cohort-dropdown'>
                     <select id="selectbox" class='cohort-projectScoresSelector'>
@@ -150,6 +150,7 @@
                     <h4>FAILED</h4>
                 </div>
             </div>
+            <bar-chart project-data='projectData' ng-if='projectData.length > 0'></bar-chart>
         </div>
     </div>
     <div class='cohort-bottomGraphBox'>

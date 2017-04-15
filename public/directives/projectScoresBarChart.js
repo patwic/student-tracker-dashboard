@@ -1,14 +1,23 @@
 angular.module('app')
-  .directive('bar', function () {
+  .directive('barChart', function () {
     return {
       restrict: 'AE',
-      template: '<div></div>',
+      template: '<div id="barChart"></div>',
       scope: {
-        data: '='
+        projectData: '='
       },
-      controller: function () {
+      controller: function ($scope) {
 
-        let data;
+        let d = $scope.projectData;
+        console.log()
+
+        let dummy = [['ZK', 50], ['HJ', 50], ['JH', 60], ['GH', 65]]
+
+        let data = []
+        data = data.concat(dummy)
+        for (let i = 0; i < d.length; i++) {
+          data.push([d[i].initials, d[i].personalScore])
+        }
 
         data.sort((a, b) => {
           return a[1] - b[1]
@@ -16,12 +25,12 @@ angular.module('app')
 
         var margin = {
             top: 40,
-            right: 20,
-            bottom: 30,
-            left: 40
-          },
-          width = 560 - margin.left - margin.right,
-          height = 400 - margin.top - margin.bottom;
+            right: 30,
+            bottom: 40,
+            left: 50
+          }
+        var height = document.getElementById('projectScoresDiv').offsetHeight - 100 - margin.top - margin.bottom;
+        var width = document.getElementById('projectScoresDiv').offsetWidth - margin.right - margin.left;
 
         var x = d3.scaleBand()
           .domain(data.map(function (d) {
@@ -46,14 +55,17 @@ angular.module('app')
           .html(function (d) {
             return "<strong>Student:</strong> <span style='color:#21AAE1'> " + d[0] + "</span>";
           })
+          .style('font-size', '11px')
 
-        var svg = d3.select("body").append("svg")
+        var svg = d3.select("#barChart").append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
           .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
         svg.call(tip);
+
 
         svg.append("g")
           .attr("class", "y axis")
@@ -103,6 +115,9 @@ angular.module('app')
                 .attr("fill", "#141414");
             }
           })
+
+
+
 
         function type(d) {
           d[1] = +d[1];

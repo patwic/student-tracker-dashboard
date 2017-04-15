@@ -8,12 +8,9 @@ angular.module('app')
       },
       controller: function ($scope) {
 
-        let requestsData = $scope.requestsData.sort((a, b) => {
-          return b.metric - a.metric;
-        })
-
-        requestsData = [requestsData[0].metric, requestsData[1].metric, requestsData[2].metric, requestsData[3].metric]
-
+        let rData = $scope.requestsData
+        let requestsData = [rData[0].percent, rData[1].percent, rData[2].percent, rData[3].percent]
+     
         var height = document.getElementById('requestsDiv').offsetHeight/3;
         var width = height;
         var radius = Math.min(width, height) / 2;
