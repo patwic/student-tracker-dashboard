@@ -7,7 +7,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.waitQ;
   $scope.redAlerts;
 
-  $scope.cohortId = 106;
+  // $scope.cohortId = 106;
   $scope.autoStartDate = new Date();
   $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
 
@@ -46,7 +46,11 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.activateLink = status;
   }
 
+<<<<<<< HEAD
+  //--------------socket Red Alerts----------------//
+=======
   //-------------------socket data--------------------//
+>>>>>>> master
 
   let socket = io()
   socket.on('updatedQs', (qArr) => {
@@ -63,6 +67,38 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     }
     $scope.$apply();
   })
+
+  //--------------Yellow Alerts----------------//
+
+  let getAttendanceAlerts = () => {
+    alertService.getAttendanceAlerts().then((response) => {
+      $scope.attendanceAlerts = response.data.absences;
+    })
+  }
+  getAttendanceAlerts()
+
+  let getProgressAlerts = () => {
+    alertService.getProgressAlerts().then((response) => {
+      $scope.progressAlerts = response.data;
+    })
+  }
+  getProgressAlerts()
+
+  let getNoAttendanceAlert = () => {
+    alertService.getNoAttendanceAlert().then((response) => {
+      $scope.noAttendanceAlerts = response.data;
+    })
+  }
+  getNoAttendanceAlert()
+
+  let getstudentQAlert = () => {
+    alertService.getstudentQAlert().then((response) => {
+      $scope.studentQAlerts = response.data;
+    })
+  }
+  getstudentQAlert()
+
+ 
 
   //--------------Preference SideNav Functions----------------//
 
@@ -106,13 +142,25 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.body.style.overflow = 'visible';
   }
 
-  $scope.cohortIdSelectedCohortPreference = null;
-  $scope.setSelected = function (cohortIdSelectedCohortPreference) {
-    $scope.cohortIdSelectedCohortPreference = cohortIdSelectedCohortPreference;
+$scope.selectedCohortId;
+
+  $scope.selectedCohortId = null;
+  $scope.setSelected = function (selectedCohortId) {
+    $scope.selectedCohortId = selectedCohortId;
+        console.log($scope.selectedCohortId)
 
   }
 
+<<<<<<< HEAD
+  $scope.selectedStudents = null;
+  $scope.getSelected = function(selectedStudents) {
+    $scope.selectedStudents = selectedStudents
+  }
+
+  //--------------Attendance Calendar----------------//
+=======
   //--------------Attendance Display Calendar----------------//
+>>>>>>> master
 
   var absences = ['2017/04/02', '2017/04/04']
 
@@ -276,9 +324,10 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     });
 
     //-------------------get student list for cohort id--------------//
-
+    $scope.cohortId = 92;
 
     var allStudents = [];
+        // console.log(allStudents)
 
     var getStudentsForCohort = () => { //make an array of all student names from specific cohort
       return qService.getStudentsForCohort($scope.cohortId).then(res => {
@@ -288,6 +337,45 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         return allStudents;
       })
     }
+
+    $scope.getCohortStudents = function(){
+      $scope.students = allStudents;
+        // console.log($scope.students)
+    }
+    $scope.getCohortStudents()
+
+
+  var cohortPreferences = [{ //!!!!!!!DUMMY DATA!!!!!
+      cohortId: 106,
+      nickname: "DM-19"
+    },
+    {
+      cohortId: 107,
+      nickname: "DM-20"
+    },
+    {
+      cohortId: 108,
+      nickname: "DM-21"
+    },
+    {
+      cohortId: 109,
+      nickname: "DM-22"
+    },
+    {
+      cohortId: 110,
+      nickname: "DM-23"
+    }
+  ]
+
+
+  $scope.getCohortPreferences = function () {
+    $scope.cohortPreferences = cohortPreferences
+  }
+
+  $scope.getCohortPreferences();
+
+
+
 
     //---------------date variables----------------//
 
@@ -378,35 +466,5 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   });
 
 
-  var cohortPreferences = [{ //!!!!!!!DUMMY DATA!!!!!
-      cohortId: 106,
-      nickname: "DM-19"
-    },
-    {
-      cohortId: 107,
-      nickname: "DM-20"
-    },
-    {
-      cohortId: 108,
-      nickname: "DM-21"
-    },
-    {
-      cohortId: 109,
-      nickname: "DM-22"
-    },
-    {
-      cohortId: 110,
-      nickname: "DM-23"
-    }
-  ]
-
-
-  $scope.getCohortPreferences = function () {
-    $scope.cohortPreferences = cohortPreferences
-  }
-
-  $scope.getCohortPreferences();
-
-
-
+ 
 })

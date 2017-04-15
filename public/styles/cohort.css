@@ -174,7 +174,7 @@
 
 .cohort-sidenavStudentContentSelectButtonBox h2 {
     margin-top: 10px;
-    width: calc(100% - 30px);
+    width: 180px;
     background: #444;
     padding: 8px 15px;
     text-align: center;
@@ -193,8 +193,7 @@
 
 .cohort-cohortStudentList h5{
     color: #999999;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px 10px;
 }
 
 .cohort-applyButton {

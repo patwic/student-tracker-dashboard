@@ -35,12 +35,14 @@
  }
  
  .home-alerts {
-     height: 95px;
+     height: 80px;
      width: 100%;
+     margin-bottom: 12px;
  }
  
  .home-alerts h5 {
      padding: 10px 15px;
+     /*font-size: 10px;*/
  }
  
  .home-alertDisplay {
@@ -48,10 +50,12 @@
      height: 80px;
      background: #444;
      border-top: 3px solid #b21818;
+     
  }
  
  .home-yellowDisplay {
      border-top: none;
+
  }
  
  .home-alertDisplay h4 {
