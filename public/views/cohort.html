@@ -67,8 +67,9 @@
                     <h3>AVERAGE MENTOR <br>HELP TIME <br>PER REQUEST</h3>
                     <input class='cohort-graphDateSelector' type="text" id="mentorHelpDateRange" />
                 </div>
+                <h5 ng-if='!mentorPieData'>Currently there is no data to display. </h5>
                 <mentor-pie ng-if='mentorPieData.length > 0' mentor-data='mentorPieData'></mentor-pie>
-                <div class='cohort-mentorGraphKey'>
+                <div class='cohort-mentorGraphKey' ng-if='mentorPieData.length > 0'>
                     <div class='cohort-mentorGraphKeyBoxes'>
                         <div class='cohort-mentorCircleKey'></div>
                         <h5>{{mentors[0].average}} - {{mentors[0].name}}</h5>
