@@ -46,11 +46,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.activateLink = status;
   }
 
-<<<<<<< HEAD
-  //--------------socket Red Alerts----------------//
-=======
   //-------------------socket data--------------------//
->>>>>>> master
 
   let socket = io()
   socket.on('updatedQs', (qArr) => {
@@ -151,16 +147,12 @@ $scope.selectedCohortId;
 
   }
 
-<<<<<<< HEAD
   $scope.selectedStudents = null;
   $scope.getSelected = function(selectedStudents) {
     $scope.selectedStudents = selectedStudents
   }
 
-  //--------------Attendance Calendar----------------//
-=======
   //--------------Attendance Display Calendar----------------//
->>>>>>> master
 
   var absences = ['2017/04/02', '2017/04/04']
 

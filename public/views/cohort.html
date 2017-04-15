@@ -2,7 +2,7 @@
     <div class='cohort-fixedSideMenu'>
         <img ng-click="openCohortNav()" src='./assets/hamburger-15.svg'>
     </div>
-    <div id="cohort-sidenav" class="cohort-sidenavContent" style='width: 200px !important;'>
+    <div id="cohort-sidenav" class="cohort-sidenavContent">
         <div class='cohort-sidenavAllContent'>
             <div class='cohort-sidenavClassList'>
                 <div ng-repeat="cohortPreference in cohortPreferences" ng-click="setSelected(cohortPreference.cohortId)" >
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div id="cohort-sidenavStudent" class="cohort-sidenavStudentContent" style='width: 430px !important;'>
+    <div id="cohort-sidenavStudent" class="cohort-sidenavStudentContent">
         <div>
             <a href="javascript:void(0)" class="cohort-closebtn" ng-click="closeCohortStudentNav()" ng-click="closeCohortNav()"><img 
             src='./assets/x-15.svg'></a>
