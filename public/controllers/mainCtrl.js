@@ -22,6 +22,10 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     sheetsService.getProgress(res)
   })
 
+  sheetsService.getSheet().then((res) => {
+    $scope.projectData = sheetsService.getProjectScores(res);
+  })
+
 
   $scope.showDropdown = function () {
     if (!$scope.isDropdown) {

@@ -6,7 +6,6 @@ angular.module('app').service('sheetsService', function ($http, config) {
     }
 
     this.getProjectScores = (sheet) => {
-        console.log(sheet)
         let students = []
         for (let student of sheet) {
             students.push({
@@ -16,6 +15,7 @@ angular.module('app').service('sheetsService', function ($http, config) {
                 groupScore: student.Group
             })
         }
+        return students;
     }
 
     this.getProgress = (sheet) => {
