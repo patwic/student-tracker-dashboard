@@ -100,12 +100,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.body.style.overflow = 'visible';
   }
 
-  $scope.selectedCohortPreference = null;
-  $scope.setSelected = function (selectedCohortPreference) {
-    $scope.selectedCohortPreference = selectedCohortPreference;
+$scope.selectedCohortId;
+
+  $scope.selectedCohortId = null;
+  $scope.setSelected = function (selectedCohortId) {
+    $scope.selectedCohortId = selectedCohortId;
+        console.log($scope.selectedCohortId)
 
   }
-
 
   $scope.selectedStudents = null;
   $scope.getSelected = function(selectedStudents) {

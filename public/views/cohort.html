@@ -6,7 +6,7 @@
         <div class='cohort-sidenavAllContent'>
             <div class='cohort-sidenavClassList'>
                 <div ng-repeat="cohortPreference in cohortPreferences" ng-click="setSelected(cohortPreference.cohortId)" >
-                <h4 ng-class='{selected : cohortPreference.cohortId === selectedCohortPreference}' ng-click='openCohortStudentNav()'
+                <h4 ng-class='{selected : cohortPreference.cohortId === selectedCohortId}' ng-click='openCohortStudentNav()'
                  >{{cohortPreference.nickname}}</h4>
                 </div>
             </div>
