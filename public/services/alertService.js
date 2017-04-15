@@ -1,40 +1,39 @@
 angular.module('app').service('alertService', function ($http, config) {
 
-    getAttendanceAlerts = function() {
+    this.getAttendanceAlerts = function() {
         return $http.get(config.attendanceUrl, {
             headers: {'Access-Control-Allow-Origin': '*'}
         }).then(function(res){
-            console.log(res)
+            return res
         })
     }
-    getAttendanceAlerts();
 
 
-    getProgressAlert = () => {
+    this.getProgressAlerts = () => {
         return $http.get(config.progressUrl, {
             headers: {'Access-Control-Allow-Origin': '*'}
         }).then(function(res){
-            console.log(res)
+            return res
         })
     }
-    getProgressAlert();
+ 
 
-    getNoAttendanceAlert = () => {
+    this.getNoAttendanceAlert = () => {
         return $http.get(config.noAttendUrl, {
             headers: {'Access-Control-Allow-Origin': '*'}
         }).then(function(res){
-            console.log(res)
+            return res
         })
     }
-    getNoAttendanceAlert();
+ 
 
-    getstudentQAlert = () => {
+    this.getstudentQAlert = () => {
         return $http.get(config.studentQUrl, {
             headers: {'Access-Control-Allow-Origin': '*'}
         }).then(function(res){
-            console.log(res)
+            return res
         })
     }
-    getstudentQAlert();
+
 
 })

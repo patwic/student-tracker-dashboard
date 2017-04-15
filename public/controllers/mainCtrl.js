@@ -42,6 +42,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.activateLink = status;
   }
 
+  //--------------socket Red Alerts----------------//
+
   let socket = io()
   socket.on('updatedQs', (qArr) => {
     $scope.helpQ = qArr[0]
@@ -57,6 +59,42 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     }
     $scope.$apply();
   })
+
+  //--------------Yellow Alerts----------------//
+
+  let getAttendanceAlerts = () => {
+    alertService.getAttendanceAlerts().then((response) => {
+      $scope.attendanceAlerts = response.data;
+    console.log($scope.attendanceAlerts)
+    })
+  }
+  getAttendanceAlerts()
+
+  let getProgressAlerts = () => {
+    alertService.getProgressAlerts().then((response) => {
+      $scope.progressAlerts = response.data;
+      console.log($scope.progressAlerts)
+    })
+  }
+  getProgressAlerts()
+
+  let getNoAttendanceAlert = () => {
+    alertService.getNoAttendanceAlert().then((response) => {
+      $scope.noAttendanceAlerts = response.data;
+      console.log($scope.noAttendanceAlerts)
+    })
+  }
+  getNoAttendanceAlert()
+
+  let getstudentQAlert = () => {
+    alertService.getstudentQAlert().then((response) => {
+      $scope.studentQAlerts = response.data;
+      console.log($scope.studentQAlerts)
+    })
+  }
+  getstudentQAlert()
+
+
 
   //--------------Preference SideNav Functions----------------//
 
