@@ -64,7 +64,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   let getAttendanceAlerts = () => {
     alertService.getAttendanceAlerts().then((response) => {
-      $scope.attendanceAlerts = response.data;
+      $scope.attendanceAlerts = response.data.absences;
     console.log($scope.attendanceAlerts)
     })
   }
