@@ -11,7 +11,7 @@ angular.module('app')
         let helpData = $scope.helpData
         helpData = [helpData[0].percent, helpData[1].percent, helpData[2].percent, helpData[3].percent]
 
-        var height = document.getElementById('helpDiv').offsetHeight/3;
+        var height = document.getElementById('helpDiv').offsetHeight / 3;
         var width = height;
         var radius = Math.min(width, height) / 2;
 
@@ -63,6 +63,26 @@ angular.module('app')
           .style("fill", function (d, i) {
             return color(i);
           })
+
+
+        let updateHelpData = (data) => {
+          helpData = [data[0].percent, data[1].percent, data[2].percent, data[3].percent]
+
+          g.data(pie(helpData));
+          g.transition().duration(750).attrTween('d', arcTween)
+        }
+
+        function arcTween(a) {
+          var i = d3.interpolate(this._current, a);
+          this._current = i(0);
+          return function (t) {
+            return arc(i(t));
+          };
+        }
+
+        $scope.$watch('helpData', function (newValue, oldValue) {
+          updateHelpData($scope.helpData)
+        })
 
       }
     }
