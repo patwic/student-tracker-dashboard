@@ -319,8 +319,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     console.log($scope.ugh)
 
     $scope.getId = function(selectedCohortId) {
-    $scope.cohortId = 92
-    $scope.ugh = selectedCohortId || 92
+    $scope.cohortId = 106
+    $scope.ugh = selectedCohortId || 106
     console.log($scope.ugh)
     }
     $scope.getId()

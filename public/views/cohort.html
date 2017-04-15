@@ -138,7 +138,7 @@
             </div>
             <h5 ng-if='mostAverage.length < 1' style='text-align: center; height: 35vh;'>Currently there is no <br> data to display. </h5>
             <average-pie ng-if='mostAverage.length > 0' average-data='mostAverage'></average-pie>
-            <div class='cohort-pieGraphsKeyBox' ng-if='mostAverage.length > 0' requests-data='mostRequests'>
+            <div class='cohort-pieGraphsKeyBox' ng-if='mostAverage.length > 0'>
                 <div class='cohort-mentorGraphKeyBoxes'>
                     <div class='cohort-mentorCircleKey'></div>
                     <h5>{{mostAverage[0].percent}}% - {{mostAverage[0].name}}</h5>
@@ -158,9 +158,9 @@
                 <h3>MOST REQUESTED <br> Q HELP TIME</h3>
                 <input class='cohort-graphDateSelector' type="text" id="daterange2" />
             </div>
-            <h5 ng-if='mostHelped.length < 1' style='text-align: center; height: 35vh;'>Currently there is no <br> data to display. </h5>
+            <h5 ng-if='!mostHelped' style='text-align: center; height: 35vh;'>Currently there is no <br> data to display. </h5>
             <help-pie ng-if='mostHelped.length > 0' help-data='mostHelped'></help-pie>
-            <div class='cohort-pieGraphsKeyBox' ng-if='mostHelped.length > 0' requests-data='mostRequests'>
+            <div class='cohort-pieGraphsKeyBox' ng-if='mostHelped.length > 0'>
                 <div class='cohort-mentorGraphKeyBoxes'>
                     <div class='cohort-mentorCircleKey'></div>
                     <h5>{{mostHelped[0].percent}}% - {{mostHelped[0].name}}</h5>
@@ -180,9 +180,9 @@
                 <h3>MOST REQUESTS <br> PER STUDENT</h3>
                 <input class='cohort-graphDateSelector' type="text" id="daterange3" />
             </div>
-            <h5 ng-if='mostRequests.length < 1' style='text-align: center; height: 35vh;'>Currently there is no <br> data to display. </h5>
+            <h5 ng-if='!mostRequests' style='text-align: center; height: 35vh;'>Currently there is no <br> data to display. </h5>
             <requests-pie ng-if='mostRequests.length > 0' requests-data='mostRequests'></requests-pie>
-            <div class='cohort-pieGraphsKeyBox' ng-if='mostRequests.length > 0' requests-data='mostRequests'>
+            <div class='cohort-pieGraphsKeyBox' ng-if='mostRequests.length > 0'>
                 <div class='cohort-mentorGraphKeyBoxes'>
                     <div class='cohort-mentorCircleKey'></div>
                     <h5>{{mostRequests[0].metric}} - {{mostRequests[0].name}}</h5>
