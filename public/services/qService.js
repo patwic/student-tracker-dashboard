@@ -164,6 +164,7 @@ angular.module('app').service('qService', function ($http, config) {
     }
 
     this.getHighest = (students, targetStudents, metric) => {
+        //console.log(students)
         let targetStudentMetrics = students.filter((s) => {
             return targetStudents.indexOf(s.name) != -1
         })
@@ -181,9 +182,9 @@ angular.module('app').service('qService', function ($http, config) {
         let first = targetStudentMetrics.shift()
         let base = {sum: 0, count: 0, average: 0}
         let second = base
-        if (targetStudents.length > 1) second = targetStudentMetrics.shift()
+        if (targetStudentMetrics.length > 1) second = targetStudentMetrics.shift()
         let third = base
-        if (targetStudents.length > 2) third = targetStudentMetrics.shift()
+        if (targetStudentMetrics.length > 2) third = targetStudentMetrics.shift()
         let total = 0
         let totalCount = 0
         if (metric == 'average') {
@@ -209,7 +210,7 @@ angular.module('app').service('qService', function ($http, config) {
         topStudents.push({name: first.name, metric: first[metric], percent: firstPercent})
         if (targetStudents.length > 1) topStudents.push({name: second.name, metric: second[metric], percent: secondPercent})
         if (targetStudents.length > 2) topStudents.push({name: third.name, metric: third[metric], percent: thirdPercent})
-        topStudents.push({name: 'Other', metric: total, percent: totalPercent})        
+        topStudents.push({name: 'Other', metric: total, percent: totalPercent})
         return topStudents
     }
 

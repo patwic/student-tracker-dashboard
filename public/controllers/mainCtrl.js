@@ -7,7 +7,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.waitQ;
   $scope.redAlerts;
 
-  // $scope.cohortId = 106;
+   $scope.cohortId = 106;
   $scope.autoStartDate = new Date();
   $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
 
@@ -154,27 +154,8 @@ $scope.selectedCohortId;
 
   //--------------Attendance Display Calendar----------------//
 
-  var absences = ['2017/04/02', '2017/04/04']
 
-  $('#attendanceCalendar').datepicker({
-    inline: true,
-    firstDay: 1,
-    showOtherMonths: true,
-    dateFormat: 'yy-mm-dd',
-    dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-    beforeShowDay: highlightDays
-
-  });
-
-  function highlightDays(date) {
-    for (var i = 0; i < absences.length; i++) {
-      if (new Date(absences[i]).toString() == date.toString()) {
-        return [true, 'highlight'];
-      }
-    }
-    return [true, ''];
-  }
-
+  
 
   //--------------q Time Calendar----------------//
 
@@ -316,7 +297,7 @@ $scope.selectedCohortId;
     });
 
     //-------------------get student list for cohort id--------------//
-    $scope.cohortId = 92;
+    $scope.cohortId = 106;
 
     var allStudents = [];
         // console.log(allStudents)
@@ -387,9 +368,14 @@ $scope.selectedCohortId;
 
     // gets pie data for cohort mentors and their average help time per request
     qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
-      let mentors = qService.getAvgMentorTimes(res.data).sort((a, b) => {
+      let mentors = qService.getAvgMentorTimes(res.data)
+      console.log(mentors)
+      mentors.sort((a, b) => {
         return b.count - a.count
       })
+      while (mentors.length < 3) {
+        mentors.push({name:'',sum:0,count:0,total:0})
+      }
       for (let i = 0; i < 3; i++) {
         mentors[i].average = Math.floor(mentors[i].average)
       }
