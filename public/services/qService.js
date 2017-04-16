@@ -52,9 +52,7 @@ angular.module('app').service('qService', function ($http, config) {
             totalQ.push(this.pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeQuestionAnswered'))
             waitQ.push(this.pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeMentorBegins', 'timeQuestionAnswered'))
         }
-        console.log('Help: ', helpQ)
-        console.log('Total: ', totalQ)
-        console.log('Wait: ', waitQ)
+        return {helpQ: helpQ, totalQ: totalQ, waitQ: waitQ}
     }
 
     this.pushSingleQ = (min, max, qArr, q1, q2, q3) => {

@@ -341,6 +341,22 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     let filteredStudents = $scope.filteredStudents;
 
 
+    //----------------get data for cohort line chart-------------//
+
+    let getLineChartCohortData = (startDate, endDate, cohortId, qData) => {
+      qService.getQ(startDate, endDate, cohortId).then(res => {
+        console.log(res)
+        let data = qService.setQs(res.data)
+        console.log(data)
+        $scope.cohortQData = data.qData
+        //setQs function is broken, getting correct data from getQ but setQs is not working. Fix to get chart working
+      })
+    }
+
+    getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId, "helpQ")
+
+
+
     //------------getting mentor pie data-----------------//
 
     // gets pie data for cohort mentors and their average help time per request
@@ -447,12 +463,9 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       loadAllDatePickers()
     }
 
-
-    // $scope.selectedCohortId = null;
     $scope.setSelected = function (selectedCohortId) {
       $scope.selectedCohortId = selectedCohortId;
       $scope.cohortId = selectedCohortId;
-
     }
 
     $scope.selectedStudents = null;

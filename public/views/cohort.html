@@ -61,6 +61,7 @@
                     </select>
                     <input class='cohort-graphDateSelector' type="text" id='qTimeDateRange' />
                 </div>
+                <cohort-line-chart ng-if='cohortQData.length > 0' cohort-time-data='cohortQData'></cohort-line-chart>
             </div>
             <div class='cohort-mentorHelpGraph' id='mentorHelpDiv'>
                 <div class='cohort-mentorGraphNav'>
