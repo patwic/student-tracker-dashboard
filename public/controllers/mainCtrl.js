@@ -19,7 +19,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
   //converting the above date variables to correct format for api calls
   let apiEndDate = new Date().toISOString().substring(0, 10),
-      apiStartDate = new Date($scope.autoEndDate).toISOString().substring(0, 10)
+    apiStartDate = new Date($scope.autoEndDate).toISOString().substring(0, 10)
 
   //-----------------get progress and project scores for students------------//
 
@@ -145,81 +145,76 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   let loadQTimeDatePicker = () => {
     $('#qTimeDateRange').daterangepicker({
-      startDate: $scope.autoStartDate,
-      endDate: $scope.autoEndDate
-    })
+        startDate: $scope.autoStartDate,
+        endDate: $scope.autoEndDate
+      })
+      .on('apply.daterangepicker', function (ev, picker) {
+        let endDate = new Date()
+        picker.startDate.format('YYYY-MM-DD')
+        new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+      })
   }
-
-  $('#qTimeDateRange').on('apply.daterangepicker', function (ev, picker) {
-    let endDate = new Date()
-    picker.startDate.format('YYYY-MM-DD')
-    new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-  })
 
   //--------------Mentor Help DatePicker----------------//
 
 
   let loadMentorDatePicker = () => {
     $('#mentorHelpDateRange').daterangepicker({
-      startDate: $scope.autoStartDate,
-      endDate: $scope.autoEndDate
-    })
+        startDate: $scope.autoStartDate,
+        endDate: $scope.autoEndDate
+      })
+      .on('apply.daterangepicker', function (ev, picker) {
+        let endDate = new Date()
+        let startDate = picker.startDate.format('YYYY-MM-DD')
+        new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+        getMentorPieData(startDate, endDate, $scope.cohortId)
+      })
   }
-
-  $('#mentorHelpDateRange').on('apply.daterangepicker', function (ev, picker) {
-    let endDate = new Date()
-    let startDate = picker.startDate.format('YYYY-MM-DD')
-    new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    getMentorPieData(startDate, endDate, $scope.cohortId)
-  })
 
   //--------------Most Requested Average DatePicker----------------//
 
   let loadAverageDatePicker = () => {
     $('#daterange1').daterangepicker({
-      startDate: $scope.autoStartDate,
-      endDate: $scope.autoEndDate
-    });
+        startDate: $scope.autoStartDate,
+        endDate: $scope.autoEndDate
+      })
+      .on('apply.daterangepicker', function (ev, picker) {
+        let endDate = new Date()
+        let startDate = picker.startDate.format('YYYY-MM-DD')
+        endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+        mostAveraged(startDate, endDate, $scope.cohortId)
+      })
   }
-
-  $('#daterange1').on('apply.daterangepicker', function (ev, picker) {
-    let endDate = new Date()
-    let startDate = picker.startDate.format('YYYY-MM-DD')
-    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostAveraged(startDate, endDate, $scope.cohortId)
-  })
 
   //--------------Most Requested Help DatePicker----------------//
 
   let loadHelpDatePicker = () => {
     $('#daterange2').daterangepicker({
-      startDate: $scope.autoStartDate,
-      endDate: $scope.autoEndDate
-    });
+        startDate: $scope.autoStartDate,
+        endDate: $scope.autoEndDate
+      })
+      .on('apply.daterangepicker', function (ev, picker) {
+        let endDate = new Date()
+        let startDate = picker.startDate.format('YYYY-MM-DD')
+        endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+        mostHelp(startDate, endDate, $scope.cohortId)
+      })
   }
-
-  $('#daterange2').on('apply.daterangepicker', function (ev, picker) {
-    let endDate = new Date()
-    let startDate = picker.startDate.format('YYYY-MM-DD')
-    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostHelp(startDate, endDate, $scope.cohortId)
-  })
 
   //--------------Most Reqested Requests DatePicker----------------//
 
   let loadRequestsDatePicker = () => {
     $('#daterange3').daterangepicker({
-      startDate: $scope.autoStartDate,
-      endDate: $scope.autoEndDate
-    });
+        startDate: $scope.autoStartDate,
+        endDate: $scope.autoEndDate
+      })
+      .on('apply.daterangepicker', function (ev, picker) {
+        let endDate = new Date()
+        let startDate = picker.startDate.format('YYYY-MM-DD')
+        endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+        mostRequest(startDate, endDate, $scope.cohortId)
+      })
   }
-
-  $('#daterange3').on('apply.daterangepicker', function (ev, picker) {
-    let endDate = new Date()
-    let startDate = picker.startDate.format('YYYY-MM-DD')
-    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostRequest(startDate, endDate, $scope.cohortId)
-  })
 
   //-----------load all date pickers------------------//
 
