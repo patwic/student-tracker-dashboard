@@ -5,6 +5,7 @@ q = require('q')
 
 let self = module.exports = {
 
+  //gets data from DevMtn DB to check if any student currently in Q too long
   getCurrentRedAlert: () => {
     let day = new Date().toISOString().substring(0, 10)
     request.get(
@@ -14,6 +15,8 @@ let self = module.exports = {
         else self.redAlert(JSON.parse(qbody))
       })
   },
+
+  //checks if any student currently waiting in Q for more than 10 minutes
   redAlert: (qbody) => {
     let alerts = []
     for (let i = 0; i < qbody.length; i++) {
@@ -31,8 +34,7 @@ let self = module.exports = {
     app.setRedAlerts(alerts)
   },
 
-  getYellowAlerts: () => {},
-
+  //checks for absent students from yesterday among all cohorts
   attendanceAlert: (req, res, err) => {
     let today = new Date().toISOString().substring(0, 10)
     let yesterday = new Date()
@@ -66,6 +68,7 @@ let self = module.exports = {
       })
   },
 
+  //goes through attendance data, dividing by day with a list of absent, late, and left early students
   attendanceObjectParsing: (attendObj) => {
     let absences = []
     let lates = []
@@ -94,6 +97,8 @@ let self = module.exports = {
     }
   },
 
+  //checks if any student has done less than 3 assessments
+  //will need to be updated later to check only when students on week 5 or later
   progressAlert: (req, res, err) => {
     request.get('https://sheetsu.com/apis/v1.0/103e1fc72ac5').then(response => {
       sheet = JSON.parse(response)
@@ -116,6 +121,8 @@ let self = module.exports = {
     })
   },
 
+  //checks if any active cohorts failed to insert attendance yesterday
+  //works with checkActiveCohorts
   noAttendanceAlert: (req, res, err) => {
     let today = new Date().toISOString().substring(0, 10)
     let yesterday = new Date()
@@ -136,6 +143,7 @@ let self = module.exports = {
       })
   },
 
+  //checks active cohorts for noAttendanceAlert
   checkActiveCohorts: (cohorts, res) => {
     request.get(
       `${config.dev_mtn_api}aliases?admin_token=${config.admin_token}`,
@@ -150,6 +158,8 @@ let self = module.exports = {
       })
   },
 
+  //checks if any student is using Q excessively
+  //refer to getStudentTimes
   studentQAlert: (req, res, err) => {
     let today = new Date().toISOString().substring(0, 10)
     let yesterday = new Date()
@@ -163,6 +173,10 @@ let self = module.exports = {
       })
   },
 
+  //puts together all individual student stats
+  //student.count: number of help requests
+  //student.sum: total time helped by mentors
+  //student.average: average time helped per request (sum/count)
   getStudentTimes: (qbody, res) => {
     let students = []
     for (let i = 0; i < qbody.length; i++) {
@@ -196,7 +210,6 @@ let self = module.exports = {
         }
     }
     for (let j = 0; j < students.length; j++) {
-        if (students[j].name == 'David Barrett') console.log(students[j])
         students[j].average = parseFloat((students[j].sum / (students[j].count * 60000)).toFixed(2))
     }
     let total = 0
