@@ -7,7 +7,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.waitQ;
   $scope.redAlerts;
 
-   $scope.cohortId = 106;
+   //$scope.cohortId = 91;
   $scope.autoStartDate = new Date();
   $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
 
@@ -154,8 +154,55 @@ $scope.selectedCohortId;
 
   //--------------Attendance Display Calendar----------------//
 
+  updateAbsences()
 
-  
+  var absences = []
+  $scope.absentStudents = []
+
+  $('#attendanceCalendar').datepicker({
+      inline: true,
+      firstDay: 1,
+      showOtherMonths: true,
+      dateFormat: 'yy-mm-dd',
+      dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+      beforeShowDay: highlightDays
+  });
+
+  function updateAttendanceData(attendanceData) {
+      absences = []
+      $scope.absentStudents = {}
+      for (let day of attendanceData) {
+        if (day.absent.length > 0) {
+          for (let i = 0; i < day.absent.length; i++) {
+            if ($scope.absentStudents[day.absent[i]]) $scope.absentStudents[day.absent[i]].count++
+            else $scope.absentStudents[day.absent[i]] = {name: day.absent[i], count: 1}
+          }
+          day.day = day.day.split('-').join('/')
+          absences.push(day.day)
+        }
+      }
+      $scope.$apply()
+  }
+
+  function highlightDays(date) {
+      let day = date.toISOString().substring(8, 10)
+          for (var i = 0; i < absences.length; i++) {
+              if (new Date(absences[i]).toString() == date.toString()) {
+                  return [true, 'highlight'];
+          }
+      }
+      return [true, ''];
+  }
+
+  function updateAbsences() {  
+      attendanceService.getDays($scope.cohortId).then((res) =>
+          attendanceService.getDataFromDays(res.data).then((res2) => {
+              updateAttendanceData(attendanceService.getAttendanceFromData(res2))
+              console.log('hi')
+              $( "#attendanceCalendar" ).datepicker("refresh");
+          })
+      )
+  }
 
   //--------------q Time Calendar----------------//
 
@@ -369,7 +416,6 @@ $scope.selectedCohortId;
     // gets pie data for cohort mentors and their average help time per request
     qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
       let mentors = qService.getAvgMentorTimes(res.data)
-      console.log(mentors)
       mentors.sort((a, b) => {
         return b.count - a.count
       })

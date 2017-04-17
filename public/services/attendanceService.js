@@ -22,6 +22,7 @@ angular.module('app').service('attendanceService', function ($http, config) {
     this.getAttendanceFromData = (daysData) => {
         let attendance = []
         for (let attend of daysData) {
+            let absentStudents = {}
             let attendDay = {day : '',
                             late: [],
                             leftEarly: [],

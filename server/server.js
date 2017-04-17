@@ -9,7 +9,7 @@ const express = require('express'),
       q = require('./q'),
       config = require('./config'),
       alert = require('./alert'),
-      port = 3000,
+      port = 3030,
       conn = massive.connectSync({
             connectionString : config.eleSql
       });
