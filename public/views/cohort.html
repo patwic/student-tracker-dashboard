@@ -96,12 +96,7 @@
                 </div>
                 <div class='cohort-attencenceStudentList'>
                     <div class='cohort-attencenceStudentListBox'>
-                        <h4>Dorcu McFlowers (<span>2</span>)</h4>
-                        <h4>Duchess Margrett (<span>1</span>)</h4>
-                        <h4>Sally LaRue (<span>1</span>)</h4>
-                        <h4>Henry Von Eckleberry (<span>3</span>)</h4>
-                        <h4>John Smithers (<span>2</span>)</h4>
-                        <h4>Eila DoNuthelnuff (<span>1</span>)</h4>
+                        <h4 ng-repeat='student in absentStudents'>{{student.name}}(<span>{{student.count}}</span>)</h4>
                     </div>
                 </div>
             </div>

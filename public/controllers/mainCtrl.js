@@ -10,7 +10,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   let mostHelp
   let mostRequest
 
-  // $scope.cohortId = 106;
+   //$scope.cohortId = 91;
   $scope.autoStartDate = new Date();
   $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
 
@@ -112,27 +112,55 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   //--------------Attendance Display Calendar----------------//
 
-  var absences = ['2017/04/02', '2017/04/04']
+  updateAbsences()
+
+  var absences = []
+  $scope.absentStudents = []
 
   $('#attendanceCalendar').datepicker({
-    inline: true,
-    firstDay: 1,
-    showOtherMonths: true,
-    dateFormat: 'yy-mm-dd',
-    dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-    beforeShowDay: highlightDays
-
+      inline: true,
+      firstDay: 1,
+      showOtherMonths: true,
+      dateFormat: 'yy-mm-dd',
+      dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+      beforeShowDay: highlightDays
   });
 
-  function highlightDays(date) {
-    for (var i = 0; i < absences.length; i++) {
-      if (new Date(absences[i]).toString() == date.toString()) {
-        return [true, 'highlight'];
+  function updateAttendanceData(attendanceData) {
+      absences = []
+      $scope.absentStudents = {}
+      for (let day of attendanceData) {
+        if (day.absent.length > 0) {
+          for (let i = 0; i < day.absent.length; i++) {
+            if ($scope.absentStudents[day.absent[i]]) $scope.absentStudents[day.absent[i]].count++
+            else $scope.absentStudents[day.absent[i]] = {name: day.absent[i], count: 1}
+          }
+          day.day = day.day.split('-').join('/')
+          absences.push(day.day)
+        }
       }
-    }
-    return [true, ''];
+      $scope.$apply()
   }
 
+  function highlightDays(date) {
+      let day = date.toISOString().substring(8, 10)
+          for (var i = 0; i < absences.length; i++) {
+              if (new Date(absences[i]).toString() == date.toString()) {
+                  return [true, 'highlight'];
+          }
+      }
+      return [true, ''];
+  }
+
+  function updateAbsences() {  
+      attendanceService.getDays($scope.cohortId).then((res) =>
+          attendanceService.getDataFromDays(res.data).then((res2) => {
+              updateAttendanceData(attendanceService.getAttendanceFromData(res2))
+              console.log('hi')
+              $( "#attendanceCalendar" ).datepicker("refresh");
+          })
+      )
+  }
 
   //--------------q Time Calendar----------------//
 
@@ -268,8 +296,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     });
 
     //-------------------get student list for cohort id--------------//
-
-
     $scope.cohortId = 106;
 
     var allStudents = [];
