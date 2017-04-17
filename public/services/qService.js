@@ -1,4 +1,8 @@
 angular.module('app').service('qService', function ($http, config) {
+
+
+    this.pushSingleQ = pushSingleQ
+
     //gets Q data from DevMtn DB based on cohort and date range
     this.getQ = (beginDate, endDate, cohortId) => {
         let url = `${config.dev_mtn_api}historical/questions/?admin_token=${config.admin_token}&after=${beginDate}&before=${endDate}`
@@ -44,54 +48,70 @@ angular.module('app').service('qService', function ($http, config) {
         return fDate
     }
 
+
     //takes array of Q data divided into individual days
     //will go through each 5-minute increment from 8:50 AM to 5:10 PM
     //will create helpQ, totalQ, and waitQ
     //each of these Qs will hold these 5-minute increments of data
     this.setQs = (qArr) => {
         let helpQ = []
-        totalQ = []
-        waitQ = []
-        beginTime = new Date(`2000-01-01T14:50:00.000Z`).getTime()
-        endTime = new Date(`2000-01-01T23:10:00.000Z`).getTime()
-        for (let i = 0; i < 100; i++) {
-            let min = beginTime + (i * 300000)
-            max = beginTime + ((i + 1) * 300000)
-            helpQ.push(this.pushSingleQ(min, max, qArr, 'timeMentorBegins', 'timeQuestionAnswered'))
-            totalQ.push(this.pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeQuestionAnswered'))
-            waitQ.push(this.pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeMentorBegins', 'timeQuestionAnswered'))
+        let totalQ = []
+        let waitQ = []
+        let beginTime = new Date(`2000-01-01T14:50:00.000Z`).getTime()
+        let endTime = new Date(`2000-01-01T23:10:00.000Z`).getTime()
+        if (qQuery) {
+            if (qQuery === 'helpQ') {
+                helpQ.push(pushSingleQ(min, max, qArr, 'timeMentorBegins', 'timeQuestionAnswered'))
+                return {qQuery: helpQ}
+            } else if (qQuery === 'totalQ') {
+                totalQ.push(pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeQuestionAnswered'))
+                return {qQuery: totalQ}
+            } else {
+                waitQ.push(pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeMentorBegins', 'timeQuestionAnswered'))
+                return {qQuery: waitQ}
+            }
+            
+        } else {
+            for (let i = 0; i < 100; i++) {
+                let min = beginTime + (i * 300000)
+                let max = beginTime + ((i + 1) * 300000)
+                helpQ.push(pushSingleQ(min, max, qArr, 'timeMentorBegins', 'timeQuestionAnswered'))
+                totalQ.push(pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeQuestionAnswered'))
+                waitQ.push(pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeMentorBegins', 'timeQuestionAnswered'))
+            }
         }
-        console.log('Help: ', helpQ)
-        console.log('Total: ', totalQ)
-        console.log('Wait: ', waitQ)
+        return {
+            helpQ: helpQ,
+            totalQ: totalQ,
+            waitQ: waitQ
+        }
     }
+
 
     //creates a batch of data for the needed 5-minute increment
     //q1 is the lower metric (timeWhenEntered or timeMentorBegins)
     //q2 is the upper metric (timeMentorBegins or timeQuestionAnswered)
     //q3 is an optional metric for wait Q times
     //wait Q times needs 3 metrics, so that it can check both when timeMentorBegins is present and absent
-    this.pushSingleQ = (min, max, qArr, q1, q2, q3) => {
+    var pushSingleQ = (min, max, qArr, q1, q2, q3) => {
         let count = 0
-        sum = 0
-        for (let dayQs of qArr) {
-            for (let i = 1; i < dayQs.length; i++) {
-                let q = dayQs[i]
-                if (q[q1]) {
-                    let qMin = new Date(`2000-01-01T${new Date(q[q1]).toISOString().substring(11, 24)}`).getTime()
-                    if (qMin < max) {
-                        let qMax = max
-                        if (q[q2]) qMax = new Date(`2000-01-01T${new Date(q[q2]).toISOString().substring(11, 24)}`).getTime()
-                        else if (q[q3]) qMax = new Date(`2000-01-01T${new Date(q[q3]).toISOString().substring(11, 24)}`).getTime()
-                        if (q[q1].substring(0, 10) == new Date().toISOString().substring(0, 10) &&
-                            qMax > new Date(`2000-01-01T${new Date().toISOString().substring(11, 24)}`).getTime()) {
-                            qMax = new Date(`2000-01-01T${new Date().toISOString().substring(11, 24)}`).getTime()
-                        }
-                        if (qMax >= min) {
-                            if (qMax >= max) qMax = max
-                            sum += qMax - qMin
-                            count++
-                        }
+        let sum = 0
+        for (let i = 1; i < qArr.length; i++) {
+            let q = qArr[i]
+            if (q[q1]) {
+                let qMin = new Date(`2000-01-01T${new Date(q[q1]).toISOString().substring(11, 24)}`).getTime()
+                if (qMin < max) {
+                    let qMax = max
+                    if (q[q2]) qMax = new Date(`2000-01-01T${new Date(q[q2]).toISOString().substring(11, 24)}`).getTime()
+                    else if (q[q3]) qMax = new Date(`2000-01-01T${new Date(q[q3]).toISOString().substring(11, 24)}`).getTime()
+                    if (q[q1].substring(0, 10) == new Date().toISOString().substring(0, 10) &&
+                        qMax > new Date(`2000-01-01T${new Date().toISOString().substring(11, 24)}`).getTime()) {
+                        qMax = new Date(`2000-01-01T${new Date().toISOString().substring(11, 24)}`).getTime()
+                    }
+                    if (qMax >= min) {
+                        if (qMax >= max) qMax = max
+                        sum += qMax - qMin
+                        count++
                     }
                 }
             }
@@ -121,7 +141,7 @@ angular.module('app').service('qService', function ($http, config) {
                             max = new Date().getTime()
                         }
                         mentors[j].count++
-                        mentors[j].sum += max - min
+                            mentors[j].sum += max - min
                         isNewMentor = false;
                     }
                 }
@@ -161,8 +181,8 @@ angular.module('app').service('qService', function ($http, config) {
                         if (!max) {
                             max = new Date().getTime()
                         }
-                        students[j].count++                      
-                        students[j].sum += max - min
+                        students[j].count++
+                            students[j].sum += max - min
                         isNewStudent = false;
                     }
                 }
@@ -181,7 +201,7 @@ angular.module('app').service('qService', function ($http, config) {
                 }
             }
         }
-        for (let j = 0; j < students.length; j++) {          
+        for (let j = 0; j < students.length; j++) {
             students[j].average = parseFloat((students[j].sum / (students[j].count * 60000)).toFixed(2))
         }
         return students
@@ -193,7 +213,7 @@ angular.module('app').service('qService', function ($http, config) {
     //this function will measure by the given which metric which students in the targetStudents are topping the charts
     //permits up to top 3, though it is prepared to display only 1 or 2 students
     this.getHighest = (students, targetStudents, metric) => {
-       let targetStudentMetrics = students.filter((s) => {
+        let targetStudentMetrics = students.filter((s) => {
             return targetStudents.indexOf(s.name) != -1
         })
 
@@ -203,13 +223,18 @@ angular.module('app').service('qService', function ($http, config) {
         students = students.filter((s) => {
             let top = false
             for (let i = 0; i <= 2; i++) {
-                if (targetStudentMetrics[i]
-                    && targetStudentMetrics[i].name == s.name) top = true
+                if (targetStudentMetrics[i] &&
+                    targetStudentMetrics[i].name == s.name) top = true
             }
             return !top
         })
         let first = targetStudentMetrics.shift()
-        let base = {sum: 0, count: 0, average: 0, name: 'NA'}
+        let base = {
+            sum: 0,
+            count: 0,
+            average: 0,
+            name: 'NA'
+        }
         let second = base
         if (targetStudentMetrics.length >= 1) second = targetStudentMetrics.shift()
         let third = base
@@ -223,17 +248,16 @@ angular.module('app').service('qService', function ($http, config) {
             totalCount = students.reduce((total, student) => {
                 return total + student.count
             }, 0)
-        }
-        else {
+        } else {
             total = students.reduce((total, student) => {
                 return total + student[metric]
             }, 0)
         }
-        if (totalCount != 0) total = parseFloat((total/(totalCount * 60000)).toFixed(2))
-        let sum = first[metric]+ second[metric]+ third[metric]+ total
-        let firstPercent = parseFloat((first[metric]/sum).toFixed(2))
-        let secondPercent = parseFloat((second[metric]/sum).toFixed(2))
-        let thirdPercent = parseFloat((third[metric]/sum).toFixed(2))
+        if (totalCount != 0) total = parseFloat((total / (totalCount * 60000)).toFixed(2))
+        let sum = first[metric] + second[metric] + third[metric] + total
+        let firstPercent = parseFloat((first[metric] / sum).toFixed(2))
+        let secondPercent = parseFloat((second[metric] / sum).toFixed(2))
+        let thirdPercent = parseFloat((third[metric] / sum).toFixed(2))
         let totalPercent = parseFloat((1 - (firstPercent + secondPercent + thirdPercent)).toFixed(2))
         let topStudents = []
         topStudents.push({name: first.name, metric: first[metric], percent: firstPercent})

@@ -6,7 +6,7 @@
         <div class='cohort-sidenavAllContent'>
             <div class='cohort-sidenavClassList'>
                 <div ng-repeat="cohortPreference in cohortPreferences" ng-click="setSelected(cohortPreference.cohortId)">
-                    <h4 ng-class='{selected : cohortPreference.cohortId === selectedCohortId}' ng-click='openCohortStudentNav()'>{{cohortPreference.nickname}}</h4>
+                    <h4 ng-class='{selected : cohortPreference.cohortId === selectedCohortId}' ng-click='openCohortStudentNav()' style='cursor: pointer'>{{cohortPreference.nickname}}</h4>
                 </div>
             </div>
             <div class='cohort-sidenavFilterBox'>
@@ -40,7 +40,7 @@
                 <div class='cohort-cohortStudentList'>
                     <div>
                         <div ng-repeat="student in students" ng-click="getSelected(student)">
-                            <h5 ng-class='{selected : student === selectedStudents}'>{{student}}</h5>
+                            <h5 style='cursor: pointer' ng-class='{selected : student === selectedStudents}'>{{student}}</h5>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
     </div>
     <div class='cohort-topGraphBox'>
         <div class='cohort-qTimeMentorGraphs'>
-            <div class='cohort-qTimeGraphs'>
+            <div class='cohort-qTimeGraphs' id='cohortLineChartDiv'>
                 <div class='cohort-qTimeGraphsHeader cohort-dropdown'>
                     <select id="selectbox" class='cohort-qTimeGraphSelector'>
                             <option value="web">AVERAGE Q HELP TIME</option>
@@ -61,6 +61,7 @@
                     </select>
                     <input class='cohort-graphDateSelector' type="text" id='qTimeDateRange' />
                 </div>
+                <cohort-line-chart ng-if='cohortQData.length > 0' cohort-time-data='cohortQData'></cohort-line-chart>
             </div>
             <div class='cohort-mentorHelpGraph' id='mentorHelpDiv'>
                 <div class='cohort-mentorGraphNav'>
