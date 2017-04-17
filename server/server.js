@@ -10,7 +10,7 @@ const express = require('express'),
       io = require('socket.io').listen(server),
       path = require('path'),
       config = require('./config'),
-      port = 3000,
+      port = 8002,
       conn = massive.connectSync({
             connectionString : config.eleSql
       });
@@ -20,7 +20,7 @@ app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, '..', '/public')))
 app.use(session({resave: true, saveUninitialized: true, secret: config.secret}))
 app.use(passport.initialize())
-app.use(passport.session)
+app.use(passport.session())
 
 //------------Database stuff-------------
 
@@ -34,27 +34,28 @@ const q = require('./q'),
       alert = require('./alert')
 
 // ---------------------------------
-
-passport.use(auth ({
+console.log(config);
+passport.use('devmtn', new devAuth ({
         app: 'surveys',
         client_token: config.client_token,
         callbackURL: config.callbackURL,
         jwtSecret: config.jwtSecret
 },
-  function(accessToken, refreshToken, extraParams, profile, done) { 
-    db.getUserByAuthId([profile.id], function(err, user) { 
-      user = user[0];
-      if (!user) { 
-        console.log('CREATING USER');
-        db.createUserByAuth([profile.displayName, profile.id], function(err, user) { 
-          console.log('USER CREATED', user);
-          return done(err, user[0]); 
-        })
-      } else {  
-        console.log('FOUND USER', user);
-        return done(err, user); 
-      }
-    })
+  function(jwtoken, user, done) { 
+//     db.getUserByAuthId([profile.id], function(err, user) { 
+//       user = user[0];
+//       if (!user) { 
+//         console.log('CREATING USER');
+//         db.createUserByAuth([profile.displayName, profile.id], function(err, user) { 
+//           console.log('USER CREATED', user);
+//           return done(err, user[0]); 
+//         })
+//       } else {  
+//         console.log('FOUND USER', user);
+//         return done(err, user); 
+//       }
+//     })
+      console.log(jwtoken, user)
   }
 ));
 
@@ -70,14 +71,16 @@ passport.deserializeUser(function(userB, done) {
   done(null, userC);
 });
 
-app.get('/auth', passport.authenticate('devAuth'));
+app.get('/auth/devmtn', passport.authenticate('devmtn'), function(req, res) {
 
-app.get('/auth/callback',
-  passport.authenticate('auth0', {successRedirect: '/'}), function(req, res) {
+});
+
+app.get('/auth/devmtn/callback',
+  passport.authenticate('devmtn', {successRedirect: '/', failureRedirect:"/#/"}), function(req, res) {
     res.status(200).send(req.user);
 })
 
-app.get('/auth/me', function(req, res) {
+app.get('/auth/me', function(req, res) {s
   if (!req.user) return res.sendStatus(404);
   res.status(200).send(req.user);
 })
