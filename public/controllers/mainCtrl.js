@@ -483,6 +483,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       getStudentPieData()
       // getMentorPieData(apiStartDate, apiEndDate, $scope.cohortId)
       loadAllDatePickers()
+      updateAbsences()
+      
     }
 
     $scope.setSelected = function (selectedCohortId) {
