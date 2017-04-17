@@ -12,13 +12,17 @@ const express = require('express'),
       config = require('./config'),
       port = 8002,
       conn = massive.connectSync({
-            connectionString : config.eleSql
+            connectionString: config.eleSql
       });
 
 
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, '..', '/public')))
-app.use(session({resave: true, saveUninitialized: true, secret: config.secret}))
+app.use(session({
+      resave: true,
+      saveUninitialized: true,
+      secret: config.secret
+}))
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -26,7 +30,7 @@ app.use(passport.session())
 
 app.set('db', conn);
 const db = app.get('db');
-      dbComms = require('./dbComms')
+dbComms = require('./dbComms')
 
 //------------Dependencies-------------
 
@@ -34,69 +38,77 @@ const q = require('./q'),
       alert = require('./alert')
 
 // ---------------------------------
-console.log(config);
-passport.use('devmtn', new devAuth ({
-        app: 'surveys',
-        client_token: config.client_token,
-        callbackURL: config.callbackURL,
-        jwtSecret: config.jwtSecret
-},
-  function(jwtoken, user, done) { 
-//     db.getUserByAuthId([profile.id], function(err, user) { 
-//       user = user[0];
-//       if (!user) { 
-//         console.log('CREATING USER');
-//         db.createUserByAuth([profile.displayName, profile.id], function(err, user) { 
-//           console.log('USER CREATED', user);
-//           return done(err, user[0]); 
-//         })
-//       } else {  
-//         console.log('FOUND USER', user);
-//         return done(err, user); 
-//       }
-//     })
-      console.log(jwtoken, user)
-  }
+passport.use('devmtn', new devAuth({
+            app: 'surveys',
+            client_token: config.client_token,
+            callbackURL: config.callbackURL,
+            jwtSecret: config.jwtSecret
+      },
+      function (jwtoken, user, done) {
+            db.getUserByAuthId([user.id], function (err, user) {
+                  user = user[0];
+                  if (!user) {
+                        console.log('CREATING USER');
+                        db.createUserByAuth([user.id], function (err, user) {
+                              console.log('USER CREATED', user);
+                              return done(err, user[0]);
+                        })
+                  } else {
+                        console.log('FOUND USER', user);
+                        return done(err, user);
+                  }
+            })
+            console.log(user)
+      }
 ));
 
-passport.serializeUser(function(userA, done) {
-  console.log('serializing', userA);
-  var userB = userA;
-  done(null, userB); 
+passport.serializeUser(function (userA, done) {
+      console.log('serializing', userA);
+      var userB = userA;
+      done(null, userB);
 });
 
-passport.deserializeUser(function(userB, done) {  
-  var userC = userB;
+passport.deserializeUser(function (userB, done) {
+      var userC = userB;
+      db.selectPrefsByUser(userC.id, (err, prefs) => {
+            if (!err) userC.prefs = prefs
+           
+      })
 
-  done(null, userC);
+      done(null, userC);
 });
 
-app.get('/auth/devmtn', passport.authenticate('devmtn'), function(req, res) {
+app.get('/auth/devmtn', passport.authenticate('devmtn'), function (req, res) {
 
 });
 
 app.get('/auth/devmtn/callback',
-  passport.authenticate('devmtn', {successRedirect: '/', failureRedirect:"/#/"}), function(req, res) {
-    res.status(200).send(req.user);
+      passport.authenticate('devmtn', {
+            successRedirect: '/',
+            failureRedirect: "/#/"
+      }),
+      function (req, res) {
+            res.status(200).send(req.user);
+      })
+
+app.get('/auth/me', function (req, res) {
+      s
+      if (!req.user) return res.sendStatus(404);
+      res.status(200).send(req.user);
 })
 
-app.get('/auth/me', function(req, res) {s
-  if (!req.user) return res.sendStatus(404);
-  res.status(200).send(req.user);
-})
-
-app.get('/auth/logout', function(req, res) {
-  req.logout();
-  res.redirect('/'); 
+app.get('/auth/logout', function (req, res) {
+      req.logout();
+      res.redirect('/');
 })
 
 // ---------------------------------
 
 let helpQ = [],
-    totalQ = [],
-    waitQ = [],
-    date = new Date().toISOString().substring(0, 10),
-    redAlerts = [];
+      totalQ = [],
+      waitQ = [],
+      date = new Date().toISOString().substring(0, 10),
+      redAlerts = [];
 
 //when a client connects, begins emitting redAlerts and daily Q data
 io.on('connection', (socket) => {
@@ -118,8 +130,7 @@ setTimeout(function dailyTasks() {
             helpQ = []
             totalQ = []
             waitQ = []
-      }
-      else console.log('Same day')
+      } else console.log('Same day')
       setTimeout(dailyTasks, 3600000)
 }, 3600000)
 
@@ -148,9 +159,15 @@ app.setAttendance = (obj) => {
 }
 
 
-app.getHelpQ = () => {return helpQ}
-app.getTotalQ = () => {return totalQ}
-app.getWaitQ = () => {return waitQ}
+app.getHelpQ = () => {
+      return helpQ
+}
+app.getTotalQ = () => {
+      return totalQ
+}
+app.getWaitQ = () => {
+      return waitQ
+}
 
 //sets Qs, then emits updated Qs to clients
 app.setQs = (nHelpQ, nTotalQ, nWaitQ) => {

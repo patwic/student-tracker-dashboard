@@ -4,10 +4,10 @@ const app = require('./server'),
 
 module.exports = {
     getPrefs: (req, res) => {
-        db.selectPrefsByUser ([req.params.user_id], (err, prefs) => {
-            if (err) res.status(500).send(err)
-            else res.status(200).send(prefs)
-        })
+        // db.selectPrefsByUser ([req.params.user_id], (err, prefs) => {
+        //     if (err) res.status(500).send(err)
+        //     else res.status(200).send(prefs)
+        // })
     },
 
     upsertPrefs: (req, res) => {
