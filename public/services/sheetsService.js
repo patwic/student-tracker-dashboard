@@ -1,10 +1,12 @@
 angular.module('app').service('sheetsService', function ($http, config) {
+    //gets data from given google sheet
     this.getSheet = () => {
         return $http.get('https://sheetsu.com/apis/v1.0/103e1fc72ac5').then(response => {
             return response.data
         })
     }
 
+    //gets project scores for each student
     this.getProjectScores = (sheet) => {
         let students = []
         for (let student of sheet) {
@@ -18,8 +20,8 @@ angular.module('app').service('sheetsService', function ($http, config) {
         return students;
     }
 
+    //checks how many steps towards graduation a student has completed
     this.getProgress = (sheet) => {
-
         let students = []
         for (let student of sheet) {
             let studProg = {}

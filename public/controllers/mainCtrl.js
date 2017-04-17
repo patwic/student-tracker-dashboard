@@ -6,13 +6,20 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.totalQ;
   $scope.waitQ;
   $scope.redAlerts;
+
+  //--------functions with dependencies----------//
   let mostAveraged
   let mostHelp
   let mostRequest
+  let getMentorPieData
 
-  // $scope.cohortId = 106;
+  //---------------date variables----------------//
+
   $scope.autoStartDate = new Date();
   $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
+  //converting the above date variables to correct format for api calls
+  let apiEndDate = new Date().toISOString().substring(0, 10),
+    apiStartDate = new Date($scope.autoEndDate).toISOString().substring(0, 10)
 
 
   //-----------------get progress and project scores for students------------//
@@ -113,109 +120,142 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   //--------------Attendance Display Calendar----------------//
 
-  var absences = ['2017/04/02', '2017/04/04']
+  updateAbsences()
+
+  var absences = []
+  $scope.absentStudents = []
 
   $('#attendanceCalendar').datepicker({
-    inline: true,
-    firstDay: 1,
-    showOtherMonths: true,
-    dateFormat: 'yy-mm-dd',
-    dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-    beforeShowDay: highlightDays
-
+      inline: true,
+      firstDay: 1,
+      showOtherMonths: true,
+      dateFormat: 'yy-mm-dd',
+      dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+      beforeShowDay: highlightDays
   });
 
-  function highlightDays(date) {
-    for (var i = 0; i < absences.length; i++) {
-      if (new Date(absences[i]).toString() == date.toString()) {
-        return [true, 'highlight'];
+  function updateAttendanceData(attendanceData) {
+      absences = []
+      $scope.absentStudents = {}
+      for (let day of attendanceData) {
+        if (day.absent.length > 0) {
+          for (let i = 0; i < day.absent.length; i++) {
+            if ($scope.absentStudents[day.absent[i]]) $scope.absentStudents[day.absent[i]].count++
+            else $scope.absentStudents[day.absent[i]] = {name: day.absent[i], count: 1}
+          }
+          day.day = day.day.split('-').join('/')
+          absences.push(day.day)
+        }
       }
-    }
-    return [true, ''];
+      $scope.$apply()
   }
 
+  function highlightDays(date) {
+      let day = date.toISOString().substring(8, 10)
+          for (var i = 0; i < absences.length; i++) {
+              if (new Date(absences[i]).toString() == date.toString()) {
+                  return [true, 'highlight'];
+          }
+      }
+      return [true, ''];
+  }
 
-  //--------------q Time Calendar----------------//
+  function updateAbsences() {  
+      attendanceService.getDays($scope.cohortId).then((res) =>
+          attendanceService.getDataFromDays(res.data).then((res2) => {
+              updateAttendanceData(attendanceService.getAttendanceFromData(res2))
+              console.log('hi')
+              $( "#attendanceCalendar" ).datepicker("refresh");
+          })
+      )
+  }
 
+  //--------------q Time DatePicker----------------//
 
-
-  $(function () {
+  let loadQTimeDatePicker = () => {
     $('#qTimeDateRange').daterangepicker({
-      startDate: $scope.autoStartDate,
-      endDate: $scope.autoEndDate
-    })
-  })
+        startDate: $scope.autoStartDate,
+        endDate: $scope.autoEndDate
+      })
+      .on('apply.daterangepicker', function (ev, picker) {
+        let endDate = new Date()
+        picker.startDate.format('YYYY-MM-DD')
+        new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+      })
+  }
 
-  $('#qTimeDateRange').on('apply.daterangepicker', function (ev, picker) {
-    let endDate = new Date()
-    picker.startDate.format('YYYY-MM-DD')
-    new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-  })
-
-  //--------------Mentor Help Calendar----------------//
+  //--------------Mentor Help DatePicker----------------//
 
 
-  $(function () {
+  let loadMentorDatePicker = () => {
     $('#mentorHelpDateRange').daterangepicker({
-      startDate: $scope.autoStartDate,
-      endDate: $scope.autoEndDate
-    })
-  })
+        startDate: $scope.autoStartDate,
+        endDate: $scope.autoEndDate
+      })
+      .on('apply.daterangepicker', function (ev, picker) {
+        let endDate = new Date()
+        let startDate = picker.startDate.format('YYYY-MM-DD')
+        new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+        getMentorPieData(startDate, endDate, $scope.cohortId)
+      })
+  }
 
-  $('#mentorHelpDateRange').on('apply.daterangepicker', function (ev, picker) {
-    let endDate = new Date()
-    picker.startDate.format('YYYY-MM-DD')
-    new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-  })
+  //--------------Most Requested Average DatePicker----------------//
 
-  //--------------Most Requested Average----------------//
-
-  $(function () {
+  let loadAverageDatePicker = () => {
     $('#daterange1').daterangepicker({
-      startDate: $scope.autoStartDate,
-      endDate: $scope.autoEndDate
-    });
-  })
+        startDate: $scope.autoStartDate,
+        endDate: $scope.autoEndDate
+      })
+      .on('apply.daterangepicker', function (ev, picker) {
+        let endDate = new Date()
+        let startDate = picker.startDate.format('YYYY-MM-DD')
+        endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+        mostAveraged(startDate, endDate, $scope.cohortId)
+      })
+  }
 
-  $('#daterange1').on('apply.daterangepicker', function (ev, picker) {
-    let endDate = new Date()
-    let startDate = picker.startDate.format('YYYY-MM-DD')
-    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostAveraged(startDate, endDate, $scope.cohortId)
-  })
+  //--------------Most Requested Help DatePicker----------------//
 
-  //--------------Most Requested Help----------------//
-
-  $(function () {
+  let loadHelpDatePicker = () => {
     $('#daterange2').daterangepicker({
-      startDate: $scope.autoStartDate,
-      endDate: $scope.autoEndDate
-    });
-  })
+        startDate: $scope.autoStartDate,
+        endDate: $scope.autoEndDate
+      })
+      .on('apply.daterangepicker', function (ev, picker) {
+        let endDate = new Date()
+        let startDate = picker.startDate.format('YYYY-MM-DD')
+        endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+        mostHelp(startDate, endDate, $scope.cohortId)
+      })
+  }
 
-  $('#daterange2').on('apply.daterangepicker', function (ev, picker) {
-    let endDate = new Date()
-    let startDate = picker.startDate.format('YYYY-MM-DD')
-    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostHelp(startDate, endDate, $scope.cohortId)
-  })
+  //--------------Most Reqested Requests DatePicker----------------//
 
-  //--------------Most Reqested Requests----------------//
-
-  $(function () {
+  let loadRequestsDatePicker = () => {
     $('#daterange3').daterangepicker({
-      startDate: $scope.autoStartDate,
-      endDate: $scope.autoEndDate
-    });
-  })
+        startDate: $scope.autoStartDate,
+        endDate: $scope.autoEndDate
+      })
+      .on('apply.daterangepicker', function (ev, picker) {
+        let endDate = new Date()
+        let startDate = picker.startDate.format('YYYY-MM-DD')
+        endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+        mostRequest(startDate, endDate, $scope.cohortId)
+      })
+  }
 
-  $('#daterange3').on('apply.daterangepicker', function (ev, picker) {
-    let endDate = new Date()
-    let startDate = picker.startDate.format('YYYY-MM-DD')
-    endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostRequest(startDate, endDate, $scope.cohortId)
-  })
+  //-----------load all date pickers------------------//
 
+  let loadAllDatePickers = () => {
+    loadQTimeDatePicker()
+    loadMentorDatePicker()
+    loadAverageDatePicker()
+    loadHelpDatePicker()
+    loadRequestsDatePicker()
+  }
+
+  loadAllDatePickers()
 
   //--------------All Select Menus----------------//
 
@@ -272,8 +312,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     
 
     //-------------------get student list for cohort id--------------//
-
-
     $scope.cohortId = 106;
 
     var allStudents = [];
@@ -322,27 +360,30 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.getCohortPreferences();
 
 
-
-
-    //---------------date variables----------------//
-
-
-    //converting the above date variables to correct format for api calls
-    let apiEndDate = new Date().toISOString().substring(0, 10),
-      apiStartDate = new Date($scope.autoEndDate).toISOString().substring(0, 10)
-
-
     //---------------filtered students for cohort view from side menu-----------//
 
     $scope.filteredStudents = [] //!!!!!!!DUMMY DATA!!!!!
     let filteredStudents = $scope.filteredStudents;
 
 
+    //----------------get data for cohort line chart-------------//
+
+    let getLineChartCohortData = (startDate, endDate, cohortId, qQuery) => {
+      qService.getQ(startDate, endDate, cohortId).then(res => {
+        let data = qService.setQs(res.data, qQuery)
+        $scope.cohortQData = data[qQuery]
+      })
+    }
+
+    // getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId, "helpQ")
+
+
+
     //------------getting mentor pie data-----------------//
 
     // gets pie data for cohort mentors and their average help time per request
-    let getMentorPieData = () => {
-      qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
+    getMentorPieData = (startDate, endDate, cohortId) => {
+      qService.getQ(startDate, endDate, cohortId).then(res => {
         let mentors = qService.getAvgMentorTimes(res.data)
         mentors.sort((a, b) => {
           return b.count - a.count
@@ -364,7 +405,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         $scope.mentorPieData = [mentors[0].average, mentors[1].average, mentors[2].average]
       })
     }
-    getMentorPieData()
+    getMentorPieData(apiStartDate, apiEndDate, $scope.cohortId)
 
     //-------------getting most requesting student pie data-------------//
 
@@ -440,15 +481,13 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById("login-sidenavOverlay").style.display = "none";
       document.body.style.overflow = 'visible';
       getStudentPieData()
-      getMentorPieData()
+      // getMentorPieData(apiStartDate, apiEndDate, $scope.cohortId)
+      loadAllDatePickers()
     }
 
-
-    // $scope.selectedCohortId = null;
     $scope.setSelected = function (selectedCohortId) {
       $scope.selectedCohortId = selectedCohortId;
       $scope.cohortId = selectedCohortId;
-
     }
 
     $scope.selectedStudents = null;
