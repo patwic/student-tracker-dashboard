@@ -6,17 +6,13 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.totalQ;
   $scope.waitQ;
   $scope.redAlerts;
+  let mostAveraged
+  let mostHelp
+  let mostRequest
 
    //$scope.cohortId = 91;
   $scope.autoStartDate = new Date();
   $scope.autoEndDate = $scope.autoStartDate.setDate($scope.autoStartDate.getDate() - 7);
-
-
-  mostRequestingStudents = (startDate, endDate) => {
-    return qService.getQ(startDate, endDate, $scope.cohortId).then(function (res) {
-      return qService.getAvgStudentTimes(res.data)
-    })
-  }
 
   //-----------------get progress and project scores for students------------//
 
@@ -94,7 +90,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   }
   getstudentQAlert()
 
- 
+
 
   //--------------Preference SideNav Functions----------------//
 
@@ -112,45 +108,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.body.style.overflow = 'visible';
   }
 
-  //--------------Cohort SideNav Functions----------------//
 
-  $scope.openCohortNav = function () {
-    document.getElementById("cohort-sidenav").style.width = "400px";
-    document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
-    //document.getElementsByClassName("cohort-selectedCohort").style.backgroundColor = "#444";
-    // document.getElementsByClassName("cohort-selectedCohort").style.color = '#999999';
-    document.getElementById("login-sidenavOverlay").style.display = "block";
-    document.body.style.overflow = 'hidden';
-
-  }
-
-  $scope.openCohortStudentNav = function () {
-    document.getElementById("cohort-sidenavStudent").style.width = "420px";
-    // document.getElementById("cohort-selectedCohort").style.backgroundColor = "#1a1a1a";
-    // document.getElementById("cohort-selectedCohort").style.color = '#25aae1';
-    document.getElementById("cohort-sidenav").style.boxShadow = "none";
-  }
-
-  $scope.closeCohortStudentNav = function () {
-    document.getElementById("cohort-sidenavStudent").style.width = "0";
-    document.getElementById("cohort-sidenav").style.width = "0";
-    document.getElementById("login-sidenavOverlay").style.display = "none";
-    document.body.style.overflow = 'visible';
-  }
-
-$scope.selectedCohortId;
-
-  $scope.selectedCohortId = null;
-  $scope.setSelected = function (selectedCohortId) {
-    $scope.selectedCohortId = selectedCohortId;
-        console.log($scope.selectedCohortId)
-
-  }
-
-  $scope.selectedStudents = null;
-  $scope.getSelected = function(selectedStudents) {
-    $scope.selectedStudents = selectedStudents
-  }
 
   //--------------Attendance Display Calendar----------------//
 
@@ -237,7 +195,7 @@ $scope.selectedCohortId;
     new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
   })
 
-  //--------------Average q Time Calendar----------------//
+  //--------------Most Requested Average----------------//
 
   $(function () {
     $('#daterange1').daterangepicker({
@@ -250,12 +208,10 @@ $scope.selectedCohortId;
     let endDate = new Date()
     let startDate = picker.startDate.format('YYYY-MM-DD')
     endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostRequestingStudents(startDate, endDate).then(function (res) {
-
-    })
+    mostAveraged(startDate, endDate, $scope.cohortId)
   })
 
-  //--------------Most Requested Q Time Calendar----------------//
+  //--------------Most Requested Help----------------//
 
   $(function () {
     $('#daterange2').daterangepicker({
@@ -268,12 +224,10 @@ $scope.selectedCohortId;
     let endDate = new Date()
     let startDate = picker.startDate.format('YYYY-MM-DD')
     endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostRequestingStudents(startDate, endDate).then(function (res) {
-
-    })
+    mostHelp(startDate, endDate, $scope.cohortId)
   })
 
-  //--------------Most Reqesting Student Calendar----------------//
+  //--------------Most Reqested Requests----------------//
 
   $(function () {
     $('#daterange3').daterangepicker({
@@ -286,9 +240,7 @@ $scope.selectedCohortId;
     let endDate = new Date()
     let startDate = picker.startDate.format('YYYY-MM-DD')
     endDate = new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
-    mostRequestingStudents(startDate, endDate).then(function (res) {
-      console.log(res)
-    })
+    mostRequest(startDate, endDate, $scope.cohortId)
   })
 
 
@@ -347,52 +299,49 @@ $scope.selectedCohortId;
     $scope.cohortId = 106;
 
     var allStudents = [];
-        // console.log(allStudents)
+
 
     var getStudentsForCohort = () => { //make an array of all student names from specific cohort
       return qService.getStudentsForCohort($scope.cohortId).then(res => {
         for (let i = 0; i < res.length; i++) {
           allStudents.push(res[i].firstName + ' ' + res[i].lastName)
         }
+
         return allStudents;
       })
     }
 
-    $scope.getCohortStudents = function(){
+    $scope.getCohortStudents = function () {
       $scope.students = allStudents;
-        // console.log($scope.students)
+      // console.log($scope.students)
     }
     $scope.getCohortStudents()
 
 
-  var cohortPreferences = [{ //!!!!!!!DUMMY DATA!!!!!
-      cohortId: 106,
-      nickname: "DM-19"
-    },
-    {
-      cohortId: 107,
-      nickname: "DM-20"
-    },
-    {
-      cohortId: 108,
-      nickname: "DM-21"
-    },
-    {
-      cohortId: 109,
-      nickname: "DM-22"
-    },
-    {
-      cohortId: 110,
-      nickname: "DM-23"
+    var cohortPreferences = [{ //!!!!!!!DUMMY DATA!!!!!
+        cohortId: 91,
+        nickname: "DM-19"
+      },
+      {
+        cohortId: 92,
+        nickname: "DM-20"
+      },
+      {
+        cohortId: 106,
+        nickname: "DM-21"
+      },
+      {
+        cohortId: 110,
+        nickname: "DM-22"
+      }
+    ]
+
+
+    $scope.getCohortPreferences = function () {
+      $scope.cohortPreferences = cohortPreferences
     }
-  ]
 
-
-  $scope.getCohortPreferences = function () {
-    $scope.cohortPreferences = cohortPreferences
-  }
-
-  $scope.getCohortPreferences();
+    $scope.getCohortPreferences();
 
 
 
@@ -414,27 +363,35 @@ $scope.selectedCohortId;
     //------------getting mentor pie data-----------------//
 
     // gets pie data for cohort mentors and their average help time per request
-    qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
-      let mentors = qService.getAvgMentorTimes(res.data)
-      mentors.sort((a, b) => {
-        return b.count - a.count
+    let getMentorPieData = () => {
+      qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
+        let mentors = qService.getAvgMentorTimes(res.data)
+        mentors.sort((a, b) => {
+          return b.count - a.count
+        })
+        while (mentors.length < 3) {
+          mentors.push({
+            name: '',
+            sum: 0,
+            count: 0,
+            total: 0
+          })
+        }
+        for (let i = 0; i < 3; i++) {
+          mentors[i].average = Math.floor(mentors[i].average)
+        }
+        $scope.mentors = mentors.slice(0, 3).sort((a, b) => {
+          return b.average - a.average;
+        });
+        $scope.mentorPieData = [mentors[0].average, mentors[1].average, mentors[2].average]
       })
-      while (mentors.length < 3) {
-        mentors.push({name:'',sum:0,count:0,total:0})
-      }
-      for (let i = 0; i < 3; i++) {
-        mentors[i].average = Math.floor(mentors[i].average)
-      }
-      $scope.mentors = mentors.slice(0, 3).sort((a, b) => {
-        return b.average - a.average;
-      });
-      $scope.mentorPieData = [mentors[0].average, mentors[1].average, mentors[2].average]
-    })
+    }
+    getMentorPieData()
 
     //-------------getting most requesting student pie data-------------//
 
-    let getAllRequestingPieData = () => { //gets student data ready to filter
-      return qService.getQ(apiStartDate, apiEndDate, $scope.cohortId).then(res => {
+    let getMostRequestingStudentData = (startDate, endDate, cohortId) => { //gets student data ready to filter
+      return qService.getQ(startDate, endDate, cohortId).then(res => {
         return qService.getAvgStudentTimes(res.data);
       })
     }
@@ -454,41 +411,76 @@ $scope.selectedCohortId;
       return [studs[0], studs[1], studs[2], other[0]]
     }
 
-    $scope.mostAverage = () => { //gets pie data for the most requested average q time
-      getAllRequestingPieData().then(res => {
-        let ma = qService.getHighest(res, filteredStudents, 'average')
-        $scope.mostAverage = sortPieData(ma)
+    mostAveraged = (startDate, endDate, cohortId) => { //gets pie data for the most requested average q time
+      getMostRequestingStudentData(startDate, endDate, cohortId).then(res => {
+        $scope.mostAverage = sortPieData(qService.getHighest(res, filteredStudents, 'average'))
       })
     }
 
-    $scope.mostHelp = () => { //gets pie data for the most requested help q time
-      getAllRequestingPieData().then(res => {
-        let mh = qService.getHighest(res, filteredStudents, 'sum')
-        $scope.mostHelped = sortPieData(mh)
+    mostHelp = (startDate, endDate, cohortId) => { //gets pie data for the most requested help q time
+      getMostRequestingStudentData(startDate, endDate, cohortId).then(res => {
+        $scope.mostHelped = sortPieData(qService.getHighest(res, filteredStudents, 'sum'))
       })
     }
 
-    $scope.mostRequest = () => { //gets pie data for the most q requests
-      getAllRequestingPieData().then(res => {
-        let mr = qService.getHighest(res, filteredStudents, 'count')
-        $scope.mostRequests = sortPieData(mr)
+    mostRequest = (startDate, endDate, cohortId) => { //gets pie data for the most q requests
+      getMostRequestingStudentData(startDate, endDate, cohortId).then(res => {
+        $scope.mostRequests = sortPieData(qService.getHighest(res, filteredStudents, 'count'))
       })
     }
 
-    let getPieDataOnPageLoad = () => {
+    let getStudentPieData = () => {
       getStudentsForCohort().then(res => {
         filteredStudents = res;
-        $scope.mostHelp()
-        $scope.mostAverage()
-        $scope.mostRequest()
+        mostHelp(apiStartDate, apiEndDate, $scope.cohortId)
+        mostAveraged(apiStartDate, apiEndDate, $scope.cohortId)
+        mostRequest(apiStartDate, apiEndDate, $scope.cohortId)
       })
     }
 
-    getPieDataOnPageLoad()
+    getStudentPieData()
+
+
+    //--------------Cohort SideNav Functions----------------//
+
+    $scope.openCohortNav = function () {
+      document.getElementById("cohort-sidenav").style.width = "400px";
+      document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
+      document.getElementById("login-sidenavOverlay").style.display = "block";
+      document.body.style.overflow = 'hidden';
+
+    }
+
+    $scope.openCohortStudentNav = function () {
+      document.getElementById("cohort-sidenavStudent").style.width = "420px";
+      document.getElementById("cohort-sidenav").style.boxShadow = "none";
+    }
+
+    $scope.closeCohortStudentNav = function () {
+      document.getElementById("cohort-sidenavStudent").style.width = "0";
+      document.getElementById("cohort-sidenav").style.width = "0";
+      document.getElementById("login-sidenavOverlay").style.display = "none";
+      document.body.style.overflow = 'visible';
+      getStudentPieData()
+      getMentorPieData()
+    }
+
+
+    // $scope.selectedCohortId = null;
+    $scope.setSelected = function (selectedCohortId) {
+      $scope.selectedCohortId = selectedCohortId;
+      $scope.cohortId = selectedCohortId;
+
+    }
+
+    $scope.selectedStudents = null;
+    $scope.getSelected = function (selectedStudents) {
+      $scope.selectedStudents = selectedStudents
+    }
 
 
   });
 
 
- 
+
 })

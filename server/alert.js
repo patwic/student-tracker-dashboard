@@ -102,7 +102,6 @@ let self = module.exports = {
   progressAlert: (req, res, err) => {
     request.get('https://sheetsu.com/apis/v1.0/103e1fc72ac5').then(response => {
       sheet = JSON.parse(response)
-      console.log(sheet)
       let students = []
       for (let student of sheet) {
         let count = 0
@@ -114,7 +113,6 @@ let self = module.exports = {
         if (student['Angular'] == 'Pass') count++
         if (student['Node'] == 'Pass') count++
         if (student['SQL Week Passed'] != '') count++
-        console.log(count)
         if (count < 3) students.push(student.Student)
       }
       res.send(students)
@@ -153,7 +151,6 @@ let self = module.exports = {
           return c.active
             && cohorts.indexOf(c.cohortId) == -1
         })
-        console.log(cohorts)
         res.send(noAttendCohorts)
       })
   },
@@ -165,7 +162,6 @@ let self = module.exports = {
     let yesterday = new Date()
     yesterday.setDate(new Date().getDate() - 1)
     yesterday = yesterday.toISOString().substring(0, 10)
-    console.log(`${config.dev_mtn_api}historical/questions/?admin_token=${config.admin_token}&after=${yesterday}&before=${today}`)
     request.get(
       `${config.dev_mtn_api}historical/questions/?admin_token=${config.admin_token}&after=${yesterday}&before=${today}`,
       (err, response, body) => {
@@ -216,7 +212,7 @@ let self = module.exports = {
     students.forEach((s) => {
       total += s.sum
     })
-    console.log(total)
+
     res.send(students.filter((s) => {
       s.percent = `${((s.sum * 100)/total).toFixed(2)}%`
       return s.sum/total >= 0.1

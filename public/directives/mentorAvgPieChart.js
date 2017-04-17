@@ -46,6 +46,29 @@ angular.module('app')
             return color(i);
           })
 
+        let updateMentorPieData = (data) => {
+          mentorData = data.sort((a, b) => {
+            return b - a;
+          })
+          let pie = d3.pie().value(function (d) {
+            return d;
+          })(mentorData);
+          path = d3.select('#mentorPie').selectAll('path').data(pie)
+          path.transition().duration(500).attrTween("d", arcTween)
+        }
+
+        function arcTween(a) {
+          let i = d3.interpolate(this._current, a);
+          this._current = i(0);
+          return function (t) {
+            return arc(i(t));
+          };
+        }
+
+        $scope.$watch('mentorData', function (newValue, oldValue) {
+          updateMentorPieData($scope.mentorData)
+        })
+
       }
     }
   })

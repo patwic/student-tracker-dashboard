@@ -193,9 +193,10 @@ angular.module('app').service('qService', function ($http, config) {
     //this function will measure by the given which metric which students in the targetStudents are topping the charts
     //permits up to top 3, though it is prepared to display only 1 or 2 students
     this.getHighest = (students, targetStudents, metric) => {
-        let targetStudentMetrics = students.filter((s) => {
+       let targetStudentMetrics = students.filter((s) => {
             return targetStudents.indexOf(s.name) != -1
         })
+
         targetStudentMetrics.sort((a, b) => {
             return b[metric] - a[metric]
         })
@@ -208,11 +209,11 @@ angular.module('app').service('qService', function ($http, config) {
             return !top
         })
         let first = targetStudentMetrics.shift()
-        let base = {sum: 0, count: 0, average: 0}
+        let base = {sum: 0, count: 0, average: 0, name: 'NA'}
         let second = base
-        if (targetStudentMetrics.length > 1) second = targetStudentMetrics.shift()
+        if (targetStudentMetrics.length >= 1) second = targetStudentMetrics.shift()
         let third = base
-        if (targetStudentMetrics.length > 2) third = targetStudentMetrics.shift()
+        if (targetStudentMetrics.length >= 1) third = targetStudentMetrics.shift()
         let total = 0
         let totalCount = 0
         if (metric == 'average') {
