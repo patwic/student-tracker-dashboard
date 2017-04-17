@@ -9,7 +9,7 @@ const express = require('express'),
       q = require('./q'),
       config = require('./config'),
       alert = require('./alert'),
-      port = 3030,
+      port = 3000,
       conn = massive.connectSync({
             connectionString : config.eleSql
       });
@@ -58,7 +58,7 @@ function updateQ() {
 //checks for new red alerts every so often
 function getRedAlerts() {
       setTimeout(alert.getCurrentRedAlert, 5000)
-      setTimeout(getRedAlerts, 300000)
+      setTimeout(getRedAlerts, 15000)
 }
 
 //starts updating Q and getting red alerts on server reset
