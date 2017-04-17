@@ -1,4 +1,7 @@
 const express = require('express'),
+      session = require('express-session'),
+      devAuth = require('devmtn-auth'),
+      passport = require('passport'),
       bodyParser = require('body-parser'),
       massive = require('massive'),
       app = module.exports = express(),
@@ -6,17 +9,85 @@ const express = require('express'),
       server = http.createServer(app),
       io = require('socket.io').listen(server),
       path = require('path'),
-      q = require('./q'),
       config = require('./config'),
-      alert = require('./alert'),
       port = 3000,
       conn = massive.connectSync({
             connectionString : config.eleSql
       });
 
+
+app.use(bodyParser.json())
+app.use(express.static(path.join(__dirname, '..', '/public')))
+app.use(session({resave: true, saveUninitialized: true, secret: config.secret}))
+app.use(passport.initialize())
+app.use(passport.session)
+
+//------------Database stuff-------------
+
 app.set('db', conn);
 const db = app.get('db');
       dbComms = require('./dbComms')
+
+//------------Dependencies-------------
+
+const q = require('./q'),
+      alert = require('./alert')
+
+// ---------------------------------
+
+passport.use(auth ({
+        app: 'surveys',
+        client_token: config.client_token,
+        callbackURL: config.callbackURL,
+        jwtSecret: config.jwtSecret
+},
+  function(accessToken, refreshToken, extraParams, profile, done) { 
+    db.getUserByAuthId([profile.id], function(err, user) { 
+      user = user[0];
+      if (!user) { 
+        console.log('CREATING USER');
+        db.createUserByAuth([profile.displayName, profile.id], function(err, user) { 
+          console.log('USER CREATED', user);
+          return done(err, user[0]); 
+        })
+      } else {  
+        console.log('FOUND USER', user);
+        return done(err, user); 
+      }
+    })
+  }
+));
+
+passport.serializeUser(function(userA, done) {
+  console.log('serializing', userA);
+  var userB = userA;
+  done(null, userB); 
+});
+
+passport.deserializeUser(function(userB, done) {  
+  var userC = userB;
+
+  done(null, userC);
+});
+
+app.get('/auth', passport.authenticate('devAuth'));
+
+app.get('/auth/callback',
+  passport.authenticate('auth0', {successRedirect: '/'}), function(req, res) {
+    res.status(200).send(req.user);
+})
+
+app.get('/auth/me', function(req, res) {
+  if (!req.user) return res.sendStatus(404);
+  res.status(200).send(req.user);
+})
+
+app.get('/auth/logout', function(req, res) {
+  req.logout();
+  res.redirect('/'); 
+})
+
+// ---------------------------------
 
 let helpQ = [],
     totalQ = [],
@@ -73,8 +144,6 @@ app.setAttendance = (obj) => {
       let leftEarly = obj.leftEarly;
 }
 
-app.use(bodyParser.json())
-app.use(express.static(path.join(__dirname, '..', '/public')))
 
 app.getHelpQ = () => {return helpQ}
 app.getTotalQ = () => {return totalQ}
@@ -98,8 +167,8 @@ app.get('/api/studentprogress', alert.progressAlert) //gets student progress ale
 app.get('/api/studentexcessq', alert.studentQAlert) //gets student excess q time alerts
 app.get('/api/attendancerecorded', alert.noAttendanceAlert) //gets alerts related to absent attendance data
 app.get('/api/attendance', alert.attendanceAlert) //gets alerts related to absent students
-app.get('/api/prefs/:user_id', dbComms.getPrefs) //for user preference database
-app.post('/api/prefs/:user_id', dbComms.upsertPrefs) //for user preference database
+app.get('/api/prefs/', dbComms.getPrefs) //for user preference database
+app.post('/api/prefs/', dbComms.upsertPrefs) //for user preference database
 
 //for testing purposes; remove once live
 app.put('/api/reset', (req, res) => {

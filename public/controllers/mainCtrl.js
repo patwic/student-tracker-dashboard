@@ -359,6 +359,13 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     $scope.getCohortPreferences();
 
+     //---------------get/post user preferences-----------//
+
+     $scope.getUserPrefs = () => {
+       
+     }
+
+
 
     //---------------filtered students for cohort view from side menu-----------//
 
@@ -481,7 +488,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById("login-sidenavOverlay").style.display = "none";
       document.body.style.overflow = 'visible';
       getStudentPieData()
-      // getMentorPieData(apiStartDate, apiEndDate, $scope.cohortId)
+      getMentorPieData(apiStartDate, apiEndDate, $scope.cohortId)
       loadAllDatePickers()
       updateAbsences()
       
