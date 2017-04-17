@@ -68,8 +68,9 @@
                     <h3>AVERAGE MENTOR <br>HELP TIME <br>PER REQUEST</h3>
                     <input class='cohort-graphDateSelector' type="text" id="mentorHelpDateRange" />
                 </div>
+                <h5 ng-if='!mentorPieData'>Currently there is no data to display. </h5>
                 <mentor-pie ng-if='mentorPieData.length > 0' mentor-data='mentorPieData'></mentor-pie>
-                <div class='cohort-mentorGraphKey'>
+                <div class='cohort-mentorGraphKey' ng-if='mentorPieData.length > 0'>
                     <div class='cohort-mentorGraphKeyBoxes'>
                         <div class='cohort-mentorCircleKey'></div>
                         <h5>{{mentors[0].average}} - {{mentors[0].name}}</h5>
@@ -111,10 +112,10 @@
         <div class='cohort-projectScoresGraphBox' id='projectScoresDiv'>
             <h3>PROJECT SCORES</h3>
             <div class='cohort-projectScoresKey cohort-dropdown'>
-                <select id="selectbox" class='cohort-projectScoresSelector'>
-                            <option value="web">PERSONAL PROJECT</option>
-                            <option value="ios">GROUP PROJECT</option>
-                            <option value="us">NO SERVER PROJECT </option>
+                <select id="selectbox" class='cohort-projectScoresSelector' >
+                            <option id="pp">PERSONAL PROJECT</option>
+                            <option id="gp">GROUP PROJECT</option>
+                            <option id="nsp">NO SERVER PROJECT </option>
                     </select>
                 <div class='cohort-projectScoresKeyValues'>
                     <div></div>
@@ -194,4 +195,6 @@
             </div>
         </div>
     </div>
+
+    
 </section>
