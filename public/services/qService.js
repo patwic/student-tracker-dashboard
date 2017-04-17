@@ -1,7 +1,9 @@
 angular.module('app').service('qService', function ($http, config) {
 
+
     this.pushSingleQ = pushSingleQ
 
+    //gets Q data from DevMtn DB based on cohort and date range
     this.getQ = (beginDate, endDate, cohortId) => {
         let url = `${config.dev_mtn_api}historical/questions/?admin_token=${config.admin_token}&after=${beginDate}&before=${endDate}`
         if (cohortId) url += `&cohortId=${cohortId}`
@@ -14,6 +16,9 @@ angular.module('app').service('qService', function ($http, config) {
         )
     }
 
+    //divides Q data into an array
+    //each entry in array holds day of Q data
+    //continues to setQs
     this.divideQDays = (qbody, beginDate, endDate) => {
         let beginFD = this.dateFormatter(beginDate)
         let endFD = this.dateFormatter(endDate)
@@ -36,13 +41,19 @@ angular.module('app').service('qService', function ($http, config) {
         this.setQs(qArr)
     }
 
+    //changes date into needed format for day dividing
     this.dateFormatter = (date) => {
         let dateArr = date.split('-')
         let fDate = new Date(dateArr[0], dateArr[1] - 1, dateArr[2]);
         return fDate
     }
 
-    this.setQs = (qArr, qQuery) => {
+
+    //takes array of Q data divided into individual days
+    //will go through each 5-minute increment from 8:50 AM to 5:10 PM
+    //will create helpQ, totalQ, and waitQ
+    //each of these Qs will hold these 5-minute increments of data
+    this.setQs = (qArr) => {
         let helpQ = []
         let totalQ = []
         let waitQ = []
@@ -76,6 +87,12 @@ angular.module('app').service('qService', function ($http, config) {
         }
     }
 
+
+    //creates a batch of data for the needed 5-minute increment
+    //q1 is the lower metric (timeWhenEntered or timeMentorBegins)
+    //q2 is the upper metric (timeMentorBegins or timeQuestionAnswered)
+    //q3 is an optional metric for wait Q times
+    //wait Q times needs 3 metrics, so that it can check both when timeMentorBegins is present and absent
     var pushSingleQ = (min, max, qArr, q1, q2, q3) => {
         let count = 0
         let sum = 0
@@ -104,6 +121,13 @@ angular.module('app').service('qService', function ($http, config) {
         } else return '0'
     }
 
+    //takes a batch of Q data (qbody)
+    //checks each question for a mentor
+    //if mentor helped that question, adds question metrics to appropriate mentor
+    //returns array of all mentors in data
+    //mentor.sum: how much time the mentor helped across all requests
+    //mentor.count: how many times the mentor helped students
+    //mentor.average: average length of time mentor helped per request (mentor.sum/mentor.count)
     this.getAvgMentorTimes = (qbody) => {
         let mentors = []
         for (let i = 0; i < qbody.length; i++) {
@@ -142,6 +166,9 @@ angular.module('app').service('qService', function ($http, config) {
         return mentors
     }
 
+    //used to measure stats related to amount students helped
+    //very similar in function to getAvgMentorTimes
+    //refer to that function for more details
     this.getAvgStudentTimes = (qbody) => {
         let students = []
         for (let i = 0; i < qbody.length; i++) {
@@ -180,6 +207,11 @@ angular.module('app').service('qService', function ($http, config) {
         return students
     }
 
+    //students: all students present in data
+    //targetStudents: desired students to measure
+    //metric: by which metric we're measuring (average, sum, count)
+    //this function will measure by the given which metric which students in the targetStudents are topping the charts
+    //permits up to top 3, though it is prepared to display only 1 or 2 students
     this.getHighest = (students, targetStudents, metric) => {
         let targetStudentMetrics = students.filter((s) => {
             return targetStudents.indexOf(s.name) != -1
@@ -228,30 +260,14 @@ angular.module('app').service('qService', function ($http, config) {
         let thirdPercent = parseFloat((third[metric] / sum).toFixed(2))
         let totalPercent = parseFloat((1 - (firstPercent + secondPercent + thirdPercent)).toFixed(2))
         let topStudents = []
-        topStudents.push({
-            name: first.name,
-            metric: first[metric],
-            percent: firstPercent
-        })
-        if (targetStudents.length > 1) topStudents.push({
-            name: second.name,
-            metric: second[metric],
-            percent: secondPercent
-        })
-        if (targetStudents.length > 2) topStudents.push({
-            name: third.name,
-            metric: third[metric],
-            percent: thirdPercent
-        })
-        topStudents.push({
-            name: 'Other',
-            metric: total,
-            percent: totalPercent
-        })
+        topStudents.push({name: first.name, metric: first[metric], percent: firstPercent})
+        if (targetStudents.length > 1) topStudents.push({name: second.name, metric: second[metric], percent: secondPercent})
+        if (targetStudents.length > 2) topStudents.push({name: third.name, metric: third[metric], percent: thirdPercent})
+        topStudents.push({name: 'Other', metric: total, percent: totalPercent})
         return topStudents
     }
 
-
+    //gets a list of students for a given cohort
     this.getStudentsForCohort = (cID) => {
         return $http.get('http://q.devmountain.com/admin/user?cohort=' + cID + '&admin_token=' + config.admin_token).then(res => {
             return res.data;

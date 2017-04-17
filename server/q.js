@@ -3,6 +3,7 @@ const config = require('./config.js'),
       app = require('./server')
 
 let self = module.exports = {
+    //gets Q data for today so far
     getCurrentQ: () => {
         let day = new Date().toISOString().substring(0, 10)
         request.get(
@@ -13,6 +14,9 @@ let self = module.exports = {
             })
     },
 
+    //will go through each 5-minute increment from 8:50 AM to 5:10 PM
+    //will create helpQ, totalQ, and waitQ
+    //each of these Qs will hold these 5-minute increments of data
     setQs: (qbody) => {
         let helpQ = []
             totalQ = []
@@ -31,6 +35,11 @@ let self = module.exports = {
         app.setQs(helpQ, totalQ, waitQ)
     },
 
+    //creates a batch of data for the needed 5-minute increment
+    //q1 is the lower metric (timeWhenEntered or timeMentorBegins)
+    //q2 is the upper metric (timeMentorBegins or timeQuestionAnswered)
+    //q3 is an extra metric for wait Q times
+    //wait Q times needs 3 metrics, so that it can check both when timeMentorBegins is present and absent
     pushSingleQ: (min, max, qbody, q1, q2, q3) => {
         let count = 0
             sum = 0
