@@ -19,7 +19,7 @@ angular.module('app')
           return allDataArr;
         }
 
-        var data = makeDataObject($scope.cohortTimeData);
+        // var data = makeDataObject($scope.cohortTimeData);
 
         var margin = {
           top: 20,

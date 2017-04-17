@@ -338,17 +338,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     //----------------get data for cohort line chart-------------//
 
-    let getLineChartCohortData = (startDate, endDate, cohortId, qData) => {
+    let getLineChartCohortData = (startDate, endDate, cohortId, qQuery) => {
       qService.getQ(startDate, endDate, cohortId).then(res => {
-        console.log(res)
-        let data = qService.setQs(res.data)
-        console.log(data)
-        $scope.cohortQData = data.qData
-        //setQs function is broken, getting correct data from getQ but setQs is not working. Fix to get chart working
+        let data = qService.setQs(res.data, qQuery)
+        $scope.cohortQData = data[qQuery]
       })
     }
 
-    getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId, "helpQ")
+    // getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId, "helpQ")
 
 
 
@@ -454,7 +451,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById("login-sidenavOverlay").style.display = "none";
       document.body.style.overflow = 'visible';
       getStudentPieData()
-      getMentorPieData(apiStartDate, apiEndDate, $scope.cohortId)
+      // getMentorPieData(apiStartDate, apiEndDate, $scope.cohortId)
       loadAllDatePickers()
     }
 
