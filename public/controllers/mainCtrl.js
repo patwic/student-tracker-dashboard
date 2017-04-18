@@ -164,7 +164,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       attendanceService.getDays($scope.cohortId).then((res) =>
           attendanceService.getDataFromDays(res.data).then((res2) => {
               updateAttendanceData(attendanceService.getAttendanceFromData(res2))
-              console.log('hi')
               $( "#attendanceCalendar" ).datepicker("refresh");
           })
       )

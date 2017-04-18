@@ -45,20 +45,19 @@ passport.use('devmtn', new devAuth({
             jwtSecret: config.jwtSecret
       },
       function (jwtoken, user, done) {
-            db.getUserByAuthId([user.id], function (err, user) {
-                  user = user[0];
-                  if (!user) {
+            //authenticate
+            db.selectPrefsByUser([user.id], function (err, returnedUser) {
+                  if (!returnedUser[0]) {
                         console.log('CREATING USER');
-                        db.createUserByAuth([user.id], function (err, user) {
-                              console.log('USER CREATED', user);
-                              return done(err, user[0]);
+                        db.upsertPrefsByUser([user.id, []], function (err, createdUser) {
+                              console.log('USER CREATED', createdUser);
+                              return done(err, createdUser[0]);
                         })
                   } else {
-                        console.log('FOUND USER', user);
-                        return done(err, user);
+                        console.log('FOUND USER', returnedUser[0]);
+                        return done(err, returnedUser[0]);
                   }
             })
-            console.log(user)
       }
 ));
 
@@ -70,10 +69,10 @@ passport.serializeUser(function (userA, done) {
 
 passport.deserializeUser(function (userB, done) {
       var userC = userB;
-      db.selectPrefsByUser(userC.id, (err, prefs) => {
-            if (!err) userC.prefs = prefs
+      // db.selectPrefsByUser(userC.id, (err, prefs) => {
+      //       if (!err) userC.prefs = prefs
            
-      })
+      // })
 
       done(null, userC);
 });
@@ -85,7 +84,7 @@ app.get('/auth/devmtn', passport.authenticate('devmtn'), function (req, res) {
 app.get('/auth/devmtn/callback',
       passport.authenticate('devmtn', {
             successRedirect: '/',
-            failureRedirect: "/#/"
+            // failureRedirect: "/#/"
       }),
       function (req, res) {
             res.status(200).send(req.user);
@@ -99,7 +98,7 @@ app.get('/auth/me', function (req, res) {
 
 app.get('/auth/logout', function (req, res) {
       req.logout();
-      res.redirect('/');
+      res.redirect('/#!/login');
 })
 
 // ---------------------------------
