@@ -659,12 +659,13 @@
 .cohort-dropdown .options {
     width: 270px;
     top:100%;
-    padding:6px 15px;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 .cohort-dropdown .options li {
     font-size: 14px;
-    margin-left: -9px;
+    /*margin-left: -9px;*/
 }
 
 
@@ -684,11 +685,12 @@
 
 .cohort-sidenavFilterBox .options {
     width: 180px;
-    padding:6px 15px;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 .cohort-sidenavFilterBox .options li {
     font-size: 10px;
-    margin-left: -9px;
+    padding-left: 16px;
 }
 
 .cohort-sidenavFilterBox .styledSelect:active, .styledSelect.active {
