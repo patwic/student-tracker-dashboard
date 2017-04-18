@@ -18,8 +18,12 @@
   "homepage": "https://github.com/box-space/box-space#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "devmtn-auth": "=0.2.3",
     "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "express-sessions": "^1.0.6",
     "massive": "^2.6.0",
+    "passport": "=0.3.0",
     "q": "^1.5.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
