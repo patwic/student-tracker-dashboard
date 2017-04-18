@@ -3,10 +3,10 @@
 .ui-datepicker tr,
 .ui-datepicker td,
 .ui-datepicker th {
-    margin: 0;
-    padding: 0;
+    margin: 5px;
+    padding: 5px;
     border: none;
-    border-spacing: 0;
+    border-spacing: 5px !important;
 }
 
 .ui-datepicker table {
@@ -90,6 +90,16 @@
     color: #181818;
 }
 
+table.ui-datepicker-calendar{
+    border-spacing: 15px;
+    margin: 15px;
+    
+}
+
+.ui-datepicker table{
+    border-collapse: inherit;
+  }
+
 .ui-datepicker-calendar td {
     text-align: center;
     line-height: 26px;
@@ -116,3 +126,4 @@ td.highlight {
     background-color: #c41c1c;
     border-radius: 50%;
 }
+
