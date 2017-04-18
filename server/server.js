@@ -51,9 +51,11 @@ passport.use('devmtn', new devAuth({
                         console.log('CREATING USER');
                         db.upsertPrefsByUser([user.id, []], function (err, createdUser) {
                               console.log('USER CREATED', createdUser);
+                              createdUser[0].name = user.first_name + " " + user.last_name
                               return done(err, createdUser[0]);
                         })
                   } else {
+                        returnedUser[0].name = user.first_name + " " + user.last_name
                         console.log('FOUND USER', returnedUser[0]);
                         return done(err, returnedUser[0]);
                   }
@@ -99,6 +101,11 @@ app.get('/auth/me', function (req, res) {
 app.get('/auth/logout', function (req, res) {
       req.logout();
       res.redirect('/#!/login');
+})
+
+app.get('/api/getUser', function(req, res) {
+      if(req.user) res.send(req.user)
+      else res.sendStatus(404);
 })
 
 // ---------------------------------

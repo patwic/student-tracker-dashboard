@@ -1,11 +1,17 @@
-angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService) {
 
-  $scope.user = 'Jeremy Robertson'
+  $scope.user;
   $scope.isDropdown = false;
   $scope.helpQ;
   $scope.totalQ;
   $scope.waitQ;
   $scope.redAlerts;
+
+  //---------------get user---------------//
+
+  userService.getUser().then(res => {
+    $scope.user = res.name;
+  })
 
   //--------functions with dependencies----------//
   let mostAveraged

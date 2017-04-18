@@ -11,6 +11,13 @@ angular.module('app').service('userService', function ($http, config) {
             return response.data
         })
     }
+
+
+    this.getUser = () => {
+        return $http.get('/api/getUser').then(res => {
+            return res.data;
+        })
+    }
     
 
 })
