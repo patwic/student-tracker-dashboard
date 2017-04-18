@@ -1,11 +1,57 @@
-angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService, cohortService) {
 
-  $scope.user = 'Jeremy Robertson'
+  $scope.user = {name: "Henry von Eckleberry", cohort_ids: []};
   $scope.isDropdown = false;
   $scope.helpQ;
   $scope.totalQ;
   $scope.waitQ;
   $scope.redAlerts;
+
+  var cohortPreferences = [];
+
+  //---------------get user---------------//
+
+  userService.getUser().then(res => {
+    $scope.user = res;
+  })
+
+  //---------------get cohorts---------------//
+
+  cohortService.getCohorts().then((res) => {
+    $scope.cohorts = res.data
+    $scope.activeCohorts = $scope.cohorts.filter((c) => {
+      return c.active == true
+    })
+  })
+
+  $scope.showList = function () {
+      document.getElementById("dropdownList").classList.toggle("show")
+  }
+
+  window.onclick = function (event) {
+      if (!event.target.matches('.dropbtn')) {
+
+          var dropdowns = document.getElementsByClassName("dropdownList");
+          var i;
+          for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+              }
+          }
+      }
+  }
+
+  //--------add preference----------//
+
+  $scope.addCohort = (cohortId) => {
+    if ($scope.user.cohort_ids.indexOf(cohortId) == -1) {
+      $scope.user.cohort_ids.push(cohortId)
+      userService.postUserPrefs($scope.user.cohort_ids)
+      console.log($scope.user.cohort_ids)
+    }
+    else console.log('Already added')
+  }
 
   //--------functions with dependencies----------//
   let mostAveraged
@@ -164,7 +210,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       attendanceService.getDays($scope.cohortId).then((res) =>
           attendanceService.getDataFromDays(res.data).then((res2) => {
               updateAttendanceData(attendanceService.getAttendanceFromData(res2))
-              console.log('hi')
               $( "#attendanceCalendar" ).datepicker("refresh");
           })
       )
@@ -334,7 +379,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.getCohortStudents()
 
 
-    var cohortPreferences = [{ //!!!!!!!DUMMY DATA!!!!!
+    cohortPreferences = [{ //!!!!!!!DUMMY DATA!!!!!
         cohortId: 91,
         nickname: "DM-19"
       },

@@ -1,0 +1,50 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownList {
+  display: none;
+}
+
+
+/* Dropdown Content (Hidden by Default) */
+
+.dropdown-content {
+    position: absolute;
+    background-color: #141414;
+    width: 270px;
+    height: 200px;
+    z-index: 10;
+    overflow-y: scroll;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+
+/* Links inside the dropdown */
+
+.dropdown-content p {
+    color: white;
+    height:30px;
+    padding: 7px 16px;
+    font-size: 14px;
+    text-decoration: none;
+    display: block;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+
+/* Change color of dropdown links on hover */
+
+.dropdown-content p:hover {
+    background-color: #25aae1;
+}
+
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+
+.show {
+    display: block;
+}
