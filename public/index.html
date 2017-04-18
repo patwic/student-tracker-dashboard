@@ -13,6 +13,7 @@
     <link href="./styles/home.css" rel="stylesheet">
     <link href="./styles/login.css" rel="stylesheet">
     <link href="./styles/cohort.css" rel="stylesheet">
+    <link href="./styles/prefs.css" rel="stylesheet">
     <link rel="stylesheet" href="./styles/charts.css">
     <link rel="stylesheet" href="./styles/attendanceCalendar.css">
     <link rel="stylesheet" href="./styles/jquery-ui.css">
@@ -35,7 +36,7 @@
         <p ng-click='showDropdown(); openNav()'>Preferences</p>
         <p><a href='/auth/logout' style="text-decoration: none; color: white;">Logout</a></p>
     </div>
-    <div id="login-sidenav" class="login-sidenavContent" >
+    <div id="login-sidenav" class="login-sidenavContent" style="width: 500px !important;">
         <div class="login-sidenavTitle">
             <a href="javascript:void(0)" class="closebtn" ng-click="closeNav()"><img src='./assets/x-15.svg'></a>
             <h2>DEFAULT COHORT VIEW</h2>
@@ -61,7 +62,12 @@
                 <div class='login-sidenavChoices'>
                     <h3>COHORT</h3>
                     <div class='home-selectStyle'>
-                        <input type="search">
+                        <input type="search" class="dropbtn" ng-model="filterSearch" ng-click="showList()">
+                        <div id="dropdownList" class="dropdownList">
+                            <div class="dropdown-content">
+                                <p ng-repeat="cohort in activeCohorts">{{cohort.alias}}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,6 +112,7 @@
     <script src='./services/sheetsService.js'></script>
     <script src='./services/alertService.js'></script>
     <script src="./services/userService.js"></script>
+    <script src="./services/cohortService.js"></script>
     <script src="./directives/projectScoresBarChart.js"></script>
     <script src="./directives/totalLineChart.js"></script>
     <script src="./directives/waitLineChart.js"></script>

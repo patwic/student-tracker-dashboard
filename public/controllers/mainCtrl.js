@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService, cohortService) {
 
   $scope.user;
   $scope.isDropdown = false;
@@ -12,6 +12,35 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   userService.getUser().then(res => {
     $scope.user = res.name;
   })
+
+  //---------------get cohorts---------------//
+
+  cohortService.getCohorts().then((res) => {
+    $scope.cohorts = res.data
+    $scope.activeCohorts = $scope.cohorts.filter((c) => {
+      return c.active == true
+    })
+    console.log($scope.cohorts, $scope.activeCohorts)
+  })
+
+  $scope.showList = function () {
+      document.getElementById("dropdownList").classList.toggle("show")
+      console.log('hi')
+  }
+
+  window.onclick = function (event) {
+      if (!event.target.matches('.dropbtn')) {
+
+          var dropdowns = document.getElementsByClassName("dropdownList");
+          var i;
+          for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+              }
+          }
+      }
+  }
 
   //--------functions with dependencies----------//
   let mostAveraged
