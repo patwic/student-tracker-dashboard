@@ -52,9 +52,11 @@ passport.use('devmtn', new devAuth({
                         db.upsertPrefsByUser([user.id, []], function (err, createdUser) {
                               console.log('USER CREATED', createdUser);
                               createdUser[0].name = user.first_name + " " + user.last_name
+                              createdUser[0].id = user.id
                               return done(err, createdUser[0]);
                         })
                   } else {
+                        returnedUser[0].id = user.id
                         returnedUser[0].name = user.first_name + " " + user.last_name
                         console.log('FOUND USER', returnedUser[0]);
                         return done(err, returnedUser[0]);
@@ -194,7 +196,12 @@ app.get('/api/studentexcessq', alert.studentQAlert) //gets student excess q time
 app.get('/api/attendancerecorded', alert.noAttendanceAlert) //gets alerts related to absent attendance data
 app.get('/api/attendance', alert.attendanceAlert) //gets alerts related to absent students
 app.get('/api/prefs/', dbComms.getPrefs) //for user preference database
-app.post('/api/prefs/', dbComms.upsertPrefs) //for user preference database
+app.post('/api/prefs/', (req, res) => {
+      db.upsertPrefsByUser ([req.user.id, req.body.prefs], (err) => {
+            if (err) res.status(500).send(err)
+            else res.status(200).send('User updated.')
+      })
+}) //for user preference database
 
 //for testing purposes; remove once live
 app.put('/api/reset', (req, res) => {

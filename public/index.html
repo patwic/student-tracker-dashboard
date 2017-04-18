@@ -65,7 +65,7 @@
                         <input type="search" class="dropbtn" ng-model="filterSearch" ng-click="showList()">
                         <div id="dropdownList" class="dropdownList">
                             <div class="dropdown-content">
-                                <p ng-repeat="cohort in activeCohorts">{{cohort.alias}}</p>
+                                <p ng-click='addCohort(cohort.cohortId)' ng-repeat="cohort in activeCohorts">{{cohort.alias}}</p>
                             </div>
                         </div>
                     </div>

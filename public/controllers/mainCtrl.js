@@ -1,16 +1,18 @@
 angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService, cohortService) {
 
-  $scope.user;
+  $scope.user = {name: "Henry von Eckleberry", cohort_ids: []};
   $scope.isDropdown = false;
   $scope.helpQ;
   $scope.totalQ;
   $scope.waitQ;
   $scope.redAlerts;
 
+  var cohortPreferences = [];
+
   //---------------get user---------------//
 
   userService.getUser().then(res => {
-    $scope.user = res.name;
+    $scope.user = res;
   })
 
   //---------------get cohorts---------------//
@@ -20,12 +22,10 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.activeCohorts = $scope.cohorts.filter((c) => {
       return c.active == true
     })
-    console.log($scope.cohorts, $scope.activeCohorts)
   })
 
   $scope.showList = function () {
       document.getElementById("dropdownList").classList.toggle("show")
-      console.log('hi')
   }
 
   window.onclick = function (event) {
@@ -40,6 +40,17 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
               }
           }
       }
+  }
+
+  //--------add preference----------//
+
+  $scope.addCohort = (cohortId) => {
+    if ($scope.user.cohort_ids.indexOf(cohortId) == -1) {
+      $scope.user.cohort_ids.push(cohortId)
+      userService.postUserPrefs($scope.user.cohort_ids)
+      console.log($scope.user.cohort_ids)
+    }
+    else console.log('Already added')
   }
 
   //--------functions with dependencies----------//
@@ -368,7 +379,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.getCohortStudents()
 
 
-    var cohortPreferences = [{ //!!!!!!!DUMMY DATA!!!!!
+    cohortPreferences = [{ //!!!!!!!DUMMY DATA!!!!!
         cohortId: 91,
         nickname: "DM-19"
       },
