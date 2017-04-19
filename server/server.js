@@ -45,20 +45,23 @@ passport.use('devmtn', new devAuth({
             jwtSecret: config.jwtSecret
       },
       function (jwtoken, user, done) {
-            db.getUserByAuthId([user.id], function (err, user) {
-                  user = user[0];
-                  if (!user) {
+            //authenticate
+            db.selectPrefsByUser([user.id], function (err, returnedUser) {
+                  if (!returnedUser[0]) {
                         console.log('CREATING USER');
-                        db.upsertPrefsByUser([user.id, []], function (err, user) {
-                              console.log('USER CREATED', user);
-                              return done(err, user[0]);
+                        db.upsertPrefsByUser([user.id, []], function (err, createdUser) {
+                              console.log('USER CREATED', createdUser);
+                              createdUser[0].name = user.first_name + " " + user.last_name
+                              createdUser[0].id = user.id
+                              return done(err, createdUser[0]);
                         })
                   } else {
-                        console.log('FOUND USER', user);
-                        return done(err, user);
+                        returnedUser[0].id = user.id
+                        returnedUser[0].name = user.first_name + " " + user.last_name
+                        console.log('FOUND USER', returnedUser[0]);
+                        return done(err, returnedUser[0]);
                   }
             })
-            console.log(user)
       }
 ));
 
@@ -70,10 +73,10 @@ passport.serializeUser(function (userA, done) {
 
 passport.deserializeUser(function (userB, done) {
       var userC = userB;
-      db.selectPrefsByUser(userC.id, (err, prefs) => {
-            if (!err) userC.prefs = prefs
+      // db.selectPrefsByUser(userC.id, (err, prefs) => {
+      //       if (!err) userC.prefs = prefs
            
-      })
+      // })
 
       done(null, userC);
 });
@@ -85,7 +88,9 @@ app.get('/auth/devmtn', passport.authenticate('devmtn'), function (req, res) {
 app.get('/auth/devmtn/callback',
       passport.authenticate('devmtn', {
             successRedirect: '/',
-            failureRedirect: "/#/"
+
+            // failureRedirect: "/#/"
+
       }),
       function (req, res) {
             res.status(200).send(req.user);
@@ -99,7 +104,13 @@ app.get('/auth/me', function (req, res) {
 
 app.get('/auth/logout', function (req, res) {
       req.logout();
-      res.redirect('/');
+      res.redirect('/#!/login');
+})
+
+app.get('/api/getUser', function(req, res) {
+      if(req.user) res.send(req.user)
+      else res.sendStatus(404);
+
 })
 
 // ---------------------------------
@@ -188,7 +199,12 @@ app.get('/api/studentexcessq', alert.studentQAlert) //gets student excess q time
 app.get('/api/attendancerecorded', alert.noAttendanceAlert) //gets alerts related to absent attendance data
 app.get('/api/attendance', alert.attendanceAlert) //gets alerts related to absent students
 app.get('/api/prefs/', dbComms.getPrefs) //for user preference database
-app.post('/api/prefs/', dbComms.upsertPrefs) //for user preference database
+app.post('/api/prefs/', (req, res) => {
+      db.upsertPrefsByUser ([req.user.id, req.body.prefs], (err) => {
+            if (err) res.status(500).send(err)
+            else res.status(200).send('User updated.')
+      })
+}) //for user preference database
 
 //for testing purposes; remove once live
 app.put('/api/reset', (req, res) => {
