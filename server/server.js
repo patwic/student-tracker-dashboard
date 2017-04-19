@@ -195,7 +195,6 @@ app.get('/api/studentprogress', alert.progressAlert) //gets student progress ale
 app.get('/api/studentexcessq', alert.studentQAlert) //gets student excess q time alerts
 app.get('/api/attendancerecorded', alert.noAttendanceAlert) //gets alerts related to absent attendance data
 app.get('/api/attendance', alert.attendanceAlert) //gets alerts related to absent students
-app.get('/api/prefs/', dbComms.getPrefs) //for user preference database
 app.post('/api/prefs/', (req, res) => {
       db.upsertPrefsByUser ([req.user.id, req.body.prefs], (err) => {
             if (err) res.status(500).send(err)

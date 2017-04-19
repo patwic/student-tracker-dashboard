@@ -1,14 +1,13 @@
 angular.module('app').service('userService', function ($http, config) {
 
-    this.getUserPrefs = () => {
-        return $http.get('http://localhost:8002/api/prefs/', {headers: {'Access-Control-Allow-Origin': '*'}}).then(response => {
-            return response.data
-        })
-    }
-
     this.postUserPrefs = (prefs) => {
-        console.log('prefs', prefs)
-        return $http.post('http://localhost:8002/api/prefs/', {headers: {'Access-Control-Allow-Origin': '*'}, prefs: prefs}).then(response => {
+        let prefIds = []
+        for(var i = 0; i < prefs.length; i++) {
+            // console.log(prefs[i])
+            prefIds.push(prefs[i].id)
+        }
+        // console.log('prefs', prefs)
+        return $http.post('http://localhost:8002/api/prefs/', {headers: {'Access-Control-Allow-Origin': '*'}, prefs: prefIds}).then(response => {
             return response.data
         })
     }
