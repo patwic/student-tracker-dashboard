@@ -23,25 +23,22 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.activeCohorts = $scope.cohorts.filter((c) => {
       return c.active == true
     })
-    getCohortAliases(res.data)
+    getCohortAliases($scope.cohorts)
   })
 
   var getCohortAliases = (cohortsObj) => {
-    console.log(cohortsObj)
-    console.log($scope.user.cohort_ids)
     let cId = $scope.user.cohort_ids;
+    console.log(cId)
     for (var i = 0; i < cId.length; i++) {
       for (var j = 0; j < cohortsObj.length; j++) {
-        if (cohortsObj[j].cohortId === cId[i]) {
-          console.log(cId[i])
-          cId[i] = {
+        if (parseInt(cohortsObj[j].cohortId) == cId[i]) {
+          $scope.user.cohort_ids.splice(i, 1, {
             id: cId[i],
             alias: cohortsObj[j].alias
-          }
+          })
         }
       }
     }
-    console.log($scope.user.cohort_ids)
   }
 
   $scope.showList = function () {
