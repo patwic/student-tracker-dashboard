@@ -46,6 +46,7 @@
                 <div class='login-sidenavChoices'>
                     <h3>LOCATION</h3>
                          <select id="selectbox" class='home-selectStyle'>
+                             <option value="all">All Locations</option>
                             <option value="provo">Provo, UT</option>
                             <option value="slc">SLC, UT</option>
                             <option value="dallas">Dallas, TX</option>
@@ -75,13 +76,9 @@
                 <div class='login-sidenavClassList' ng-repeat="cohort in user.cohort_ids">
                     <div   class='login-sidenavClassBox'>
                         <p>{{cohort.alias}}</p>
-                        -
-                        <p>Provo, UT</p>
-                        -
-                        <p>Web</p>
                     </div>
                     <div class='login-sidenavClassRemove'>
-                        <p>REMOVE</p>
+                        <p ng-click='removeCohort(cohort.id)'>REMOVE</p>
                     </div>
                 </div>
             </div>

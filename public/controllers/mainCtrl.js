@@ -19,7 +19,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   cohortService.getCohorts().then((res) => {
     $scope.cohorts = res.data
-    console.log(res)
     $scope.activeCohorts = $scope.cohorts.filter((c) => {
       return c.active == true
     })
@@ -28,7 +27,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   var getCohortAliases = (cohortsObj) => {
     let cId = $scope.user.cohort_ids;
-    console.log(cId)
     for (var i = 0; i < cId.length; i++) {
       for (var j = 0; j < cohortsObj.length; j++) {
         if (parseInt(cohortsObj[j].cohortId) == cId[i]) {
@@ -62,8 +60,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   //--------add preference----------//
 
   $scope.addCohort = (cohortId, cohortAlias) => {
-    console.log(cohortId)
-    console.log(cohortAlias)
     var idFound = false
     for (var i = 0; i < $scope.user.cohort_ids.length; i++) {
       if ($scope.user.cohort_ids[i].id === cohortId) {
@@ -76,13 +72,27 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         "id": cohortId,
         "alias": cohortAlias
       }
-      console.log(cohortPair)
       $scope.user.cohort_ids.push(cohortPair)
       console.log($scope.user.cohort_ids)
       userService.postUserPrefs($scope.user.cohort_ids)
 
     } else console.log('Already added')
   }
+
+   //--------remove preference----------//
+
+   $scope.removeCohort = (cohortId) => {
+     console.log(cohortId)
+     console.log($scope.user.cohort_ids)
+    for (var i = 0; i < $scope.user.cohort_ids.length; i++) {
+      if ($scope.user.cohort_ids[i].id === cohortId) {
+        $scope.user.cohort_ids.splice(i, 1)
+        userService.postUserPrefs($scope.user.cohort_ids)
+        break
+      }
+    }
+   }
+
 
   //--------functions with dependencies----------//
   let mostAveraged
