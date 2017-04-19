@@ -88,9 +88,7 @@ app.get('/auth/devmtn', passport.authenticate('devmtn'), function (req, res) {
 app.get('/auth/devmtn/callback',
       passport.authenticate('devmtn', {
             successRedirect: '/',
-
             // failureRedirect: "/#/"
-
       }),
       function (req, res) {
             res.status(200).send(req.user);
@@ -110,7 +108,6 @@ app.get('/auth/logout', function (req, res) {
 app.get('/api/getUser', function(req, res) {
       if(req.user) res.send(req.user)
       else res.sendStatus(404);
-
 })
 
 // ---------------------------------
