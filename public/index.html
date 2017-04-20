@@ -28,7 +28,7 @@
             <h2  ng-class='activateLink ? "not-active-link" : "active-link"'><a ng-click='changeLink(false)' ui-sref='cohort'>COHORT</a></h2>
         </div>
         <div class='main-user'>
-            <h2>{{user}}</h2>
+            <h2>{{user.name}}</h2>
             <img ng-src='./assets/arrow_svg-arrow.svg' ng-click='showDropdown()'>
         </div>
     </nav>
@@ -46,6 +46,7 @@
                 <div class='login-sidenavChoices'>
                     <h3>LOCATION</h3>
                          <select id="selectbox" class='home-selectStyle'>
+                             <option value="all">All Locations</option>
                             <option value="provo">Provo, UT</option>
                             <option value="slc">SLC, UT</option>
                             <option value="dallas">Dallas, TX</option>
@@ -65,23 +66,19 @@
                         <input type="search" class="dropbtn" ng-model="filterSearch" ng-click="showList()">
                         <div id="dropdownList" class="dropdownList">
                             <div class="dropdown-content">
-                                <p ng-click='addCohort(cohort.cohortId)' ng-repeat="cohort in activeCohorts">{{cohort.alias}}</p>
+                                <p ng-click='addCohort(cohort.cohortId, cohort.alias)' ng-repeat="cohort in activeCohorts">{{cohort.alias}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class='login-sidenavBottomContent'>
-                <div class='login-sidenavClassList' ng-repeat="cohortPreference in cohortPreferences">
+                <div class='login-sidenavClassList' ng-repeat="cohort in user.cohort_ids">
                     <div   class='login-sidenavClassBox'>
-                        <p>{{cohortPreference.nickname}}</p>
-                        -
-                        <p>Provo, UT</p>
-                        -
-                        <p>Web</p>
+                        <p>{{cohort.alias}}</p>
                     </div>
                     <div class='login-sidenavClassRemove'>
-                        <p>REMOVE</p>
+                        <p ng-click='removeCohort(cohort.id)'>REMOVE</p>
                     </div>
                 </div>
             </div>
