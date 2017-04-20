@@ -33,10 +33,10 @@
         </div>
     </nav>
     <div id='dropdown' class='main-dropdown'>
-        <p ng-click='showDropdown(); openNav()'>Preferences</p>
+        <p ng-click='showDropdown(); openNav(); closeCohortStudentNav()'>Preferences</p>
         <p><a href='/auth/logout' style="text-decoration: none; color: white;">Logout</a></p>
     </div>
-    <div id="login-sidenav" class="login-sidenavContent" style="width: 500px !important;">
+    <div id="login-sidenav" class="login-sidenavContent">
         <div class="login-sidenavTitle">
             <a href="javascript:void(0)" class="closebtn" ng-click="closeNav()"><img src='./assets/x-15.svg'></a>
             <h2>DEFAULT COHORT VIEW</h2>
