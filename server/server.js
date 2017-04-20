@@ -196,6 +196,7 @@ app.get('/api/studentexcessq', alert.studentQAlert) //gets student excess q time
 app.get('/api/attendancerecorded', alert.noAttendanceAlert) //gets alerts related to absent attendance data
 app.get('/api/attendance', alert.attendanceAlert) //gets alerts related to absent students
 app.post('/api/prefs/', (req, res) => {
+      req.user.cohort_ids = req.body.prefs;
       db.upsertPrefsByUser ([req.user.id, req.body.prefs], (err) => {
             if (err) res.status(500).send(err)
             else res.status(200).send('User updated.')

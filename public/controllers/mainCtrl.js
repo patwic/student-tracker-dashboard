@@ -1,6 +1,6 @@
 angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService, cohortService) {
 
-  $scope.user = userService.user;
+  $scope.user;
   $scope.isDropdown = false;
   $scope.helpQ;
   $scope.totalQ;
@@ -12,49 +12,51 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   var cohortPreferences = [];
 
   //---------------get user---------------//
+  var getUser = () => {
+    return userService.getUser()
+      .then(res => {
+        getCohorts(res).then(response => {
+          $scope.user = response;
+          $scope.cohortUserList = response.cohort_ids;
+        })
+      })
+  }
 
-  userService.getUser()
-  .then(res => {
-    $scope.user = res;
-        console.log($scope.user)
-    
-  })
+  getUser()
 
   //---------------get cohorts---------------//
 
-  userService.getCohorts().then(res => {
-    $scope.cohorts = res[0]
-    $scope.activeCohorts = res[1]
-  })
 
-  // cohortService.getCohorts().then((res) => {
-  //   $scope.cohorts = res.data
-  //   $scope.activeCohorts = $scope.cohorts.filter((c) => {
-  //     return c.active == true
-  //   })
-  //   if($scope.user.cohort_ids[0]) {
-  //       $scope.cohortId = $scope.user.cohort_ids[0]
-  //   } else $scope.cohortId = $scope.activeCohorts[0].cohortId
-  //   getCohortAliases($scope.cohorts)
-  // })
+  var getCohorts = (user) => {
+    return userService.getCohorts().then((res) => {
+      $scope.cohorts = res.data
+      $scope.activeCohorts = $scope.cohorts.filter((c) => {
+        return c.active == true
+      })
+      if (user.cohort_ids[0]) {
+        $scope.cohortId = user.cohort_ids[0]
+      } else $scope.cohortId = $scope.activeCohorts[0].cohortId
+      let newUser = getCohortAliases($scope.cohorts, user)
+      return newUser;
+    })
+  }
 
-  // var getCohortAliases = (cohortsObj) => {
-  //   let cId = $scope.user.cohort_ids;
-  //   for (var i = 0; i < cId.length; i++) {
-  //     for (var j = 0; j < cohortsObj.length; j++) {
-  //       if (parseInt(cohortsObj[j].cohortId) == cId[i]) {
-  //         $scope.user.cohort_ids.splice(i, 1, {
-  //           id: cId[i],
-  //           alias: cohortsObj[j].alias
-  //         })
-  //       }
-  //     }
-  //   }
-  //   $scope.cohortList = $scope.user.cohort_ids.slice(0)
-  //   console.log($scope.cohortList)    
-  // }
+  var getCohortAliases = (cohortsObj, user) => {
+    let cId = user.cohort_ids;
+    for (var i = 0; i < cId.length; i++) {
+      for (var j = 0; j < cohortsObj.length; j++) {
+        if (parseInt(cohortsObj[j].cohortId) == cId[i]) {
+          user.cohort_ids.splice(i, 1, {
+            id: cId[i],
+            alias: cohortsObj[j].alias
+          })
+        }
+      }
+    }
+    return user;
+  }
 
- 
+
 
   $scope.showList = function () {
     document.getElementById("dropdownList").classList.toggle("show")
@@ -73,25 +75,38 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       }
     }
   }
-  
 
-   //--------remove preference----------//
 
-   $scope.removeCohort = (cohortId) => {
-      userService.removeCohort(cohortId).then(res => {
-        $scope.user = res;
-        console.log($scope.user)
-      })
+  //--------remove preference----------//
 
-   }
 
-   $scope.addCohort = (cohortId, cohortAlias) => {
-     userService.addCohort(cohortId, cohortAlias)
-   }
+  $scope.addCohort = (cohortId, cohortAlias) => {
+    var idFound = false
+    for (var i = 0; i < $scope.user.cohort_ids.length; i++) {
+      if ($scope.user.cohort_ids[i].id == cohortId) {
+        idFound = true
+        break
+      }
+    }
+    if (!idFound) {
+      var cohortPair = {
+        "id": cohortId,
+        "alias": cohortAlias
+      }
+      $scope.user.cohort_ids.push(cohortPair)
+      userService.postUserPrefs($scope.user.cohort_ids)
+    } else console.log('Already added')
+  }
 
-   $scope.$on('addCohort', (event, user) => {
-    $scope.user = user
-   })
+  $scope.removeCohort = (cohortId) => {
+    for (var i = 0; i < $scope.user.cohort_ids.length; i++) {
+      if ($scope.user.cohort_ids[i].id === cohortId) {
+        $scope.user.cohort_ids.splice(i, 1)
+        userService.postUserPrefs($scope.user.cohort_ids)
+        break
+      }
+    }
+  }
 
   //--------functions with dependencies----------//
   let mostAveraged
@@ -130,8 +145,10 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.isDropdown = !$scope.isDropdown
   }
 
-  if ($location.path() === '/') $scope.activateLink = true;
-  else $scope.activateLink = false;
+  if ($location.path() === '/') {
+    $scope.activateLink = true;
+  } else $scope.activateLink = false;
+
   $scope.changeLink = function (status) {
     $scope.activateLink = status;
   }
@@ -193,11 +210,12 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     document.getElementById("login-sidenav").style.marginRight = "-500px";
     document.getElementById("login-sidenavOverlay").style.display = "block";
     document.body.style.overflow = 'hidden';
+    getUser()
   }
 
   $scope.closeNav = function () {
     document.getElementById("login-sidenav").style.width = "0";
-    document.getElementById("login-sidenav").style.transition = "1.5s";
+    document.getElementById("login-sidenav").style.transition = "0.5s";
     document.getElementById("login-sidenavOverlay").style.display = "none";
     document.body.style.overflow = 'visible';
   }
@@ -400,7 +418,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
 
     //-------------------get student list for cohort id--------------//
-    
+
 
     var allStudents = [];
 
@@ -557,7 +575,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
       document.getElementById("login-sidenavOverlay").style.display = "block";
       document.body.style.overflow = 'hidden';
-
+      getUser()
     }
 
     $scope.openCohortStudentNav = function () {
