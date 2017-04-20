@@ -79,9 +79,13 @@ angular.module('app').service('userService', function ($http, config) {
                 "alias": cohortAlias
             }
             this.user.cohort_ids.push(cohortPair)
-            postUserPrefs(this.user.cohort_ids)
-        } else console.log('Already added')
-        return this.user;
+            postUserPrefs(this.user.cohort_ids).then(res => {
+                return this.user;
+            })
+        } else {
+            console.log('Already added')
+            return this.user;
+        }
     }
 
     this.removeCohort = (cohortId) => {
