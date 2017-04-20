@@ -1,43 +1,60 @@
 angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService, cohortService) {
 
-  $scope.user;
+  $scope.user = userService.user;
   $scope.isDropdown = false;
   $scope.helpQ;
   $scope.totalQ;
   $scope.waitQ;
   $scope.redAlerts;
+  $scope.cohorts
+  $scope.activeCohorts
 
   var cohortPreferences = [];
 
   //---------------get user---------------//
 
-  userService.getUser().then(res => {
+  userService.getUser()
+  .then(res => {
     $scope.user = res;
+        console.log($scope.user)
+    
   })
 
   //---------------get cohorts---------------//
 
-  cohortService.getCohorts().then((res) => {
-    $scope.cohorts = res.data
-    $scope.activeCohorts = $scope.cohorts.filter((c) => {
-      return c.active == true
-    })
-    getCohortAliases($scope.cohorts)
+  userService.getCohorts().then(res => {
+    $scope.cohorts = res[0]
+    $scope.activeCohorts = res[1]
   })
 
-  var getCohortAliases = (cohortsObj) => {
-    let cId = $scope.user.cohort_ids;
-    for (var i = 0; i < cId.length; i++) {
-      for (var j = 0; j < cohortsObj.length; j++) {
-        if (parseInt(cohortsObj[j].cohortId) == cId[i]) {
-          $scope.user.cohort_ids.splice(i, 1, {
-            id: cId[i],
-            alias: cohortsObj[j].alias
-          })
-        }
-      }
-    }
-  }
+  // cohortService.getCohorts().then((res) => {
+  //   $scope.cohorts = res.data
+  //   $scope.activeCohorts = $scope.cohorts.filter((c) => {
+  //     return c.active == true
+  //   })
+  //   if($scope.user.cohort_ids[0]) {
+  //       $scope.cohortId = $scope.user.cohort_ids[0]
+  //   } else $scope.cohortId = $scope.activeCohorts[0].cohortId
+  //   getCohortAliases($scope.cohorts)
+  // })
+
+  // var getCohortAliases = (cohortsObj) => {
+  //   let cId = $scope.user.cohort_ids;
+  //   for (var i = 0; i < cId.length; i++) {
+  //     for (var j = 0; j < cohortsObj.length; j++) {
+  //       if (parseInt(cohortsObj[j].cohortId) == cId[i]) {
+  //         $scope.user.cohort_ids.splice(i, 1, {
+  //           id: cId[i],
+  //           alias: cohortsObj[j].alias
+  //         })
+  //       }
+  //     }
+  //   }
+  //   $scope.cohortList = $scope.user.cohort_ids.slice(0)
+  //   console.log($scope.cohortList)    
+  // }
+
+ 
 
   $scope.showList = function () {
     document.getElementById("dropdownList").classList.toggle("show")
@@ -56,41 +73,24 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       }
     }
   }
-
-  //--------add preference----------//
-
-  $scope.addCohort = (cohortId, cohortAlias) => {
-    var idFound = false
-    for (var i = 0; i < $scope.user.cohort_ids.length; i++) {
-      if ($scope.user.cohort_ids[i].id === cohortId) {
-        idFound = true
-        break
-      }
-    }
-    if (!idFound) {
-      var cohortPair = {
-        "id": cohortId,
-        "alias": cohortAlias
-      }
-      $scope.user.cohort_ids.push(cohortPair)
-      console.log($scope.user.cohort_ids)
-      userService.postUserPrefs($scope.user.cohort_ids)
-
-    } else console.log('Already added')
-  }
+  
 
    //--------remove preference----------//
 
    $scope.removeCohort = (cohortId) => {
-     console.log(cohortId)
-     console.log($scope.user.cohort_ids)
-    for (var i = 0; i < $scope.user.cohort_ids.length; i++) {
-      if ($scope.user.cohort_ids[i].id === cohortId) {
-        $scope.user.cohort_ids.splice(i, 1)
-        userService.postUserPrefs($scope.user.cohort_ids)
-        break
-      }
-    }
+      userService.removeCohort(cohortId).then(res => {
+        $scope.user = res;
+        console.log($scope.user)
+      })
+
+   }
+
+   $scope.addCohort = (cohortId, cohortAlias) => {
+     userService.addCohort(cohortId, cohortAlias).then(res => {
+       $scope.user = res
+        console.log($scope.user)
+       
+     })
    }
 
 
@@ -401,7 +401,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
 
     //-------------------get student list for cohort id--------------//
-    $scope.cohortId = 106;
+    
 
     var allStudents = [];
 
@@ -575,7 +575,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       getMentorPieData(apiStartDate, apiEndDate, $scope.cohortId)
       loadAllDatePickers()
       updateAbsences()
-
     }
 
     $scope.setSelected = function (selectedCohortId) {
