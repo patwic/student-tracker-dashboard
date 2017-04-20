@@ -86,13 +86,12 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
    }
 
    $scope.addCohort = (cohortId, cohortAlias) => {
-     userService.addCohort(cohortId, cohortAlias).then(res => {
-       $scope.user = res
-        console.log($scope.user)
-       
-     })
+     userService.addCohort(cohortId, cohortAlias)
    }
 
+   $scope.$on('addCohort', (event, user) => {
+    $scope.user = user
+   })
 
   //--------functions with dependencies----------//
   let mostAveraged
