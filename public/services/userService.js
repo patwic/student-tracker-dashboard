@@ -1,4 +1,4 @@
-angular.module('app').service('userService', function ($http, config) {
+angular.module('app').service('userService', function ($http, $rootScope, config) {
 
     var postUserPrefs = (prefs) => {
         let prefIds = []
@@ -80,8 +80,8 @@ angular.module('app').service('userService', function ($http, config) {
             }
             this.user.cohort_ids.push(cohortPair)
             postUserPrefs(this.user.cohort_ids)
+            $rootScope.$broadcast('addCohort', this.user);
         } else console.log('Already added')
-        return this.user;
     }
 
     this.removeCohort = (cohortId) => {
@@ -92,9 +92,6 @@ angular.module('app').service('userService', function ($http, config) {
                 break
             }
         }
-        return this.user;
+        $rootScope.$broadcast('addCohort', this.user);
     }
-
-
-
 })
