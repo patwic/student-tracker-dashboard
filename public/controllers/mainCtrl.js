@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService, cohortService) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService) {
 
   $scope.user;
   $scope.isDropdown = false;
@@ -16,6 +16,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     return userService.getUser()
       .then(res => {
         getCohorts(res).then(response => {
+          if(!response) return console.log('no user')
           $scope.user = response;
           $scope.cohortUserList = response.cohort_ids;
         })
@@ -33,15 +34,16 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       $scope.activeCohorts = $scope.cohorts.filter((c) => {
         return c.active == true
       })
-      if (user.cohort_ids[0]) {
-        $scope.cohortId = user.cohort_ids[0]
-      } else $scope.cohortId = $scope.activeCohorts[0].cohortId
+      if (!user) {
+        $scope.cohortId = $scope.activeCohorts[0].cohortId
+      } else $scope.cohortId = user.cohort_ids[0]
       let newUser = getCohortAliases($scope.cohorts, user)
       return newUser;
     })
   }
 
   var getCohortAliases = (cohortsObj, user) => {
+    if(!user) return user;
     let cId = user.cohort_ids;
     for (var i = 0; i < cId.length; i++) {
       for (var j = 0; j < cohortsObj.length; j++) {

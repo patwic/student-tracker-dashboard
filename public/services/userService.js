@@ -13,12 +13,16 @@ angular.module('app').service('userService', function ($http, config) {
         }).then(response => {
             console.log('success!', response.data)
             return response.data
+        }).catch(function (err) {
+            console.log('Error');
         })
     }
 
     this.getUser = () => {
         return $http.get('/api/getUser').then(res => {
             return res.data;
+        }).catch(function (err) {
+            console.log('Error');
         })
     }
 
@@ -30,7 +34,9 @@ angular.module('app').service('userService', function ($http, config) {
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 }
-            })
+            }).catch(function (err) {
+            console.log('Error');
+        })
     }
 
 })
