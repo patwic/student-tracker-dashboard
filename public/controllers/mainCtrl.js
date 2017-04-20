@@ -8,6 +8,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.redAlerts;
   $scope.cohorts
   $scope.activeCohorts
+  var getStudentPieData;
 
   var cohortPreferences = [];
 
@@ -36,8 +37,9 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       })
       if (!user) {
         $scope.cohortId = $scope.activeCohorts[0].cohortId
-      } else $scope.cohortId = user.cohort_ids[0]
+      } else $scope.cohortId = user.cohort_ids[3]
       let newUser = getCohortAliases($scope.cohorts, user)
+      getStudentPieData()
       return newUser;
     })
   }
@@ -425,54 +427,24 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     var allStudents = [];
 
 
-    var getStudentsForCohort = () => { //make an array of all student names from specific cohort
-      return qService.getStudentsForCohort($scope.cohortId).then(res => {
+    var getStudentsForCohort = (cohortId) => { //make an array of all student names from specific cohort
+      return qService.getStudentsForCohort(cohortId).then(res => {
+        allStudents = [];
+        $scope.students = [];
         for (let i = 0; i < res.length; i++) {
           allStudents.push(res[i].firstName + ' ' + res[i].lastName)
         }
-
+        $scope.filteredStudents = allStudents;
+        $scope.students = allStudents;
         return allStudents;
       })
     }
-
-    $scope.getCohortStudents = function () {
-      $scope.students = allStudents;
-      // console.log($scope.students)
-    }
-    $scope.getCohortStudents()
-
-
-    cohortPreferences = [{ //!!!!!!!DUMMY DATA!!!!!
-        cohortId: 91,
-        nickname: "DM-19"
-      },
-      {
-        cohortId: 92,
-        nickname: "DM-20"
-      },
-      {
-        cohortId: 106,
-        nickname: "DM-21"
-      },
-      {
-        cohortId: 110,
-        nickname: "DM-22"
-      }
-    ]
-
-
-    $scope.getCohortPreferences = function () {
-      $scope.cohortPreferences = cohortPreferences
-    }
-
-    $scope.getCohortPreferences();
-
 
 
 
     //---------------filtered students for cohort view from side menu-----------//
 
-    $scope.filteredStudents = [] //!!!!!!!DUMMY DATA!!!!!
+
     let filteredStudents = $scope.filteredStudents;
 
 
@@ -558,17 +530,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       })
     }
 
-    let getStudentPieData = () => {
-      getStudentsForCohort().then(res => {
+    getStudentPieData = () => {
+      getStudentsForCohort($scope.cohortId).then(res => {
         filteredStudents = res;
         mostHelp(apiStartDate, apiEndDate, $scope.cohortId)
         mostAveraged(apiStartDate, apiEndDate, $scope.cohortId)
         mostRequest(apiStartDate, apiEndDate, $scope.cohortId)
       })
     }
-
-    getStudentPieData()
-
 
     //--------------Cohort SideNav Functions----------------//
 
@@ -577,7 +546,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
       document.getElementById("login-sidenavOverlay").style.display = "block";
       document.body.style.overflow = 'hidden';
-      getUser()
+      // getUser()
     }
 
     $scope.openCohortStudentNav = function () {
@@ -599,6 +568,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.setSelected = function (selectedCohortId) {
       $scope.selectedCohortId = selectedCohortId;
       $scope.cohortId = selectedCohortId;
+      getStudentsForCohort($scope.cohortId)
     }
 
     $scope.selectedStudents = null;
