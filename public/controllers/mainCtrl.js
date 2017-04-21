@@ -548,6 +548,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
       document.getElementById("login-sidenavOverlay").style.display = "block";
       document.body.style.overflow = 'hidden';
+      getUser()
     }
 
     $scope.openCohortStudentNav = function () {

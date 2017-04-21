@@ -18,7 +18,7 @@ angular.module('app')
           for (let i = 0; i < arr.length; i++) {
             allDataArr.push({
               'date': i + 1,
-              'number': arr[i]
+              'number': Number(arr[i])
             })
           }
           return allDataArr;
@@ -50,7 +50,6 @@ angular.module('app')
         var xAxis = d3.axisBottom(x)
           // .ticks(d3.timeMinute.every(30))
           // .tickFormat(d3.timeFormat("%I:%M"));
-          .ticks()
 
         var yAxis = d3.axisLeft(y)
           .ticks(5);
@@ -115,13 +114,13 @@ angular.module('app')
         x.domain([0, 100])
 
         let maxDomain = 20;
-        if ((d3.max(data, function (d) {
-            return d.number;
-          }) * 1.1) > 20) {
-          maxDomain = d3.max(data, function (d) {
-            return d.number;
-          }) * 1.1
-        }
+          if ((d3.max(data, function (d) {
+              return d.number;
+            }) * 1.1) > 20) {
+            maxDomain = d3.max(data, function (d) {
+              return d.number;
+            }) * 1.1
+          }
 
         y.domain([0, maxDomain])
 
