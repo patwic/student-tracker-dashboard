@@ -1,129 +1,275 @@
-angular.module('app')
-  .directive('barChart', function () {
-    return {
-      restrict: 'AE',
-      template: '<div id="barChart"></div>',
-      scope: {
-        projectData: '='
-      },
-      controller: function ($scope) {
+// angular.module('app')
+//   .directive('barChart', function () {
+    // return {
+    //   restrict: 'AE',
+    //   template: '<div id="barChart"></div>',
+    //   scope: {
+    //     projectData: '=',
+    //     projectName: '='
+    //   },
+    //   controller: function ($scope) {
 
-        let d = $scope.projectData;
-        console.log()
+        // let d = $scope.projectData;
 
-        let dummy = [['ZK', 50], ['HJ', 50], ['JH', 60], ['GH', 65]]
+        // var personalScore = [
+        //   ['ZK', 50],
+        //   ['HJ', 50],
+        //   ['JH', 60],
+        //   ['GH', 65],
+        //   ['ZZ', 90],
+        //   ['XX', 100]
+        // ]
+        // var groupScore = [
+        //   ['ZK', 90],
+        //   ['HJ', 80],
+        //   ['JH', 70],
+        //   ['GH', 50],
+        //   ['ZZ', 110],
+        //   ['XX', 130]
+        // ]
+        // var noServerScore = [
+        //   ['ZK', 6],
+        //   ['HJ', 3],
+        //   ['JH', 5],
+        //   ['GH', 2],
+        //   ['ZZ', 9],
+        //   ['XX', 11]
+        // ]
 
-        let data = []
-        data = data.concat(dummy)
-        for (let i = 0; i < d.length; i++) {
-          data.push([d[i].initials, d[i].personalScore])
-        }
+        // let project = document.getElementById("selectboxProjects").value;
 
-        data.sort((a, b) => {
-          return a[1] - b[1]
-        })
+        // let data = []
+        // var num;
 
-        var margin = {
-            top: 40,
-            right: 30,
-            bottom: 40,
-            left: 50
-          }
-        var height = document.getElementById('projectScoresDiv').offsetHeight - 100 - margin.top - margin.bottom;
-        var width = document.getElementById('projectScoresDiv').offsetWidth - margin.right - margin.left;
+        // if (project === 'personalScore') {
+        //   data = data.concat(personalScore)
+        //   num = 70
+        // }
+        // if (project === 'groupScore') {
+        //   data = data.concat(groupScore)
+        //   num = 100
+        // }
+        // if (project === 'noServerScore') {
+        //   data = data.concat(noServerScore)
+        //   num = 7
+        // }
 
-        var x = d3.scaleBand()
-          .domain(data.map(function (d) {
-            return d[0];
-          }))
-          .range([0, width])
-          .padding(.1);
+        // for (let i = 0; i < d.length; i++) {
+        //   data.push([d[i].initials, d[i][project]])
+        // }
 
-        var y = d3.scaleLinear()
-          .domain([0, d3.max(data, function (d) {
-            return d[1];
-          })])
-          .range([height, 0]);
+        // data.sort((a, b) => {
+        //   return a[1] - b[1]
+        // })
 
-        var xAxis = d3.axisBottom(x);
+        // var margin = {
+        //   top: 40,
+        //   right: 30,
+        //   bottom: 40,
+        //   left: 50
+        // }
+        // var height = document.getElementById('projectScoresDiv').offsetHeight - 100 - margin.top - margin.bottom;
+        // var width = document.getElementById('projectScoresDiv').offsetWidth - margin.right - margin.left;
 
-        var yAxis = d3.axisLeft(y)
+        // var x = d3.scaleBand()
+        //   .domain(data.map(function (d) {
+        //     return d[0];
+        //   }))
+        //   .range([0, width])
+        //   .padding(.1);
 
-        var tip = d3.tip()
-          .attr('class', 'd3-tip')
-          .offset([-10, 0])
-          .html(function (d) {
-            return "<strong>Student:</strong> <span style='color:#21AAE1'> " + d[0] + "</span>";
-          })
-          .style('font-size', '11px')
+        // var y = d3.scaleLinear()
+        //   .domain([0, d3.max(data, function (d) {
+        //     return d[1];
+        //   })])
+        //   .range([height, 0]);
 
-        var svg = d3.select("#barChart").append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
-          .append("g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        // var xAxis = d3.axisBottom(x);
 
+        // var yAxis = d3.axisLeft(y)
 
-        svg.call(tip);
+        // var tip = d3.tip()
+        //   .attr('class', 'd3-tip')
+        //   .offset([-10, 0])
+        //   .html(function (d) {
+        //     return "<strong>Student:</strong> <span style='color:#21AAE1'> " + d[0] + "</span>";
+        //   })
+        //   .style('font-size', '11px')
 
-
-        svg.append("g")
-          .attr("class", "y axis")
-          .call(yAxis)
-          .append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 6)
-          .attr("dy", ".71em")
-          .style("text-anchor", "end")
-          .text("Student");
-
-        svg.selectAll(".bar")
-          .data(data)
-          .enter().append("rect")
-          .attr("class", "bar")
-          .attr("x", function (d) {
-            return x(d[0]);
-          })
-          .attr("width", x.bandwidth())
-          .attr("y", function (d) {
-            return y(d[1]);
-          })
-          .attr("height", function (d) {
-            return height - y(d[1]);
-          })
-          .attr('fill', function (d) {
-            if (d[1] >= 70) return '#21AAE1'
-            else return '#141414';
-          })
-          .on('mouseover', function (d) {
-            tip.show(d)
-            if (d[1] >= 70) {
-              d3.select(this)
-                .attr("fill", "#297FAA");
-            } else {
-              d3.select(this)
-                .attr("fill", "#000");
-            }
-          })
-          .on('mouseout', function (d) {
-            tip.hide(d)
-            if (d[1] >= 70) {
-              d3.select(this)
-                .attr("fill", '#21AAE1');
-            } else {
-              d3.select(this)
-                .attr("fill", "#141414");
-            }
-          })
+        // var svg = d3.select("#barChart").append("svg")
+        //   .attr("width", width + margin.left + margin.right)
+        //   .attr("height", height + margin.top + margin.bottom)
+        //   .append("g")
+        //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
+        // svg.call(tip);
 
 
-        function type(d) {
-          d[1] = +d[1];
-          return d;
-        }
+        // svg.append("g")
+        //   .attr("class", "y axis")
+        //   .call(yAxis)
+        //   .append("text")
+        //   .attr("transform", "rotate(-90)")
+        //   .attr("y", 6)
+        //   .attr("dy", ".71em")
+        //   .style("text-anchor", "end")
+        //   .text("Student");
 
-      }
-    }
-  })
+        // svg.selectAll(".bar")
+        //   .data(data)
+        //   .enter().append("rect")
+        //   .attr("class", "bar")
+        //   .attr("x", function (d) {
+        //     return x(d[0]);
+        //   })
+        //   .attr("width", x.bandwidth())
+        //   .attr("y", function (d) {
+        //     return y(d[1]);
+        //   })
+        //   .attr("height", function (d) {
+        //     return height - y(d[1]);
+        //   })
+        //   .attr('fill', function (d) {
+        //     if (d[1] >= num) return '#21AAE1'
+        //     else return '#141414';
+        //   })
+        //   .on('mouseover', function (d) {
+        //     tip.show(d)
+        //     if (d[1] >= num) {
+        //       d3.select(this)
+        //         .attr("fill", "#297FAA");
+        //     } else {
+        //       d3.select(this)
+        //         .attr("fill", "#000");
+        //     }
+        //   })
+        //   .on('mouseout', function (d) {
+        //     tip.hide(d)
+        //     if (d[1] >= num) {
+        //       d3.select(this)
+        //         .attr("fill", '#21AAE1');
+        //     } else {
+        //       d3.select(this)
+        //         .attr("fill", "#141414");
+        //     }
+        //   })
+
+        // function type(d) {
+        //   d[1] = +d[1];
+        //   return d;
+        // }
+
+
+        // let updateBarChart = (newData, num) => {
+
+        //   console.log('but seriously, Im running!')
+        //   var t = d3.transition().duration(1000)
+        //   var update = svg.selectAll('rect').data(newData)
+
+        //   update.exit()
+        //     .transition(t)
+        //     .attr("y", height)
+        //     .attr("height", 0)
+        //     .remove()
+
+        //   y.domain([0, d3.max(newData, function (d) {
+        //     return d[1];
+        //   })])
+
+        //   //  yAxis.transition(t).duration(1000).call(yAxis)
+        //   // yAxis.transition(t).duration(1000).call(d3.axisLeft(y))
+        //   // y.transition(t).duration(1000).call(yAxis)
+          
+
+        //   update
+        //     .transition(t)
+        //     .duration(1000)
+        //     .attr("y", function (d) {
+        //       return y(d[1]);
+        //     })
+        //     .attr("height", function (d) {
+        //       return height - y(d[1]);
+        //     })
+
+        //     update
+        //     .enter()
+        //     .append('rect')
+        //     .attr("y", height)
+        //     .attr("height", 0)
+        //     .attr("x", function (d) {
+        //     return x(d[0]);
+        //   })
+        //   .attr("width", x.bandwidth())
+        //     .attr('fill', function (d) {
+        //       if (d[1] >= num) return '#21AAE1'
+        //       else return '#141414';
+        //     })
+
+        //     .on('mouseover', function (d) {
+        //       tip.show(d)
+        //       if (d[1] >= num) {
+        //         d3.select(this)
+        //           .attr("fill", "#297FAA");
+        //       } else {
+        //         d3.select(this)
+        //           .attr("fill", "#000");
+        //       }
+        //     })
+        //     .on('mouseout', function (d) {
+        //       tip.hide(d)
+        //       if (d[1] >= num) {
+        //         d3.select(this)
+        //           .attr("fill", '#21AAE1');
+        //       } else {
+        //         d3.select(this)
+        //           .attr("fill", "#141414");
+        //       }
+        //     })
+
+
+
+
+        // }
+
+
+
+
+        // $scope.$watch('projectName', function (newValue, oldValue) {
+        //   let d = $scope.projectData
+        //   console.log($scope.projectName, 'running!')
+
+        //   let project = document.getElementById("selectboxProjects").value;
+
+        //   let data = []
+        //   let num
+
+        //   if (project === 'personalScore') {
+        //     data = data.concat(personalScore)
+        //     num = 70
+        //   }
+        //   if (project === 'groupScore') {
+        //     data = data.concat(groupScore)
+        //     num = 100
+        //   }
+        //   if (project === 'noServerScore') {
+        //     data = data.concat(noServerScore)
+        //     num = 7
+        //   }
+
+        //   for (let i = 0; i < d.length; i++) {
+        //     data.push([d[i].initials, d[i][project]])
+        //   }
+
+        //   data.sort((a, b) => {
+        //     return a[1] - b[1]
+        //   })
+
+        //   updateBarChart(data, num)
+        // })
+
+
+
+  //     }
+  //   }
+  // })
