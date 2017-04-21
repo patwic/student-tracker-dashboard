@@ -112,7 +112,7 @@
         </div>
         <div class='cohort-projectScoresGraphBox' id='projectScoresDiv'>
             <h3>PROJECT SCORES</h3>
-            <div class='cohort-projectScoresKey cohort-dropdown'>
+            <!--<div class='cohort-projectScoresKey cohort-dropdown'>
                 <select id="selectboxProjects" class='cohort-projectScoresSelector'>
                             <option ng-click="updateSheets(personalScore)" value="personalScore">PERSONAL PROJECT</option>
                             <option ng-click="updateSheets(groupScore)" value="groupScore">GROUP PROJECT</option>
@@ -124,6 +124,13 @@
                     <div></div>
                     <h4>FAILED</h4>
                 </div>
+            </div>-->
+            <div class="pr-btn-container">
+
+            <div id='pp' class='project-buttons' ng-click='updateBar("pp")'>PERSONAL</div>
+            <div id='np' class='project-buttons' ng-click='updateBar("np")'>NO SERVER</div>
+            <div id='gp' class='project-buttons' ng-click='updateBar("gp")'>GROUP</div>
+            
             </div>
             <!--<bar-chart project-data='projectData' ng-if='projectData.length > 0' project-name='projectName'></bar-chart>-->
             <div id="barChart"></div>

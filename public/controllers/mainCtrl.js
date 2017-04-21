@@ -42,6 +42,12 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       let newUser = getCohortAliases($scope.cohorts, user)
       getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId)
       getStudentPieData()
+
+
+      document.getElementById('pp').style.background = 'linear-gradient(-45deg, #333, #444)'
+    document.getElementById('pp').style.color = '#CCC'
+
+
       return newUser;
     })
   }
@@ -133,14 +139,47 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
 
   
-  sheetsService.getSheet().then((res) => {
-    $scope.progressData = sheetsService.getProgress(res)
-  })
+  // sheetsService.getSheet().then((res) => {
+  //   $scope.progressData = sheetsService.getProgress(res)
+  // })
 
-  sheetsService.getSheet().then((res) => {
-    $scope.projectData = sheetsService.getProjectScores(res);
-    firstSheetCall()
-  })
+  // sheetsService.getSheet().then((res) => {
+  //   $scope.projectData = sheetsService.getProjectScores(res);
+  //   firstSheetCall()
+  // })
+
+  $scope.updateSheets;
+
+  $scope.updateBar = (id) => {
+    let p = document.getElementById('pp')
+    let g = document.getElementById('gp')
+    let n = document.getElementById('np')
+    if(id === 'np') {
+      // $scope.updateSheets('noServerScore')
+    n.style.background = 'linear-gradient(-45deg, #333, #444)'
+    n.style.color = '#CCC'
+    g.style.background = '#1a1a1a'
+    g.style.color = '#282828'
+    p.style.background = '#1a1a1a'
+    p.style.color = '#282828'
+  } else if(id === 'pp') {
+    // $scope.updateSheets('personalScore')
+    p.style.background = 'linear-gradient(-45deg, #333, #444)'
+    p.style.color = '#CCC'
+    g.style.background = '#1a1a1a'
+    g.style.color = '#282828'
+    n.style.background = '#1a1a1a'
+    n.style.color = '#282828'
+  } else  if(id === 'gp') {
+    // $scope.updateSheets('groupScore')
+    g.style.background = 'linear-gradient(-45deg, #333, #444)'
+    g.style.color = '#CCC'
+    p.style.backpround = '#1a1a1a'
+    p.style.color = '#282828'
+    n.style.background = '#1a1a1a'
+    n.style.color = '#282828'
+    }
+  }
 
 
   //-----------update sheets-------------//
@@ -166,15 +205,19 @@ var project;
           ['ZK', 6],
           ['HJ', 3],
           ['JH', 5],
-          ['GH', 2],
+          ['GH', 6],
           ['ZZ', 9],
           ['XX', 11]
         ]
         var updateBarChart;
+
+
   var firstSheetCall = () => {
+document.getElementById('pp').style.background = 'linear-gradient(-45deg, #333, #444)'
+    document.getElementById('pp').style.color = '#CCC'
 
   let d = $scope.projectData;
-project = document.getElementById("selectboxProjects").value;
+project = 'personalScore'
 
         let data = []
         var num;
@@ -317,6 +360,8 @@ project = document.getElementById("selectboxProjects").value;
         var bars = d3.select('#barChart')
           .selectAll(".bar")
           .data(newData)
+          .attr("y", height)
+          .attr("height", 0)
           .on('mouseover', function (d) {
               tip.show(d)
               if (d[1] >= num) {
@@ -354,8 +399,6 @@ project = document.getElementById("selectboxProjects").value;
           })
           
           ya.transition().duration(1000).call(yAxis)
-
-            data = newData
 
 
 

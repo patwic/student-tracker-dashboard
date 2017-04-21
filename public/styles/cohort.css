@@ -447,7 +447,7 @@
 }
 
 .cohort-projectScoresSelector:hover {
-    
+
 }
 
 
@@ -462,6 +462,27 @@
     height: 12px;
     background: #1a1a1a;
     margin-right: 6px;
+}
+
+.pr-btn-container {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.project-buttons {
+    padding-top: 7px;
+    width: 28%;
+    height: 30px;
+    background: #1a1a1a;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.project-buttons:hover {
+    background: #151515;
 }
 
 .cohort-projectScoresKeyValues div:first-child {
