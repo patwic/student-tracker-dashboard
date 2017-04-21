@@ -100,7 +100,7 @@ let self = module.exports = {
   //checks if any student has done less than 3 assessments
   //will need to be updated later to check only when students on week 5 or later
   progressAlert: (req, res, err) => {
-    request.get('https://sheetsu.com/apis/v1.0/5344f918b338').then(response => {
+    request.get('https://sheetsu.com/apis/v1.0/45425dfc758e').then(response => {
       sheet = JSON.parse(response)
       let students = []
       for (let student of sheet) {

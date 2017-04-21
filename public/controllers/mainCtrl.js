@@ -44,8 +44,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       getStudentPieData()
 
 
-      document.getElementById('pp').style.background = 'linear-gradient(-45deg, #333, #444)'
-    document.getElementById('pp').style.color = '#CCC'
+    //   document.getElementById('pp').style.background = 'linear-gradient(-45deg, #333, #444)'
+    // document.getElementById('pp').style.color = '#CCC'
 
 
       return newUser;
@@ -139,23 +139,24 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
 
   
-  // sheetsService.getSheet().then((res) => {
-  //   $scope.progressData = sheetsService.getProgress(res)
-  // })
+  sheetsService.getSheet().then((res) => {
+    $scope.progressData = sheetsService.getProgress(res)
+  })
 
-  // sheetsService.getSheet().then((res) => {
-  //   $scope.projectData = sheetsService.getProjectScores(res);
-  //   firstSheetCall()
-  // })
+  sheetsService.getSheet().then((res) => {
+    $scope.projectData = sheetsService.getProjectScores(res);
+    firstSheetCall()
+  })
 
   $scope.updateSheets;
 
   $scope.updateBar = (id) => {
+    console.log(id)
     let p = document.getElementById('pp')
     let g = document.getElementById('gp')
     let n = document.getElementById('np')
     if(id === 'np') {
-      // $scope.updateSheets('noServerScore')
+      $scope.updateSheets('noServerScore')
     n.style.background = 'linear-gradient(-45deg, #333, #444)'
     n.style.color = '#CCC'
     g.style.background = '#1a1a1a'
@@ -163,7 +164,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     p.style.background = '#1a1a1a'
     p.style.color = '#282828'
   } else if(id === 'pp') {
-    // $scope.updateSheets('personalScore')
+    $scope.updateSheets('personalScore')
     p.style.background = 'linear-gradient(-45deg, #333, #444)'
     p.style.color = '#CCC'
     g.style.background = '#1a1a1a'
@@ -171,7 +172,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     n.style.background = '#1a1a1a'
     n.style.color = '#282828'
   } else  if(id === 'gp') {
-    // $scope.updateSheets('groupScore')
+    $scope.updateSheets('groupScore')
     g.style.background = 'linear-gradient(-45deg, #333, #444)'
     g.style.color = '#CCC'
     p.style.backpround = '#1a1a1a'
@@ -210,9 +211,10 @@ var project;
           ['XX', 11]
         ]
         var updateBarChart;
-
-
+var fired = false;
   var firstSheetCall = () => {
+    if(fired)d3.select("#barChart").remove()
+    fired = true
 document.getElementById('pp').style.background = 'linear-gradient(-45deg, #333, #444)'
     document.getElementById('pp').style.color = '#CCC'
 
@@ -412,9 +414,9 @@ project = 'personalScore'
         $scope.updateSheets = (sheetValue) => {
           let d = $scope.projectData
 
-          project = document.getElementById("selectboxProjects").value;
-          // project = sheetValue
-          console.log(project, 'running!')
+          // project = document.getElementById("selectboxProjects").value;
+          project = sheetValue
+          console.log(project, 'running!') 
 
           let data = []
           let num
