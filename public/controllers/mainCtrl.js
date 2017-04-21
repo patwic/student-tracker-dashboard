@@ -9,6 +9,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.cohorts
   $scope.activeCohorts
   var getStudentPieData;
+  var getLineChartCohortData;
 
   var cohortPreferences = [];
 
@@ -39,6 +40,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         $scope.cohortId = $scope.activeCohorts[0].cohortId
       } else $scope.cohortId = user.cohort_ids[3]
       let newUser = getCohortAliases($scope.cohorts, user)
+      getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId)
       getStudentPieData()
       return newUser;
     })
@@ -450,14 +452,13 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     //----------------get data for cohort line chart-------------//
 
-    let getLineChartCohortData = (startDate, endDate, cohortId, qQuery) => {
+    getLineChartCohortData = (startDate, endDate, cohortId) => {
       qService.getQ(startDate, endDate, cohortId).then(res => {
-        let data = qService.setQs(res.data, qQuery)
-        $scope.cohortQData = data[qQuery]
+        let data = qService.setQs(res.data)
+        $scope.cohortQData = data
+        $scope.$apply()
       })
     }
-
-    // getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId, "helpQ")
 
 
 
@@ -546,7 +547,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
       document.getElementById("login-sidenavOverlay").style.display = "block";
       document.body.style.overflow = 'hidden';
-      // getUser()
     }
 
     $scope.openCohortStudentNav = function () {

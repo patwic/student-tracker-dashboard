@@ -8,18 +8,20 @@ angular.module('app')
       },
       controller: function ($scope) {
 
+        var help = $scope.cohortTimeData.helpQ
+
         function makeDataObject(arr) {
           let allDataArr = [];
           for (let i = 0; i < arr.length; i++) {
             allDataArr.push({
-              'date': new Date(arr[i][0]),
-              'number': Number(arr[i][1])
+              'date': i + 1,
+              'number': arr[i]
             })
           }
           return allDataArr;
         }
 
-        // var data = makeDataObject($scope.cohortTimeData);
+        var data = makeDataObject(help);
 
         var margin = {
           top: 20,
@@ -43,8 +45,9 @@ angular.module('app')
           .range([height, 0]);
 
         var xAxis = d3.axisBottom(x)
-          .ticks(d3.timeMinute.every(30))
-          .tickFormat(d3.timeFormat("%I:%M"));
+          // .ticks(d3.timeMinute.every(30))
+          // .tickFormat(d3.timeFormat("%I:%M"));
+          .ticks()
 
         var yAxis = d3.axisLeft(y)
           .ticks(5);
@@ -102,10 +105,11 @@ angular.module('app')
           .attr("stop-color", "#21AAE1")
           .attr("stop-opacity", 0);
 
-        let day = new Date().toISOString().substring(0, 10),
-          endTime = new Date(`${day}T23:10:00.000Z`).getTime()
+        // let day = new Date().toISOString().substring(0, 10),
+        //   endTime = new Date(`${day}T23:10:00.000Z`).getTime()
 
-        x.domain([new Date($scope.cohortTimeData[0][0]), new Date(endTime)]);
+        // x.domain([new Date($scope.cohortTimeData[0][0]), new Date(endTime)]);
+        x.domain([0, 100])
 
         let maxDomain = 20;
         if ((d3.max(data, function (d) {
@@ -118,10 +122,10 @@ angular.module('app')
 
         y.domain([0, maxDomain])
 
-        svg.append("g")
-          .attr("class", "x axis")
-          .attr("transform", "translate(0," + height + ")")
-          .call(xAxis);
+        // svg.append("g")
+        //   .attr("class", "x axis")
+        //   .attr("transform", "translate(0," + height + ")")
+        //   .call(xAxis);
 
         svg.append("g")
           .attr("class", "y axis")
@@ -209,6 +213,38 @@ angular.module('app')
             focus.attr("transform", "translate(" + x(d.date) + "," + y(d.number) + ")");
             focus.select("text").text(d.number);
           });
+
+        let updateCohortLineChart = (newData) => {
+          x.domain([0, 100])
+
+          let maxDomain = 20;
+          if ((d3.max(newData, function (d) {
+              return d.number;
+            }) * 1.1) > 20) {
+            maxDomain = d3.max(newData, function (d) {
+              return d.number;
+            }) * 1.1
+          }
+
+          y.domain([0, maxDomain])
+
+          var svg = d3.select("#cohortLineChart").transition();
+
+          svg.select(".line")
+            .duration(750)
+            .attr("d", valueline(newData));
+          svg.select(".x.axis")
+            .duration(750)
+            .call(xAxis);
+          svg.select(".y.axis")
+            .duration(750)
+            .call(yAxis);
+        }
+
+        $scope.$watch('cohortTimeData', function (newValue, oldValue) {
+          updateCohortLineChart($scope.cohortTimeData.helpQ)
+        })
+
       }
     }
   })
