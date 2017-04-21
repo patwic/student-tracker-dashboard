@@ -112,7 +112,7 @@ table.ui-datepicker-calendar{
     text-align: center;
     outline: none;
     text-decoration: none;
-    color: #a8a8a8;
+    color: #DDD;
     padding: 5px;
 }
 
@@ -123,7 +123,7 @@ table.ui-datepicker-calendar{
 .ui-datepicker-other-month .ui-state-default { color: #565656; }
 
 td.highlight {
-    background-color: #c41c1c;
-    border-radius: 50%;
+    background: url('../assets/reddot.svg') center no-repeat;
+    /*border-radius: 50%;*/
 }
 

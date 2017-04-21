@@ -13,7 +13,9 @@ angular.module('app').service('qService', function ($http, config) {
                     'Access-Control-Allow-Origin': '*'
                 }
             }
-        )
+        ).catch(function (err) {
+            console.log('Error');
+        })
     }
 
     //divides Q data into an array
@@ -59,19 +61,25 @@ angular.module('app').service('qService', function ($http, config) {
         let waitQ = []
         let beginTime = new Date(`2000-01-01T14:50:00.000Z`).getTime()
         let endTime = new Date(`2000-01-01T23:10:00.000Z`).getTime()
-        if (qQuery) {
-            if (qQuery === 'helpQ') {
-                helpQ.push(pushSingleQ(min, max, qArr, 'timeMentorBegins', 'timeQuestionAnswered'))
-                return {qQuery: helpQ}
-            } else if (qQuery === 'totalQ') {
-                totalQ.push(pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeQuestionAnswered'))
-                return {qQuery: totalQ}
-            } else {
-                waitQ.push(pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeMentorBegins', 'timeQuestionAnswered'))
-                return {qQuery: waitQ}
-            }
-            
-        } else {
+        // if (qQuery) {
+        //     if (qQuery === 'helpQ') {
+        //         helpQ.push(pushSingleQ(min, max, qArr, 'timeMentorBegins', 'timeQuestionAnswered'))
+        //         return {
+        //             qQuery: helpQ
+        //         }
+        //     } else if (qQuery === 'totalQ') {
+        //         totalQ.push(pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeQuestionAnswered'))
+        //         return {
+        //             qQuery: totalQ
+        //         }
+        //     } else {
+        //         waitQ.push(pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeMentorBegins', 'timeQuestionAnswered'))
+        //         return {
+        //             qQuery: waitQ
+        //         }
+        //     }
+
+        // } else {
             for (let i = 0; i < 100; i++) {
                 let min = beginTime + (i * 300000)
                 let max = beginTime + ((i + 1) * 300000)
@@ -79,7 +87,7 @@ angular.module('app').service('qService', function ($http, config) {
                 totalQ.push(pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeQuestionAnswered'))
                 waitQ.push(pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeMentorBegins', 'timeQuestionAnswered'))
             }
-        }
+        // }
         return {
             helpQ: helpQ,
             totalQ: totalQ,
@@ -117,7 +125,7 @@ angular.module('app').service('qService', function ($http, config) {
             }
         }
         if (count > 0) {
-            return (sum / (count * 60000)).toFixed(2)
+            return (sum / (count * 60000)).toFixed(2) 
         } else return '0'
     }
 
@@ -254,16 +262,33 @@ angular.module('app').service('qService', function ($http, config) {
             }, 0)
         }
         if (totalCount != 0) total = parseFloat((total / (totalCount * 60000)).toFixed(2))
+        //fix error bug here
         let sum = first[metric] + second[metric] + third[metric] + total
         let firstPercent = parseFloat((first[metric] / sum).toFixed(2))
         let secondPercent = parseFloat((second[metric] / sum).toFixed(2))
         let thirdPercent = parseFloat((third[metric] / sum).toFixed(2))
         let totalPercent = parseFloat((1 - (firstPercent + secondPercent + thirdPercent)).toFixed(2))
         let topStudents = []
-        topStudents.push({name: first.name, metric: first[metric], percent: firstPercent})
-        if (targetStudents.length > 1) topStudents.push({name: second.name, metric: second[metric], percent: secondPercent})
-        if (targetStudents.length > 2) topStudents.push({name: third.name, metric: third[metric], percent: thirdPercent})
-        topStudents.push({name: 'Other', metric: total, percent: totalPercent})
+        topStudents.push({
+            name: first.name,
+            metric: first[metric],
+            percent: firstPercent
+        })
+        if (targetStudents.length > 1) topStudents.push({
+            name: second.name,
+            metric: second[metric],
+            percent: secondPercent
+        })
+        if (targetStudents.length > 2) topStudents.push({
+            name: third.name,
+            metric: third[metric],
+            percent: thirdPercent
+        })
+        topStudents.push({
+            name: 'Other',
+            metric: total,
+            percent: totalPercent
+        })
         return topStudents
     }
 
@@ -271,6 +296,8 @@ angular.module('app').service('qService', function ($http, config) {
     this.getStudentsForCohort = (cID) => {
         return $http.get('http://q.devmountain.com/admin/user?cohort=' + cID + '&admin_token=' + config.admin_token).then(res => {
             return res.data;
+        }).catch(function (err) {
+            console.log('Error');
         })
     }
 })

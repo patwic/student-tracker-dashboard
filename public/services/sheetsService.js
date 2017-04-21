@@ -3,6 +3,8 @@ angular.module('app').service('sheetsService', function ($http, config) {
     this.getSheet = () => {
         return $http.get('https://sheetsu.com/apis/v1.0/5344f918b338').then(response => {
             return response.data
+        }).catch(function (err) {
+            console.log('Error');
         })
     }
 
@@ -27,10 +29,10 @@ angular.module('app').service('sheetsService', function ($http, config) {
             let studProg = {}
             studProg.name = student.Student
             if (student['HTML'] = 'Pass') studProg.HTML = true
-            if (student['JS Basic v1'] == 'Pass'
-                || student['JS Basic v2'] == 'Pass') studProg.JS1 = true
-            if (student['JS Inter p1v1'] == 'Pass'
-                || student['JS Inter p1v2'] == 'Pass') studProg.JS2 = true
+            if (student['JS Basic v1'] == 'Pass' ||
+                student['JS Basic v2'] == 'Pass') studProg.JS1 = true
+            if (student['JS Inter p1v1'] == 'Pass' ||
+                student['JS Inter p1v2'] == 'Pass') studProg.JS2 = true
             if (student['Angular'] == 'Pass') studProg.ANG = true
             if (student['Node'] == 'Pass') studProg.NODE = true
             if (student['SQL Week Passed'] != '') studProg.SQL = true

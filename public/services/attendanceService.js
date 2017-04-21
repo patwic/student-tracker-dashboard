@@ -5,8 +5,14 @@ angular.module('app').service('attendanceService', function ($http, config) {
     //will use days to get attendance data per day in other functions
     this.getDays = (cohortId) => {
         return $http.get(
-            `${this.url}?admin_token=${config.admin_token}&cohortId=${cohortId}`,
-            {headers: {'Access-Control-Allow-Origin': '*'}})
+                `${this.url}?admin_token=${config.admin_token}&cohortId=${cohortId}`, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                })
+            .catch(function (err) {
+                console.log('Error');
+            })
     }
 
     //gets attendance data from DevMtn DB for each day passed in
@@ -15,10 +21,13 @@ angular.module('app').service('attendanceService', function ($http, config) {
     this.getDataFromDays = (data) => {
         let promises = []
         for (let datum of data) {
-            if(datum.day) {
+            if (datum.day) {
                 promises.push($http.get(
-                    `${this.url}/${datum.cohortId}/${datum.day}?admin_token=${config.admin_token}`,
-                    {headers: {'Access-Control-Allow-Origin': '*'}}))
+                        `${this.url}/${datum.cohortId}/${datum.day}?admin_token=${config.admin_token}`, {
+                            headers: {
+                                'Access-Control-Allow-Origin': '*'
+                            }
+                        }))
             }
         }
         return Promise.all(promises)
@@ -31,18 +40,22 @@ angular.module('app').service('attendanceService', function ($http, config) {
         let attendance = []
         for (let attend of daysData) {
             let absentStudents = {}
-            let attendDay = {day : '',
-                            late: [],
-                            leftEarly: [],
-                            absent: []}
+            let attendDay = {
+                day: '',
+                late: [],
+                leftEarly: [],
+                absent: []
+            }
             attendDay.day = attend.data.day.date.substring(0, 10)
             for (let student of attend.data.attendances) {
                 if (student.attendanceData) {
                     if (student.attendanceData.late) {
                         attendDay.late.push(`${student.user.firstName} ${student.user.lastName}`)
-                    } if (student.attendanceData.leftEarly) {
-                        attendDay.leftEarly.push(`${student.user.firstName} ${student.user.lastName}`)                    
-                    } if (student.attendanceData.abscent) {
+                    }
+                    if (student.attendanceData.leftEarly) {
+                        attendDay.leftEarly.push(`${student.user.firstName} ${student.user.lastName}`)
+                    }
+                    if (student.attendanceData.abscent) {
                         attendDay.absent.push(`${student.user.firstName} ${student.user.lastName}`)
                     }
                 }
