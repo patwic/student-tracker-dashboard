@@ -316,7 +316,7 @@ let maxDomain = 20;
           //   })
 
           var gradient = d3.select('#cohortLineChart').selectAll(".area")
-            .attr("d", areaFunction(newData))
+            
 
           // dots.transition()
           //   .duration(1000)
@@ -329,6 +329,7 @@ let maxDomain = 20;
 
           gradient.transition()
             .duration(1000)
+            .attr("d", areaFunction(newData))
             .style("fill", "url(#areaGradient)")
           lines.transition()
             .duration(1000)
