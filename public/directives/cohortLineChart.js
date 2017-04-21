@@ -217,16 +217,15 @@ angular.module('app')
             focus.select("text").text(d.number);
           });
 
-        // let updateCohortLineChart = (newData) => {
+        let updateCohortLineChart = (newData) => {
+          var t = d3.transition().duration(1000)
+          var update = svg.selectAll('path').data(newData)
+          
+          update.exit()
+                .transition(t)
+                .attr()
 
-        //   var path = d3.select('#cohortLineChart').selectAll('path')
-        //   .transition().duration(500).attrTween("fill", function () {
-        //     return d3.interpolateArray(data, newData);
-        //   });
-
-        //   data = newData;
-
-        // }
+        }
 // }
 
 

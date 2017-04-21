@@ -1,6 +1,7 @@
 <section class='cohort-background' id='bleck'>
     <div class='cohort-fixedSideMenu'>
-        <img ng-click="openCohortNav(); closeNav()" src='./assets/hamburger-15.svg'>
+        <img ng-click="openCohortNav()" src='./assets/hamburger-15.svg'>
+        <!--<img ng-click="openCohortNav(); closeNav()" src='./assets/hamburger-15.svg'>-->
     </div>
     <div id="cohort-sidenav" class="cohort-sidenavContent">
         <div class='cohort-sidenavAllContent'>
@@ -91,11 +92,11 @@
                 <div class='cohort-attendenceCalenderGraph'>
                     <div id='attendanceCalendar'></div>
                 </div>
-                <div class='cohort-attencenceGraphKey'>
+                <!--<div class='cohort-attencenceGraphKey'>
                     <div>1 Absence</div>
                     <div>2 Absences</div>
                     <div>3+ Absences</div>
-                </div>
+                </div>-->
                 <div class='cohort-attencenceStudentList'>
                     <div class='cohort-attencenceStudentListBox'>
                         <h4 ng-repeat='student in absentStudents'>{{student.name}}(<span>{{student.count}}</span>)</h4>

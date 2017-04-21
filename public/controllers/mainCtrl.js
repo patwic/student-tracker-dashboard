@@ -548,12 +548,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
       document.getElementById("login-sidenavOverlay").style.display = "block";
       document.body.style.overflow = 'hidden';
+      document.getElementById('cohort-sidenav').style.boxShadow = '6px 6px 17px 2px rgba(0, 0, 0, .4)'
       getUser()
     }
 
     $scope.openCohortStudentNav = function () {
       document.getElementById("cohort-sidenavStudent").style.width = "420px";
       document.getElementById("cohort-sidenav").style.boxShadow = "none";
+      document.getElementById('cohort-sidenavStudent').style.boxShadow = '6px 6px 17px 2px rgba(0, 0, 0, .4)'
     }
 
     $scope.closeCohortStudentNav = function () {
@@ -561,6 +563,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById("cohort-sidenav").style.width = "0";
       document.getElementById("login-sidenavOverlay").style.display = "none";
       document.body.style.overflow = 'visible';
+      document.getElementById('cohort-sidenavStudent').style.boxShadow = 'none'
+      document.getElementById('cohort-sidenav').style.boxShadow = 'none'      
       getStudentPieData()
       getMentorPieData(apiStartDate, apiEndDate, $scope.cohortId)
       loadAllDatePickers()

@@ -37,7 +37,8 @@
     overflow-x: hidden;
     padding-top: 80px;
     transition: 0.5s;
-    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+    /*box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);*/
+    box-shadow: none;
 
 }
 
@@ -125,7 +126,8 @@
     overflow-x: hidden;
     padding-top: 60px;
     transition: .5s;
-    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+    /*box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);*/
+    box-shadow: none;
 }
 
 .cohort-sidenavStudentContent a {
@@ -370,7 +372,7 @@
 }
 
 .cohort-attencenceStudentList {
-    height: 20vh;
+    height: 29vh;
     background: #1a1a1a;
     overflow-y: scroll;
     overflow: auto;
