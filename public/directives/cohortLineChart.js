@@ -8,6 +8,11 @@ angular.module('app')
       },
       controller: function ($scope) {
 
+
+        // var drawCohortLineChart = () => {
+
+        
+
         function makeDataObject(arr) {
           let allDataArr = [];
           for (let i = 0; i < arr.length; i++) {
@@ -67,7 +72,7 @@ angular.module('app')
             return y(d.number);
           });
 
-        var svg = d3.select("#cohortLineChart").append("svg")
+        svg = d3.select("#cohortLineChart").append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
           .append("g")
@@ -132,12 +137,13 @@ angular.module('app')
         svg.append("path")
           .datum(data)
           .attr("class", "line")
-          .attr("d", line);
+          .attr("d", line)
 
         svg.append("path")
           .attr("class", "area")
           .style("fill", "url(#areaGradient)")
-          .attr("d", areaFunction(data));
+          .attr("d", areaFunction(data))
+
 
         svg.selectAll(".lineDots")
           .data(data, function (d) {
@@ -212,44 +218,23 @@ angular.module('app')
             focus.select("text").text(d.number);
           });
 
-        let updateCohortLineChart = (newData) => {
-          x.domain([0, 100])
+        // let updateCohortLineChart = (newData) => {
 
-          let maxDomain = 20;
-          if ((d3.max(newData, function (d) {
-              return d.number;
-            }) * 1.1) > 20) {
-            maxDomain = d3.max(newData, function (d) {
-              return d.number;
-            }) * 1.1
-          }
+        //   var path = d3.select('#cohortLineChart').selectAll('path')
+        //   .transition().duration(500).attrTween("fill", function () {
+        //     return d3.interpolateArray(data, newData);
+        //   });
 
-          y.domain([0, maxDomain])
+        //   data = newData;
 
-          var svg = d3.select("#cohortLineChart").selectAll('path').data(newData)
+        // }
+// }
 
-          // svg.select(".line")
-          //   .duration(750)
-          //   .datum(newData)
-          //   .attr("d", line);
-          // svg.select(".x.axis")
-          //   .duration(750)
-          //   .call(xAxis);
-          // svg.select(".y.axis")
-          //   .duration(750)
-          //   .call(yAxis);
 
-        //   svg.selectAll(".line")
-        //     .duration(500)
-        //     .datum(newData) // set the new data
-        //     .attr("d", line);
-
-        
-        }
-
-        $scope.$watch('cohortTimeData', function (newValue, oldValue) {
-          updateCohortLineChart($scope.cohortTimeData)
-        })
+        // $scope.$watch('cohortTimeData', function (newValue, oldValue) {
+          
+        //   drawCohortLineChart($scope.cohortTimeData)
+        // })
 
       }
     }
