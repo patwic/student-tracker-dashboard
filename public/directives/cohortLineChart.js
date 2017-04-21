@@ -8,8 +8,6 @@ angular.module('app')
       },
       controller: function ($scope) {
 
-        var help = $scope.cohortTimeData.helpQ
-
         function makeDataObject(arr) {
           let allDataArr = [];
           for (let i = 0; i < arr.length; i++) {
@@ -21,7 +19,7 @@ angular.module('app')
           return allDataArr;
         }
 
-        var data = makeDataObject(help);
+        var data = makeDataObject($scope.cohortTimeData);
 
         var margin = {
           top: 20,
@@ -228,21 +226,29 @@ angular.module('app')
 
           y.domain([0, maxDomain])
 
-          var svg = d3.select("#cohortLineChart").transition();
+          var svg = d3.select("#cohortLineChart").selectAll('path').data(newData)
 
-          svg.select(".line")
-            .duration(750)
-            .attr("d", valueline(newData));
-          svg.select(".x.axis")
-            .duration(750)
-            .call(xAxis);
-          svg.select(".y.axis")
-            .duration(750)
-            .call(yAxis);
+          // svg.select(".line")
+          //   .duration(750)
+          //   .datum(newData)
+          //   .attr("d", line);
+          // svg.select(".x.axis")
+          //   .duration(750)
+          //   .call(xAxis);
+          // svg.select(".y.axis")
+          //   .duration(750)
+          //   .call(yAxis);
+
+        //   svg.selectAll(".line")
+        //     .duration(500)
+        //     .datum(newData) // set the new data
+        //     .attr("d", line);
+
+        
         }
 
         $scope.$watch('cohortTimeData', function (newValue, oldValue) {
-          updateCohortLineChart($scope.cohortTimeData.helpQ)
+          updateCohortLineChart($scope.cohortTimeData)
         })
 
       }

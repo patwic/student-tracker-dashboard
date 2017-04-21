@@ -291,8 +291,9 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       })
       .on('apply.daterangepicker', function (ev, picker) {
         let endDate = new Date()
-        picker.startDate.format('YYYY-MM-DD')
+        let startDate = picker.startDate.format('YYYY-MM-DD')
         new Date(endDate.setDate(picker.endDate._d.getDate() + 1)).toISOString().substring(0, 10)
+        getLineChartCohortData(startDate, endDate, $scope.cohortId)
       })
   }
 
@@ -452,14 +453,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     //----------------get data for cohort line chart-------------//
 
+    var cohortObjData;
     getLineChartCohortData = (startDate, endDate, cohortId) => {
       qService.getQ(startDate, endDate, cohortId).then(res => {
         let data = qService.setQs(res.data)
-        $scope.cohortQData = data
-        $scope.$apply()
+        $scope.cohortQData = data.helpQ
+        // $scope.$apply()
       })
     }
-
 
 
     //------------getting mentor pie data-----------------//
