@@ -37,11 +37,17 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         return c.active == true
       })
       if (!user) {
-        $scope.cohortId = $scope.activeCohorts[0].cohortId
-      } else $scope.cohortId = user.cohort_ids[3]
+        $scope.cohortId = $scope.activeCohorts[3].cohortId
+      } else $scope.cohortId = user.cohort_ids[0]
       let newUser = getCohortAliases($scope.cohorts, user)
       getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId)
       getStudentPieData()
+
+
+    //   document.getElementById('pp').style.background = 'linear-gradient(-45deg, #333, #444)'
+    // document.getElementById('pp').style.color = '#CCC'
+
+
       return newUser;
     })
   }
@@ -131,13 +137,51 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   //-----------------get progress and project scores for students------------//
 
+
+  
   sheetsService.getSheet().then((res) => {
     $scope.progressData = sheetsService.getProgress(res)
   })
 
   sheetsService.getSheet().then((res) => {
     $scope.projectData = sheetsService.getProjectScores(res);
+    $scope.projectName = 'personalScore'
+    document.getElementById('pp').style.background = 'linear-gradient(-45deg, #333, #444)'
+    document.getElementById('pp').style.color = '#CCC'
   })
+
+  //-----------update sheets-------------//
+
+  $scope.updateBar = (id) => {
+    let p = document.getElementById('pp')
+    let g = document.getElementById('gp')
+    let n = document.getElementById('np')
+    if(id === 'np') {
+      $scope.projectName = 'noServerScore'
+    n.style.background = 'linear-gradient(-45deg, #333, #444)'
+    n.style.color = '#CCC'
+    g.style.background = '#1a1a1a'
+    g.style.color = '#282828'
+    p.style.background = '#1a1a1a'
+    p.style.color = '#282828'
+  } else if(id === 'pp') {
+    $scope.projectName = 'personalScore'
+    p.style.background = 'linear-gradient(-45deg, #333, #444)'
+    p.style.color = '#CCC'
+    g.style.background = '#1a1a1a'
+    g.style.color = '#282828'
+    n.style.background = '#1a1a1a'
+    n.style.color = '#282828'
+  } else  if(id === 'gp') {
+    $scope.projectName = 'groupScore'
+    g.style.background = 'linear-gradient(-45deg, #333, #444)'
+    g.style.color = '#CCC'
+    p.style.backpround = '#1a1a1a'
+    p.style.color = '#282828'
+    n.style.background = '#1a1a1a'
+    n.style.color = '#282828'
+    }
+  }
 
 
   //-----------------dropdowns----------------//
@@ -448,7 +492,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     //---------------filtered students for cohort view from side menu-----------//
 
 
-    let filteredStudents = $scope.filteredStudents;
+    let filteredStudents;
 
 
     //----------------get data for cohort line chart-------------//
@@ -548,11 +592,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
       document.getElementById("login-sidenavOverlay").style.display = "block";
       document.body.style.overflow = 'hidden';
+      document.getElementById('cohort-sidenav').style.boxShadow = '6px 6px 17px 2px rgba(0, 0, 0, .4)'
+      getUser()
     }
 
     $scope.openCohortStudentNav = function () {
       document.getElementById("cohort-sidenavStudent").style.width = "420px";
       document.getElementById("cohort-sidenav").style.boxShadow = "none";
+      document.getElementById('cohort-sidenavStudent').style.boxShadow = '6px 6px 17px 2px rgba(0, 0, 0, .4)'
     }
 
     $scope.closeCohortStudentNav = function () {
@@ -560,10 +607,13 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById("cohort-sidenav").style.width = "0";
       document.getElementById("login-sidenavOverlay").style.display = "none";
       document.body.style.overflow = 'visible';
+      document.getElementById('cohort-sidenavStudent').style.boxShadow = 'none'
+      document.getElementById('cohort-sidenav').style.boxShadow = 'none'      
       getStudentPieData()
       getMentorPieData(apiStartDate, apiEndDate, $scope.cohortId)
       loadAllDatePickers()
       updateAbsences()
+      getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId)
     }
 
     $scope.setSelected = function (selectedCohortId) {
