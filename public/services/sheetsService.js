@@ -1,7 +1,7 @@
 angular.module('app').service('sheetsService', function ($http, config) {
     //gets data from given google sheet
     this.getSheet = () => {
-        return $http.get('https://sheetsu.com/apis/v1.0/5344f918b338').then(response => {
+        return $http.get('https://sheetsu.com/apis/v1.0/45425dfc758e').then(response => {
             return response.data
         }).catch(function (err) {
             console.log('Error');
