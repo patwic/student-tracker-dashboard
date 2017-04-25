@@ -223,7 +223,6 @@ angular.module('app')
 
         $scope.$watch('projectName', function (newValue, oldValue) {
           let d = $scope.projectData
-          console.log($scope.projectName, 'running!')
 
           let project = $scope.projectName;
 
