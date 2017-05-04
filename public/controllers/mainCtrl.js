@@ -93,21 +93,29 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
 //---------------show all cohorts/reset filters---------------//
 
+console.log($scope.cohorts)
 
     $scope.getAllCohorts = function() {
-      // let allCohorts = [];
       let allCohortIds = []
       for(var i = 0; i < $scope.cohorts.length; i++) {
-        allCohortIds.push($scope.cohorts[i].cohortId / 1)
-        // allCohorts.push($scope.cohorts[i].cohortId)
+        var pairs = {
+          "id": $scope.cohorts[i].cohortId / 1,
+          "alias": $scope.cohorts[i].alias
+        }
+        allCohortIds.push(pairs)
+        // allCohortIds.push($scope.cohorts[i].cohortId / 1 )
+        // allCohortIds.push($scope.cohorts[i].alias)
       }
-      console.log(allCohortIds)
-      return allCohortIds 
 
-      // console.log($scope.allCohorts)
+  
+
+      console.log(allCohortIds)
+
 
       $scope.user.cohort_ids = allCohortIds
       console.log($scope.user.cohort_ids)
+
+  
 
       // console.log($scope.user.cohort_ids)
       // $scope.user.cohort_ids = $scope.cohorts
