@@ -13,6 +13,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   var cohortPreferences = [];
 
+
+
   //---------------get user---------------//
   var getUser = () => {
     return userService.getUser()
@@ -67,7 +69,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     }
     return user;
   }
-
 
 
   $scope.showList = function () {
@@ -616,6 +617,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId)
     }
 
+
     $scope.setSelected = function (selectedCohortId) {
       $scope.selectedCohortId = selectedCohortId;
       $scope.cohortId = selectedCohortId;
@@ -626,6 +628,15 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.getSelected = function (selectedStudents) {
       $scope.selectedStudents = selectedStudents
     }
+
+      $scope.getAllCohorts = function() {
+      $scope.user.cohort_ids = $scope.cohorts
+    }
+
+    $scope.removeAllCohorts = function() {
+      // $scope.user.cohort_ids = $scope.cohortId
+    }
+
 
 
   });
