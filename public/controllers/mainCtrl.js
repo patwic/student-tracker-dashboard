@@ -632,10 +632,10 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       $scope.getAllCohorts = function() {
       $scope.user.cohort_ids = $scope.cohorts
     }
-
-    $scope.removeAllCohorts = function() {
-      // $scope.user.cohort_ids = $scope.cohortId
+    $scope.removeAllCohorts = function(user) {
+      getUser()
     }
+
 
 
 
