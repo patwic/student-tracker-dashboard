@@ -29,6 +29,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   getUser()
 
+  
   //---------------get cohorts---------------//
 
 
@@ -67,7 +68,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         }
       }
     }
-    return user;
+    return user; 
   }
 
 
@@ -88,6 +89,35 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       }
     }
   }
+
+
+//---------------show all cohorts/reset filters---------------//
+
+
+    $scope.getAllCohorts = function() {
+      // let allCohorts = [];
+      let allCohortIds = []
+      for(var i = 0; i < $scope.cohorts.length; i++) {
+        allCohortIds.push($scope.cohorts[i].cohortId / 1)
+        // allCohorts.push($scope.cohorts[i].cohortId)
+      }
+      console.log(allCohortIds)
+      return allCohortIds 
+
+      // console.log($scope.allCohorts)
+
+      $scope.user.cohort_ids = allCohortIds
+      console.log($scope.user.cohort_ids)
+
+      // console.log($scope.user.cohort_ids)
+      // $scope.user.cohort_ids = $scope.cohorts
+      // console.log($scope.user.cohort_ids)
+      // getCohorts() 
+    }
+
+    $scope.removeAllCohorts = function(user) {
+      getUser()
+    }
 
 
   //--------remove preference----------//
@@ -617,24 +647,18 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId)
     }
 
-
     $scope.setSelected = function (selectedCohortId) {
       $scope.selectedCohortId = selectedCohortId;
       $scope.cohortId = selectedCohortId;
       getStudentsForCohort($scope.cohortId)
     }
 
+
     $scope.selectedStudents = null;
     $scope.getSelected = function (selectedStudents) {
       $scope.selectedStudents = selectedStudents
     }
 
-      $scope.getAllCohorts = function() {
-      $scope.user.cohort_ids = $scope.cohorts
-    }
-    $scope.removeAllCohorts = function(user) {
-      getUser()
-    }
 
 
 
