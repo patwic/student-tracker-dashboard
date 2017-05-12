@@ -17,7 +17,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   var getUser = () => {
     return userService.getUser()
       .then(res => {
-        console.log(res)
         getCohorts(res).then(response => {
           if(!response) return console.log('no user')
           $scope.user = response;
@@ -33,7 +32,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   var getCohorts = (user) => {
     return userService.getCohorts().then((res) => {
-      console.log(res)
       $scope.cohorts = res.data
       $scope.activeCohorts = $scope.cohorts.filter((c) => {
         return c.active == true

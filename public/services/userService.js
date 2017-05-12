@@ -35,7 +35,6 @@ angular.module('app').service('userService', function ($http, config) {
                     'Access-Control-Allow-Origin': '*'
                 }
             }).then(res => {
-                console.log(res)
                 return res
             })
             .catch(function (err) {

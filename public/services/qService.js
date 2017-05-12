@@ -294,7 +294,7 @@ angular.module('app').service('qService', function ($http, config) {
 
     //gets a list of students for a given cohort
     this.getStudentsForCohort = (cID) => {
-        return $http.get('http://q.devmountain.com/admin/user?cohort=' + cID + '&admin_token=' + config.admin_token).then(res => {
+        return $http.get('https://q.devmountain.com/admin/user?cohort=' + cID + '&admin_token=' + config.admin_token).then(res => {
             return res.data;
         }).catch(function (err) {
             console.log('Error');
