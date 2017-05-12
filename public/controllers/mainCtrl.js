@@ -38,7 +38,9 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       })
       if (!user) {
         $scope.cohortId = $scope.activeCohorts[3].cohortId
-      } else $scope.cohortId = user.cohort_ids[0]
+      } else if (user.cohort_ids[0]){
+        $scope.cohortId = user.cohort_ids[0]
+      } else $scope.cohortId = $scope.activeCohorts[3].cohortId
       let newUser = getCohortAliases($scope.cohorts, user)
       getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId)
       getStudentPieData()
