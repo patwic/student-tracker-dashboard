@@ -148,12 +148,17 @@ angular.module('app')
             })
             .enter().append("circle")
             .attr("class", "lineDots")
-            .attr("r", 2)
+            .attr("r", function(d) {
+              if(d.number > 0.25) return 2
+              else return 0
+            })
             .attr("cx", function (d) {
-              if(d.number > 0.25)return x(d.date);
+              return x(d.date)
+              
             })
             .attr("cy", function (d) {
-              if(d.number > 0.25) return y(d.number);
+              return y(d.number)
+              
             })
 
           var focus = svg.append("g")

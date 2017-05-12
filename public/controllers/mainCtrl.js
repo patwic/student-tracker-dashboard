@@ -17,6 +17,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   var getUser = () => {
     return userService.getUser()
       .then(res => {
+        console.log(res)
         getCohorts(res).then(response => {
           if(!response) return console.log('no user')
           $scope.user = response;
@@ -32,13 +33,16 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   var getCohorts = (user) => {
     return userService.getCohorts().then((res) => {
+      console.log(res)
       $scope.cohorts = res.data
       $scope.activeCohorts = $scope.cohorts.filter((c) => {
         return c.active == true
       })
       if (!user) {
         $scope.cohortId = $scope.activeCohorts[3].cohortId
-      } else $scope.cohortId = user.cohort_ids[0]
+      } else if (user.cohort_ids[0]){
+        $scope.cohortId = user.cohort_ids[0]
+      } else $scope.cohortId = $scope.activeCohorts[3].cohortId
       let newUser = getCohortAliases($scope.cohorts, user)
       getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId)
       getStudentPieData()

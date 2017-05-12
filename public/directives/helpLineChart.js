@@ -47,9 +47,11 @@ angular.module('app')
           var y = d3.scaleLinear()
             .range([height, 0]);
 
+          var tickText = width < 275 ? d3.timeFormat("%I") : d3.timeFormat("%I:%M")
+
           var xAxis = d3.axisBottom(x)
             .ticks(d3.timeMinute.every(60))
-            .tickFormat(d3.timeFormat("%I:%M"));
+            .tickFormat(tickText);
 
           var yAxis = d3.axisLeft(y)
             .ticks(5);

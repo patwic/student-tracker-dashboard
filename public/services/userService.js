@@ -34,7 +34,11 @@ angular.module('app').service('userService', function ($http, config) {
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 }
-            }).catch(function (err) {
+            }).then(res => {
+                console.log(res)
+                return res
+            })
+            .catch(function (err) {
             console.log('Error');
         })
     }
