@@ -144,22 +144,22 @@ angular.module('app')
           .attr("d", areaFunction(data))
 
 
-        svg.selectAll(".lineDots")
-          .data(data, function (d) {
-            return d.date;
-          })
-          .enter().append("circle")
-          .attr("class", "lineDots")
-          .attr("r", function(d) {
-             if(d.number > 0.25) return 2
-                else return 0
-             })
-          .attr("cx", function (d) {
-            return x(d.date);
-          })
-          .attr("cy", function (d) {
-            return y(d.number);
-          })
+        // svg.selectAll(".lineDots")
+        //   .data(data, function (d) {
+        //     return d.date;
+        //   })
+        //   .enter().append("circle")
+        //   .attr("class", "lineDots")
+        //   .attr("r", function (d) {
+        //     if (d.number > 0.25) return 2
+        //     else return 0
+        //   })
+        //   .attr("cx", function (d) {
+        //     return x(d.date);
+        //   })
+        //   .attr("cy", function (d) {
+        //     return y(d.number);
+        //   })
 
         var focus = svg.append("g")
           .attr("class", "focus")
@@ -228,22 +228,22 @@ angular.module('app')
 
 
         let updateCohortLineChart = (someData) => {
-var newData = makeDataObject(someData)
+          var newData = makeDataObject(someData)
 
-let maxDomain = 20;
-        if ((d3.max(newData, function (d) {
-            return d.number;
-          }) * 1.1) > 20) {
-          maxDomain = (d3.max(newData, function (d) {
-            return d.number;
-          }) * 1.1) + 5
-        }
+          let maxDomain = 20;
+          if ((d3.max(newData, function (d) {
+              return d.number;
+            }) * 1.1) > 20) {
+            maxDomain = (d3.max(newData, function (d) {
+              return d.number;
+            }) * 1.1) + 5
+          }
 
-        var yD = d3.scaleLinear()
-          .range([height, 0]).domain([0, maxDomain])
+          var yD = d3.scaleLinear()
+            .range([height, 0]).domain([0, maxDomain])
 
           yAxis = d3.axisLeft(yD)
-          .ticks(5);
+            .ticks(5);
 
           var ya = d3.select('#cohortLineChart')
             .selectAll('.y.axis')
@@ -252,49 +252,49 @@ let maxDomain = 20;
             .selectAll('.line')
             .datum(newData)
 
-            var focus = svg.append("g")
-          .attr("class", "focus")
-          .style("display", "none");
+          var focus = svg.append("g")
+            .attr("class", "focus")
+            .style("display", "none");
 
-        focus.append("circle")
-          .attr("r", 2);
+          focus.append("circle")
+            .attr("r", 2);
 
-        focus.append("rect")
-          .attr("width", 55)
-          .attr("height", 30)
-          .attr("x", -28)
-          .attr("y", -49.7)
-          .attr('fill', 'rgba(0, 0, 0, 0.8)')
-          .attr("rx", 2)
-          .attr("ry", 2)
+          focus.append("rect")
+            .attr("width", 55)
+            .attr("height", 30)
+            .attr("x", -28)
+            .attr("y", -49.7)
+            .attr('fill', 'rgba(0, 0, 0, 0.8)')
+            .attr("rx", 2)
+            .attr("ry", 2)
 
-        focus.append("path") //shape for triangle                       
-          .attr('fill', 'rgba(0, 0, 0, 0.8)')
-          .attr("d", "M -5, -20, L 5, -20, L 0, -10 Z")
+          focus.append("path") //shape for triangle                       
+            .attr('fill', 'rgba(0, 0, 0, 0.8)')
+            .attr("d", "M -5, -20, L 5, -20, L 0, -10 Z")
 
-        focus.append("text")
-          .attr("dx", -12)
-          .attr("dy", -31)
-          .attr("offset", "100%")
-          .attr('fill', '#21AAE1')
-          .style('font-size', '11px')
+          focus.append("text")
+            .attr("dx", -12)
+            .attr("dy", -31)
+            .attr("offset", "100%")
+            .attr('fill', '#21AAE1')
+            .style('font-size', '11px')
 
-        focus.append("line")
-          .attr("class", "x-hover-line hover-line")
-          .attr("y1", 0)
-          .attr("y2", height)
+          focus.append("line")
+            .attr("class", "x-hover-line hover-line")
+            .attr("y1", 0)
+            .attr("y2", height)
 
-        focus.append("line")
-          .attr("class", "y-hover-line hover-line")
-          .attr("x1", width)
-          .attr("x2", width);
+          focus.append("line")
+            .attr("class", "y-hover-line hover-line")
+            .attr("x1", width)
+            .attr("x2", width);
 
-        let overlayWidth = (width * (($scope.cohortTimeData.length - 1) / 100)) - 1
+          let overlayWidth = (width * (($scope.cohortTimeData.length - 1) / 100)) - 1
 
-            svg.append("rect")
-          .attr("class", "overlay")
-          .attr("width", overlayWidth)
-          .attr("height", height)
+          svg.append("rect")
+            .attr("class", "overlay")
+            .attr("width", overlayWidth)
+            .attr("height", height)
             .on("mouseover", function () {
               focus.style("display", null);
             })
@@ -311,24 +311,28 @@ let maxDomain = 20;
               focus.select("text").text(d.number);
             });
 
-            
-
-          // var dots = d3.select('#cohortLineChart').selectAll(".lineDots")
-          //   .data(newData, function (d) {
-          //     return d.date;
-          //   })
 
           var gradient = d3.select('#cohortLineChart').selectAll(".area")
-            
 
-          // dots.transition()
+
+          // d3.select('#cohortLineChart').selectAll('circle')
+          //   .data(newData, function (d) {
+          //     console.log(newData)
+          //   return d.date;
+          // })
+          //      .transition()
           //   .duration(1000)
-          //   .attr("cx", function (d) {
-          //     if (d.number > 0.25) return x(d.date);
-          //   })
-          //   .attr("cy", function (d) {
-          //     if (d.number > 0.25) return y(d.number);
-          //   })
+          // .enter().append("circle")
+          // .attr("r", function (d) {
+          //   if (d.number > 0.25) return 2
+          //   else return 0
+          // })
+          // .attr("cx", function (d) {
+          //   return x(d.date);
+          // })
+          // .attr("cy", function (d) {
+          //   return y(d.number);
+          // })
 
           gradient.transition()
             .duration(1000)
@@ -338,7 +342,7 @@ let maxDomain = 20;
             .duration(1000)
             .attr("d", line)
 
-            ya.transition().duration(1000).call(yAxis)
+          ya.transition().duration(1000).call(yAxis)
 
 
 
