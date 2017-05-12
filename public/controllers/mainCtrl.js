@@ -13,6 +13,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   var cohortPreferences = [];
 
+
+
   //---------------get user---------------//
   var getUser = () => {
     return userService.getUser()
@@ -27,6 +29,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   getUser()
 
+  
   //---------------get cohorts---------------//
 
 
@@ -67,9 +70,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         }
       }
     }
-    return user;
+    return user; 
   }
-
 
 
   $scope.showList = function () {
@@ -89,6 +91,27 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       }
     }
   }
+
+
+//---------------show all cohorts/reset filters---------------//
+
+    $scope.removeAllCohorts = function(user) {
+      getUser()
+    }
+
+    $scope.getAllCohorts = function() {
+      let allCohortIds = []
+      for(var i = 0; i < $scope.cohorts.length; i++) {
+        var pairs = {
+          "id": $scope.cohorts[i].cohortId / 1,
+          "alias": $scope.cohorts[i].alias
+        }
+        allCohortIds.push(pairs)
+      }
+      $scope.user.cohort_ids = allCohortIds
+      console.log($scope.user.cohort_ids)
+    }
+
 
 
   //--------remove preference----------//
@@ -624,10 +647,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       getStudentsForCohort($scope.cohortId)
     }
 
+
     $scope.selectedStudents = null;
     $scope.getSelected = function (selectedStudents) {
       $scope.selectedStudents = selectedStudents
     }
+
+
+
 
 
   });
