@@ -165,7 +165,7 @@ angular.module('app')
 
           var yD = d3.scaleLinear().domain([0, d3.max(newData, function (d) {
             return d[1];
-          })]).range([height, 0]);
+          })]).range([height - 20, 0]);
 
           var yAxis = d3.axisLeft(yD)
 
@@ -205,10 +205,10 @@ angular.module('app')
               .duration(1000)
               .attr("width", x.bandwidth())
           .attr("y", function (d) {
-            return y(d[1]);
+            return yD(d[1]);
           })
           .attr("height", function (d) {
-            return height - y(d[1]);
+            return height - yD(d[1]);
           })
           .attr('fill', function (d) {
             if (d[1] >= num) return '#21AAE1'

@@ -109,7 +109,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         allCohortIds.push(pairs)
       }
       $scope.user.cohort_ids = allCohortIds
-      console.log($scope.user.cohort_ids)
     }
 
 

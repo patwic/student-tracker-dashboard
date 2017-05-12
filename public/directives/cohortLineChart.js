@@ -224,7 +224,7 @@ angular.module('app')
 
 
 
-
+// ******** UPDATE DATA FUNCTION FOR PROJECT SELECTED ********* // 
 
 
         let updateCohortLineChart = (someData) => {
@@ -244,6 +244,24 @@ angular.module('app')
 
           yAxis = d3.axisLeft(yD)
             .ticks(5);
+
+          var newLine = d3.line()
+          .x(function (d) {
+            return x(d.date);
+          })
+          .y(function (d) {
+            return yD(d.number);
+          });
+
+        var areaFunction = d3.area()
+          .x(function (d) {
+            return x(d.date);
+          })
+          .y0(height)
+          .y1(function (d) {
+            return yD(d.number);
+          });
+
 
           var ya = d3.select('#cohortLineChart')
             .selectAll('.y.axis')
@@ -307,7 +325,7 @@ angular.module('app')
                 d0 = newData[i - 1],
                 d1 = newData[i],
                 d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-              focus.attr("transform", "translate(" + x(d.date) + "," + y(d.number) + ")");
+              focus.attr("transform", "translate(" + x(d.date) + "," + yD(d.number) + ")");
               focus.select("text").text(d.number);
             });
 
@@ -340,7 +358,7 @@ angular.module('app')
             .style("fill", "url(#areaGradient)")
           lines.transition()
             .duration(1000)
-            .attr("d", line)
+            .attr("d", newLine)
 
           ya.transition().duration(1000).call(yAxis)
 
