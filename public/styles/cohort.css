@@ -306,7 +306,7 @@
 }
 
 .cohort-mentorCircleKey {
-    width: 20px;
+    min-width: 20px;
     height: 20px;
     border-radius: 50%;
     background: #25aae1;
@@ -314,14 +314,14 @@
 }
 
 .cohort-mentorCircleKey1 {
-    width: 20px;
+    min-width: 20px;
     height: 20px;
     border-radius: 50%;
     background: #297faa;
 }
 
 .cohort-mentorCircleKey2 {
-    width: 20px;
+    min-width: 20px;
     height: 20px;
     border-radius: 50%;
     background: #1c648c;

@@ -26,12 +26,12 @@ angular.module('app')
 
         var data = makeDataObject($scope.cohortTimeData);
 
-        var margin = {
-          top: 20,
-          right: 40,
-          bottom: 20,
-          left: 40
-        };
+          var margin = {
+            top: 20,
+            right: 40,
+            bottom: 20,
+            left: 40
+          };
 
         var width = document.getElementById('cohortLineChartDiv').offsetWidth - margin.right - margin.left;
         var height = document.getElementById('cohortLineChartDiv').offsetHeight - margin.top - margin.bottom - 80;
@@ -224,7 +224,7 @@ angular.module('app')
 
 
 
-// ******** UPDATE DATA FUNCTION FOR PROJECT SELECTED ********* // 
+        // ******** UPDATE DATA FUNCTION FOR PROJECT SELECTED ********* // 
 
 
         let updateCohortLineChart = (someData) => {
@@ -246,21 +246,21 @@ angular.module('app')
             .ticks(5);
 
           var newLine = d3.line()
-          .x(function (d) {
-            return x(d.date);
-          })
-          .y(function (d) {
-            return yD(d.number);
-          });
+            .x(function (d) {
+              return x(d.date);
+            })
+            .y(function (d) {
+              return yD(d.number);
+            });
 
-        var areaFunction = d3.area()
-          .x(function (d) {
-            return x(d.date);
-          })
-          .y0(height)
-          .y1(function (d) {
-            return yD(d.number);
-          });
+          var areaFunction = d3.area()
+            .x(function (d) {
+              return x(d.date);
+            })
+            .y0(height)
+            .y1(function (d) {
+              return yD(d.number);
+            });
 
 
           var ya = d3.select('#cohortLineChart')
@@ -333,25 +333,6 @@ angular.module('app')
           var gradient = d3.select('#cohortLineChart').selectAll(".area")
 
 
-          // d3.select('#cohortLineChart').selectAll('circle')
-          //   .data(newData, function (d) {
-          //     console.log(newData)
-          //   return d.date;
-          // })
-          //      .transition()
-          //   .duration(1000)
-          // .enter().append("circle")
-          // .attr("r", function (d) {
-          //   if (d.number > 0.25) return 2
-          //   else return 0
-          // })
-          // .attr("cx", function (d) {
-          //   return x(d.date);
-          // })
-          // .attr("cy", function (d) {
-          //   return y(d.number);
-          // })
-
           gradient.transition()
             .duration(1000)
             .attr("d", areaFunction(newData))
@@ -362,19 +343,10 @@ angular.module('app')
 
           ya.transition().duration(1000).call(yAxis)
 
-
-
-
-
-
-
-
         }
-        // }
 
 
         $scope.$watch('cohortTimeData', function (newValue, oldValue) {
-
           updateCohortLineChart($scope.cohortTimeData)
         })
 
