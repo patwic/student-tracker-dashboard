@@ -6,25 +6,27 @@
     <div id="cohort-sidenav" class="cohort-sidenavContent">
         <div class='cohort-sidenavAllContent'>
             <div class='cohort-sidenavClassList'>
-                <div ng-repeat="cohort in user.cohort_ids" ng-click="setSelected(cohort.id)">
+                <div ng-repeat="cohort in user.cohort_ids | filter: sideNavFilter" ng-click="setSelected(cohort.id)">
                     <h4 ng-class='{selected : cohort.id === selectedCohortId}' ng-click='openCohortStudentNav()' style='cursor: pointer'>{{cohort.alias}}</h4>
                 </div>
             </div>
             <div class='cohort-sidenavFilterBox'>
                 <h3>LOCATION</h3>
-                <select id="selectbox" class='cohort-selectStyle'>
-                            <option value="provo">Provo, UT</option>
-                            <option value="slc">SLC, UT</option>
-                            <option value="dallas">Dallas, TX</option>
+                <select id="selectbox" class='cohort-selectStyle' ng-model='sideNavFilter.location'>
+                            <option value="">All Locations</option>
+                            <option value="Provo">Provo, UT</option>
+                            <option value="SLC">SLC, UT</option>
+                            <option value="Dallas">Dallas, TX</option>
                 </select>
                 <h3>PROGRAM</h3>
-                <select id="selectbox" class='cohort-selectStyle'>
-                            <option value="web">Web Development</option>
-                            <option value="ios">iOS Development</option>
-                            <option value="us">UX Design</option>
+                <select id="selectbox" class='cohort-selectStyle' ng-model='sideNavFilter.program'>
+                            <option value="">All Programs</option>
+                            <option value="Web">Web Development</option>
+                            <option value="iOS">iOS Development</option>
+                            <option value="UX">UX Design</option>
                 </select>
                 <h2 class='cohort-showAll' ng-click='getAllCohorts()'>SHOW ALL</h2>
-                <h2 ng-click='removeAllCohorts()'>RESET FILTERS</h2>
+                <h2 ng-click='removeAllCohorts()'>RESET DEFAULT</h2>
             </div>
         </div>
     </div>
@@ -62,7 +64,8 @@
                     </select>
                     <input class='cohort-graphDateSelector' type="text" id='qTimeDateRange' />
                 </div>
-                <cohort-line-chart cohort-time-data='cohortQData'></cohort-line-chart>
+                <div style='text-align: center; margin: 0 auto; padding: 70px;' ng-if='!cohortQData'>Give it a second!</div>
+                <cohort-line-chart ng-if='cohortQData.length > 0' cohort-time-data='cohortQData'></cohort-line-chart>
             </div>
             <div class='cohort-mentorHelpGraph' id='mentorHelpDiv'>
                 <div class='cohort-mentorGraphNav'>

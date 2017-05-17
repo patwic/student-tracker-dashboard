@@ -46,28 +46,29 @@
             <div class='login-sidenavTopContent'>
                 <div class='login-sidenavChoices'>
                     <h3>LOCATION</h3>
-                         <select id="selectbox" class='home-selectStyle'>
-                             <option value="all">All Locations</option>
-                            <option value="provo">Provo, UT</option>
-                            <option value="slc">SLC, UT</option>
-                            <option value="dallas">Dallas, TX</option>
+                         <select id="selectbox" class='home-selectStyle' ng-model='filterSearch.location'>
+                             <option value="">All Locations</option>
+                            <option value="Provo">Provo, UT</option>
+                            <option value="SLC">SLC, UT</option>
+                            <option value="Dallas">Dallas, TX</option>
                         </select>
                 </div>
                 <div class='login-sidenavChoices'>
                     <h3>PROGRAM</h3>
-                    <select id="selectbox" class='home-selectStyle'>
-                            <option value="web">Web Development</option>
-                            <option value="ios">iOS Development</option>
-                            <option value="us">UX Design</option>
+                    <select id="selectbox" class='home-selectStyle' ng-model='filterSearch.program'>
+                            <option value="">All Programs</option>
+                            <option value="Web">Web Development</option>
+                            <option value="iOS">iOS Development</option>
+                            <option value="UX">UX Design</option>
                         </select>
                 </div>
                 <div class='login-sidenavChoices'>
                     <h3>COHORT</h3>
                     <div class='home-selectStyle'>
-                        <input type="search" class="dropbtn" ng-model="filterSearch" ng-click="showList()">
+                        <input type="search" class="dropbtn" ng-model="filterSearch.alias"  ng-click="showList()">
                         <div id="dropdownList" class="dropdownList">
                             <div class="dropdown-content">
-                                <p ng-click='addCohort(cohort.cohortId, cohort.alias)' ng-repeat="cohort in activeCohorts">{{cohort.alias}}</p>
+                                <p ng-click='addCohort(cohort.cohortId, cohort.alias)' ng-repeat="cohort in activeCohorts | filter: filterSearch">{{cohort.alias}}</p>
                             </div>
                         </div>
                     </div>

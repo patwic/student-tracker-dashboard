@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService, $window) {
 
   $scope.user;
   $scope.isDropdown = false;
@@ -14,16 +14,18 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   var cohortPreferences = [];
 
 
-
   //---------------get user---------------//
   var getUser = () => {
     return userService.getUser()
       .then(res => {
+        if(res !== 'NOPE') {
         getCohorts(res).then(response => {
           if(!response) return console.log('no user')
           $scope.user = response;
+          $scope.user.cohort_ids = userService.parseCohorts(response.cohort_ids)
           $scope.cohortUserList = response.cohort_ids;
         })
+        }
       })
   }
 
@@ -97,6 +99,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     $scope.removeAllCohorts = function(user) {
       getUser()
+      $scope.sideNavFilter.location = ''
+      $scope.sideNavFilter.program = ''      
     }
 
     $scope.getAllCohorts = function() {
@@ -108,8 +112,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         }
         allCohortIds.push(pairs)
       }
-      $scope.user.cohort_ids = allCohortIds
-      console.log($scope.user.cohort_ids)
+      $scope.user.cohort_ids = userService.parseCohorts(allCohortIds)
     }
 
 
@@ -442,53 +445,54 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   //--------------All Select Menus----------------//
 
 
-  $('select').each(function () {
+  // $('select').each(function () {
 
-    var $this = $(this),
-      numberOfOptions = $(this).children('option').length;
+  //   var $this = $(this),
+  //     numberOfOptions = $(this).children('option').length;
 
-    $this.addClass('s-hidden');
+  //   $this.addClass('s-hidden');
 
-    $this.wrap('<div class="select"></div>');
+  //   $this.wrap('<div class="select"></div>');
 
-    $this.after('<div class="styledSelect"></div>');
+  //   $this.after('<div class="styledSelect"></div>');
 
-    var $styledSelect = $this.next('div.styledSelect');
+  //   var $styledSelect = $this.next('div.styledSelect');
 
-    $styledSelect.text($this.children('option').eq(0).text());
+  //   $styledSelect.text($this.children('option').eq(0).text());
 
-    var $list = $('<ul />', {
-      'class': 'options'
-    }).insertAfter($styledSelect);
+  //   var $list = $('<ul />', {
+  //     'class': 'options'
+  //   }).insertAfter($styledSelect);
 
-    for (var i = 0; i < numberOfOptions; i++) {
-      $('<li />', {
-        text: $this.children('option').eq(i).text(),
-        rel: $this.children('option').eq(i).val()
-      }).appendTo($list);
-    }
+  //   for (var i = 0; i < numberOfOptions; i++) {
+  //     $('<li />', {
+  //       text: $this.children('option').eq(i).text(),
+  //       rel: $this.children('option').eq(i).val()
+  //     }).appendTo($list);
+  //   }
 
-    var $listItems = $list.children('li');
+  //   var $listItems = $list.children('li');
 
-    $styledSelect.click(function (e) {
-      e.stopPropagation();
-      $('div.styledSelect.active').each(function () {
-        $(this).removeClass('active').next('ul.options').hide();
-      });
-      $(this).toggleClass('active').next('ul.options').toggle();
-    });
+  //   $styledSelect.click(function (e) {
+  //     e.stopPropagation();
+  //     $('div.styledSelect.active').each(function () {
+  //       $(this).removeClass('active').next('ul.options').hide();
+  //     });
+  //     $(this).toggleClass('active').next('ul.options').toggle();
+  //   });
 
-    $listItems.click(function (e) {
-      e.stopPropagation();
-      $styledSelect.text($(this).text()).removeClass('active');
-      $this.val($(this).attr('rel'));
-      $list.hide();
-    });
+  //   $listItems.click(function (e) {
+  //     e.stopPropagation();
+  //     $styledSelect.text($(this).text()).removeClass('active');
+  //     $this.val($(this).attr('rel'));
+  //     $list.hide();
+  //   });
 
-    $(document).click(function () {
-      $styledSelect.removeClass('active');
-      $list.hide();
-    });
+  //   $(document).click(function () {
+  //     $styledSelect.removeClass('active');
+  //     $list.hide();
+  //   });
+  // })
 
 
 
@@ -522,7 +526,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     //----------------get data for cohort line chart-------------//
 
-    var cohortObjData;
+
     getLineChartCohortData = (startDate, endDate, cohortId) => {
       qService.getQ(startDate, endDate, cohortId).then(res => {
         let data = qService.setQs(res.data)
@@ -612,6 +616,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     //--------------Cohort SideNav Functions----------------//
 
+    var menuOpen = false
     $scope.openCohortNav = function () {
       document.getElementById("cohort-sidenav").style.width = "400px";
       document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
@@ -619,6 +624,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.body.style.overflow = 'hidden';
       document.getElementById('cohort-sidenav').style.boxShadow = '6px 6px 17px 2px rgba(0, 0, 0, .4)'
       getUser()
+      menuOpen = true;
     }
 
     $scope.openCohortStudentNav = function () {
@@ -639,6 +645,15 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       loadAllDatePickers()
       updateAbsences()
       getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId)
+      menuOpen = false
+    }
+
+    $window.onclick = (event) => {
+        if(menuOpen && !event.target.matches('.cohort-sidenavContent, .cohort-fixedSideMenu, .cohort-fixedSideMenu>img, .cohort-sidenavClassList, .cohort-sidenavFilterBox, .cohort-sidenavClassList>div>h4, .cohort-sidenavFilterBox>h3, .cohort-sidenavFilterBox>select, .cohort-sidenavFilterBox>select>option, .cohort-sidenavFilterBox>h2')) {
+            $scope.closeCohortStudentNav()
+            menuOpen = false;
+            $scope.$apply()
+        }
     }
 
     $scope.setSelected = function (selectedCohortId) {
@@ -661,4 +676,4 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
 
 
-})
+// })

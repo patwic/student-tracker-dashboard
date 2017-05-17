@@ -107,7 +107,7 @@ app.get('/auth/logout', function (req, res) {
 
 app.get('/api/getUser', function(req, res) {
       if(req.user) res.send(req.user)
-      else res.sendStatus(404);
+      else res.send('NOPE');
 })
 
 // ---------------------------------

@@ -26,12 +26,12 @@ angular.module('app')
 
         var data = makeDataObject($scope.cohortTimeData);
 
-        var margin = {
-          top: 20,
-          right: 40,
-          bottom: 20,
-          left: 40
-        };
+          var margin = {
+            top: 20,
+            right: 40,
+            bottom: 20,
+            left: 40
+          };
 
         var width = document.getElementById('cohortLineChartDiv').offsetWidth - margin.right - margin.left;
         var height = document.getElementById('cohortLineChartDiv').offsetHeight - margin.top - margin.bottom - 80;
@@ -143,24 +143,6 @@ angular.module('app')
           .style("fill", "url(#areaGradient)")
           .attr("d", areaFunction(data))
 
-
-        svg.selectAll(".lineDots")
-          .data(data, function (d) {
-            return d.date;
-          })
-          .enter().append("circle")
-          .attr("class", "lineDots")
-          .attr("r", function(d) {
-             if(d.number > 0.25) return 2
-                else return 0
-             })
-          .attr("cx", function (d) {
-            return x(d.date);
-          })
-          .attr("cy", function (d) {
-            return y(d.number);
-          })
-
         var focus = svg.append("g")
           .attr("class", "focus")
           .style("display", "none");
@@ -224,26 +206,44 @@ angular.module('app')
 
 
 
-
+        // ******** UPDATE DATA FUNCTION FOR PROJECT SELECTED ********* // 
 
 
         let updateCohortLineChart = (someData) => {
-var newData = makeDataObject(someData)
+          var newData = makeDataObject(someData)
 
-let maxDomain = 20;
-        if ((d3.max(newData, function (d) {
-            return d.number;
-          }) * 1.1) > 20) {
-          maxDomain = (d3.max(newData, function (d) {
-            return d.number;
-          }) * 1.1) + 5
-        }
+          let maxDomain = 20;
+          if ((d3.max(newData, function (d) {
+              return d.number;
+            }) * 1.1) > 20) {
+            maxDomain = (d3.max(newData, function (d) {
+              return d.number;
+            }) * 1.1) + 5
+          }
 
-        var yD = d3.scaleLinear()
-          .range([height, 0]).domain([0, maxDomain])
+          var yD = d3.scaleLinear()
+            .range([height, 0]).domain([0, maxDomain])
 
           yAxis = d3.axisLeft(yD)
-          .ticks(5);
+            .ticks(5);
+
+          var newLine = d3.line()
+            .x(function (d) {
+              return x(d.date);
+            })
+            .y(function (d) {
+              return yD(d.number);
+            });
+
+          var areaFunction = d3.area()
+            .x(function (d) {
+              return x(d.date);
+            })
+            .y0(height)
+            .y1(function (d) {
+              return yD(d.number);
+            });
+
 
           var ya = d3.select('#cohortLineChart')
             .selectAll('.y.axis')
@@ -252,49 +252,49 @@ let maxDomain = 20;
             .selectAll('.line')
             .datum(newData)
 
-            var focus = svg.append("g")
-          .attr("class", "focus")
-          .style("display", "none");
+          var focus = svg.append("g")
+            .attr("class", "focus")
+            .style("display", "none");
 
-        focus.append("circle")
-          .attr("r", 2);
+          focus.append("circle")
+            .attr("r", 2);
 
-        focus.append("rect")
-          .attr("width", 55)
-          .attr("height", 30)
-          .attr("x", -28)
-          .attr("y", -49.7)
-          .attr('fill', 'rgba(0, 0, 0, 0.8)')
-          .attr("rx", 2)
-          .attr("ry", 2)
+          focus.append("rect")
+            .attr("width", 55)
+            .attr("height", 30)
+            .attr("x", -28)
+            .attr("y", -49.7)
+            .attr('fill', 'rgba(0, 0, 0, 0.8)')
+            .attr("rx", 2)
+            .attr("ry", 2)
 
-        focus.append("path") //shape for triangle                       
-          .attr('fill', 'rgba(0, 0, 0, 0.8)')
-          .attr("d", "M -5, -20, L 5, -20, L 0, -10 Z")
+          focus.append("path") //shape for triangle                       
+            .attr('fill', 'rgba(0, 0, 0, 0.8)')
+            .attr("d", "M -5, -20, L 5, -20, L 0, -10 Z")
 
-        focus.append("text")
-          .attr("dx", -12)
-          .attr("dy", -31)
-          .attr("offset", "100%")
-          .attr('fill', '#21AAE1')
-          .style('font-size', '11px')
+          focus.append("text")
+            .attr("dx", -12)
+            .attr("dy", -31)
+            .attr("offset", "100%")
+            .attr('fill', '#21AAE1')
+            .style('font-size', '11px')
 
-        focus.append("line")
-          .attr("class", "x-hover-line hover-line")
-          .attr("y1", 0)
-          .attr("y2", height)
+          focus.append("line")
+            .attr("class", "x-hover-line hover-line")
+            .attr("y1", 0)
+            .attr("y2", height)
 
-        focus.append("line")
-          .attr("class", "y-hover-line hover-line")
-          .attr("x1", width)
-          .attr("x2", width);
+          focus.append("line")
+            .attr("class", "y-hover-line hover-line")
+            .attr("x1", width)
+            .attr("x2", width);
 
-        let overlayWidth = (width * (($scope.cohortTimeData.length - 1) / 100)) - 1
+          let overlayWidth = (width * (($scope.cohortTimeData.length - 1) / 100)) - 1
 
-            svg.append("rect")
-          .attr("class", "overlay")
-          .attr("width", overlayWidth)
-          .attr("height", height)
+          svg.append("rect")
+            .attr("class", "overlay")
+            .attr("width", overlayWidth)
+            .attr("height", height)
             .on("mouseover", function () {
               focus.style("display", null);
             })
@@ -307,28 +307,13 @@ let maxDomain = 20;
                 d0 = newData[i - 1],
                 d1 = newData[i],
                 d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-              focus.attr("transform", "translate(" + x(d.date) + "," + y(d.number) + ")");
+              focus.attr("transform", "translate(" + x(d.date) + "," + yD(d.number) + ")");
               focus.select("text").text(d.number);
             });
 
-            
-
-          // var dots = d3.select('#cohortLineChart').selectAll(".lineDots")
-          //   .data(newData, function (d) {
-          //     return d.date;
-          //   })
 
           var gradient = d3.select('#cohortLineChart').selectAll(".area")
-            
 
-          // dots.transition()
-          //   .duration(1000)
-          //   .attr("cx", function (d) {
-          //     if (d.number > 0.25) return x(d.date);
-          //   })
-          //   .attr("cy", function (d) {
-          //     if (d.number > 0.25) return y(d.number);
-          //   })
 
           gradient.transition()
             .duration(1000)
@@ -336,23 +321,14 @@ let maxDomain = 20;
             .style("fill", "url(#areaGradient)")
           lines.transition()
             .duration(1000)
-            .attr("d", line)
+            .attr("d", newLine)
 
-            ya.transition().duration(1000).call(yAxis)
-
-
-
-
-
-
-
+          ya.transition().duration(1000).call(yAxis)
 
         }
-        // }
 
 
         $scope.$watch('cohortTimeData', function (newValue, oldValue) {
-
           updateCohortLineChart($scope.cohortTimeData)
         })
 
