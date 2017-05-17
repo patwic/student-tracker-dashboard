@@ -13,9 +13,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   var cohortPreferences = [];
 
-$scope.console = () => {
-  console.log($scope.filterSearch.program)
-}
 
   //---------------get user---------------//
   var getUser = () => {
