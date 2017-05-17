@@ -247,10 +247,22 @@
 }
 
 
+/*.cohort-qTimeGraphSelector {
+    display: flex;
+    align-items: center;
+}*/
+
 .cohort-qTimeGraphSelector {
     display: flex;
     align-items: center;
+    background: none;
+    border: none;
+    width: 270px;
+    height: 25px;
+    color: #EEE;
+    outline: none;
 }
+
 
 .cohort-graphDateSelector {
     justify-content: space-around;

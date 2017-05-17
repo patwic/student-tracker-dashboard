@@ -13,18 +13,20 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   var cohortPreferences = [];
 
-
+$scope.console = () => {
+  console.log($scope.filterSearch.program)
+}
 
   //---------------get user---------------//
   var getUser = () => {
     return userService.getUser()
       .then(res => {
         if(res !== 'NOPE') {
-          getCohorts(res).then(response => {
-            if(!response) return console.log('no user')
-            $scope.user = response;
-            $scope.cohortUserList = response.cohort_ids;
-          })
+        getCohorts(res).then(response => {
+          if(!response) return console.log('no user')
+          $scope.user = response;
+          $scope.cohortUserList = response.cohort_ids;
+        })
         }
       })
   }
@@ -38,9 +40,11 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   var getCohorts = (user) => {
     return userService.getCohorts().then((res) => {
       $scope.cohorts = res.data
+      console.log($scope.cohorts)
       $scope.activeCohorts = $scope.cohorts.filter((c) => {
         return c.active == true
       })
+      console.log($scope.activeCohorts)
       if (!user) {
         $scope.cohortId = $scope.activeCohorts[3].cohortId
       } else if (user.cohort_ids[0]){
@@ -443,53 +447,54 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   //--------------All Select Menus----------------//
 
 
-  $('select').each(function () {
+  // $('select').each(function () {
 
-    var $this = $(this),
-      numberOfOptions = $(this).children('option').length;
+  //   var $this = $(this),
+  //     numberOfOptions = $(this).children('option').length;
 
-    $this.addClass('s-hidden');
+  //   $this.addClass('s-hidden');
 
-    $this.wrap('<div class="select"></div>');
+  //   $this.wrap('<div class="select"></div>');
 
-    $this.after('<div class="styledSelect"></div>');
+  //   $this.after('<div class="styledSelect"></div>');
 
-    var $styledSelect = $this.next('div.styledSelect');
+  //   var $styledSelect = $this.next('div.styledSelect');
 
-    $styledSelect.text($this.children('option').eq(0).text());
+  //   $styledSelect.text($this.children('option').eq(0).text());
 
-    var $list = $('<ul />', {
-      'class': 'options'
-    }).insertAfter($styledSelect);
+  //   var $list = $('<ul />', {
+  //     'class': 'options'
+  //   }).insertAfter($styledSelect);
 
-    for (var i = 0; i < numberOfOptions; i++) {
-      $('<li />', {
-        text: $this.children('option').eq(i).text(),
-        rel: $this.children('option').eq(i).val()
-      }).appendTo($list);
-    }
+  //   for (var i = 0; i < numberOfOptions; i++) {
+  //     $('<li />', {
+  //       text: $this.children('option').eq(i).text(),
+  //       rel: $this.children('option').eq(i).val()
+  //     }).appendTo($list);
+  //   }
 
-    var $listItems = $list.children('li');
+  //   var $listItems = $list.children('li');
 
-    $styledSelect.click(function (e) {
-      e.stopPropagation();
-      $('div.styledSelect.active').each(function () {
-        $(this).removeClass('active').next('ul.options').hide();
-      });
-      $(this).toggleClass('active').next('ul.options').toggle();
-    });
+  //   $styledSelect.click(function (e) {
+  //     e.stopPropagation();
+  //     $('div.styledSelect.active').each(function () {
+  //       $(this).removeClass('active').next('ul.options').hide();
+  //     });
+  //     $(this).toggleClass('active').next('ul.options').toggle();
+  //   });
 
-    $listItems.click(function (e) {
-      e.stopPropagation();
-      $styledSelect.text($(this).text()).removeClass('active');
-      $this.val($(this).attr('rel'));
-      $list.hide();
-    });
+  //   $listItems.click(function (e) {
+  //     e.stopPropagation();
+  //     $styledSelect.text($(this).text()).removeClass('active');
+  //     $this.val($(this).attr('rel'));
+  //     $list.hide();
+  //   });
 
-    $(document).click(function () {
-      $styledSelect.removeClass('active');
-      $list.hide();
-    });
+  //   $(document).click(function () {
+  //     $styledSelect.removeClass('active');
+  //     $list.hide();
+  //   });
+  // })
 
 
 
@@ -523,7 +528,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     //----------------get data for cohort line chart-------------//
 
-    var cohortObjData;
+
     getLineChartCohortData = (startDate, endDate, cohortId) => {
       qService.getQ(startDate, endDate, cohortId).then(res => {
         let data = qService.setQs(res.data)
@@ -662,4 +667,4 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
 
 
-})
+// })
