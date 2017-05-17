@@ -14,13 +14,33 @@ angular.module('app', ['ui.router'])
             .state('home', {
                 url: '/',
                 controller: 'mainCtrl',
-                templateUrl: "./views/home.html"
+                templateUrl: "./views/home.html",
+                resolve: {
+                    authenticate: function (userService, $state, $rootScope) {
+                        userService.getUser().then(response => {
+                            if (response === 'NOPE') {
+                                event.preventDefault()
+                                $state.go("login")
+                            }
+                        })
+                    }
+                }
             })
 
             .state('cohort', {
                 url: '/cohort',
                 templateUrl: "./views/cohort.html",
-                controller: 'mainCtrl'
+                controller: 'mainCtrl',
+                resolve: {
+                    authenticate: function (userService, $state, $rootScope) {
+                        userService.getUser().then(response => {
+                            if (response === 'NOPE') {
+                                event.preventDefault()
+                                $state.go("login")
+                            }
+                        })
+                    }
+                }
             })
 
 

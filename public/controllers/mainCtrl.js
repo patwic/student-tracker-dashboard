@@ -19,11 +19,13 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   var getUser = () => {
     return userService.getUser()
       .then(res => {
-        getCohorts(res).then(response => {
-          if(!response) return console.log('no user')
-          $scope.user = response;
-          $scope.cohortUserList = response.cohort_ids;
-        })
+        if(res !== 'NOPE') {
+          getCohorts(res).then(response => {
+            if(!response) return console.log('no user')
+            $scope.user = response;
+            $scope.cohortUserList = response.cohort_ids;
+          })
+        }
       })
   }
 
