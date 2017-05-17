@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService, $window) {
 
   $scope.user;
   $scope.isDropdown = false;
@@ -40,11 +40,9 @@ $scope.console = () => {
   var getCohorts = (user) => {
     return userService.getCohorts().then((res) => {
       $scope.cohorts = res.data
-      console.log($scope.cohorts)
       $scope.activeCohorts = $scope.cohorts.filter((c) => {
         return c.active == true
       })
-      console.log($scope.activeCohorts)
       if (!user) {
         $scope.cohortId = $scope.activeCohorts[3].cohortId
       } else if (user.cohort_ids[0]){
@@ -618,6 +616,7 @@ $scope.console = () => {
 
     //--------------Cohort SideNav Functions----------------//
 
+    var menuOpen = false
     $scope.openCohortNav = function () {
       document.getElementById("cohort-sidenav").style.width = "400px";
       document.getElementById("cohort-sidenav").style.marginLeft = "-200px";
@@ -625,6 +624,7 @@ $scope.console = () => {
       document.body.style.overflow = 'hidden';
       document.getElementById('cohort-sidenav').style.boxShadow = '6px 6px 17px 2px rgba(0, 0, 0, .4)'
       getUser()
+      menuOpen = true;
     }
 
     $scope.openCohortStudentNav = function () {
@@ -645,6 +645,15 @@ $scope.console = () => {
       loadAllDatePickers()
       updateAbsences()
       getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId)
+      menuOpen = false
+    }
+
+    $window.onclick = (event) => {
+        if(menuOpen && !event.target.matches('.cohort-sidenavContent, .cohort-fixedSideMenu, .cohort-fixedSideMenu>img, .cohort-sidenavClassList, .cohort-sidenavFilterBox, .cohort-sidenavClassList>div>h4, .cohort-sidenavFilterBox>h3, .cohort-sidenavFilterBox>select, .cohort-sidenavFilterBox>select>option, .cohort-sidenavFilterBox>h2')) {
+            $scope.closeCohortStudentNav()
+            menuOpen = false;
+            $scope.$apply()
+        }
     }
 
     $scope.setSelected = function (selectedCohortId) {
