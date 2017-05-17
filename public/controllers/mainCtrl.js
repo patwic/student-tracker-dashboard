@@ -25,6 +25,7 @@ $scope.console = () => {
         getCohorts(res).then(response => {
           if(!response) return console.log('no user')
           $scope.user = response;
+          $scope.user.cohort_ids = userService.parseCohorts(response.cohort_ids)
           $scope.cohortUserList = response.cohort_ids;
         })
         }
@@ -101,6 +102,8 @@ $scope.console = () => {
 
     $scope.removeAllCohorts = function(user) {
       getUser()
+      $scope.sideNavFilter.location = ''
+      $scope.sideNavFilter.program = ''      
     }
 
     $scope.getAllCohorts = function() {
@@ -112,7 +115,7 @@ $scope.console = () => {
         }
         allCohortIds.push(pairs)
       }
-      $scope.user.cohort_ids = allCohortIds
+      $scope.user.cohort_ids = userService.parseCohorts(allCohortIds)
     }
 
 
