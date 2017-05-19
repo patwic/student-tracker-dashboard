@@ -57,7 +57,7 @@
         <div class='cohort-qTimeMentorGraphs'>
             <div class='cohort-qTimeGraphs' id='cohortLineChartDiv'>
                 <div class='cohort-qTimeGraphsHeader cohort-dropdown'>
-                    <select id="selectboxQtime" class='cohort-qTimeGraphSelector'>
+                    <select id="selectboxQtime" class='cohort-qTimeGraphSelector' ng-model='lineChartSelection' ng-change='lineChartDataChange()'>
                             <option value="helpQ">AVERAGE Q HELP TIME</option>
                             <option value="waitQ">AVERAGE Q WAIT TIME</option>
                             <option value="totalQ">TOTAL Q TIME </option>

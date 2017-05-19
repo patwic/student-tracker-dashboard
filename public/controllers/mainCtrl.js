@@ -526,13 +526,18 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     //----------------get data for cohort line chart-------------//
 
-
+    $scope.cohortQData;
+    let allQData;
+    $scope.lineChartSelection = 'helpQ';
     getLineChartCohortData = (startDate, endDate, cohortId) => {
       qService.getQ(startDate, endDate, cohortId).then(res => {
-        let data = qService.setQs(res.data)
-        $scope.cohortQData = data.helpQ
-        // $scope.$apply()
+        allQData = qService.setQs(res.data)
+        $scope.cohortQData = allQData[$scope.lineChartSelection]
       })
+    }
+
+    $scope.lineChartDataChange = () => {
+      $scope.cohortQData = allQData[event.target.value]
     }
 
 
