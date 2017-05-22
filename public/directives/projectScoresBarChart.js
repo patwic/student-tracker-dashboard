@@ -61,6 +61,7 @@ angular.module('app')
         data.sort((a, b) => {
           return a[1] - b[1]
         })
+        // console.log(data)
 
         var margin = {
           top: 40,
