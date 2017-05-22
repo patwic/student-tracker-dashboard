@@ -4,7 +4,7 @@
 
 ![1](/README-img/1.png)
 
-![2](/README-img/2.png)
+![2](/README-img/10.png)
 
 ![3](/README-img/3.png)
 
