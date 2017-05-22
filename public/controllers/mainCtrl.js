@@ -668,8 +668,12 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       $scope.selectedStudents = selectedStudents
     }
 
+  //--------------Pie Chart show all Students----------------//
 
+    $scope.showFullStudentList = false;
 
+    // $scope.toggleStudentList = function(){
+    // }
 
 
   });

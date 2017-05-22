@@ -556,14 +556,21 @@
 
 .cohort-pieGraphsKeyBox {
     width: 100%;
-    height: 25vh;
+    height: 28vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding-top: 7vh;
+    padding-top: 6vh;
     padding-bottom: 4vh;
-    padding-left: 7vh;
+    padding-left: 10vh;
 
+}
+
+.cohort-mentorCircleKey3 {
+    min-width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: url('../assets/plus3-03.svg') no-repeat;
 }
 
 /**********************************
