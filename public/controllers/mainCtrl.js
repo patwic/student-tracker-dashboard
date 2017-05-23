@@ -670,14 +670,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   //--------------Pie Chart show all Students----------------//
 
-    $scope.showFullStudentList = false;
+$scope.openStudentList = function () {
+    document.getElementById("myNav").style.height = "100%";
+}
 
-    // $scope.toggleStudentList = function(){
-    // }
+$scope.closeStudentList = function () {
+    document.getElementById("myNav").style.height = "0%";
+}
+  
 
 
-  });
-
-
-
-// })
+})
