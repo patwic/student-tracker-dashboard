@@ -21,7 +21,7 @@ angular.module('app')
         }
 
         var data = makeDataObject($scope.cohortTimeData);
-        console.log(data)
+
 
           var margin = {
             top: 20,
