@@ -678,6 +678,22 @@ $scope.closeStudentList = function () {
     document.getElementById("myNav").style.height = "0%";
 }
   
+ $scope.openMidStudentList = function() { 
+    document.getElementById("myNav2").style.height = "100%";
+ }
 
+ $scope.closeMidStudentList = function() {
+     document.getElementById("myNav2").style.height = "0%";
+
+ }
+
+  $scope.openLastStudentList = function() { 
+    document.getElementById("myNav3").style.height = "100%";
+ }
+
+ $scope.closeLastStudentList = function() {
+     document.getElementById("myNav3").style.height = "0%";
+
+ }
 
 })

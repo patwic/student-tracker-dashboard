@@ -149,6 +149,12 @@
                     <h5>See All Students</h5>
                 </div>
             </div>
+             <div id="myNav" class="pieOverlay">
+                <a href="javascript:void(0)" class="pieCloseBtn" ng-click="closeStudentList()">&times;</a>
+                <div class="pie-overlay-content" ng-repeat='most in mostAverage'>
+                    <h5>{{most.percent}}% - {{most.name}}</h5>
+                </div>
+            </div>
         </div>
         <div class='cohort-pieHelpGraph' id='helpDiv'>
             <div class='cohort-pieGraphsNav'>
@@ -171,12 +177,12 @@
                     <h5>{{mostHelped[2].percent}}% - {{mostHelped[2].name}}</h5>
                 </div>
                 <div class='cohort-mentorGraphKeyBoxes'>
-                    <div ng-click="openStudentList()" class='cohort-mentorCircleKey3'></div>
+                    <div ng-click="openMidStudentList()" class='cohort-mentorCircleKey3'></div>
                     <h5>See All Students</h5>
                 </div>
             </div>
-            <div id="myNav" class="pieOverlay">
-                <a href="javascript:void(0)" class="pieCloseBtn" ng-click="closeStudentList()">&times;</a>
+            <div id="myNav2" class="pieOverlay midPieOverlay">
+                <a href="javascript:void(0)" class="pieCloseBtn" ng-click="closeMidStudentList()">&times;</a>
                 <div class="pie-overlay-content" ng-repeat='helped in mostHelped'>
                     <h5>{{helped.percent}}% - {{helped.name}}</h5>
                 </div>
@@ -203,12 +209,12 @@
                     <h5>{{mostRequests[2].percent}}% - {{mostRequests[2].name}}</h5>
                 </div>
                 <div class='cohort-mentorGraphKeyBoxes'>
-                    <div ng-click="openStudentList()" class='cohort-mentorCircleKey3'></div>
+                    <div ng-click="openLastStudentList()" class='cohort-mentorCircleKey3'></div>
                     <h5>See All Students</h5>
                 </div>
             </div>
-            <div id="myNav" class="pieOverlay">
-                <a href="javascript:void(0)" class="pieCloseBtn" ng-click="closeStudentList()">&times;</a>
+            <div id="myNav3" class="lastPieOverlay">
+                <a href="javascript:void(0)" class="pieCloseBtn" ng-click="closeLastStudentList()">&times;</a>
                 <div class="pie-overlay-content" ng-repeat='mostRequest in mostRequests'>
                     <h5>{{mostRequest.percent}}% - {{mostRequest.name}}</h5>
                 </div>
