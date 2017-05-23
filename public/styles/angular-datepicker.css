@@ -208,9 +208,11 @@ datepicker, .datepicker, [datepicker],
 ._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-active._720kb-datepicker-disabled,
 ._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-active._720kb-datepicker-disabled:hover{
   color:white;
+  border-left: 4px solid #282828;
+  border-right: 4px solid #282828;  
   cursor: default;
-  background: url('../assets/reddot.svg') no-repeat center;
-  background-size: 100% auto;
+  background: url('../assets/red2-04.svg') no-repeat center;
+  background-size: 26px auto;
 }
 
 datepicker>input {
