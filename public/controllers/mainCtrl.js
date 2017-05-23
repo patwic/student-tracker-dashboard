@@ -304,19 +304,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   //--------------Attendance Display Calendar----------------//
 
-  updateAbsences()
 
-
-  $scope.absentStudents = []
-
-  // $('#attendanceCalendar').datepicker({
-  //   inline: true,
-  //   firstDay: 1,
-  //   showOtherMonths: true,
-  //   dateFormat: 'yy-mm-dd',
-  //   dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-  //   beforeShowDay: highlightDays
-  // });
 
   function updateAttendanceData(attendanceData) {
     $scope.absences = []
@@ -334,28 +322,18 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         $scope.absences.push(day.day)
       }
     }
-    console.log($scope.absences)
-    // $scope.$apply()
   }
-
-  // function highlightDays(date) {
-  //   let day = date.toISOString().substring(8, 10)
-  //   for (var i = 0; i < $scope.absences.length; i++) {
-  //     if (new Date($scope.absences[i]).toString() == date.toString()) {
-  //       return [true, 'highlight'];
-  //     }
-  //   }
-  //   return [true, ''];
-  // }
 
   function updateAbsences() {
     attendanceService.getDays($scope.cohortId).then((res) =>
       attendanceService.getDataFromDays(res.data).then((res2) => {
         updateAttendanceData(attendanceService.getAttendanceFromData(res2))
-        // $("#attendanceCalendar").datepicker("refresh");
+
       })
     )
   }
+
+  updateAbsences()
 
   //--------------q Time DatePicker----------------//
 
