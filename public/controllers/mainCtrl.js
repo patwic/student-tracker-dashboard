@@ -166,17 +166,19 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   //-----------------get progress and project scores for students------------//
 
 
+// *************************** USE WHEN SHEETS API IS WORKING!!!!!!!!!
   
-  sheetsService.getSheet().then((res) => {
-    $scope.progressData = sheetsService.getProgress(res)
-  })
 
-  sheetsService.getSheet().then((res) => {
-    $scope.projectData = sheetsService.getProjectScores(res);
-    $scope.projectName = 'personalScore'
-    document.getElementById('pp').style.background = 'linear-gradient(-45deg, #333, #444)'
-    document.getElementById('pp').style.color = '#CCC'
-  })
+  // sheetsService.getSheet().then((res) => {
+  //   $scope.progressData = sheetsService.getProgress(res)
+  // })
+
+  // sheetsService.getSheet().then((res) => {
+  //   $scope.projectData = sheetsService.getProjectScores(res);
+  //   $scope.projectName = 'personalScore'
+  //   document.getElementById('pp').style.background = 'linear-gradient(-45deg, #333, #444)'
+  //   document.getElementById('pp').style.color = '#CCC'
+  // })
 
   //-----------update sheets-------------//
 
@@ -263,7 +265,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       $scope.progressAlerts = response.data;
     })
   }
-  getProgressAlerts()
+  // getProgressAlerts() //USE THIS TO GET PROGRESS ALERTS ONCE SHEETS API IS WORKING!!!!! ****************
 
   let getNoAttendanceAlert = () => {
     alertService.getNoAttendanceAlert().then((response) => {
@@ -302,22 +304,10 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   //--------------Attendance Display Calendar----------------//
 
-  updateAbsences()
 
-  var absences = []
-  $scope.absentStudents = []
-
-  $('#attendanceCalendar').datepicker({
-    inline: true,
-    firstDay: 1,
-    showOtherMonths: true,
-    dateFormat: 'yy-mm-dd',
-    dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-    beforeShowDay: highlightDays
-  });
 
   function updateAttendanceData(attendanceData) {
-    absences = []
+    $scope.absences = []
     $scope.absentStudents = {}
     for (let day of attendanceData) {
       if (day.absent.length > 0) {
@@ -329,30 +319,21 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
             }
         }
         day.day = day.day.split('-').join('/')
-        absences.push(day.day)
+        $scope.absences.push(day.day)
       }
     }
-    $scope.$apply()
-  }
-
-  function highlightDays(date) {
-    let day = date.toISOString().substring(8, 10)
-    for (var i = 0; i < absences.length; i++) {
-      if (new Date(absences[i]).toString() == date.toString()) {
-        return [true, 'highlight'];
-      }
-    }
-    return [true, ''];
   }
 
   function updateAbsences() {
     attendanceService.getDays($scope.cohortId).then((res) =>
       attendanceService.getDataFromDays(res.data).then((res2) => {
         updateAttendanceData(attendanceService.getAttendanceFromData(res2))
-        $("#attendanceCalendar").datepicker("refresh");
+
       })
     )
   }
+
+  updateAbsences()
 
   //--------------q Time DatePicker----------------//
 
@@ -526,13 +507,18 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     //----------------get data for cohort line chart-------------//
 
-
+    $scope.cohortQData;
+    let allQData;
+    $scope.lineChartSelection = 'helpQ';
     getLineChartCohortData = (startDate, endDate, cohortId) => {
       qService.getQ(startDate, endDate, cohortId).then(res => {
-        let data = qService.setQs(res.data)
-        $scope.cohortQData = data.helpQ
-        // $scope.$apply()
+        allQData = qService.setQs(res.data)
+        $scope.cohortQData = allQData[$scope.lineChartSelection]
       })
+    }
+
+    $scope.lineChartDataChange = () => {
+      $scope.cohortQData = allQData[event.target.value]
     }
 
 

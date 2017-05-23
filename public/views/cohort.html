@@ -57,7 +57,7 @@
         <div class='cohort-qTimeMentorGraphs'>
             <div class='cohort-qTimeGraphs' id='cohortLineChartDiv'>
                 <div class='cohort-qTimeGraphsHeader cohort-dropdown'>
-                    <select id="selectboxQtime" class='cohort-qTimeGraphSelector'>
+                    <select id="selectboxQtime" class='cohort-qTimeGraphSelector' ng-model='lineChartSelection' ng-change='lineChartDataChange()'>
                             <option value="helpQ">AVERAGE Q HELP TIME</option>
                             <option value="waitQ">AVERAGE Q WAIT TIME</option>
                             <option value="totalQ">TOTAL Q TIME </option>
@@ -93,16 +93,14 @@
         <div class='cohort-attendenceCalender'>
             <div class='cohort-attendenceCalenderBox'>
                 <div class='cohort-attendenceCalenderGraph'>
-                    <div id='attendanceCalendar'></div>
+                    <datepicker datepicker-show='true' date-disabled-dates={{absences}} ng-if='absences'>
+                        <input ng-model="date" type="text" />
+                    </datepicker>
                 </div>
-                <!--<div class='cohort-attencenceGraphKey'>
-                    <div>1 Absence</div>
-                    <div>2 Absences</div>
-                    <div>3+ Absences</div>
-                </div>-->
                 <div class='cohort-attencenceStudentList'>
                     <div class='cohort-attencenceStudentListBox'>
-                        <h4 ng-repeat='student in absentStudents'><!--{{student.name}}-->Leigh Tee(<span>{{student.count}}</span>)</h4>
+                        <h4 ng-repeat='student in absentStudents'>
+                            <!--{{student.name}}-->Leigh Tee(<span>{{student.count}}</span>)</h4>
                     </div>
                 </div>
             </div>
@@ -116,11 +114,9 @@
         <div class='cohort-projectScoresGraphBox' id='projectScoresDiv'>
             <h3>PROJECT SCORES</h3>
             <div class="pr-btn-container">
-
-            <div id='pp' class='project-buttons' ng-click='updateBar("pp")'>PERSONAL</div>
-            <div id='np' class='project-buttons' ng-click='updateBar("np")'>NO SERVER</div>
-            <div id='gp' class='project-buttons' ng-click='updateBar("gp")'>GROUP</div>
-            
+                <div id='pp' class='project-buttons' ng-click='updateBar("pp")'>PERSONAL</div>
+                <div id='np' class='project-buttons' ng-click='updateBar("np")'>NO SERVER</div>
+                <div id='gp' class='project-buttons' ng-click='updateBar("gp")'>GROUP</div>
             </div>
             <bar-chart project-data='projectData' ng-if='projectData.length > 0' project-name='projectName'></bar-chart>
         </div>
@@ -193,6 +189,4 @@
             </div>
         </div>
     </div>
-
-    
 </section>

@@ -9,10 +9,6 @@ angular.module('app')
       controller: function ($scope) {
 
 
-        // var drawCohortLineChart = () => {
-
-
-
         function makeDataObject(arr) {
           let allDataArr = [];
           for (let i = 0; i < arr.length; i++) {
@@ -25,7 +21,7 @@ angular.module('app')
         }
 
         var data = makeDataObject($scope.cohortTimeData);
-        console.log(data)
+
 
           var margin = {
             top: 20,
