@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router'])
+angular.module('app', ['ui.router', '720kb.datepicker'])
 
     //testing a pull request
     .config(function ($stateProvider, $urlRouterProvider) {

@@ -9,10 +9,6 @@ angular.module('app')
       controller: function ($scope) {
 
 
-        // var drawCohortLineChart = () => {
-
-
-
         function makeDataObject(arr) {
           let allDataArr = [];
           for (let i = 0; i < arr.length; i++) {

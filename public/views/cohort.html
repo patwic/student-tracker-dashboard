@@ -1,7 +1,6 @@
 <section class='cohort-background' id='bleck'>
     <div class='cohort-fixedSideMenu'>
         <img ng-click="openCohortNav()" src='./assets/hamburger-15.svg'>
-        <!--<img ng-click="openCohortNav(); closeNav()" src='./assets/hamburger-15.svg'>-->
     </div>
     <div id="cohort-sidenav" class="cohort-sidenavContent">
         <div class='cohort-sidenavAllContent'>
@@ -57,7 +56,7 @@
         <div class='cohort-qTimeMentorGraphs'>
             <div class='cohort-qTimeGraphs' id='cohortLineChartDiv'>
                 <div class='cohort-qTimeGraphsHeader cohort-dropdown'>
-                    <select id="selectboxQtime" class='cohort-qTimeGraphSelector'>
+                    <select id="selectboxQtime" class='cohort-qTimeGraphSelector' ng-model='lineChartSelection' ng-change='lineChartDataChange()'>
                             <option value="helpQ">AVERAGE Q HELP TIME</option>
                             <option value="waitQ">AVERAGE Q WAIT TIME</option>
                             <option value="totalQ">TOTAL Q TIME </option>
@@ -93,13 +92,10 @@
         <div class='cohort-attendenceCalender'>
             <div class='cohort-attendenceCalenderBox'>
                 <div class='cohort-attendenceCalenderGraph'>
-                    <div id='attendanceCalendar'></div>
+                    <datepicker datepicker-show='true' date-disabled-dates={{absences}} ng-if='absences'>
+                        <input ng-model="date" type="text" />
+                    </datepicker>
                 </div>
-                <!--<div class='cohort-attencenceGraphKey'>
-                    <div>1 Absence</div>
-                    <div>2 Absences</div>
-                    <div>3+ Absences</div>
-                </div>-->
                 <div class='cohort-attencenceStudentList'>
                     <div class='cohort-attencenceStudentListBox'>
                         <h4 ng-repeat='student in absentStudents'>{{student.name}}(<span>{{student.count}}</span>)</h4>
