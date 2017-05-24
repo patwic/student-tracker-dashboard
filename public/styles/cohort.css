@@ -4,7 +4,7 @@
 }
 
 .cohort-background {
-    height: 270vh;
+    height: 274vh;
     width: 100%;
     padding-top: 80px;
     background: #1a1a1a;
@@ -556,14 +556,22 @@
 
 .cohort-pieGraphsKeyBox {
     width: 100%;
-    height: 25vh;
+    height: 28vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding-top: 7vh;
+    padding-top: 6vh;
     padding-bottom: 4vh;
-    padding-left: 7vh;
+    padding-left: 10vh;
 
+}
+
+.cohort-mentorCircleKey3 {
+    min-width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: url('../assets/plus3-03.svg') no-repeat;
+    cursor: pointer;
 }
 
 /**********************************
@@ -736,3 +744,98 @@
     background-color:#333;
 }
 
+/**********************************
+*       Pie Slide-ups Styling     *
+***********************************/
+
+
+.pieOverlay {
+    height: 0%;
+    width: 30%;
+    position: fixed;
+    z-index: 21;
+    bottom: 0;
+    left: 10;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-y: hidden;
+    transition: 0.5s;
+}
+
+.pie-overlay-content {
+    position: relative;
+    top: 30%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.pieOverlay h5 {
+    padding: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.pieOverlay h5:hover, .pieOverlay h5:focus {
+    color: #f1f1f1;
+}
+
+.pieOverlay .pieCloseBtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+.pieCloseBtn {
+    color: #25aae1;
+}
+
+.pieCloseBtn:hover {
+    color: #25aae1;
+    text-decoration: none;
+}
+
+
+.midPieOverlay {
+    width: 30%;
+    z-index: 21;
+    bottom: 0;
+    left: auto;
+}
+
+.lastPieOverlay {
+    height: 0%;
+    width: 30%;
+    position: fixed;
+    z-index: 21;
+    bottom: 0;
+    right: 5;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-y: hidden;
+    transition: 0.5s;
+}
+
+.lastPieOverlay h5 {
+    padding: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.lastPieOverlay h5:hover, .lastPieOverlay h5:focus {
+    color: #f1f1f1;
+}
+
+.lastPieOverlay .pieCloseBtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}

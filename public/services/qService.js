@@ -212,6 +212,7 @@ angular.module('app').service('qService', function ($http, config) {
         for (let j = 0; j < students.length; j++) {
             students[j].average = parseFloat((students[j].sum / (students[j].count * 60000)).toFixed(2))
         }
+        // console.log(students)
         return students
     }
 
@@ -224,6 +225,7 @@ angular.module('app').service('qService', function ($http, config) {
         let targetStudentMetrics = students.filter((s) => {
             return targetStudents.indexOf(s.name) != -1
         })
+        // console.log(targetStudentMetrics)
 
         targetStudentMetrics.sort((a, b) => {
             return b[metric] - a[metric]
