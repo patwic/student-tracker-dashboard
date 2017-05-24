@@ -94,7 +94,7 @@
      margin-right: 10px;
  }
  
- .home-alerts:hover .home-alertDisplay {
+ /*.home-alerts:hover .home-alertDisplay {
      display: none;
      transition: ease-in-out;
  }
@@ -102,7 +102,7 @@
  .home-alerts:hover .home-alertButton {
      display: block;
      transition: ease-in-out;
- }
+ }*/
  
  .home-graphs {
      width: 100%;
