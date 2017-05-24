@@ -602,6 +602,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     mostRequest = (startDate, endDate, cohortId) => { //gets pie data for the most q requests
       getMostRequestingStudentData(startDate, endDate, cohortId).then(res => {
         $scope.mostRequests = sortPieData(qService.getHighest(res, filteredStudents, 'count'))
+        // console.log($scope.mostRequests)
       })
     }
 

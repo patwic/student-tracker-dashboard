@@ -4,7 +4,7 @@
 }
 
 .cohort-background {
-    height: 270vh;
+    height: 274vh;
     width: 100%;
     padding-top: 80px;
     background: #1a1a1a;
@@ -744,16 +744,18 @@
     background-color:#333;
 }
 
-/*///////*/
+/**********************************
+*       Pie Slide-ups Styling     *
+***********************************/
 
 
 .pieOverlay {
     height: 0%;
-    width: 34%;
+    width: 30%;
     position: fixed;
     z-index: 21;
     bottom: 0;
-    left: 0;
+    left: 10;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0, 0.9);
     overflow-y: hidden;
@@ -762,7 +764,7 @@
 
 .pie-overlay-content {
     position: relative;
-    top: 25%;
+    top: 30%;
     width: 100%;
     text-align: center;
     margin-top: 30px;
@@ -788,9 +790,15 @@
     font-size: 60px;
 }
 
+.pieCloseBtn {
+    color: #25aae1;
+}
 
+.pieCloseBtn:hover {
+    color: #25aae1;
+    text-decoration: none;
+}
 
-/*////////*/
 
 .midPieOverlay {
     width: 30%;
@@ -801,11 +809,11 @@
 
 .lastPieOverlay {
     height: 0%;
-    width: 31%;
+    width: 30%;
     position: fixed;
     z-index: 21;
     bottom: 0;
-    right: 0;
+    right: 5;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0, 0.9);
     overflow-y: hidden;
