@@ -527,6 +527,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     mostRequest = (startDate, endDate, cohortId) => { //gets pie data for the most q requests
       getMostRequestingStudentData(startDate, endDate, cohortId).then(res => {
         $scope.mostRequests = sortPieData(qService.getHighest(res, filteredStudents, 'count'))
+        // console.log($scope.mostRequests)
       })
     }
 
@@ -593,4 +594,34 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       $scope.selectedStudents = selectedStudents
     }
 
-  });
+  //--------------Pie Chart show all Students----------------//
+
+$scope.openStudentList = function () {
+    document.getElementById("myNav").style.height = "100%";
+}
+
+$scope.closeStudentList = function () {
+    document.getElementById("myNav").style.height = "0%";
+}
+  
+ $scope.openMidStudentList = function() { 
+    document.getElementById("myNav2").style.height = "100%";
+ }
+
+ $scope.closeMidStudentList = function() {
+     document.getElementById("myNav2").style.height = "0%";
+
+ }
+
+  $scope.openLastStudentList = function() { 
+    document.getElementById("myNav3").style.height = "100%";
+ }
+
+ $scope.closeLastStudentList = function() {
+     document.getElementById("myNav3").style.height = "0%";
+
+ }
+
+})
+
+
