@@ -61,33 +61,13 @@ angular.module('app').service('qService', function ($http, config) {
         let waitQ = []
         let beginTime = new Date(`2000-01-01T14:50:00.000Z`).getTime()
         let endTime = new Date(`2000-01-01T23:10:00.000Z`).getTime()
-        // if (qQuery) {
-        //     if (qQuery === 'helpQ') {
-        //         helpQ.push(pushSingleQ(min, max, qArr, 'timeMentorBegins', 'timeQuestionAnswered'))
-        //         return {
-        //             qQuery: helpQ
-        //         }
-        //     } else if (qQuery === 'totalQ') {
-        //         totalQ.push(pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeQuestionAnswered'))
-        //         return {
-        //             qQuery: totalQ
-        //         }
-        //     } else {
-        //         waitQ.push(pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeMentorBegins', 'timeQuestionAnswered'))
-        //         return {
-        //             qQuery: waitQ
-        //         }
-        //     }
-
-        // } else {
             for (let i = 0; i < 100; i++) {
                 let min = beginTime + (i * 300000)
-                let max = beginTime + ((i + 1) * 300000)
+                let max = beginTime + ((i + 1) * 300000) //this is finding the time for every 5 minutes for a little over 8 hours (i < 100)
                 helpQ.push(pushSingleQ(min, max, qArr, 'timeMentorBegins', 'timeQuestionAnswered'))
                 totalQ.push(pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeQuestionAnswered'))
                 waitQ.push(pushSingleQ(min, max, qArr, 'timeWhenEntered', 'timeMentorBegins', 'timeQuestionAnswered'))
             }
-        // }
         return {
             helpQ: helpQ,
             totalQ: totalQ,
@@ -212,7 +192,6 @@ angular.module('app').service('qService', function ($http, config) {
         for (let j = 0; j < students.length; j++) {
             students[j].average = parseFloat((students[j].sum / (students[j].count * 60000)).toFixed(2))
         }
-        // console.log(students)
         return students
     }
 
@@ -225,8 +204,6 @@ angular.module('app').service('qService', function ($http, config) {
         let targetStudentMetrics = students.filter((s) => {
             return targetStudents.indexOf(s.name) != -1
         })
-        // console.log(targetStudentMetrics)
-
         targetStudentMetrics.sort((a, b) => {
             return b[metric] - a[metric]
         })

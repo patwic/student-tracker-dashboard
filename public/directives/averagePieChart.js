@@ -9,7 +9,6 @@ angular.module('app')
       controller: function ($scope) {
 
         let averageData = $scope.averageData
-        // console.log(averageData)
         averageData = [averageData[0].percent, averageData[1].percent, averageData[2].percent, averageData[3].percent]
 
         var height = document.getElementById('averageDiv').offsetHeight / 3;
@@ -83,7 +82,6 @@ angular.module('app')
         }
 
         $scope.$watch('averageData', function (newValue, oldValue) {
-          // console.log($scope.averageData)
           updateAverageData($scope.averageData)
         })
 
