@@ -764,19 +764,28 @@
 
 .pie-overlay-content {
     position: relative;
-    top: 30%;
+    top: 20px;
     width: 100%;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .pieOverlay h5 {
     padding: 5px;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 14px;
     color: #818181;
     display: block;
     transition: 0.3s;
+}
+
+.pieOverlay h4 {
+    padding: 5px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 25%;
 }
 
 .pieOverlay h5:hover, .pieOverlay h5:focus {
@@ -823,10 +832,19 @@
 .lastPieOverlay h5 {
     padding: 5px;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 14px;
     color: #818181;
     display: block;
     transition: 0.3s;
+}
+
+.lastPieOverlay h4 {
+    padding: 5px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 25%;
 }
 
 .lastPieOverlay h5:hover, .lastPieOverlay h5:focus {
