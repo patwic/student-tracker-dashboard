@@ -760,6 +760,15 @@
     background-color: rgba(0,0,0, 0.9);
     overflow-y: hidden;
     transition: 0.5s;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+}
+.overlayBoxes {
+    height: 400px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow: auto;
+    overflow-x: hidden;
+    margin-top: 20px;
 }
 
 .pie-overlay-content {
@@ -767,13 +776,13 @@
     top: 20px;
     width: 100%;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .pieOverlay h5 {
     padding: 5px;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 10px;
     color: #818181;
     display: block;
     transition: 0.3s;
@@ -782,7 +791,7 @@
 .pieOverlay h4 {
     padding: 5px;
     font-size: 16px;
-    color: #fff;
+    color: #f1f1f1;
     font-weight: bold;
     text-align: center;
     padding-top: 25%;
@@ -827,12 +836,14 @@
     background-color: rgba(0,0,0, 0.9);
     overflow-y: hidden;
     transition: 0.5s;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+
 }
 
 .lastPieOverlay h5 {
     padding: 5px;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 10px;
     color: #818181;
     display: block;
     transition: 0.3s;
@@ -841,7 +852,7 @@
 .lastPieOverlay h4 {
     padding: 5px;
     font-size: 16px;
-    color: #fff;
+    color: #f1f1f1;
     font-weight: bold;
     text-align: center;
     padding-top: 25%;

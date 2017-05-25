@@ -147,8 +147,11 @@
             </div>
              <div id="myNav" class="pieOverlay">
                 <a href="javascript:void(0)" class="pieCloseBtn" ng-click="closeStudentList()">&times;</a>
+                <h4>Average Q Time Per Request</h4>
+                <div class='overlayBoxes'>
                 <div class="pie-overlay-content" ng-repeat='most in mostAverageTotals'>
-                    <h5>{{most.average}} - {{most.name}}</h5>
+                    <h5>{{most.average}} minutes - {{most.name}}</h5>
+                </div>
                 </div>
             </div>
         </div>
@@ -179,8 +182,11 @@
             </div>
             <div id="myNav2" class="pieOverlay midPieOverlay">
                 <a href="javascript:void(0)" class="pieCloseBtn" ng-click="closeMidStudentList()">&times;</a>
+                <h4>Total Q Time</h4>
+                <div class='overlayBoxes'>
                 <div class="pie-overlay-content" ng-repeat='helped in mostHelpedTotals'>
                     <h5>{{helped.sum}} - {{helped.name}}</h5>
+                </div>
                 </div>
             </div>
         </div>
@@ -211,9 +217,11 @@
             </div>
             <div id="myNav3" class="lastPieOverlay">
                 <a href="javascript:void(0)" class="pieCloseBtn" ng-click="closeLastStudentList()">&times;</a>
-                <h4>Number of Requests Made by Student</h4>
+                <h4>Number of Requests</h4>
+                <div class='overlayBoxes'>
                 <div class="pie-overlay-content" ng-repeat='mostRequest in mostRequestTotals'>
                     <h5>{{mostRequest.count}} - {{mostRequest.name}}</h5>
+                </div>
                 </div>
             </div>
         </div>
