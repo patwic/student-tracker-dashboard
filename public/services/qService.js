@@ -309,7 +309,7 @@ angular.module('app').service('qService', function ($http, config) {
 
     this.sortHelpedTotals = (students) => {
         students.map((e) => {
-           return e.sum = Math.round(e.sum / 60000)
+           return e.sum = Math.round((e.sum / 60000).toFixed(2))
         })
         return students.sort((a,b) => b.sum - a.sum)
     }
