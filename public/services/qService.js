@@ -279,4 +279,19 @@ angular.module('app').service('qService', function ($http, config) {
             console.log('Error');
         })
     }
+
+    this.sortAverageTotals = (students) => {
+        return students.sort((a,b) => b.average - a.average)
+    }
+
+    this.sortHelpedTotals = (students) => {
+        students.map((e) => {
+           return e.sum = Math.round((e.sum / 60000).toFixed(2))
+        })
+        return students.sort((a,b) => b.sum - a.sum)
+    }
+
+    this.sortRequestTotals = (students) => {
+        return students.sort((a,b) => b.count - a.count)
+    }
 })

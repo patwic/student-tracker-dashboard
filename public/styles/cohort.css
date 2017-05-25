@@ -760,23 +760,42 @@
     background-color: rgba(0,0,0, 0.9);
     overflow-y: hidden;
     transition: 0.5s;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+}
+.overlayBoxes {
+    height: 400px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow: auto;
+    overflow-x: hidden;
+    margin-top: 20px;
 }
 
 .pie-overlay-content {
     position: relative;
-    top: 30%;
+    /*top: 20px;*/
     width: 100%;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
 }
 
 .pieOverlay h5 {
     padding: 5px;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 12px;
     color: #818181;
     display: block;
     transition: 0.3s;
+}
+
+.pieOverlay h4 {
+    padding: 5px;
+    font-size: 16px;
+    color: #f1f1f1;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 25%;
 }
 
 .pieOverlay h5:hover, .pieOverlay h5:focus {
@@ -818,15 +837,26 @@
     background-color: rgba(0,0,0, 0.9);
     overflow-y: hidden;
     transition: 0.5s;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+
 }
 
 .lastPieOverlay h5 {
     padding: 5px;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 12px;
     color: #818181;
     display: block;
     transition: 0.3s;
+}
+
+.lastPieOverlay h4 {
+    padding: 5px;
+    font-size: 16px;
+    color: #f1f1f1;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 25%;
 }
 
 .lastPieOverlay h5:hover, .lastPieOverlay h5:focus {
