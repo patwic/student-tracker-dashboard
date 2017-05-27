@@ -11,7 +11,15 @@ AngularJS • HTML/CSS • NodeJS • Express • PostgreSQL • Jquery UI • B
 
 ![1](/README-img/1.png)
 
+DevMountain Passport was used to create a login to limit the access of The DevMountain Tracker to Instructors and Lead Mentors. 
+
 ![2](/README-img/2.png)
+
+Using Socket.io the DevMountain Tracker displays real-time red alerts when there is a long wait for a student to get help in one of the classrooms so other mentors or instructors can assist them.
+
+Daily alerts are also displayed in the alert section which pull attendance information, large Q time percentages, and progress concerns of specific students. 
+
+D3 is used to create the graphs displaying the status of The Q information everyday. The Total Q Time graph is drawn in real-time as the day goes on to show the most current status of the overall bootcamp. 
 
 ![3](/README-img/3.png)
 
