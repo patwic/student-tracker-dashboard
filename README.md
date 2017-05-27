@@ -1,5 +1,8 @@
 # DevMountain Tracker
 
+### Tech: 
+
+AngularJS • HTML/CSS • NodeJS • Express • PostgreSQL • Jquery UI • Bootstrap • Moment.js • Sockets.io • D3 • DevMountain Passport.
 
 
 ![1](/README-img/1.png)
@@ -19,3 +22,7 @@
 ![8](/README-img/8.png)
 
 ![9](/README-img/9.png)
+
+![10](/README-img/10.png)
+
+![11](/README-img/11.png)
