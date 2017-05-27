@@ -1,7 +1,10 @@
 # DevMountain Tracker
 
-### Tech: 
+Students of DevMountain, a Web Dev Full-Time Immersive Bootcamp, use The Q to notify mentors and instructors that a student is in need of help. All data regarding when the student entored The Q, how long it took them to recieve help, and how long the mentor was helping them is stored. It also stores information regarding attendance and whether a student is on time, late, left early, or stayed the whole day. The Q is used to keep track of student progress throughout their time at DevMountain. 
 
+We took all that data to build a web application emphasizing in data visualization giving the instructors a more comprehensive view of how each class, student, and the overall bootcamp is doing. 
+
+### Tech:
 AngularJS • HTML/CSS • NodeJS • Express • PostgreSQL • Jquery UI • Bootstrap • Moment.js • Sockets.io • D3 • DevMountain Passport.
 
 
