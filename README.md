@@ -57,7 +57,7 @@ The calendar will automatically display the information from the last seven days
 
 ![9](/README-img/9.png)
 
-The calender on the right displays student absenses. In the key below you are able to see how often each student is absent over the selected month. 
+The calendar on the right displays student absences. In the key below you are able to see how often each student is absent over the selected month. 
 
 The line chart has a select menu for you to choose which graph you'd like displayed and then updates accordingly for that specific cohort and chosen date range.
 
@@ -70,3 +70,5 @@ At the bottom of each of the student Q time graphs there is an option to see all
 ![11](/README-img/11.png)
 
 Each list can be opened individually or all at once. These views allow to you get an even more specific look at each student and their Q needs. 
+
+
