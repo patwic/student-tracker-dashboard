@@ -23,7 +23,7 @@ Using Socket.io the DevMountain Tracker displays real-time red alerts in an aler
 
 Daily alerts are also displayed in the alert feed which pulls attendance information, large Q time percentages, and progress concerns of specific students. 
 
-D3.js is used to display The Q information graphs. These graphs are drawn in real-time as the day goes on to show the current overall status of The Q. 
+D3.js is used to display The Q information graphs. These graphs are drawn in real-time as the day goes on to show the current overall status of The Q. When a user hovers over an area of the graph with their mouse, it will display a popup with the exact y axis value for that area on the map.
 
 
 ![3](/README-img/3.png)
@@ -53,7 +53,7 @@ The initial right side-menu allows the user to view all registered cohorts, filt
 
 D3.js is used to display the scatter graph of the student's progress to graduation and their project scores from their personal, group, and no-server projects. 
 
-The Project Scores graph updates according to the project selected from the top menu buttons.
+The Project Scores graph updates according to the project selected from the top menu buttons. The color of the bars is determined by the project score and if the project passed or failed. When a bar is hovered, it will show the name of the student.
 
 
 ![7](/README-img/7.png)
@@ -75,7 +75,7 @@ These calendars are preset to display information from the last seven days on lo
 
 The calendar on the right displays student absences. In the key below, a user is able to see how often each student has been absent since the start of their cohort. 
 
-The line chart has a select menu with the option to choose what information will be displayed. It updates in real-time for the currently selected cohort and chosen date range.
+The line chart has a select menu with the option to choose what information will be displayed. It updates in real-time for the currently selected cohort and chosen date range. When a user hovers over an area of the line chart with their mouse, it will display a popup with the exact y axis value for that area on the map.
 
 The pie graph displays the information for the cohort's mentors and how long they average in helping a student.
 
