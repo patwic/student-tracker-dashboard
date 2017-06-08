@@ -43,5 +43,10 @@ angular.module('app', ['ui.router', '720kb.datepicker'])
                 }
             })
 
+            .state('surveys', {
+                url: '/surveys',
+                templateUrl: "./views/surveys.html"
+            })
+
 
     });
