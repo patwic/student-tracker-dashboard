@@ -43,7 +43,8 @@ let self = module.exports = {
     pushSingleQ: (min, max, qbody, q1, q2, q3) => {
         let count = 0
             sum = 0
-        for (let q of qbody) {
+        for (let i in qbody) {
+            let q = qbody[i];
             let qMin = new Date(q[q1]).getTime()
             if (qMin < max) {
                 qMax = new Date(q[q2]).getTime()
