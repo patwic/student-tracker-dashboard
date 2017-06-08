@@ -1,0 +1,17 @@
+.surveys-section {
+  background: #1a1a1a;
+  height: 100vh;
+  width: 100%;
+  padding-top: 90px;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+}
+
+.surveys-graphBox {
+    width: 90%;
+    height: 70vh;
+    margin-left: 5%;
+    background: #282828;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+}
