@@ -1,11 +1,11 @@
 .surveys-section {
+  /*background: linear-gradient(-45deg, #282828, #1a1a1a);*/
   background: #1a1a1a;
   height: 100vh;
   width: 100%;
   padding-top: 90px;
   display: flex;
   align-items: center;
-  z-index: 1000;
 }
 
 .surveys-graphBox {
