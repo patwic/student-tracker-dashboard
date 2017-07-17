@@ -6,7 +6,7 @@ angular.module('app')
       scope: {
         cohortTimeData: '='
       },
-      controller: function ($scope) {
+      controller: function ($scope, $window) {
 
 
         function makeDataObject(arr) {
@@ -23,12 +23,12 @@ angular.module('app')
         var data = makeDataObject($scope.cohortTimeData);
 
 
-          var margin = {
-            top: 20,
-            right: 40,
-            bottom: 20,
-            left: 40
-          };
+        var margin = {
+          top: 20,
+          right: 40,
+          bottom: 20,
+          left: 40
+        };
 
         var width = document.getElementById('cohortLineChartDiv').offsetWidth - margin.right - margin.left;
         var height = document.getElementById('cohortLineChartDiv').offsetHeight - margin.top - margin.bottom - 80;
@@ -207,7 +207,11 @@ angular.module('app')
 
 
         let updateCohortLineChart = (someData) => {
+
           var newData = makeDataObject(someData)
+
+          var newWidth = document.getElementById('cohortLineChartDiv').offsetWidth - margin.right - margin.left;
+          var newHeight = document.getElementById('cohortLineChartDiv').offsetHeight - margin.top - margin.bottom - 80;
 
           let maxDomain = 20;
           if ((d3.max(newData, function (d) {
@@ -279,19 +283,19 @@ angular.module('app')
           focus.append("line")
             .attr("class", "x-hover-line hover-line")
             .attr("y1", 0)
-            .attr("y2", height)
+            .attr("y2", newHeight)
 
           focus.append("line")
             .attr("class", "y-hover-line hover-line")
-            .attr("x1", width)
-            .attr("x2", width);
+            .attr("x1", newWidth)
+            .attr("x2", newWidth);
 
           let overlayWidth = (width * (($scope.cohortTimeData.length - 1) / 100)) - 1
 
           svg.append("rect")
             .attr("class", "overlay")
             .attr("width", overlayWidth)
-            .attr("height", height)
+            .attr("height", newHeight)
             .on("mouseover", function () {
               focus.style("display", null);
             })

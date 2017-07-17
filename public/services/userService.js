@@ -22,7 +22,7 @@ angular.module('app').service('userService', function ($http, config) {
         for (var i = 0; i < prefs.length; i++) {
             prefIds.push(prefs[i].id)
         }
-        return $http.post('http://localhost:8002/api/prefs/', {
+        return $http.post('api/prefs/', {
             headers: {
                 'Access-Control-Allow-Origin': '*'
             },
@@ -36,7 +36,7 @@ angular.module('app').service('userService', function ($http, config) {
     }
 
     this.getUser = () => {
-        return $http.get('/api/getUser').then(res => {
+        return $http.get('api/getUser').then(res => {
             return res.data;
         }).catch(function (err) {
             console.log('Error');

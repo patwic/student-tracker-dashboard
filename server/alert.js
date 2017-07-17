@@ -103,8 +103,9 @@ let self = module.exports = {
     request.get('https://sheetsu.com/apis/v1.0/45425dfc758e').then(response => {
       sheet = JSON.parse(response)
       let students = []
-      for (let student of sheet) {
+      for (let i in sheet) {
         let count = 0
+	let student = sheet[i]
         if (student['HTML'] = 'Pass') count++
         if (student['JS Basic v1'] == 'Pass'
             || student['JS Basic v2'] == 'Pass') count++

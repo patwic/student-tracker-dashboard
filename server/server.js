@@ -10,7 +10,7 @@ const express = require('express'),
       io = require('socket.io').listen(server),
       path = require('path'),
       config = require('./config'),
-      port = 8002,
+      port = config.port,
       conn = massive.connectSync({
             connectionString: config.eleSql
       });
