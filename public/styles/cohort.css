@@ -882,25 +882,49 @@
 }
 
 
-.cohortSurveyGraphContainer {
-    height: calc(87vh - 80px);
+.cohort-SurveyGraphBox {
+    height: calc(96vh - 80px);
     width: calc(100% - 60px);
     margin-left: 60px;
     display: flex;
     justify-content: center;
 }
 
-.cohortSurveyGraphBox {
-    width: calc(100% - 63px);
-    height: 70vh;
+.cohort-SurveyScatterGraph {
+    width: 100%;
+    height: 100%; 
     background: #282828;
     box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
 }
 
-.cohortSurveyGraphBoxNav {
+.cohort-SurveyGraphBoxNav {
     width: 100%;
      height: 55px;
      background: linear-gradient(-45deg, #333, #444);
      text-align: center;
      padding-top: 20px;
+}
+
+.cohort-SurveyGraphContainer {
+    width: calc(100% - 63px);
+    height: 78vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cohort-SurveyAverageGraphBox {
+    width: calc(65% - 20px);
+    height: 78vh;
+    background: #282828;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+    text-align: center;
+}
+
+.cohort-SurveyCommentFeed {
+    width: calc(35% - 20px);
+    height: 78vh;
+    background: #282828;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+    text-align: center;
 }
