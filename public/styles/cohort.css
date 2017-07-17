@@ -218,13 +218,14 @@
     margin-left: 60px;
     display: flex;
     align-items: center;
+
 }
 
 .cohort-topGraphContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: calc(100% - 64px);
+    width: calc(100% - 65px);
     margin-left: 33px;
 }
 
@@ -413,7 +414,7 @@
 .cohort-middleGraphContainer {
     display: flex;
     justify-content: space-between;
-    width: calc(100% - 64px);
+    width: calc(100% - 65px);
     margin-left: 33px;
 }
 
@@ -882,7 +883,7 @@
 
 
 .cohortSurveyGraphContainer {
-    height: calc(90vh - 80px);
+    height: calc(87vh - 80px);
     width: calc(100% - 60px);
     margin-left: 60px;
     display: flex;
@@ -890,7 +891,7 @@
 }
 
 .cohortSurveyGraphBox {
-    width: calc(100% - 60px);
+    width: calc(100% - 63px);
     height: 70vh;
     background: #282828;
     box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
