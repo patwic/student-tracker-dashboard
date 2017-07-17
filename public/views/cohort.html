@@ -53,6 +53,7 @@
         </div>
     </div>
     <div class='cohort-topGraphBox'>
+        <div class='cohort-topGraphContainer'>
         <div class='cohort-qTimeMentorGraphs'>
             <div class='cohort-qTimeGraphs' id='cohortLineChartDiv'>
                 <div class='cohort-qTimeGraphsHeader cohort-dropdown'>
@@ -103,8 +104,10 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
     <div class='cohort-middleGraphBox'>
+        <div class='cohort-middleGraphContainer'>
         <div class='cohort-graduationGraphBox' id='progressDiv'>
             <h3>PROGRESS TO GRADUATION</h3>
             <progress-scatter-chart progress-data='progressData' ng-if='progressData.length > 0'></progress-scatter-chart>
@@ -118,8 +121,10 @@
             </div>
             <bar-chart project-data='projectData' ng-if='projectData.length > 0' project-name='projectName'></bar-chart>
         </div>
+        </div>
     </div>
     <div class='cohort-bottomGraphBox'>
+        <div class='cohort-bottomGraphContainer'>
         <div class='cohort-pieTotalGraph' id='averageDiv'>
             <div class='cohort-pieGraphsNav'>
                 <h3>HIGHEST AVERAGE<br>Q TIME PER REQUEST</h3>
@@ -224,6 +229,7 @@
                 </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
     </div>
