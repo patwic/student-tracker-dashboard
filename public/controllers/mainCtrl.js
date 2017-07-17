@@ -219,14 +219,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.isDropdown = !$scope.isDropdown
   }
 
-  if ($location.path() === '/cohort') {
-    $scope.activateLink = false;
-  } else $scope.activateLink = true;
-
-  $scope.changeLink = function (status) {
-    $scope.activateLink = status;
-  }
-
   //-------------------socket data--------------------//
 
   let socket = io()
