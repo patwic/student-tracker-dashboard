@@ -1,0 +1,90 @@
+.surveys-section {
+  /*background: linear-gradient(-45deg, #282828, #1a1a1a);*/
+  background: #1a1a1a;
+  height: 100vh;
+  width: 100%;
+  padding-top: 90px;
+  display: flex;
+  align-items: center;
+}
+
+.surveys-graphBox {
+    width: 90%;
+    height: 75vh;
+    margin-left: 5%;
+    background: #282828;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+}
+
+.surveys-alertSection {
+  background: #1a1a1a;
+  height: 89vh;
+  width: 100%;
+  padding-top: 20px;
+  display: flex;
+  /*align-items: center;*/
+}
+
+.surveys-alertsContainer {
+    width: 90%;
+    height: 75vh;
+    margin-left: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.surveys-alertBox {
+  width: 31%;
+  height: 100%;
+  box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+  background: #282828;
+}
+
+.surveys-alertFeed {
+   width: calc(100% - 40px);
+     height: calc(100% - 95px);
+     margin: 20px 20px;
+     overflow-y: scroll;
+     overflow: auto;
+}
+
+.surveys-alerts {
+     height: 80px;
+     width: 100%;
+     margin-bottom: 12px;
+     /*background: blue;*/
+ }
+
+ .surveys-alerts h5 {
+     padding: 10px 15px;
+     font-size: 10px;
+ }
+
+.surveys-alertDisplay {
+     width: 100%;
+     height: 80px;
+     background: #444;
+ }
+
+ .surveys-alertDisplay h4 {
+     width: 100%;
+     height: 30px;
+     background: #141414;
+     padding-left: 20px;
+     padding-top: 9px;
+ }
+
+.surveys-boxBar {
+     width: 100%;
+     height: 55px;
+     background: linear-gradient(-45deg, #333, #444);
+     text-align: center;
+     padding-top: 20px;
+}
+
+.surveys-barGraphBox {
+  width: 66%;
+  height: 100%;
+  box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+  background: #282828;
+}

@@ -14,6 +14,7 @@
     <link href="./styles/login.css" rel="stylesheet">
     <link href="./styles/cohort.css" rel="stylesheet">
     <link href="./styles/prefs.css" rel="stylesheet">
+    <link href="./styles/surveys.css" rel="stylesheet">
     <link rel="stylesheet" href="./styles/charts.css">
     <link rel="stylesheet" href="./styles/attendanceCalendar.css">
     <link rel="stylesheet" href="./styles/jquery-ui.css">
@@ -25,8 +26,9 @@
     <nav class='main-nav'>
         <div class='main-links'>
             <img ng-src='https://s3.amazonaws.com/devmountain/www/img/logoonly.png'>
-            <h2 ng-class='activateLink ? "active-link" : "not-active-link"'><a ng-click='changeLink(true)' ui-sref='home'>HOME</a></h2>
-            <h2  ng-class='activateLink ? "not-active-link" : "active-link"'><a ng-click='changeLink(false)' ui-sref='cohort'>COHORT</a></h2>
+            <h2 ui-sref-active="active active-link"><a ui-sref='home'>HOME</a></h2>
+            <h2 ui-sref-active="active active-link"><a ui-sref='cohort'>COHORT</a></h2>
+            <h2 ui-sref-active="active active-link"><a ui-sref='surveys'>SURVEYS</a></h2>
         </div>
         <div class='main-user'>
             <h2>{{user.name}}</h2>
