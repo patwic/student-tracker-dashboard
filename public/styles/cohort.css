@@ -899,10 +899,34 @@
 
 .cohort-SurveyGraphBoxNav {
     width: 100%;
-     height: 55px;
-     background: linear-gradient(-45deg, #333, #444);
-     text-align: center;
-     padding-top: 20px;
+    height: 55px;
+    background: linear-gradient(-45deg, #333, #444);
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.cohort-ScatterGraphSelector {
+    background: none;
+    border: none; 
+    width: 215px;
+    height: 35px;
+    color: #999999;
+    outline: none;  
+    border-radius: 0px;
+    border: none;
+}
+
+.smallSelector {
+    width: 80px;
+}
+
+.cohort-SelectorBackground {
+    background: linear-gradient(-45deg, #222, #333);  
+
 }
 
 .cohort-SurveyGraphContainer {
