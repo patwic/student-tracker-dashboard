@@ -921,7 +921,7 @@
 }
 
 .smallSelector {
-    width: 80px;
+    width: 90px;
 }
 
 .cohort-SelectorBackground {
@@ -950,5 +950,49 @@
     height: 78vh;
     background: #282828;
     box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
-    text-align: center;
 }
+
+.cohort-surveysCommentsBox {
+    width: 90%;
+    height: 65vh;
+    /* background: #111; */
+    margin-left: 5%;
+    margin-top: 2vh;
+    overflow-y: scroll;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+
+.cohort-surveyCommentBox {
+    width: 100%;
+    background: #444;
+    margin-bottom: 10px;
+
+}
+
+.cohort-surveyCommentTitle {
+    width: 100%;
+    height: 35px;
+    background: #141414;
+}
+
+.cohort-surveyCommentTitle h4 {
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.cohort-surveyCommentTitle span {
+     color: #b9b9b9; 
+    font-weight: bold;
+}
+
+.cohort-surveyComment {
+    width: 100%;
+}
+
+.cohort-surveyComment h5 {
+    padding: 10px 10px;
+
+}
+
