@@ -47,8 +47,9 @@ angular.module('app')
         bottom: 20,
         left: 80
       }
-      // var width = document.getElementById('surveyScatter').offsetWidth - margin.right - margin.left;
-      // var height = document.getElementById('surveyScatter').offsetHeight - margin.top - margin.bottom - 80;
+  
+        // var width = document.getElementById('surveyScatter').offsetWidth - margin.right - margin.left;
+        // var height = document.getElementById('surveyScatter').offsetHeight - margin.top - margin.bottom - 50;
       var height = 400;
       var width = 600;
       var x = d3.scalePoint()

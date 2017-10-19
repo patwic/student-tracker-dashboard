@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService, $window) {
+angular.module('app').controller('mainCtrl', function ($scope, attendanceService, alertService, qService, sheetsService, $location, userService, surveyService, $window) {
 
   $scope.user;
   $scope.isDropdown = false;
@@ -435,6 +435,26 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     let filteredStudents;
 
+    //----------------get data for cohort surveys bar chart-------------//
+
+
+    $scope.sd = surveyService.data; // all survey data from surveysService
+
+    $scope.getBarChartSurveyData = () => {
+
+            let newSurvey = event.target.value; //satisfaction type
+            console.log(newSurvey)
+
+      // console.log($scope.cohortId) //cohort id not name.
+
+      // $scope.cohort = 'WPR23'
+
+      // let newFilteredData = sd.filter(e => e.cohort === $scope.cohort);
+      // console.log(newFilteredData) //returns all surveys from specific cohort. 
+
+    }
+
+
 
     //----------------get data for cohort line chart-------------//
 
@@ -533,6 +553,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         mostRequest(apiStartDate, apiEndDate, $scope.cohortId)
       })
     }
+
+
 
     //--------------Cohort SideNav Functions----------------//
 

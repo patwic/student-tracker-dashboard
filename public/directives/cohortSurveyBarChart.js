@@ -2,13 +2,17 @@ angular.module('app')
 .directive('surveyBarChart', function () {
   return {
     template: '<div id="surveyBarChart"></div>',
-    scope: {},
+    scope: {
+        sd: '='
+    },
     controller: function ($scope, surveyService) {
       $scope.survey = 'MSAT'
       $scope.cohort = 'WPR23'
       let survey = $scope.survey
-      let sd = surveyService.data
-      let filteredData = sd.filter(e => e.cohort === $scope.cohort);
+
+    $scope.sd
+
+      let filteredData = $scope.sd.filter(e => e.cohort === $scope.cohort);
       let averages = (dataArr) => {
         let arr = []
         let obj = {}
@@ -138,7 +142,7 @@ angular.module('app')
           console.log('hello')
         let num = 9;
         let newSurvey = $scope.survey
-        let newFilteredData = sd.filter(e => e.cohort === $scope.cohort);
+        let newFilteredData = $scope.sd.filter(e => e.cohort === $scope.cohort);
         let newData = averages(newFilteredData)
         var yD = d3.scaleLinear().domain([0, 10]).range([height - 20, 0]);
         var tip = d3.tip()
