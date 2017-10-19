@@ -4,8 +4,6 @@ angular.module('app')
     template: '<div id="surveyBarChart"></div>',
     scope: {},
     controller: function ($scope, surveyService) {
-        console.log('hello')
-        console.log($scope.data)
       $scope.survey = 'MSAT'
       $scope.cohort = 'WPR23'
       let survey = $scope.survey
@@ -49,8 +47,8 @@ angular.module('app')
         left: 50
       }
       let num = 9;
-    //   var height = document.getElementById('surveyBarChart').offsetHeight - 100 - margin.top - margin.bottom;
     //   var width = document.getElementById('surveyBarChart').offsetWidth - margin.right - margin.left;
+    //   var height = document.getElementById('surveyBarChart').offsetHeight - margin.top - margin.bottom - 80;
       var height = 400;
       var width = 600;
       var x = d3.scaleBand()
@@ -137,7 +135,7 @@ angular.module('app')
           else return '#252525';
         })
       $scope.changeBar = () => {
-          console.log('hello from changeBar')
+          console.log('hello')
         let num = 9;
         let newSurvey = $scope.survey
         let newFilteredData = sd.filter(e => e.cohort === $scope.cohort);
