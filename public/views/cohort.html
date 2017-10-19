@@ -239,13 +239,26 @@
                 <div class='cohort-SurveyGraphBoxNav'>
                     <h3>WEEKLY SURVEY SCORES</h3>
                     <div class='cohort-SelectorBackground'>
-                        <select class='cohort-ScatterGraphSelector'>
-                            <option value="overall">Overall Satisfaction</option>
-                            <option value="mentor">Mentor Satisfaction</option>
-                            <option value="instructor">Instructor Satisfaction </option>
-                            <option value="curriculum">Curriculum Satisfaction</option>
-                    </select>
+                            <!-- //////// -->
+                        <form ng-submit="changeBar()">
+                            <select ng-model='cohort' class='cohort-ScatterGraphSelector'>
+                                <option selected value="DM22">DM-22</option>
+                                <option value="WPR23">DM-23</option>
+                                <option value="WPR24">DM-24</option>
+                                <option value="WPR25">DM-25</option>
+                            </select>
+                            <select ng-model='survey' class='cohort-ScatterGraphSelector'>
+                                <option selected value="MSAT">Mentor Satisfaction</option>
+                                <option value="OSAT">Overall Satisfaction</option>
+                                <option value="FSAT">Instructor Satisfaction</option>
+                                <option value="CSAT">Curriculum Satisfaction</option>
+                            </select>
+                            <input type="submit">
+                        </form>
+                          <!-- //////// -->
                     </div>
+                </div>
+                <survey-bar-chart></survey-bar-chart>
                 </div>
             </div>
 

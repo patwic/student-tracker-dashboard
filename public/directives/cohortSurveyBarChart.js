@@ -1,13 +1,15 @@
 angular.module('app')
-.directive('barChart', function () {
+.directive('surveyBarChart', function () {
   return {
-    templateUrl: '<div id="barChart"></div>',
+    template: '<div id="surveyBarChart"></div>',
     scope: {},
-    controller: function ($scope, surveyData) {
+    controller: function ($scope, surveyService) {
+        console.log('hello')
+        console.log($scope.data)
       $scope.survey = 'MSAT'
       $scope.cohort = 'WPR23'
       let survey = $scope.survey
-      let sd = surveyData.data
+      let sd = surveyService.data
       let filteredData = sd.filter(e => e.cohort === $scope.cohort);
       let averages = (dataArr) => {
         let arr = []
@@ -47,8 +49,8 @@ angular.module('app')
         left: 50
       }
       let num = 9;
-    //   var height = document.getElementById('barChart').offsetHeight - 100 - margin.top - margin.bottom;
-    //   var width = document.getElementById('barChart').offsetWidth - margin.right - margin.left;
+    //   var height = document.getElementById('surveyBarChart').offsetHeight - 100 - margin.top - margin.bottom;
+    //   var width = document.getElementById('surveyBarChart').offsetWidth - margin.right - margin.left;
       var height = 400;
       var width = 600;
       var x = d3.scaleBand()
@@ -68,7 +70,7 @@ angular.module('app')
           return "Average Rating: <span style='color:#21AAE1; line-height: 1.5;'> " + d[survey] + "</span>" + "<br>" + "Responded: <span style='color:#21AAE1; line-height: 1.5;'> " + d[count] + "</span>"
         })
         .style('font-size', '11px')
-      var svg = d3.select("#barChart").append("svg")
+      var svg = d3.select("#surveyBarChart").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -135,6 +137,7 @@ angular.module('app')
           else return '#252525';
         })
       $scope.changeBar = () => {
+          console.log('hello from changeBar')
         let num = 9;
         let newSurvey = $scope.survey
         let newFilteredData = sd.filter(e => e.cohort === $scope.cohort);
@@ -154,7 +157,7 @@ angular.module('app')
           .attr("height", function (d) {
             return 0;
           })
-        d3.select('#barChart')
+        d3.select('#surveyBarChart')
           .selectAll(".bar")
           .data(newData)
           .attr("x", function (d) {
