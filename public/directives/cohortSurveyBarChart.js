@@ -3,16 +3,18 @@ angular.module('app')
   return {
     template: '<div id="surveyBarChart"></div>',
     scope: {
-        sd: '='
+        sd: '=',
+        survey: '='
     },
     controller: function ($scope, surveyService) {
-      $scope.survey = 'MSAT'
-      $scope.cohort = 'WPR23'
-      let survey = $scope.survey
-
-    $scope.sd
-
-      let filteredData = $scope.sd.filter(e => e.cohort === $scope.cohort);
+    //   $scope.survey = 'MSAT'
+    //   $scope.cohort = 'WPR21'
+    // $scope.sd
+    //   let filteredData = $scope.sd.filter(e => e.cohort === $scope.cohort);
+    
+    let survey = $scope.survey
+    let filteredData = $scope.sd
+    
       let averages = (dataArr) => {
         let arr = []
         let obj = {}

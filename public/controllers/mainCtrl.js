@@ -437,10 +437,13 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     //----------------get data for cohort surveys bar chart-------------//
 
-
-    $scope.sd = surveyService.data; // all survey data from surveysService
-
+    $scope.surveyColumn = 'FSAT'
+    $scope.cohort = 'WPR21'
+    var surveyGraphData = surveyService.data;
+    $scope.sd = surveyGraphData.filter(e => e.cohort === $scope.cohort);
+    
     $scope.getBarChartSurveyData = () => {
+      // let sd = surveyService.data; // all survey data from surveysService
 
             let newSurvey = event.target.value; //satisfaction type
             console.log(newSurvey)
