@@ -8,7 +8,7 @@ $scope.cohortStatus;
         $scope.surveyName = column || "OSAT"
         $scope.cohortStatus = status || 'all'
 
-        $scope.cohortName = "WPR23" //While testing will need to be all cohorts and you can choose active or inactive.
+        $scope.cohortName = "WPR23" //While testing will need to use cohortStatus once endpoint is up and running.
         console.log($scope.surveyName)
         var surveyGraphData = surveyService.data;
         $scope.sd = surveyGraphData.filter(e => e.cohort === $scope.cohortName);

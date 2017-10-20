@@ -11,6 +11,8 @@ angular.module('app')
       let survey = $scope.survey //OSAT || MSAT || FSAT || CSAT
       let filteredData = $scope.sd //All data;
 
+      //Builds graph with initial data. 
+
       let averages = (dataArr) => {
         let arr = []
         let obj = {}
@@ -88,6 +90,7 @@ angular.module('app')
 
 
       changeScatter = () => {
+        //Will need to rebuild entire graph with the new data. 
         let newSurvey = $scope.survey 
         let newFilteredData = $scope.sd
         console.log(newSurvey)
