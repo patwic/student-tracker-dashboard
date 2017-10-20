@@ -139,8 +139,7 @@ angular.module('app')
     changeBar = () => {
         let num = 9;
         let newSurvey = $scope.survey
-        console.log(newSurvey)
-        let newFilteredData = $scope.sd.filter(e => e.cohort === $scope.cohort);
+        let newFilteredData = $scope.sd
         let newData = averages(newFilteredData)
         var yD = d3.scaleLinear().domain([0, 10]).range([height - 20, 0]);
         var tip = d3.tip()
