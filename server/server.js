@@ -36,6 +36,7 @@ dbComms = require('./dbComms')
 
 const q = require('./q'),
       alert = require('./alert')
+      survey = require('./survey')
 
 // ---------------------------------
 passport.use('devmtn', new devAuth({
@@ -204,6 +205,8 @@ app.post('/api/prefs/', (req, res) => {
             else res.status(200).send('User updated.')
       })
 }) //for user preference database
+
+app.get('/api/surveys/getWeekly', survey.getWeekly)
 
 //for testing purposes; remove once live
 app.put('/api/reset', (req, res) => {
