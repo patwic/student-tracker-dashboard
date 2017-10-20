@@ -1,16 +1,27 @@
-<section class='surveys-section'>
+<section class='surveys-section' ng-controller='surveysCtrl'>
     <div class='surveys-graphBox'>
         <div class='surveys-boxBar'>
             <h3>WEEKLY SURVEY SCORES</h3>
-                <div class='cohort-SelectorBackground'>
-                    <select class='cohort-ScatterGraphSelector'>
+            <div class='survey-ScatterSelectsContainer'>
+                <div class='survey-ScatterSelectorBackground'>
+                        <select ng-model='surveyName' class='cohort-ScatterGraphSelector'  ng-change='changeSurveyName()'>
+                                <option selected value="OSAT">Overall Satisfaction</option>
+                                <option value="MSAT">Mentor Satisfaction</option>
+                                <option value="FSAT">Instructor Satisfaction</option>
+                                <option value="CSAT">Curriculum Satisfaction</option>
+                    </select>
+                </div>
+
+                <div class='survey-ScatterSelectorBackground'>
+                    <select ng-model='cohortStatus' class='cohort-ScatterGraphSelector' ng-change='changeCohortStatus()'>
                             <option value="all">All Cohorts</option>
                             <option value="active">Active Cohorts</option>
                             <option value="past">Past Cohorts</option>
                     </select>
                 </div>
+            </div>
         </div>
-        <survey-scatter></survey-scatter>
+        <survey-scatter sd='sd' survey='surveyName'></survey-scatter>
     </div>
 </section>
 <section class='surveys-alertSection'>

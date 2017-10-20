@@ -439,7 +439,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     getCohortSurveyData = (column) => {
       $scope.surveyColumn = column || "OSAT"
-      $scope.cohortName = "WPR23"
+      $scope.cohortName = "WPR23" ///////// Have to figure out how to make this not hard-coded. 
       var surveyGraphData = surveyService.data;
       $scope.sd = surveyGraphData.filter(e => e.cohort === $scope.cohortName);
     }

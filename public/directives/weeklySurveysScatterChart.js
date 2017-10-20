@@ -2,13 +2,17 @@ angular.module('app')
 .directive('surveyScatter', function () {
   return {
     template: '<div id="surveyScatter"></div>',
+    scope: {
+      sd: '=',
+      survey: '='
+    },
     controller: function ($scope, surveyService) {
-      
-      $scope.survey = 'MSAT'
-      $scope.cohort = 'WPR23'
-      let survey = $scope.survey
-      let sd = surveyService.data
-      let filteredData = sd.filter(e => e.cohort === $scope.cohort);
+
+      let survey = $scope.survey //OSAT || MSAT || FSAT || CSAT
+      let filteredData = $scope.sd //All data;
+
+      //Builds graph with initial data. 
+
       let averages = (dataArr) => {
         let arr = []
         let obj = {}
@@ -74,7 +78,7 @@ angular.module('app')
           return x(+d.unit);
         })
         .attr("cy", function (d) {
-          console.log(+d[survey])
+          // console.log(+d[survey])
           return y(+d[survey]);
         })
       svg.append("g")
@@ -82,6 +86,26 @@ angular.module('app')
         .call(d3.axisBottom(x));
       svg.append("g")
         .call(d3.axisLeft(y));
+  
+
+
+      changeScatter = () => {
+        //Will need to rebuild entire graph with the new data. 
+        let newSurvey = $scope.survey 
+        let newFilteredData = $scope.sd
+        console.log(newSurvey)
+        console.log(newFilteredData)
+      }
+
+      $scope.$watch('survey', function (newValue, oldValue) {
+        changeScatter($scope.survey)
+      })
+      $scope.$watch('sd', function(newValue, oldValue) {
+        changeScatter($scope.sd)
+      })
+
+    
     }
   }
+
 })
