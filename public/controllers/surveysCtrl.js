@@ -8,11 +8,16 @@ $scope.cohortStatus;
         $scope.surveyName = column || "OSAT"
         $scope.cohortStatus = status || 'all'
 
+        surveyService.getWeeklySurveyData().then(res => {
+            $scope.sd = res.data
+            console.log($scope.sd)
+        })
+
         $scope.cohortName = "WPR23" //While testing will need to use cohortStatus once endpoint is up and running.
         console.log($scope.surveyName)
-        var surveyGraphData = surveyService.data;
-        $scope.sd = surveyGraphData.filter(e => e.cohort === $scope.cohortName);
+    //     $scope.sd = surveyGraphData.filter(e => e.cohort === $scope.cohortName);
       }
+
     getAllSurveyData()
 
     $scope.changeSurveyName = () => {

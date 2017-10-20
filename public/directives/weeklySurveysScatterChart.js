@@ -9,8 +9,10 @@ angular
       },
       controller: function ($scope, surveyService) {
 
+
         let survey = $scope.survey //OSAT || MSAT || FSAT || CSAT
         let filteredData = $scope.sd //All data;
+        console.log($scope.sd)
 
         //Builds graph with initial data.
 
@@ -82,7 +84,7 @@ angular
 
         var x = d3
           .scaleLinear()
-          .domain([1, 13])
+          .domain([0, 13])
           .range([0, width]);
 
         var y = d3
