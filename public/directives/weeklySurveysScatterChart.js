@@ -90,11 +90,15 @@ angular.module('app')
       changeScatter = () => {
         let newSurvey = $scope.survey 
         let newFilteredData = $scope.sd
-        // console.log(newSurvey)
+        console.log(newSurvey)
+        console.log(newFilteredData)
       }
 
       $scope.$watch('survey', function (newValue, oldValue) {
         changeScatter($scope.survey)
+      })
+      $scope.$watch('sd', function(newValue, oldValue) {
+        changeScatter($scope.sd)
       })
 
     
