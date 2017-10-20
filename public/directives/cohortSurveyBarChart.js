@@ -7,14 +7,10 @@ angular.module('app')
         survey: '='
     },
     controller: function ($scope, surveyService) {
-    //   $scope.survey = 'MSAT'
-    //   $scope.cohort = 'WPR21'
-    // $scope.sd
-    //   let filteredData = $scope.sd.filter(e => e.cohort === $scope.cohort);
     
     let survey = $scope.survey
     let filteredData = $scope.sd
-    
+
       let averages = (dataArr) => {
         let arr = []
         let obj = {}
@@ -140,10 +136,10 @@ angular.module('app')
           if (d[survey] >= num) return '#21AAE1'
           else return '#252525';
         })
-      $scope.changeBar = () => {
-          console.log('hello')
+    changeBar = () => {
         let num = 9;
         let newSurvey = $scope.survey
+        console.log(newSurvey)
         let newFilteredData = $scope.sd.filter(e => e.cohort === $scope.cohort);
         let newData = averages(newFilteredData)
         var yD = d3.scaleLinear().domain([0, 10]).range([height - 20, 0]);
@@ -201,6 +197,10 @@ angular.module('app')
             else return '#252525';
           })
       }
+
+      $scope.$watch('survey', function (newValue, oldValue) {
+        changeBar($scope.survey)
+      })
     }
   }
 })
