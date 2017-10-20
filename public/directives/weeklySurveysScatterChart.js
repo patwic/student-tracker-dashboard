@@ -46,16 +46,16 @@ angular.module('app')
       let data = averages(filteredData)
       
       var margin = {
-        top: 50,
+        top: 40,
         right: 40,
-        bottom: 20,
-        left: 80
+        bottom: 30,
+        left: 50
       }
   
-        // var width = document.getElementById('surveyScatter').offsetWidth - margin.right - margin.left;
-        // var height = document.getElementById('surveyScatter').offsetHeight - margin.top - margin.bottom - 50;
-      var height = 400;
-      var width = 600;
+        var width = document.getElementById('graphBoxDiv').offsetWidth - margin.right - margin.left;
+        var height = document.getElementById('graphBoxDiv').offsetHeight - margin.top - margin.bottom - 80;
+      // var height = 400;
+      // var width = 600;
       var x = d3.scalePoint()
       .range([0, width]);
       var y = d3.scalePoint()

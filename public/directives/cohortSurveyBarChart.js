@@ -43,16 +43,16 @@ angular.module('app')
       }
       let data = averages(filteredData)
       var margin = {
-        top: 100,
+        top: 30,
         right: 30,
-        bottom: 40,
+        bottom: 30,
         left: 50
       }
       let num = 9;
-    //   var width = document.getElementById('surveyBarChart').offsetWidth - margin.right - margin.left;
-    //   var height = document.getElementById('surveyBarChart').offsetHeight - margin.top - margin.bottom - 80;
-      var height = 400;
-      var width = 600;
+      var width = document.getElementById('barDiv').offsetWidth - margin.right - margin.left;
+      var height = document.getElementById('barDiv').offsetHeight - margin.top - margin.bottom - 80;
+      // var height = 542;
+      // var width = 1158;
       var x = d3.scaleBand()
         .domain([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])
         .range([0, width])
@@ -101,7 +101,7 @@ angular.module('app')
         })
         .attr('fill', function (d) {
           if (d[survey] >= num) return '#21AAE1'
-          else return '#252525';
+          else return '#3d3d3d';
         })
         .on('mouseover', function (d) {
           tip.show(d)
@@ -120,7 +120,7 @@ angular.module('app')
               .attr("fill", '#21AAE1');
           } else {
             d3.select(this)
-              .attr("fill", "#252525");
+              .attr("fill", "#3d3d3d");
           }
         })
         .transition()
@@ -134,7 +134,7 @@ angular.module('app')
         })
         .attr('fill', function (d) {
           if (d[survey] >= num) return '#21AAE1'
-          else return '#252525';
+          else return '#3d3d3d';
         })
     changeBar = () => {
         let num = 9;
@@ -179,7 +179,7 @@ angular.module('app')
                 .attr("fill", '#21AAE1');
             } else {
               d3.select(this)
-                .attr("fill", "#252525");
+                .attr("fill", "#3d3d3d");
             }
           })
           .transition()
@@ -193,7 +193,7 @@ angular.module('app')
           })
           .attr('fill', function (d) {
             if (d[newSurvey] >= num) return '#21AAE1'
-            else return '#252525';
+            else return '#3d3d3d';
           })
       }
 
