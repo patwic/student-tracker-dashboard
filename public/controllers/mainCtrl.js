@@ -437,6 +437,8 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     //----------------get data for cohort surveys bar chart-------------//
 
+    $scope.surveyName = ""
+    
     getCohortSurveyData = (column) => {
       $scope.surveyColumn = column || "OSAT"
       $scope.cohortName = "WPR23" ///////// Have to figure out how to make this not hard-coded. 
