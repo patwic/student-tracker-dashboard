@@ -42,6 +42,7 @@ angular.module('app')
         return arr
       }
       let data = averages(filteredData)
+      console.log(data)
       var margin = {
         top: 30,
         right: 30,
@@ -51,8 +52,7 @@ angular.module('app')
       let num = 9;
       var width = document.getElementById('barDiv').offsetWidth - margin.right - margin.left;
       var height = document.getElementById('barDiv').offsetHeight - margin.top - margin.bottom - 80;
-      // var height = 542;
-      // var width = 1158;
+
       var x = d3.scaleBand()
         .domain([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])
         .range([0, width])
