@@ -438,7 +438,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     //----------------get data for cohort surveys bar chart-------------//
 
     getCohortSurveyData = (column) => {
-      $scope.surveyColumn = column || "MSAT"
+      $scope.surveyColumn = column || "OSAT"
       $scope.cohortName = "WPR23"
       var surveyGraphData = surveyService.data;
       $scope.sd = surveyGraphData.filter(e => e.cohort === $scope.cohortName);

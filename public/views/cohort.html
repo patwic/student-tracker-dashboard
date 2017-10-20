@@ -235,12 +235,12 @@
     </div>
     <div class='cohort-SurveyGraphBox'>
         <div class='cohort-SurveyGraphContainer'>
-            <div class='cohort-SurveyScatterGraph'>
+            <div class='cohort-SurveyScatterGraph' id="barDiv">
                 <div class='cohort-SurveyGraphBoxNav'>
                     <h3>WEEKLY SURVEY SCORES</h3>
                     <div class='cohort-SelectorBackground'>
                             <!-- //////// -->
-                            <select ng-model='survey' class='cohort-ScatterGraphSelector'  ng-change='getBarChartSurveyData()'>
+                            <select ng-model='surveyColumn' class='cohort-ScatterGraphSelector'  ng-change='getBarChartSurveyData()'>
                                     <option selected value="MSAT">Mentor Satisfaction</option>
                                     <option value="OSAT">Overall Satisfaction</option>
                                     <option value="FSAT">Instructor Satisfaction</option>
