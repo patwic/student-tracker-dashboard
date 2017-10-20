@@ -200,6 +200,9 @@ angular.module('app')
       $scope.$watch('survey', function (newValue, oldValue) {
         changeBar($scope.survey)
       })
+      $scope.$watch('sd', function (newValue, oldValue) {
+        changeScatter($scope.survey, $scope.sd)
+      })
     }
   }
 })

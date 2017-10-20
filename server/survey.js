@@ -4,9 +4,12 @@ app = require('./server')
 
 module.exports = {
     getWeekly: (req, res) => {
-        request.get('https://surveys.devmountain.com/api/tableau/data', (err, resp, body) => {
-            console.log(resp)
-              res.send(resp)
+        var options = {
+            uri: config.weeklySurveyAPI,
+            json: true // Automatically parses the JSON string in the response
+        };
+        request(options).then(function (resp) {
+            res.send(resp)
         })
     }
 }
