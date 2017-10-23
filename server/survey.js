@@ -11,6 +11,17 @@ module.exports = {
         request(options).then(function (resp) {
             res.send(resp)
         })
+    },
+
+    getWeeklyByCohortId: (req, res) => {
+        console.log(req.query.id)
+        var options = {
+            uri: config.weeklySurveyAPI + `?cohort=${req.query.id}`,
+            json: true 
+        };
+        request(options).then(function (resp) {
+            res.send(resp)
+        })
     }
 }
 

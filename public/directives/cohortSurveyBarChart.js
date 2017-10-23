@@ -140,10 +140,10 @@ angular.module('app')
         let num = 9;
         let newSurvey = $scope.survey
         let newFilteredData = $scope.sd
-        console.log(newSurvey)
-        console.log(newFilteredData)
+        // console.log(newSurvey)
+        // console.log(newFilteredData)
         let newData = averages(newFilteredData)
-        console.log(newData)
+        // console.log(newData)
 
         var yD = d3.scaleLinear().domain([0, 10]).range([height - 20, 0]);
         var tip = d3.tip()

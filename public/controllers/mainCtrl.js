@@ -439,22 +439,14 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     $scope.surveyName = ""
     
-    
     getCohortSurveyData = (column) => {
       $scope.surveyColumn = column || "OSAT"
-      $scope.cohortName = "WPR27" ///////// Have to figure out how to make this not hard-coded. 
-      // var surveyGraphData = surveyService.data;
+
       // $scope.sd = surveyGraphData.filter(e => e.cohort === $scope.cohortName);
 
-      $scope.sd = surveyService.getWeeklySurveyData().then(res => {
-        // console.log(res.data)
-        
-                    let stuff = res.data.filter(e => {
-                        return  e.cohort === $scope.cohortName;  
-                    })
-                    
-                    $scope.sd = stuff
-                    // console.log($scope.sd)
+      $scope.sd = surveyService.getWeeklySurveyDataByCohortId($scope.cohortId).then(res => {
+          console.log(res.data)
+          return res.data;
       })
     }
     getCohortSurveyData()
