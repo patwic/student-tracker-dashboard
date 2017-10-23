@@ -43,7 +43,6 @@ angular.module('app')
         return arr
       }
       let data = averages(filteredData)
-      console.log(data)
       var margin = {
         top: 30,
         right: 30,

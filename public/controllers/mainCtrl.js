@@ -438,13 +438,9 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     //----------------get data for cohort surveys bar chart-------------//
 
     $scope.surveyName = ""
-
-    surveyService.getWeeklySurveyDataByCohortId($scope.cohortId || 120).then(res => {
-      $scope.sd = res.data;
-    })
     
     getCohortSurveyData = () => {
-      surveyService.getWeeklySurveyDataByCohortId($scope.cohortId || 120).then(res => {
+      surveyService.getWeeklySurveyDataByCohortId($scope.cohortId || 111).then(res => {
           $scope.sd = res.data;
       })
     }
