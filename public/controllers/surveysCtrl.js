@@ -32,5 +32,10 @@ $scope.selectedProgram;
   
 
 
+    $scope.changeSelectedTopic = () => {
+        console.log(event.target.value)
+    }
+
+
 
 })

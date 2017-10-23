@@ -5,7 +5,7 @@ this.getWeeklySurveyData = () => {
 }
 
 this.getWeeklySurveyDataByCohortId = (cohort_id) => {
-  return $http.get(`/api/surveys/getWeeklyById?id=${cohort_id}`)
+    return $http.get(`/api/surveys/getWeeklyById?id=${cohort_id}`)
 }
 
 })
