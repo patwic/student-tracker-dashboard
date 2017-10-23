@@ -7,6 +7,7 @@ angular.module('app')
         survey: '='
     },
     controller: function ($scope, surveyService) {
+      console.log($scope.sd)
     
     let survey = $scope.survey
     let filteredData = $scope.sd
@@ -136,10 +137,10 @@ angular.module('app')
           if (d[survey] >= num) return '#21AAE1'
           else return '#3d3d3d';
         })
-    changeBar = () => {
+    changeBar = (surveyType, surveyData) => {
         let num = 9;
-        let newSurvey = $scope.survey
-        let newFilteredData = $scope.sd
+        let newSurvey = surveyType
+        let newFilteredData = surveyData
         console.log(newSurvey)
         console.log(newFilteredData)
         let newData = averages(newFilteredData)
@@ -205,6 +206,8 @@ angular.module('app')
         changeBar($scope.survey, $scope.sd)
       })
       $scope.$watch('sd', function (newValue, oldValue) {
+        console.log($scope.survey)
+        console.log($scope.sd)
         changeBar($scope.survey, $scope.sd)
       })
     }

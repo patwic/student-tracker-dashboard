@@ -206,7 +206,8 @@ app.post('/api/prefs/', (req, res) => {
       })
 }) //for user preference database
 
-app.get('/api/surveys/getWeekly', survey.getWeekly)
+app.get('/api/surveys/getWeekly', survey.getWeekly) //gets all weekly surveys results
+app.get('/api/surveys/getWeeklyById', survey.getWeeklyByCohortId) //gets all weekly surveys results by cohort id.
 
 //for testing purposes; remove once live
 app.put('/api/reset', (req, res) => {
