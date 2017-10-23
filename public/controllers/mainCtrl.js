@@ -439,30 +439,16 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     $scope.surveyName = ""
 
-    surveyService.getWeeklySurveyDataByCohortId($scope.cohortId).then(res => {
-      console.log(res.data)
-      let response = res.data
-      $scope.sd = response.filter(e => e.cohort === $scope.cohortName);
-      console.log($scope.sd)
+    surveyService.getWeeklySurveyDataByCohortId($scope.cohortId || 120).then(res => {
+        $scope.sd = res.data;
     })
     
     getCohortSurveyData = (column) => {
       $scope.surveyColumn = column || "OSAT"
-      $scope.cohortName = 'WPR29'
-      // var surveyGraphData = [];
-       
-
-      // $scope.sd = surveyService.getWeeklySurveyDataByCohortId($scope.cohortId).then(res => {
-      //     console.log(res.data)
-      //     return res.data;
-      // })
     }
     getCohortSurveyData()
 
-
-
     $scope.getBarChartSurveyData = () => {
-      console.log(event.target.value)
       getCohortSurveyData(event.target.value)
     }
 

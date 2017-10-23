@@ -7,6 +7,7 @@ angular.module('app')
         survey: '='
     },
     controller: function ($scope, surveyService) {
+      console.log($scope.sd)
     
     let survey = $scope.survey
     let filteredData = $scope.sd

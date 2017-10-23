@@ -4,19 +4,18 @@ app = require('./server')
 
 module.exports = {
     getWeekly: (req, res) => {
-        var options = {
-            uri: config.weeklySurveyAPI,
-            json: true // Automatically parses the JSON string in the response
-        };
+            var options = {
+                uri: config.weeklySurveyAPI,
+                json: true // Automatically parses the JSON string in the response
+            }; 
         request(options).then(function (resp) {
             res.send(resp)
         })
     },
 
     getWeeklyByCohortId: (req, res) => {
-        console.log(req.query.id)
         var options = {
-            uri: config.weeklySurveyAPI + `?cohort=${req.query.id}`,
+            uri: 'https://surveys.devmountain.com/api/tableau/data?cohort=' + req.query.id,
             json: true 
         };
         request(options).then(function (resp) {
