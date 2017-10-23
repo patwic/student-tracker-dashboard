@@ -136,14 +136,14 @@ angular.module('app')
           if (d[survey] >= num) return '#21AAE1'
           else return '#3d3d3d';
         })
-    changeBar = () => {
+    changeBar = (surveyType, surveyData) => {
         let num = 9;
-        let newSurvey = $scope.survey
-        let newFilteredData = $scope.sd
-        // console.log(newSurvey)
-        // console.log(newFilteredData)
+        let newSurvey = surveyType
+        let newFilteredData = surveyData
+        console.log(newSurvey)
+        console.log(newFilteredData)
         let newData = averages(newFilteredData)
-        // console.log(newData)
+        console.log(newData)
 
         var yD = d3.scaleLinear().domain([0, 10]).range([height - 20, 0]);
         var tip = d3.tip()
@@ -205,6 +205,8 @@ angular.module('app')
         changeBar($scope.survey, $scope.sd)
       })
       $scope.$watch('sd', function (newValue, oldValue) {
+        console.log($scope.survey)
+        console.log($scope.sd)
         changeBar($scope.survey, $scope.sd)
       })
     }
