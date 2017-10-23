@@ -122,13 +122,15 @@ angular
           .append("g")
           .call(d3.axisLeft(y));
 
-        changeScatter = (newSurvey) => {
+        changeScatter = (newSurvey, newSd) => {
           //Will need to rebuild entire graph with the new data.
-          console.log($scope.survey);
-          console.log(survey);
           survey = newSurvey;
-          let newFilteredData = $scope.sd
+          console.log(survey);
+          let newFilteredData = newSd
           console.log(newFilteredData)
+
+          let newData = averages(newFilteredData)
+          console.log(newData)
 
           svg
             .selectAll('circle')
@@ -136,7 +138,7 @@ angular
 
           svg
             .selectAll("dot")
-            .data(data)
+            .data(newData)
             .enter()
             .append("circle")
             .attr("r", 4)
