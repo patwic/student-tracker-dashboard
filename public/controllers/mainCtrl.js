@@ -440,17 +440,20 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.surveyName = ""
 
     surveyService.getWeeklySurveyDataByCohortId($scope.cohortId || 120).then(res => {
-        $scope.sd = res.data;
+      $scope.sd = res.data;
     })
     
-    getCohortSurveyData = (column) => {
-      $scope.surveyColumn = column || "OSAT"
+    getCohortSurveyData = () => {
+      surveyService.getWeeklySurveyDataByCohortId($scope.cohortId || 120).then(res => {
+          $scope.sd = res.data;
+      })
     }
     getCohortSurveyData()
 
     $scope.getBarChartSurveyData = () => {
-      getCohortSurveyData(event.target.value)
+      $scope.surveyColumn = event.target.value || "OSAT"
     }
+    $scope.getBarChartSurveyData()
 
 
 
@@ -585,6 +588,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       loadAllDatePickers()
       updateAbsences()
       getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId)
+      getCohortSurveyData($scope.cohortId)
       menuOpen = false
     }
 
