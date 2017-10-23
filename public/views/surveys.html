@@ -13,10 +13,12 @@
                 </div>
 
                 <div class='survey-ScatterSelectorBackground'>
-                    <select ng-model='cohortStatus' class='cohort-ScatterGraphSelector' ng-change='changeCohortStatus()'>
-                            <option value="all">All Cohorts</option>
-                            <option value="active">Active Cohorts</option>
-                            <option value="past">Past Cohorts</option>
+                    <select ng-model='cohortStatus' class='cohort-ScatterGraphSelector' ng-change='changeselectedProgram()'>
+                            <option value="all">All Programs</option>
+                            <option value="webdev">Web Developement</option>
+                            <option value="ux">UX-UI</option>
+                            <option value="ios">IOS</option>
+                            <option value="qa">QA</option>
                     </select>
                 </div>
             </div>

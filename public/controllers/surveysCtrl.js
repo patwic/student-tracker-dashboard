@@ -2,26 +2,38 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
 
 $scope.surveyName;
 $scope.cohortName;
-$scope.cohortStatus;
+$scope.selectedProgram;
 
 
-$scope.sd = surveyService.getWeeklySurveyData().then(res => {
-    let name = "WPR27" 
+// $scope.sd = surveyService.getWeeklySurveyData().then(res => {
 
-    let stuff = res.data.filter(e => {
-       return  e.cohort === name   
-    })
+//     // console.log(res.data)
+//     let name = "ux" 
 
-    $scope.sd = stuff
-    console.log($scope.sd)
-})
+//     let stuff = res.data.filter(e => {
+//        return  e.program === name   
+//     })
 
-    getAllSurveyData = (status, column) => {
+//     $scope.sd = stuff
+//     console.log($scope.sd)
+// })
+
+    getAllSurveyData = (program, column) => {
         $scope.surveyName = column || "OSAT"
-        $scope.cohortStatus = status || 'all'
-        $scope.cohortName = "WPR23" //While testing will need to use cohortStatus once endpoint is up and running.
-        console.log($scope.surveyName)
-    //     $scope.sd = surveyGraphData.filter(e => e.cohort === $scope.cohortName);
+        $scope.selectedProgram = program || 'ux'
+
+        $scope.sd = surveyService.getWeeklySurveyData().then(res => {
+            
+                // console.log(res.data)
+                // let name =  program || "ux" 
+            
+                let stuff = res.data.filter(e => {
+                   return  e.program === $scope.selectedProgram   
+                })
+            
+                $scope.sd = stuff
+                console.log($scope.sd)
+            })
       }
 
     getAllSurveyData()
@@ -29,10 +41,10 @@ $scope.sd = surveyService.getWeeklySurveyData().then(res => {
  
 
     $scope.changeSurveyName = () => {
-        getAllSurveyData($scope.cohortStatus, event.target.value)
+        getAllSurveyData($scope.selectedProgram, event.target.value)
     }
 
-    $scope.changeCohortStatus = () => {
+    $scope.changeselectedProgram = () => {
         getAllSurveyData(event.target.value, $scope.surveyName)
     }
   
