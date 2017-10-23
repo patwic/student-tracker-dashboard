@@ -4,6 +4,10 @@ this.getWeeklySurveyData = () => {
   return $http.get('/api/surveys/getWeekly')
 }
 
+this.getWeeklySurveyDataByCohortId = (cohort_id) => {
+  console.log(cohort_id)
+  return $http.get(`/api/surveys/getWeeklyById?id=${cohort_id}`)
+}
 
 
  this.data = [{

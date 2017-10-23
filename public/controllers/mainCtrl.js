@@ -438,31 +438,22 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     //----------------get data for cohort surveys bar chart-------------//
 
     $scope.surveyName = ""
-    
-    
-    getCohortSurveyData = (column) => {
-      $scope.surveyColumn = column || "OSAT"
-      $scope.cohortName = "WPR27" ///////// Have to figure out how to make this not hard-coded. 
-      // var surveyGraphData = surveyService.data;
-      // $scope.sd = surveyGraphData.filter(e => e.cohort === $scope.cohortName);
 
-      $scope.sd = surveyService.getWeeklySurveyData().then(res => {
-        // console.log(res.data)
-        
-                    let stuff = res.data.filter(e => {
-                        return  e.cohort === $scope.cohortName;  
-                    })
-                    
-                    $scope.sd = stuff
-                    // console.log($scope.sd)
+    surveyService.getWeeklySurveyDataByCohortId($scope.cohortId || 120).then(res => {
+      $scope.sd = res.data;
+    })
+    
+    getCohortSurveyData = () => {
+      surveyService.getWeeklySurveyDataByCohortId($scope.cohortId || 120).then(res => {
+          $scope.sd = res.data;
       })
     }
     getCohortSurveyData()
 
     $scope.getBarChartSurveyData = () => {
-      console.log(event.target.value)
-      getCohortSurveyData(event.target.value)
+      $scope.surveyColumn = event.target.value || "OSAT"
     }
+    $scope.getBarChartSurveyData()
 
 
 
@@ -597,6 +588,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       loadAllDatePickers()
       updateAbsences()
       getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId)
+      getCohortSurveyData($scope.cohortId)
       menuOpen = false
     }
 
