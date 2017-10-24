@@ -110,7 +110,7 @@ angular
             let count = survey + 'count'
             console.log("THIS IS AFTER THE D", $scope.sd);
             console.log(d);
-            return "Average Rating: <span style='color:#21AAE1; line-height: 1.5;'> " + d[survey] + "</span><br>Responded: <span style='color:#21AAE1; line-height: 1.5;'> " + d[count] + "</span></span><br>Program: <span style='color:#21AAE1; line-height: 1.5;'> " + d.program + "</span>"
+            return "Average Rating: <span style='color:#21AAE1; line-height: 1.5;'> " + d[survey] + "</span><br>Responded: <span style='color:#21AAE1; line-height: 1.5;'> " + d[count] + "</span></span><br>Program: <span style='color:#21AAE1; line-height: 1.5;'> " + d.program.toUpperCase() + "</span>"
           })
 
         var svg = d3
@@ -215,7 +215,7 @@ angular
                 // console.log(+d[survey])
                 return y(+ d[survey]);
               })
-              .attr("fill", "limegreen")
+              .attr("fill", "#bc4866")
               .on('mouseover', function (d) {
                 tip.show(d)
               })
@@ -239,7 +239,7 @@ angular
                 // console.log(+d[survey])
                 return y(+ d[survey]);
               })
-              .attr("fill", "red")
+              .attr("fill", "#6cba75")
               .on('mouseover', function (d) {
                 tip.show(d)
               })
@@ -263,7 +263,7 @@ angular
                 // console.log(+d[survey])
                 return y(+ d[survey]);
               })
-              .attr("fill", "white")
+              .attr("fill", "#c4c4c4")
               .on('mouseover', function (d) {
                 tip.show(d)
               })
@@ -299,11 +299,11 @@ angular
                   case "webdev":
                     return "#21AAE1"
                   case "ios":
-                    return "limegreen"
+                    return "#bc4866"
                   case "qa":
-                    return "red"
+                    return "#6cba75"
                   case "ux":
-                    return "white"
+                    return "#c4c4c4"
                 }
               })
               .on('mouseover', function (d) {
