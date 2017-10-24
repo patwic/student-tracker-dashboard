@@ -9,22 +9,26 @@ angular
       },
       controller: function ($scope, surveyService) {
 
-
         let survey = $scope.survey //OSAT || MSAT || FSAT || CSAT
         let filteredData = $scope.sd //All data;
-        console.log($scope.sd)
+        console.log('filtered data: ', filteredData)
+        console.log('survey', survey);
 
         //Builds graph with initial data.
-
+        let arrLength;
         let averages = (dataArr) => {
+          // console.log('Averages dataArr: ', dataArr)
           let arr = []
           let obj = {}
           let max = 0;
-          let min = 13;
+          let min = 7;
           for (let i = 0; i < dataArr.length; i++) {
             let u = dataArr[i].unit
-            if (u > max) 
+            // console.log(u);
+            if (u > max && u < 14) 
               max = u
+            if (u > max && u > 13) 
+              max = 13
             if (u < min) 
               min = u
             let d = dataArr[i]
@@ -56,18 +60,24 @@ angular
               : 1
           }
           for (let i = min; i <= max; i++) {
+            // console.log("min: ", min)
+            // console.log("max: ", max)
+            if (dataArr[i].program === 'ios' && i === 8) {
+              if (!obj[i]) 
+                continue
+            }
             obj[i].CSAT = (obj[i].CSAT / obj[i].CSATcount).toFixed(2)
             obj[i].FSAT = (obj[i].FSAT / obj[i].FSATcount).toFixed(2)
             obj[i].MSAT = (obj[i].MSAT / obj[i].MSATcount).toFixed(2)
             obj[i].OSAT = (obj[i].OSAT / obj[i].OSATcount).toFixed(2)
             obj[i].unit = i
             arr.push(obj[i])
+            // console.log("arr: ", arr);
           }
           return arr
         }
         let data = averages(filteredData)
         // let data = filteredData
-        console.log("data", data)
         var margin = {
           top: 40,
           right: 40,
@@ -125,31 +135,114 @@ angular
         changeScatter = (newSurvey, newSd) => {
           //Will need to rebuild entire graph with the new data.
           survey = newSurvey;
-          console.log(survey);
+
+          let webdev = [];
+          let ios = [];
+          let qa = [];
+          let ux = [];
+
+          let newData = [];
+
           let newFilteredData = newSd
-          console.log(newFilteredData)
 
-          let newData = averages(newFilteredData)
-          console.log(newData)
+          if(Object.prototype.toString.call( newFilteredData ) !== '[object Array]') {
+            console.log("OBJECT", newFilteredData);
+            webdev = averages(newFilteredData.webdev);
+            ios = averages(newFilteredData.ios);
+            qa = averages(newFilteredData.qa);
+            ux = averages(newFilteredData.ux);
 
-          svg
-            .selectAll('circle')
-            .remove();
+            svg
+              .selectAll('circle')
+              .remove();
 
-          svg
-            .selectAll("dot")
-            .data(newData)
-            .enter()
-            .append("circle")
-            .attr("r", 4)
-            .attr("cx", function (d) {
-              return x(+ d.unit);
-            })
-            .attr("cy", function (d) {
-              // console.log(+d[survey])
-              return y(+ d[survey]);
-            })
-            .attr("fill", "#21AAE1")
+            // webdev
+            svg
+              .selectAll("dot")
+              .data(webdev)
+              .enter()
+              .append("circle")
+              .attr("r", 4)
+              .attr("cx", function (d) {
+                return x(+ d.unit);
+              })
+              .attr("cy", function (d) {
+                // console.log(+d[survey])
+                return y(+ d[survey]);
+              })
+              .attr("fill", "#21AAE1")
+
+            // ios
+            svg
+              .selectAll("dot")
+              .data(ios)
+              .enter()
+              .append("circle")
+              .attr("r", 4)
+              .attr("cx", function (d) {
+                return x(+ d.unit);
+              })
+              .attr("cy", function (d) {
+                // console.log(+d[survey])
+                return y(+ d[survey]);
+              })
+              .attr("fill", "limegreen")
+
+            // qa
+            svg
+              .selectAll("dot")
+              .data(qa)
+              .enter()
+              .append("circle")
+              .attr("r", 4)
+              .attr("cx", function (d) {
+                return x(+ d.unit);
+              })
+              .attr("cy", function (d) {
+                // console.log(+d[survey])
+                return y(+ d[survey]);
+              })
+              .attr("fill", "red")
+
+            //ux
+            svg
+              .selectAll("dot")
+              .data(ux)
+              .enter()
+              .append("circle")
+              .attr("r", 4)
+              .attr("cx", function (d) {
+                return x(+ d.unit);
+              })
+              .attr("cy", function (d) {
+                // console.log(+d[survey])
+                return y(+ d[survey]);
+              })
+              .attr("fill", "white")
+
+          } else {
+            newData = averages(newFilteredData)
+            console.log('ARRAY: ', newData)
+
+            svg
+              .selectAll('circle')
+              .remove();
+
+            svg
+              .selectAll("dot")
+              .data(newData)
+              .enter()
+              .append("circle")
+              .attr("r", 4)
+              .attr("cx", function (d) {
+                return x(+ d.unit);
+              })
+              .attr("cy", function (d) {
+                // console.log(+d[survey])
+                return y(+ d[survey]);
+              })
+              .attr("fill", "#21AAE1")
+          }
           svg
             .append("g")
             .attr("transform", "translate(0," + height + ")")
@@ -161,6 +254,7 @@ angular
 
         $scope
           .$watch('survey', function (newValue, oldValue) {
+            console.log('scope.sd: ', $scope.sd)
             changeScatter($scope.survey, $scope.sd)
           })
         $scope.$watch('sd', function (newValue, oldValue) {
