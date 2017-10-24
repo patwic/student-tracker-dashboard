@@ -7,10 +7,88 @@ angular.module('app')
         survey: '='
     },
     controller: function ($scope, surveyService) {
-      console.log($scope.sd)
     
     let survey = $scope.survey
-    let filteredData = $scope.sd
+    let filteredData = [{
+      "unit": 1,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 2,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 3,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 4,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 5,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 6,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 7,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 8,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 9,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 10,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    },  {
+      "unit": 11,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    },  {
+      "unit": 12,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    },  {
+      "unit": 13,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }
+    ]
 
       let averages = (dataArr) => {
         let arr = []
@@ -43,7 +121,6 @@ angular.module('app')
         return arr
       }
       let data = averages(filteredData)
-      console.log(data)
       var margin = {
         top: 30,
         right: 30,
@@ -141,10 +218,8 @@ angular.module('app')
         let num = 9;
         let newSurvey = surveyType
         let newFilteredData = surveyData
-        console.log(newSurvey)
         console.log(newFilteredData)
         let newData = averages(newFilteredData)
-        console.log(newData)
 
         var yD = d3.scaleLinear().domain([0, 10]).range([height - 20, 0]);
         var tip = d3.tip()
@@ -206,8 +281,6 @@ angular.module('app')
         changeBar($scope.survey, $scope.sd)
       })
       $scope.$watch('sd', function (newValue, oldValue) {
-        console.log($scope.survey)
-        console.log($scope.sd)
         changeBar($scope.survey, $scope.sd)
       })
     }

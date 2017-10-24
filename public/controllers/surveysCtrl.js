@@ -67,5 +67,10 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
   
 
 
+    $scope.changeSelectedTopic = () => {
+        console.log(event.target.value)
+    }
+
+
 
 })

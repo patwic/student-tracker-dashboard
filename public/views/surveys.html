@@ -25,7 +25,23 @@
         </div>
         <survey-scatter sd='sd' survey='surveyName'></survey-scatter>
     </div>
-</section>
+        <div class='surveys-graphBox' id="graphBoxDiv">
+            <div class='surveys-boxBar'>
+                <h3>SURVEY TOPIC SCORES</h3>
+                    <div class='survey-ScatterSelectorBackground'>
+                        <select ng-model='surveyTopic' class='cohort-ScatterGraphSelector' ng-change='changeSelectedTopic()'>
+                                <option value="Javascript">Javascript</option>
+                                <option value="React">React</option>
+                                <option value="Angular">Angular</option>
+                                <option value='CSS'>CSS</option>
+                                <option value='Review/Feedback'>Review/Feedback</option>
+                                <option value='satisfaction'>Satisfaction</option>
+                        </select>
+                </div>
+            </div>
+       
+        </div>
+    </section>
 <section class='surveys-alertSection'>
     <div class='surveys-alertsContainer'>
         <div class='surveys-alertBox'>
