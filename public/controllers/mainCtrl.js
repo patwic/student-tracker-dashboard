@@ -7,6 +7,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.waitQ;
   $scope.redAlerts;
   $scope.cohorts
+  $scope.comments;
   $scope.activeCohorts
   var getStudentPieData;
   var getLineChartCohortData;
@@ -435,7 +436,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     let filteredStudents;
 
-    //----------------get data for cohort surveys bar chart-------------//
+    //---------------- get data for cohort surveys bar chart -------------//
 
     $scope.surveyName = ""
     console.log($scope.cohortId)
@@ -443,7 +444,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     if($scope.cohortId) {
       getCohortSurveyData = () => {
         surveyService.getWeeklySurveyDataByCohortId($scope.cohortId).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
             $scope.sd = res.data;
         })
       }
@@ -454,18 +455,18 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     $scope.getBarChartSurveyData = () => {
       $scope.surveyColumn = event.target.value || "OSAT"
-      console.log($scope.surveyColumn)
+      // console.log($scope.surveyColumn)
     }
     $scope.getBarChartSurveyData()
 
 
-    // get data for weekly survey comments 
+    //---------------- get data for weekly survey comments ----------------//
 
     if($scope.cohortId) {
     getWeeklyCommentsByCohortId = (week) => {
       $scope.comments = surveyService.getWeeklyCommentsByCohortId($scope.cohortId).then(res => {
         console.log(res.data.filter(e => e.unit == week))
-        return res.data.filter(e => e.unit == week)
+        $scope.comments = res.data.filter(e => e.unit == week)
       })
     }
     getWeeklyCommentsByCohortId(1)
