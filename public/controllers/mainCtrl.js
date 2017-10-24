@@ -459,6 +459,24 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.getBarChartSurveyData()
 
 
+    // get data for weekly survey comments 
+
+    if($scope.cohortId) {
+    getWeeklyCommentsByCohortId = (week) => {
+      $scope.comments = surveyService.getWeeklyCommentsByCohortId($scope.cohortId).then(res => {
+        console.log(res.data.filter(e => e.unit == week))
+        return res.data.filter(e => e.unit == week)
+      })
+    }
+    getWeeklyCommentsByCohortId(1)
+    }
+
+    $scope.getCommentsByWeek = () => {
+      console.log(event.target.value)
+      getWeeklyCommentsByCohortId(event.target.value)
+    }
+
+
 
     //----------------get data for cohort line chart-------------//
 

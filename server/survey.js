@@ -21,6 +21,16 @@ module.exports = {
         request(options).then(function (resp) {
             res.send(resp)
         })
+    },
+
+    getWeeklyCommentsById: (req, res) => {
+        var options = {
+            uri: `https://surveys.devmountain.com/api/tableau/data?cohort=${req.query.id}&comment=all`,
+            json: true
+        }
+        request(options).then(function(resp) {
+            res.send(resp)
+        })
     }
 }
 
