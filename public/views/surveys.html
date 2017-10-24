@@ -25,7 +25,7 @@
         </div>
         <survey-scatter sd='sd' survey='surveyName'></survey-scatter>
     </div>
-        <div class='surveys-graphBox' id="graphBoxDiv">
+        <div class='surveys-graphBox' id="topicDiv">
             <div class='surveys-boxBar'>
                 <h3>SURVEY TOPIC SCORES</h3>
                     <div class='survey-ScatterSelectorBackground'>
@@ -34,12 +34,12 @@
                                 <option value="React">React</option>
                                 <option value="Angular">Angular</option>
                                 <option value='CSS'>CSS</option>
-                                <option value='Review/Feedback'>Review/Feedback</option>
-                                <option value='satisfaction'>Satisfaction</option>
+                                <option value='Review/Feedback'>Node</option>
+                                <option value='satisfaction'>SQL</option>
                         </select>
                 </div>
             </div>
-       
+            <topic-line-chart topicdata="topicData"></topic-line-chart>
         </div>
     </section>
 <section class='surveys-alertSection'>

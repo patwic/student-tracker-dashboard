@@ -11,13 +11,13 @@ angular
 
         let survey = $scope.survey //OSAT || MSAT || FSAT || CSAT
         let filteredData = $scope.sd //All data;
-        console.log('filtered data: ', filteredData)
-        console.log('survey', survey);
+        // console.log('filtered data: ', filteredData)
+        // console.log('survey', survey);
 
         //Builds graph with initial data.
         let arrLength;
         let averages = (dataArr) => {
-          console.log('Averages dataArr: ', dataArr)
+          // console.log('Averages dataArr: ', dataArr)
           let arr = []
           let obj = {}
           let max = 0;
@@ -167,7 +167,7 @@ angular
           let newFilteredData = newSd
 
           if (Object.prototype.toString.call(newFilteredData) !== '[object Array]') {
-            console.log("OBJECT", newFilteredData);
+            // console.log("OBJECT", newFilteredData);
             webdev = averages(newFilteredData.webdev);
             ios = averages(newFilteredData.ios);
             qa = averages(newFilteredData.qa);
@@ -326,7 +326,7 @@ angular
 
         $scope
           .$watch('survey', function (newValue, oldValue) {
-            console.log('scope.sd: ', $scope.sd)
+            // console.log('scope.sd: ', $scope.sd)
             changeScatter($scope.survey, $scope.sd)
           })
         $scope.$watch('sd', function (newValue, oldValue) {
