@@ -6,7 +6,7 @@ angular.module('app')
     scope: {
         topicdata: '='
     },
-    controller: function ($scope, surveyService) {
+    controller: function ($scope) {
 
       var filteredData = $scope.topicdata;
 
@@ -226,120 +226,121 @@ angular.module('app')
       // ********UPDATE**********
 
       let updateTopicLineChart = (someData) => {
-          var newData = makeDataObject(someData)
-          console.log(newData)
+        console.log(someData)
+          // var newData = makeDataObject(someData)
+          // console.log(newData)
 
-        let maxDomain = 20;
-        if ((d3.max(newData, function (d) {
-            return d.number;
-          }) * 1.1) > 20) {
-          maxDomain = (d3.max(newData, function (d) {
-            return d.number;
-          }) * 1.1) + 5
-        }
+      //   let maxDomain = 20;
+      //   if ((d3.max(newData, function (d) {
+      //       return d.number;
+      //     }) * 1.1) > 20) {
+      //     maxDomain = (d3.max(newData, function (d) {
+      //       return d.number;
+      //     }) * 1.1) + 5
+      //   }
 
-        var yD = d3.scaleLinear()
-          .range([height, 0]).domain([0, maxDomain])
+      //   var yD = d3.scaleLinear()
+      //     .range([height, 0]).domain([0, maxDomain])
 
-        yAxis = d3.axisLeft(yD)
-          .ticks(5);
+      //   yAxis = d3.axisLeft(yD)
+      //     .ticks(5);
 
-        var newLine = d3.line()
-          .x(function (d) {
-            return x(d.date);
-          })
-          .y(function (d) {
-            return yD(d.number);
-          });
+      //   var newLine = d3.line()
+      //     .x(function (d) {
+      //       return x(d.date);
+      //     })
+      //     .y(function (d) {
+      //       return yD(d.number);
+      //     });
 
-        var areaFunction = d3.area()
-          .x(function (d) {
-            return x(d.date);
-          })
-          .y0(height)
-          .y1(function (d) {
-            return yD(d.number);
-          });
+      //   var areaFunction = d3.area()
+      //     .x(function (d) {
+      //       return x(d.date);
+      //     })
+      //     .y0(height)
+      //     .y1(function (d) {
+      //       return yD(d.number);
+      //     });
 
-        var ya = d3.select('#topicLineChart')
-          .selectAll('.y.axis')
+      //   var ya = d3.select('#topicLineChart')
+      //     .selectAll('.y.axis')
 
-        var lines = d3.select('#topicLineChart')
-          .selectAll('.line')
-          .datum(newData)
+      //   var lines = d3.select('#topicLineChart')
+      //     .selectAll('.line')
+      //     .datum(newData)
 
-        var focus = svg.append("g")
-          .attr("class", "focus")
-          .style("display", "none");
+      //   var focus = svg.append("g")
+      //     .attr("class", "focus")
+      //     .style("display", "none");
 
-        focus.append("circle")
-          .attr("r", 2);
+      //   focus.append("circle")
+      //     .attr("r", 2);
 
-        focus.append("rect")
-          .attr("width", 55)
-          .attr("height", 30)
-          .attr("x", -28)
-          .attr("y", -49.7)
-          .attr('fill', 'rgba(0, 0, 0, 0.8)')
-          .attr("rx", 2)
-          .attr("ry", 2)
+      //   focus.append("rect")
+      //     .attr("width", 55)
+      //     .attr("height", 30)
+      //     .attr("x", -28)
+      //     .attr("y", -49.7)
+      //     .attr('fill', 'rgba(0, 0, 0, 0.8)')
+      //     .attr("rx", 2)
+      //     .attr("ry", 2)
 
-        focus.append("path") //shape for triangle                       
-          .attr('fill', 'rgba(0, 0, 0, 0.8)')
-          .attr("d", "M -5, -20, L 5, -20, L 0, -10 Z")
+      //   focus.append("path") //shape for triangle                       
+      //     .attr('fill', 'rgba(0, 0, 0, 0.8)')
+      //     .attr("d", "M -5, -20, L 5, -20, L 0, -10 Z")
 
-        focus.append("text")
-          .attr("dx", -12)
-          .attr("dy", -31)
-          .attr("offset", "100%")
-          .attr('fill', '#21AAE1')
-          .style('font-size', '11px')
+      //   focus.append("text")
+      //     .attr("dx", -12)
+      //     .attr("dy", -31)
+      //     .attr("offset", "100%")
+      //     .attr('fill', '#21AAE1')
+      //     .style('font-size', '11px')
 
-        focus.append("line")
-          .attr("class", "x-hover-line hover-line")
-          .attr("y1", 0)
-          .attr("y2", height)
+      //   focus.append("line")
+      //     .attr("class", "x-hover-line hover-line")
+      //     .attr("y1", 0)
+      //     .attr("y2", height)
 
-        focus.append("line")
-          .attr("class", "y-hover-line hover-line")
-          .attr("x1", width)
-          .attr("x2", width);
+      //   focus.append("line")
+      //     .attr("class", "y-hover-line hover-line")
+      //     .attr("x1", width)
+      //     .attr("x2", width);
 
-        let overlayWidth = (width * (($scope.topicdata.length - 1) / 100)) - 1
+      //   let overlayWidth = (width * (($scope.topicdata.length - 1) / 100)) - 1
 
-        svg.append("rect")
-          .attr("class", "overlay")
-          .attr("width", overlayWidth)
-          .attr("height", height)
-          .on("mouseover", function () {
-            focus.style("display", null);
-          })
-          .on("mouseout", function () {
-            focus.style("display", "none");
-          })
-          .on("mousemove", function mousemove() {
-            var x0 = x.invert(d3.mouse(this)[0]),
-              i = bisectDate(newData, x0, 1),
-              d0 = newData[i - 1],
-              d1 = newData[i],
-              d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-            focus.attr("transform", "translate(" + x(d.date) + "," + yD(d.number) + ")");
-            focus.select("text").text(d.number);
-          });
-
-
-        var gradient = d3.select('#topicLineChart').selectAll(".area")
+      //   svg.append("rect")
+      //     .attr("class", "overlay")
+      //     .attr("width", overlayWidth)
+      //     .attr("height", height)
+      //     .on("mouseover", function () {
+      //       focus.style("display", null);
+      //     })
+      //     .on("mouseout", function () {
+      //       focus.style("display", "none");
+      //     })
+      //     .on("mousemove", function mousemove() {
+      //       var x0 = x.invert(d3.mouse(this)[0]),
+      //         i = bisectDate(newData, x0, 1),
+      //         d0 = newData[i - 1],
+      //         d1 = newData[i],
+      //         d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+      //       focus.attr("transform", "translate(" + x(d.date) + "," + yD(d.number) + ")");
+      //       focus.select("text").text(d.number);
+      //     });
 
 
-        gradient.transition()
-          .duration(1000)
-          .attr("d", areaFunction(newData))
-          .style("fill", "url(#areaGradient)")
-        lines.transition()
-          .duration(1000)
-          .attr("d", newLine)
+      //   var gradient = d3.select('#topicLineChart').selectAll(".area")
 
-        ya.transition().duration(1000).call(yAxis)
+
+      //   gradient.transition()
+      //     .duration(1000)
+      //     .attr("d", areaFunction(newData))
+      //     .style("fill", "url(#areaGradient)")
+      //   lines.transition()
+      //     .duration(1000)
+      //     .attr("d", newLine)
+
+      //   ya.transition().duration(1000).call(yAxis)
 
       }
 
