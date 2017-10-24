@@ -273,55 +273,32 @@
                 <div class='cohort-SurveyGraphBoxNav'>
                     <h3>SURVEY COMMENTS</h3>
                     <div class='cohort-SelectorBackground'>
-                        <select class='cohort-ScatterGraphSelector smallSelector'>
-                            <option value="week1">Week 1</option>
-                            <option value="week2">Week 2</option>
-                            <option value="week3">Week 3</option>
-                            <option value="week4">Week 4</option>
-                            <option value="week5">Week 5</option>
-                            <option value="week6">Week 6</option>
-                            <option value="week7">Week 7</option>
-                            <option value="week8">Week 8</option>
-                            <option value="week9">Week 9</option>
-                            <option value="week10">Week 10</option>
-                            <option value="week11">Week 11</option>
-                            <option value="week12">Week 12</option>
-                            <option value="week13">Week 13</option>
+                        <select class='cohort-ScatterGraphSelector smallSelector' ng-model='surveyWeek' ng-change='getCommentsByWeek()'>
+                            <option value="1">Week 1</option>
+                            <option value="2">Week 2</option>
+                            <option value="3">Week 3</option>
+                            <option value="4">Week 4</option>
+                            <option value="5">Week 5</option>
+                            <option value="6">Week 6</option>
+                            <option value="7">Week 7</option>
+                            <option value="8">Week 8</option>
+                            <option value="9">Week 9</option>
+                            <option value="10">Week 10</option>
+                            <option value="11">Week 11</option>
+                            <option value="12">Week 12</option>
+                            <option value="13">Week 13</option>
                         </select>
                     </div>
 
                     </div>
                     <div class='cohort-surveysCommentsBox'>
-                        <div class='cohort-surveyCommentBox'>
+                        {{c}}
+                        <div class='cohort-surveyCommentBox' ng-repeat='c in comments'>
                             <div class='cohort-surveyCommentTitle'>
-                                <h4>SCORES - M: <span>10</span> | C: <span>10</span> | F: <span>10</span> | O: <span>10</span></h4>
+                                <h4>SCORES - M: <span>{{c.MSAT}}</span> | C: <span>{{c.CSAT}}</span> | F: <span>{{c.FSAT}}</span> | O: <span>{{c.OSAT}}</span></h4>
                             </div>
                             <div class='cohort-surveyComment'>
-                                <h5>"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</h5>
-                            </div>
-                        </div>
-                        <div class='cohort-surveyCommentBox'>
-                            <div class='cohort-surveyCommentTitle'>
-                                <h4>SCORES - M: <span>10</span> | C: <span>10</span> | F: <span>10</span> | O: <span>10</span></h4>
-                            </div>
-                            <div class='cohort-surveyComment'>
-                                <h5>"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</h5>
-                            </div>
-                        </div>
-                        <div class='cohort-surveyCommentBox'>
-                            <div class='cohort-surveyCommentTitle'>
-                                <h4>SCORES - M: <span>10</span> | C: <span>10</span> | F: <span>10</span> | O: <span>10</span></h4>
-                            </div>
-                            <div class='cohort-surveyComment'>
-                                <h5>"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."</h5>
-                            </div>
-                        </div>
-                        <div class='cohort-surveyCommentBox'>
-                            <div class='cohort-surveyCommentTitle'>
-                                <h4>SCORES - M: <span>10</span> | C: <span>10</span> | F: <span>10</span> | O: <span>10</span></h4>
-                            </div>
-                            <div class='cohort-surveyComment'>
-                                <h5>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."</h5>
+                                <h5>{{c.comment}}</h5>
                             </div>
                         </div>
                     </div>

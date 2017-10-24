@@ -5,9 +5,10 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
     $scope.allData = [];
     $scope.allPrograms = {ux: [], ios: [], qa: [], webdev: []};
 
+    // -------------- Weekly Survey Graph -------------- //
+
     surveyService.getWeeklySurveyData().then(res => {
         $scope.allData = res.data
-        console.log(res.data);
         let ios = $scope.allData.filter(e => {
             return  e.program === "ios"
         })
@@ -29,28 +30,22 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
         }
         
         $scope.sd = $scope.allPrograms
-        console.log('$scope 1', $scope.sd)
     })
 
 
     getAllSurveyData = (program, column) => {
         $scope.surveyName = column || "OSAT"
         $scope.selectedProgram = program || 'all'
-        console.log("SUPER DUPER IMPORTANT", $scope.allPrograms);
-        let stuff = [];
+        let surveyData = [];
         if($scope.selectedProgram === "all") {
-            stuff = $scope.allPrograms;
+            surveyData = $scope.allPrograms;
         } else {
-            stuff = $scope.allPrograms[$scope.selectedProgram].filter(e => {
+            surveyData = $scope.allPrograms[$scope.selectedProgram].filter(e => {
                 return e.program === $scope.selectedProgram
             })
         }
         
-        $scope.sd = stuff
-        console.log('$scope 2', $scope.sd)
-        
-        // console.log("all data filtered", $scope.sd)
-        
+        $scope.sd = surveyData
     }
 
     getAllSurveyData()
@@ -66,11 +61,20 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
     }
   
 
+    // -------------- Survey Topic Graph -------------- //
+
+    getTopicSurveyData = (selectedTopic) => {
+       let topic = selectedTopic || 'Javascript'
+       console.log(topic)
+        $scope.topicData = surveyService.getSurveyByTopic(topic).then(res => {
+            $scope.topicData = res.data
+            console.log($scope.topicData)
+        })
+    }
+    getTopicSurveyData()
 
     $scope.changeSelectedTopic = () => {
-        console.log(event.target.value)
+        getTopicSurveyData(event.target.value)
     }
-
-
 
 })

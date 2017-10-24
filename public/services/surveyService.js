@@ -8,6 +8,14 @@ angular.module('app').service('surveyService', function ($http) {
     return $http.get(`/api/surveys/getWeeklyById?id=${cohort_id}`)
   }
 
+  this.getWeeklyCommentsByCohortId = (cohort_id) => {
+    return $http.get(`/api/surveys/getCommentsById?comment=all&id=${cohort_id}`)
+  }
+
+  this.getSurveyByTopic = (topic) => {
+    return $http.get(`/api/surveys/getSurveyByTopic?topic=${topic}`)
+  }
+
   this.topics = [{
     "cohortId": 74,
     "campus": "Provo, UT",

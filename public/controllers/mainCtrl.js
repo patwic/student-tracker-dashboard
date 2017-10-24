@@ -6,8 +6,9 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
   $scope.totalQ;
   $scope.waitQ;
   $scope.redAlerts;
-  $scope.cohorts
-  $scope.activeCohorts
+  $scope.cohorts;
+  $scope.allComments;
+  $scope.activeCohorts;
   var getStudentPieData;
   var getLineChartCohortData;
 
@@ -435,7 +436,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     let filteredStudents;
 
-    //----------------get data for cohort surveys bar chart-------------//
+    //---------------- get data for cohort surveys bar chart -------------//
 
     $scope.surveyName = ""
     console.log($scope.cohortId)
@@ -443,7 +444,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     if($scope.cohortId) {
       getCohortSurveyData = () => {
         surveyService.getWeeklySurveyDataByCohortId($scope.cohortId).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
             $scope.sd = res.data;
         })
       }
@@ -454,10 +455,29 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     $scope.getBarChartSurveyData = () => {
       $scope.surveyColumn = event.target.value || "OSAT"
-      console.log($scope.surveyColumn)
+      // console.log($scope.surveyColumn)
     }
     $scope.getBarChartSurveyData()
 
+
+    //---------------- get data for weekly survey comments ----------------//
+
+    if($scope.cohortId) {
+    getWeeklyCommentsByCohortId = () => {
+      $scope.allComments = surveyService.getWeeklyCommentsByCohortId($scope.cohortId).then(res => {
+        $scope.allComments = res.data
+        $scope.getCommentsByWeek()
+      })
+    }
+    getWeeklyCommentsByCohortId()
+    }
+
+    $scope.getCommentsByWeek = () => {
+      let week = event.target.value || 1
+      // console.log($scope.allComm)
+      $scope.comments = $scope.allComments.filter(e => e.unit == week)
+    }
+   
 
 
     //----------------get data for cohort line chart-------------//
@@ -592,6 +612,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       updateAbsences()
       getLineChartCohortData(apiStartDate, apiEndDate, $scope.cohortId)
       getCohortSurveyData($scope.cohortId)
+      getWeeklyCommentsByCohortId($scope.cohortId)
       menuOpen = false
     }
 
