@@ -209,6 +209,7 @@ app.post('/api/prefs/', (req, res) => {
 app.get('/api/surveys/getWeekly', survey.getWeekly) //gets all weekly surveys results
 app.get('/api/surveys/getWeeklyById', survey.getWeeklyByCohortId) //gets all weekly surveys results by cohort id.
 app.get('/api/surveys/getCommentsById', survey.getWeeklyCommentsById) //gets all weekly comments by cohort id. 
+app.get('/api/surveys/getSurveyByTopic', survey.getSurveyByTopic) //gets all surveys by specific topic. 
 
 //for testing purposes; remove once live
 app.put('/api/reset', (req, res) => {
