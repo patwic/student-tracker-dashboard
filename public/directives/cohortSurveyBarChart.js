@@ -9,7 +9,86 @@ angular.module('app')
     controller: function ($scope, surveyService) {
     
     let survey = $scope.survey
-    let filteredData = $scope.sd
+    let filteredData = [{
+      "unit": 1,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 2,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 3,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 4,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 5,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 6,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 7,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 8,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 9,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }, {
+      "unit": 10,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    },  {
+      "unit": 11,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    },  {
+      "unit": 12,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    },  {
+      "unit": 13,
+      "OSAT": 0,
+      "FSAT": 0,
+      "MSAT": 0,
+      "CSAT": 0,
+    }
+    ]
 
       let averages = (dataArr) => {
         let arr = []
@@ -139,6 +218,7 @@ angular.module('app')
         let num = 9;
         let newSurvey = surveyType
         let newFilteredData = surveyData
+        console.log(newFilteredData)
         let newData = averages(newFilteredData)
 
         var yD = d3.scaleLinear().domain([0, 10]).range([height - 20, 0]);

@@ -438,16 +438,23 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     //----------------get data for cohort surveys bar chart-------------//
 
     $scope.surveyName = ""
+    console.log($scope.cohortId)
     
-    getCohortSurveyData = () => {
-      surveyService.getWeeklySurveyDataByCohortId($scope.cohortId || 111).then(res => {
-          $scope.sd = res.data;
-      })
+    if($scope.cohortId) {
+      getCohortSurveyData = () => {
+        surveyService.getWeeklySurveyDataByCohortId($scope.cohortId).then(res => {
+          console.log(res.data)
+            $scope.sd = res.data;
+        })
+      }
+      getCohortSurveyData()
+
     }
-    getCohortSurveyData()
+   
 
     $scope.getBarChartSurveyData = () => {
       $scope.surveyColumn = event.target.value || "OSAT"
+      console.log($scope.surveyColumn)
     }
     $scope.getBarChartSurveyData()
 
