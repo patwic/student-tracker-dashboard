@@ -17,7 +17,7 @@ angular
         //Builds graph with initial data.
         let arrLength;
         let averages = (dataArr) => {
-          // console.log('Averages dataArr: ', dataArr)
+          console.log('Averages dataArr: ', dataArr)
           let arr = []
           let obj = {}
           let max = 0;
@@ -60,8 +60,7 @@ angular
               : 1
           }
           for (let i = min; i <= max; i++) {
-            // console.log("min: ", min)
-            // console.log("max: ", max)
+            // console.log("min: ", min) console.log("max: ", max)
             if (dataArr[i].program === 'ios' && i === 8) {
               if (!obj[i]) 
                 continue
@@ -71,6 +70,7 @@ angular
             obj[i].MSAT = (obj[i].MSAT / obj[i].MSATcount).toFixed(2)
             obj[i].OSAT = (obj[i].OSAT / obj[i].OSATcount).toFixed(2)
             obj[i].unit = i
+            obj[i].program = dataArr[i].program;
             arr.push(obj[i])
             // console.log("arr: ", arr);
           }
@@ -102,6 +102,17 @@ angular
           .domain([1, 10])
           .range([height, 0]);
 
+        var tip = d3
+          .tip()
+          .attr('class', 'd3-tip')
+          .offset([-15, 0])
+          .html(function (d) {
+            let count = survey + 'count'
+            console.log("THIS IS AFTER THE D", $scope.sd);
+            console.log(d);
+            return "Average Rating: <span style='color:#21AAE1; line-height: 1.5;'> " + d[survey] + "</span><br>Responded: <span style='color:#21AAE1; line-height: 1.5;'> " + d[count] + "</span></span><br>Program: <span style='color:#21AAE1; line-height: 1.5;'> " + d.program + "</span>"
+          })
+
         var svg = d3
           .select("#surveyScatter")
           .append("svg")
@@ -124,6 +135,15 @@ angular
             return y(+ d[survey]);
           })
           .attr("fill", "#21AAE1")
+          .on('mouseover', function (d) {
+            tip.show(d)
+          })
+          .on('mouseout', function (d) {
+            tip.hide(d)
+          })
+
+        svg.call(tip);
+
         svg
           .append("g")
           .attr("transform", "translate(0," + height + ")")
@@ -132,6 +152,7 @@ angular
           .append("g")
           .call(d3.axisLeft(y));
 
+        // CHANGE SCATTER
         changeScatter = (newSurvey, newSd) => {
           //Will need to rebuild entire graph with the new data.
           survey = newSurvey;
@@ -145,7 +166,7 @@ angular
 
           let newFilteredData = newSd
 
-          if(Object.prototype.toString.call( newFilteredData ) !== '[object Array]') {
+          if (Object.prototype.toString.call(newFilteredData) !== '[object Array]') {
             console.log("OBJECT", newFilteredData);
             webdev = averages(newFilteredData.webdev);
             ios = averages(newFilteredData.ios);
@@ -162,7 +183,7 @@ angular
               .data(webdev)
               .enter()
               .append("circle")
-              .attr("r", 4)
+              .attr("r", 8)
               .attr("cx", function (d) {
                 return x(+ d.unit);
               })
@@ -171,6 +192,14 @@ angular
                 return y(+ d[survey]);
               })
               .attr("fill", "#21AAE1")
+              .on('mouseover', function (d) {
+                tip.show(d)
+              })
+              .on('mouseout', function (d) {
+                tip.hide(d)
+              })
+
+            svg.call(tip);
 
             // ios
             svg
@@ -178,7 +207,7 @@ angular
               .data(ios)
               .enter()
               .append("circle")
-              .attr("r", 4)
+              .attr("r", 8)
               .attr("cx", function (d) {
                 return x(+ d.unit);
               })
@@ -187,6 +216,14 @@ angular
                 return y(+ d[survey]);
               })
               .attr("fill", "limegreen")
+              .on('mouseover', function (d) {
+                tip.show(d)
+              })
+              .on('mouseout', function (d) {
+                tip.hide(d)
+              })
+
+            svg.call(tip);
 
             // qa
             svg
@@ -194,7 +231,7 @@ angular
               .data(qa)
               .enter()
               .append("circle")
-              .attr("r", 4)
+              .attr("r", 8)
               .attr("cx", function (d) {
                 return x(+ d.unit);
               })
@@ -203,6 +240,14 @@ angular
                 return y(+ d[survey]);
               })
               .attr("fill", "red")
+              .on('mouseover', function (d) {
+                tip.show(d)
+              })
+              .on('mouseout', function (d) {
+                tip.hide(d)
+              })
+
+            svg.call(tip);
 
             //ux
             svg
@@ -210,7 +255,7 @@ angular
               .data(ux)
               .enter()
               .append("circle")
-              .attr("r", 4)
+              .attr("r", 8)
               .attr("cx", function (d) {
                 return x(+ d.unit);
               })
@@ -219,6 +264,14 @@ angular
                 return y(+ d[survey]);
               })
               .attr("fill", "white")
+              .on('mouseover', function (d) {
+                tip.show(d)
+              })
+              .on('mouseout', function (d) {
+                tip.hide(d)
+              })
+
+            svg.call(tip);
 
           } else {
             newData = averages(newFilteredData)
@@ -233,7 +286,7 @@ angular
               .data(newData)
               .enter()
               .append("circle")
-              .attr("r", 4)
+              .attr("r", 8)
               .attr("cx", function (d) {
                 return x(+ d.unit);
               })
@@ -241,7 +294,26 @@ angular
                 // console.log(+d[survey])
                 return y(+ d[survey]);
               })
-              .attr("fill", "#21AAE1")
+              .attr("fill", function(d) {
+                switch(d.program) {
+                  case "webdev":
+                    return "#21AAE1"
+                  case "ios":
+                    return "limegreen"
+                  case "qa":
+                    return "red"
+                  case "ux":
+                    return "white"
+                }
+              })
+              .on('mouseover', function (d) {
+                tip.show(d)
+              })
+              .on('mouseout', function (d) {
+                tip.hide(d)
+              })
+
+            svg.call(tip);
           }
           svg
             .append("g")

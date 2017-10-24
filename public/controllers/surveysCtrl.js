@@ -3,10 +3,11 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
     $scope.surveyName;
     $scope.selectedProgram;
     $scope.allData = [];
-    $scope.allPrograms = {ux: []};
+    $scope.allPrograms = {ux: [], ios: [], qa: [], webdev: []};
 
     surveyService.getWeeklySurveyData().then(res => {
         $scope.allData = res.data
+        console.log(res.data);
         let ios = $scope.allData.filter(e => {
             return  e.program === "ios"
         })
