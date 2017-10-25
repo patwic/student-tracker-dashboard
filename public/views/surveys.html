@@ -4,7 +4,7 @@
             <h3>WEEKLY SURVEY SCORES</h3>
             <div class='survey-ScatterSelectsContainer'>
                 <div class='survey-ScatterSelectorBackground'>
-                        <select ng-model='surveyName' class='cohort-ScatterGraphSelector'  ng-change='changeSurveyName()'>
+                    <select ng-model='surveyName' class='cohort-ScatterGraphSelector' ng-change='changeSurveyName()'>
                                 <option selected value="OSAT">Overall Satisfaction</option>
                                 <option value="MSAT">Mentor Satisfaction</option>
                                 <option value="FSAT">Instructor Satisfaction</option>
@@ -25,23 +25,34 @@
         </div>
         <survey-scatter sd='sd' survey='surveyName'></survey-scatter>
     </div>
-        <div class='surveys-graphBox' id="topicDiv">
-            <div class='surveys-boxBar'>
-                <h3>SURVEY TOPIC SCORES</h3>
-                    <div class='survey-ScatterSelectorBackground'>
-                        <select ng-model='topicData' class='cohort-ScatterGraphSelector' ng-change='changeSelectedTopic()'>
+    <div class='surveys-graphBox' id="topicDiv">
+        <div class='surveys-boxBar'>
+            <h3>SURVEY TOPIC SCORES</h3>
+            <div class='survey-ScatterSelectsContainer'>
+                <div class='survey-ScatterSelectorBackground'>
+                    <select ng-model='topic' class='cohort-ScatterGraphSelector' ng-change='changeSelectedTopic()'>
                                 <option selected value="Javascript">Javascript</option>
+                                <option value='CSS'>HTML/CSS</option>
                                 <option value="React">React</option>
                                 <option value="Angular">Angular</option>
-                                <option value='CSS'>CSS</option>
+                                <option value='Passport'>Passport</option>
                                 <option value='Node'>Node</option>
                                 <option value='SQL'>SQL</option>
                         </select>
                 </div>
+                <div class='survey-ScatterSelectorBackground'>
+                        <select ng-model='location' class='cohort-ScatterGraphSelector' ng-change='changeSelectedLocation()'>
+                                <option selected value='all'>All Locations</option>
+                                <option value="Provo">Provo</option>
+                                <option value="Dallas">Dallas</option>
+                                <option value="Phoenix">Phoenix</option>
+                        </select>
+                </div>
             </div>
-            <topic-line-chart topicdata="topicData"></topic-line-chart>
         </div>
-    </section>
+        <topic-line-chart topicdata="topicData"></topic-line-chart>
+    </div>
+</section>
 <section class='surveys-alertSection'>
     <div class='surveys-alertsContainer'>
         <div class='surveys-alertBox'>
@@ -102,7 +113,7 @@
         <div class='surveys-barGraphBox'>
             <div class='surveys-boxBar'>
                 <h3>COMPLETED SURVEYS</h3>
-                 <div class='cohort-SelectorBackground'>
+                <div class='cohort-SelectorBackground'>
                     <select class='cohort-ScatterGraphSelector'>
                             <option value="dm23">DM23</option>
                             <option value="dm24">DM24</option>
