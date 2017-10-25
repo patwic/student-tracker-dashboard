@@ -591,7 +591,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById("login-sidenavOverlay").style.display = "block";
       document.body.style.overflow = 'hidden';
       document.getElementById('cohort-sidenav').style.boxShadow = '6px 6px 17px 2px rgba(0, 0, 0, .4)'
-      getUser()
+      // getUser()
       menuOpen = true;
     }
 
