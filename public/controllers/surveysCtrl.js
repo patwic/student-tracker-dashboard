@@ -63,18 +63,29 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
 
     // -------------- Survey Topic Graph -------------- //
 
-    getTopicSurveyData = (selectedTopic) => {
-       let topic = selectedTopic || 'Javascript'
-       console.log(topic)
-        $scope.topicData = surveyService.getSurveyByTopic(topic).then(res => {
-            $scope.topicData = res.data
-            console.log($scope.topicData)
+    getTopicSurveyData = (selectedTopic, selectedLocation) => {
+       $scope.topic = selectedTopic || 'Javascript'
+       $scope.location = selectedLocation || 'all'
+       
+        $scope.topicData = surveyService.getSurveyByTopic($scope.topic).then(res => {
+            if($scope.location === 'all') {
+                $scope.topicData = res.data
+                console.log($scope.topicData)
+            } else {
+                $scope.topicData = res.data.filter(e => e.campus.split(',')[0] === $scope.location)
+                console.log($scope.topicData)
+            }
         })
     }
     getTopicSurveyData()
 
+
     $scope.changeSelectedTopic = () => {
-        getTopicSurveyData(event.target.value)
+        getTopicSurveyData(event.target.value, $scope.location)
+    }
+
+    $scope.changeSelectedLocation = () => {
+        getTopicSurveyData($scope.topic, event.target.value)
     }
 
 })
