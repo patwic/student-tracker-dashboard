@@ -88,7 +88,7 @@ app.get('/auth/devmtn', passport.authenticate('devmtn'), function (req, res) {
 app.get('/auth/devmtn/callback',
       passport.authenticate('devmtn', {
             successRedirect: '/',
-            // failureRedirect: "/#/"
+            failureRedirect: "/#/login"
       }),
       function (req, res) {
             res.status(200).send(req.user);
