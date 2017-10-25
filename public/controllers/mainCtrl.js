@@ -454,7 +454,9 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
    
 
     $scope.getBarChartSurveyData = () => {
-      $scope.surveyColumn = event.target.value || "OSAT"
+      if(event) {
+        $scope.surveyColumn = event.target.value || "OSAT";
+      }
       // console.log($scope.surveyColumn)
     }
     $scope.getBarChartSurveyData()
