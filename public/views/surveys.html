@@ -25,6 +25,8 @@
         </div>
         <survey-scatter sd='sd' survey='surveyName'></survey-scatter>
     </div>
+</section>
+<section class='surveys-section' style='margin-top: -10vh'>
     <div class='surveys-graphBox' id="topicDiv">
         <div class='surveys-boxBar'>
             <h3>SURVEY TOPIC SCORES</h3>
@@ -60,7 +62,27 @@
         <topic-line-chart topicdata="topicData"></topic-line-chart>
     </div>
 </section>
-<section class='surveys-alertSection'>
+<section class='surveys-section' style='margin-top: -10vh;'>
+    <div class='surveys-graphBox' id="topicDiv">
+            <div class='surveys-boxBar'>
+                <h3>INSTRUCTOR SCORES</h3>
+                <div class='survey-ScatterSelectsContainer'>
+                    <div class='survey-ScatterSelectorBackground'>
+                        <select ng-model='' class='cohort-ScatterGraphSelector'>
+                                <option value=''>Instructors</option>
+                            </select>
+                    </div>
+                    <div class='survey-ScatterSelectorBackground'>
+                            <select ng-model='' class='cohort-ScatterGraphSelector'>
+                                <option value=''>Topic</option>
+                            </select>
+                    </div>
+                </div>
+            </div>
+            <topic-line-chart topicdata="topicData"></topic-line-chart>
+        </div>
+</section>
+<!-- <section class='surveys-alertSection'>
     <div class='surveys-alertsContainer'>
         <div class='surveys-alertBox'>
             <div class='surveys-boxBar'>
@@ -130,4 +152,4 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
