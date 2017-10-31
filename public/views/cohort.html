@@ -235,39 +235,19 @@
     </div>
     <div class='cohort-SurveyGraphBox'>
         <div class='cohort-SurveyGraphContainer'>
-            <div class='cohort-SurveyScatterGraph' id="barDiv">
+            <div class='cohort-SurveyAverageGraphBox' id="barDiv">
                 <div class='cohort-SurveyGraphBoxNav'>
                     <h3>WEEKLY SURVEY SCORES</h3>
                     <div class='cohort-SelectorBackground'>
-                            <select ng-model='surveyColumn' class='cohort-ScatterGraphSelector'  ng-change='getBarChartSurveyData()'>
-                                <option selected value="OSAT">Overall Satisfaction</option>
-                                    <option value="MSAT">Mentor Satisfaction</option>
-                                    <option value="FSAT">Instructor Satisfaction</option>
-                                    <option value="CSAT">Curriculum Satisfaction</option>
-                            </select>
+                        <select ng-model='surveyColumn' class='cohort-ScatterGraphSelector' ng-change='getBarChartSurveyData()'>
+                                                <option selected value="OSAT">Overall Satisfaction</option>
+                                                    <option value="MSAT">Mentor Satisfaction</option>
+                                                    <option value="FSAT">Instructor Satisfaction</option>
+                                                    <option value="CSAT">Curriculum Satisfaction</option>
+                                            </select>
                     </div>
                 </div>
                 <survey-bar-chart sd='sd' survey='surveyColumn'></survey-bar-chart>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-    <div class='cohort-SurveyGraphBox'>
-        <div class='cohort-SurveyGraphContainer'>
-            <div class='cohort-SurveyAverageGraphBox'>
-                <div class='cohort-SurveyGraphBoxNav'>
-                    <h3>AVERAGE SURVEY SCORES</h3>
-                    <div class='cohort-SelectorBackground'>
-                        <select class='cohort-ScatterGraphSelector'>
-                            <option value="overall">Overall Satisfaction</option>
-                            <option value="mentor">Mentor Satisfaction</option>
-                            <option value="instructor">Instructor Satisfaction </option>
-                            <option value="curriculum">Curriculum Satisfaction</option>
-                    </select>
-                    </div>
-                </div>
             </div>
             <div class='cohort-SurveyCommentFeed'>
                 <div class='cohort-SurveyGraphBoxNav'>
@@ -290,18 +270,18 @@
                         </select>
                     </div>
 
-                    </div>
-                    <div class='cohort-surveysCommentsBox'>
-                        {{c}}
-                        <div class='cohort-surveyCommentBox' ng-repeat='c in comments'>
-                            <div class='cohort-surveyCommentTitle'>
-                                <h4>SCORES - M: <span>{{c.MSAT}}</span> | C: <span>{{c.CSAT}}</span> | F: <span>{{c.FSAT}}</span> | O: <span>{{c.OSAT}}</span></h4>
-                            </div>
-                            <div class='cohort-surveyComment'>
-                                <h5>{{c.comment}}</h5>
-                            </div>
+                </div>
+                <div class='cohort-surveysCommentsBox'>
+                    {{c}}
+                    <div class='cohort-surveyCommentBox' ng-repeat='c in comments'>
+                        <div class='cohort-surveyCommentTitle'>
+                            <h4>SCORES - M: <span>{{c.MSAT}}</span> | C: <span>{{c.CSAT}}</span> | F: <span>{{c.FSAT}}</span>                                | O: <span>{{c.OSAT}}</span></h4>
+                        </div>
+                        <div class='cohort-surveyComment'>
+                            <h5>{{c.comment}}</h5>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
