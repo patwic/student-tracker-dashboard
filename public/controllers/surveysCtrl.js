@@ -70,10 +70,8 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
         $scope.topicData = surveyService.getSurveyByTopic($scope.topic).then(res => {
             if($scope.location === 'all') {
                 $scope.topicData = res.data
-                console.log($scope.topicData)
             } else {
                 $scope.topicData = res.data.filter(e => e.campus.split(',')[0] === $scope.location)
-                console.log($scope.topicData)
             }
         })
     }

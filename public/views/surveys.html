@@ -1,4 +1,5 @@
-<section class='surveys-section' ng-controller='surveysCtrl'>
+<div ng-controller='surveysCtrl'>
+<section class='surveys-section'>
     <div class='surveys-graphBox' id="graphBoxDiv">
         <div class='surveys-boxBar'>
             <h3>WEEKLY SURVEY SCORES</h3>
@@ -62,8 +63,9 @@
         <topic-line-chart topicdata="topicData"></topic-line-chart>
     </div>
 </section>
-<section class='survey-lower-sections'>
-    <div class='surveys-graphBox' id="topicDiv">
+
+<!-- <section class='survey-lower-sections'>
+    <div class='surveys-graphBox'>
             <div class='surveys-boxBar'>
                 <h3>INSTRUCTOR SCORES</h3>
                 <div class='survey-ScatterSelectsContainer'>
@@ -81,7 +83,9 @@
             </div>
             <topic-line-chart topicdata="topicData"></topic-line-chart>
         </div>
-</section>
+</section> -->
+
+
 <!-- <section class='surveys-alertSection'>
     <div class='surveys-alertsContainer'>
         <div class='surveys-alertBox'>
@@ -153,3 +157,5 @@
         </div>
     </div>
 </section> -->
+
+</div>
