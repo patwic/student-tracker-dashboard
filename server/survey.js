@@ -35,7 +35,18 @@ module.exports = {
 
     getSurveyByTopic: (req, res) => {
         var options = {
-            uri: `https://surveys.devmountain.com/api/tableau/data/topic?topic=${req.query.topic}`
+            uri: `https://surveys.devmountain.com/api/tableau/data/topic?topic=${req.query.topic}`,
+            json: true
+        }
+        request(options).then(function(resp) {
+            res.send(resp)
+        })
+    },
+
+    getInstructorsForSurveys: (req, res) => {
+        var options = {
+            uri: `https://surveys.devmountain.com/api/admin/instructor`,
+            json: true
         }
         request(options).then(function(resp) {
             res.send(resp)
