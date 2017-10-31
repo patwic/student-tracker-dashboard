@@ -70,8 +70,7 @@
                 <h3>INSTRUCTOR SCORES</h3>
                 <div class='survey-ScatterSelectsContainer'>
                     <div class='survey-ScatterSelectorBackground'>
-                        <select ng-model='' class='cohort-ScatterGraphSelector'>
-                                <option value=''>Instructors</option>
+                        <select ng-model='instructor' class='cohort-ScatterGraphSelector' ng-options="instructor.name for instructor in instructors">
                             </select>
                     </div>
                     <div class='survey-ScatterSelectorBackground'>

@@ -16,6 +16,10 @@ angular.module('app').service('surveyService', function ($http) {
     return $http.get(`/api/surveys/getSurveyByTopic?topic=${topic}`)
   }
 
+  this.getInstructors = () => {
+    return $http.get('/api/surveys/instructors')
+  }
+
   this.topics = [{
     "cohortId": 74,
     "campus": "Provo, UT",

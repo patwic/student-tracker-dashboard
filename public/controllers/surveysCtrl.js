@@ -86,4 +86,14 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
         getTopicSurveyData($scope.topic, event.target.value)
     }
 
+    // -------------- Instructors Graph -------------- //
+
+    getInstructors = () => {
+        surveyService.getInstructors().then(res => {
+            console.log(res.data)
+            $scope.instructors = res.data
+        })
+    }
+    getInstructors()
+
 })
