@@ -10,23 +10,29 @@ angular.module('app')
         // console.log($scope.instructordata)
 
         let filteredData = [{
-          "OSAT": 5,
+          "OSAT": 4.5,
           "subtopic": '1.1',
+          "count": 8
         },{
           "OSAT": 3,
           "subtopic": '1.2',
+          "count": 9
         },{
           "OSAT": 4,
           "subtopic": '1.3',
+          "count": 10
         },{
-          "OSAT": 5,
+          "OSAT": 4.5,
           "subtopic": '1.4',
+          "count": 12
         },{
           "OSAT": 3,
           "subtopic": '1.5',
+          "count": 7
         },{
-          "OSAT": 5,
+          "OSAT": 4.5,
           "subtopic": '1.6',
+          "count": 6
         }]
 
         xAxisData = filteredData.map(e => e.subtopic)
@@ -55,13 +61,20 @@ angular.module('app')
         .range([height, 0]);
       var xAxis = d3.axisBottom(x);
       var yAxis = d3.axisLeft(y);
-
+      var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-15, 0])
+      .html(function (d) {
+        // let count = survey + 'count'
+        return "Average Rating: <span style='color:#21AAE1; line-height: 1.5;'> " + d.OSAT + "</span>" + "<br>" + "Responded: <span style='color:#21AAE1; line-height: 1.5;'> " + d.count + "</span>"
+      })
+      .style('font-size', '11px')
       var svg = d3.select("#surveyInstructorBarChart").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+      svg.call(tip);
       svg.append("g")
         .attr("class", "y axis")
         .call(yAxis)
@@ -89,6 +102,26 @@ angular.module('app')
           if (d.OSAT >= num) return '#21AAE1'
           else return '#3d3d3d';
         })
+        .on('mouseover', function (d) {
+          tip.show(d)
+          if (d.OSAT >= num) {
+            d3.select(this)
+              .attr("fill", "#297FAA");
+          } else {
+            d3.select(this)
+              .attr("fill", "#000");
+          }
+        })
+        .on('mouseout', function (d) {
+          tip.hide(d)
+          if (d.OSAT >= num) {
+            d3.select(this)
+              .attr("fill", '#21AAE1');
+          } else {
+            d3.select(this)
+              .attr("fill", "#3d3d3d");
+          }
+        })
         .transition()
         .duration(1000)
         .attr("width", x.bandwidth())
@@ -110,6 +143,16 @@ angular.module('app')
         
         var yD = d3.scaleLinear().domain([0, 5]).range([height - 20, 0]);
 
+        var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-15, 0])
+        .html(function (d) {
+          // let count = survey + 'count'
+          return "Average Rating: <span style='color:#21AAE1; line-height: 1.5;'> " + d.OSAT + "</span>" + "<br>" + "Responded: <span style='color:#21AAE1; line-height: 1.5;'> " + d.count + "</span>"
+        })
+        .style('font-size', '11px')
+        svg.call(tip);
+
         d3.selectAll('.bar')
           .attr("y", height)
           .attr("height", function (d) {
@@ -120,6 +163,26 @@ angular.module('app')
           .data(newData)
           .attr("x", function (d) {
             return x(d.subtopic);
+          })
+          .on('mouseover', function (d) {
+            tip.show(d)
+            if (d.OSAT >= num) {
+              d3.select(this)
+                .attr("fill", "#297FAA");
+            } else {
+              d3.select(this)
+                .attr("fill", "#000");
+            }
+          })
+          .on('mouseout', function (d) {
+            tip.hide(d)
+            if (d.OSAT >= num) {
+              d3.select(this)
+                .attr("fill", '#21AAE1');
+            } else {
+              d3.select(this)
+                .attr("fill", "#3d3d3d");
+            }
           })
           .transition()
           .duration(1000)
