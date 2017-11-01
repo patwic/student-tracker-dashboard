@@ -12,7 +12,7 @@ angular.module('app')
      
     changeBar = (surveyData) => {
 
-        // console.log(surveyData)
+        console.log(surveyData)
 
       }
 
