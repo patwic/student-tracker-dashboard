@@ -90,35 +90,28 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
 
     getInstructors = () => {
         surveyService.getInstructors().then(res => {
-            console.log(res.data)
             $scope.instructors = res.data
         })
     }
     getInstructors()
 
-    $scope.selectedInstructor;
-    $scope.instructorTopic;
-
     getInstructorTopicData = (instructor, topic) => {
         $scope.instructorTopic = topic || 'React'
         $scope.selectedInstructor = instructor || '59f8d79f6ce02767109b8446'
-        console.log($scope.instructorTopic)
-        console.log($scope.selectedInstructor)
 
         $scope.instructorData = 
-        surveyService.instructorSurveys
+        surveyService.instructorSurveys.filter(e => e.instructorId === $scope.selectedInstructor && e.topic === $scope.instructorTopic)
         console.log($scope.instructorData)
+
     }
     getInstructorTopicData()
 
 
     $scope.changeSelectedInstructor = () => {
-        console.log(event.target.value)
-        getInstructorTopicData(event.target.value, $scope.selectedInstructor)
+        getInstructorTopicData(event.target.value, $scope.instructorTopic)
     }
 
     $scope.changeSelectedInstructorTopic = () => {
-        console.log(event.target.value)
-        getInstructorTopicData($scope.instructorTopic, event.target.value)
+        getInstructorTopicData($scope.selectedInstructor, event.target.value)
     }
 })

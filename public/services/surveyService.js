@@ -24,7 +24,7 @@ angular.module('app').service('surveyService', function ($http) {
 this.instructorSurveys = [{
   "instructorId": "59f8d79f6ce02767109b8446",
   "subtopic": "w-2.1",
-  "topic": "React",
+  "topic": "Javascript",
   "campus": "Provo, UT",
   "program": "webdev",
   "format": "Immersive",
@@ -115,7 +115,7 @@ this.instructorSurveys = [{
 }, {
   "instructorId": "59f8d79f6ce02767109b8446",
   "subtopic": "w-2.1",
-  "topic": "React",
+  "topic": "Javascript",
   "campus": "Provo, UT",
   "program": "webdev",
   "format": "Immersive",
@@ -180,7 +180,7 @@ this.instructorSurveys = [{
 }, {
   "instructorId": "59f24cb377f2691d80dab8c9",
   "subtopic": "w-2.1",
-  "topic": "React",
+  "topic": "Javascript",
   "campus": "Provo, UT",
   "program": "webdev",
   "format": "Immersive",
