@@ -20,6 +20,10 @@ angular.module('app').service('surveyService', function ($http) {
     return $http.get('/api/surveys/instructors')
   }
 
+  this.getInstructorGraphData = () => {
+    return $http.get('/api/surveys/instructorData')
+  }
+
  
 this.instructorSurveys = [{
   "instructorId": "59f8d79f6ce02767109b8446",
