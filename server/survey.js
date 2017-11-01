@@ -5,7 +5,7 @@ app = require('./server')
 module.exports = {
     getWeekly: (req, res) => {
             var options = {
-                uri: `${config.surveyAPI}api/tableau/data`,
+                uri: `${config.surveyAPI}tableau/data`,
                 json: true // Automatically parses the JSON string in the response
             }; 
         request(options).then(function (resp) {
