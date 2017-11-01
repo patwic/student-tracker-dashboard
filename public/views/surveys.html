@@ -73,9 +73,10 @@
                 <div class='survey-ScatterSelectsContainer'>
                     <div class='survey-ScatterSelectorBackground'>
 
-                        <select ng-model='instructors' class='cohort-ScatterGraphSelector' ng-options="instructor._id as instructor.name for instructor in instructors"
-                            ng-change='changeSelectedInstructor()'>
+                        <select class='cohort-ScatterGraphSelector' ng-model='selectedInstructor' ng-change='changeSelectedInstructor()'>
+                            <option ng-repeat='instructor in instructors' value='{{instructor._id}}'>{{instructor.name}}</option>
                         </select>
+                                                
                     </div>
                     <div class='survey-ScatterSelectorBackground'>
                         <select ng-model='instructorTopic' class='cohort-ScatterGraphSelector' ng-change='changeSelectedInstructorTopic()'>

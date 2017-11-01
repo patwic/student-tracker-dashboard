@@ -7,12 +7,12 @@ angular.module('app')
     },
     controller: function ($scope, surveyService) {
 
-        console.log($scope.instructordata)
+        // console.log($scope.instructordata)
 
      
     changeBar = (surveyData) => {
 
-        console.log(surveyData)
+        // console.log(surveyData)
 
       }
 

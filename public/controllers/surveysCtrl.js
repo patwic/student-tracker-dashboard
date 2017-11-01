@@ -96,6 +96,9 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
     }
     getInstructors()
 
+    $scope.selectedInstructor;
+    $scope.instructorTopic;
+
     getInstructorTopicData = (instructor, topic) => {
         $scope.instructorTopic = topic || 'React'
         $scope.selectedInstructor = instructor || '59f8d79f6ce02767109b8446'
@@ -107,7 +110,6 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
         console.log($scope.instructorData)
     }
     getInstructorTopicData()
-
 
 
     $scope.changeSelectedInstructor = () => {
