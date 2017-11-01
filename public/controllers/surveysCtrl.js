@@ -86,4 +86,32 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
         getTopicSurveyData($scope.topic, event.target.value)
     }
 
+    // -------------- Instructors Graph -------------- //
+
+    getInstructors = () => {
+        surveyService.getInstructors().then(res => {
+            $scope.instructors = res.data
+        })
+    }
+    getInstructors()
+
+    getInstructorTopicData = (instructor, topic) => {
+        $scope.instructorTopic = topic || 'React'
+        $scope.selectedInstructor = instructor || '59f8d79f6ce02767109b8446'
+
+        $scope.instructorData = 
+        surveyService.instructorSurveys.filter(e => e.instructorId === $scope.selectedInstructor && e.topic === $scope.instructorTopic)
+        console.log($scope.instructorData)
+
+    }
+    getInstructorTopicData()
+
+
+    $scope.changeSelectedInstructor = () => {
+        getInstructorTopicData(event.target.value, $scope.instructorTopic)
+    }
+
+    $scope.changeSelectedInstructorTopic = () => {
+        getInstructorTopicData($scope.selectedInstructor, event.target.value)
+    }
 })
