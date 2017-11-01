@@ -98,12 +98,11 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
 
     getInstructorTopicData = (instructor, topic) => {
         $scope.instructorTopic = topic || 'React'
-        $scope.selectedInstructor = instructor || '59f8d79f6ce02767109b8446'
+        $scope.selectedInstructor = instructor || '59f24cb377f2691d80dab8c9'
 
       surveyService.getInstructorGraphData().then(res => {
             $scope.instructorData = res.data.filter(e => e.instructorId === $scope.selectedInstructor && e.topic === $scope.instructorTopic)
-        })
-        
+      })        
     }
     getInstructorTopicData()
     
