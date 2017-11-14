@@ -436,6 +436,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     let filteredStudents;
 
+
     //---------------- get data for cohort surveys bar chart -------------//
 
     $scope.surveyName = ""
@@ -460,7 +461,41 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       // console.log($scope.surveyColumn)
     }
     $scope.getBarChartSurveyData()
+    
+    ///////////////////
 
+    var ctx = document.getElementById('surveyLineChart');
+    if (ctx) {
+    var surveyLineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+        datasets: [{
+          label: 'apples',
+          data: [12, 19, 3, 17, 6, 3, 7],
+          borderColor: "#3e95cd",
+          fill: false
+        }, {
+          label: 'oranges',
+          data: [2, 29, 5, 5, 2, 3, 10],
+          borderColor: "#3cba9f",
+          fill: false
+        }, {
+            label: 'lemons',
+            data: [3,4,3,23,5,3,5],
+            borderColor: "#e8c3b9",
+            fill: false
+        }, {
+            label: 'apricots',
+            data: [3,4,23,3,5,33,5],
+            borderColor: "#c45850",
+            fill: false
+        }]
+      }
+      
+    });
+
+  }
 
     //---------------- get data for weekly survey comments ----------------//
 

@@ -8,33 +8,33 @@ angular.module('app')
     controller: function ($scope, surveyService) {
 
       dataset = [{
-        "overall": 4,
-        "explained": 4.4,
-        "prepared": 3,
+        "overall": 0,
+        "explained": 0,
+        "prepared": 0,
         "subtopic": '1.1'
       },{
-        "overall": 3,
-        "explained": 4.5,
-        "prepared": 3.5,
+        "overall": 0,
+        "explained": 0,
+        "prepared": 0,
         "subtopic": '1.2'
       },{
-        "overall": 4,
-        "explained": 3.5,
-        "prepared": 3,
+        "overall": 0,
+        "explained": 0,
+        "prepared": 0,
         "subtopic": '1.3'
       },{
-        "overall": 3.5,
-        "explained": 5,
-        "prepared": 3,
+        "overall": 0,
+        "explained": 0,
+        "prepared": 0,
         "subtopic": '1.4'
       },{
-        "overall": 3.5,
-        "explained": 4,
-        "prepared": 3,
+        "overall": 0,
+        "explained": 0,
+        "prepared": 0,
         "subtopic": '1.5'
       },{
-        "overall": 4,
-        "explained": 5,
+        "overall": 0,
+        "explained": 0,
         "prepared": 3,
         "subtopic": '1.6'
       }]
@@ -67,7 +67,7 @@ angular.module('app')
       .padding(0.05)
   
   var y = d3.scaleLinear()
-      .domain([0, d3.max(dataset, function(d) { return d3.max(d.valores, function(d) { return d.value; }); })])
+  .domain([0,5])
       .range([height, 0]);
   
   var z = d3.scaleOrdinal()
@@ -109,7 +109,8 @@ angular.module('app')
       .data(dataset)
       .enter().append("g")
       .attr("class", "rect")
-      .attr("transform", function(d) { return "translate(" + x0(d.subtopic) + ",0)"; });
+      .attr("transform", function(d) { console.log(d.subtopic)
+        return "translate(" + x0(d.subtopic) + ",0)"; });
   
   bar.selectAll("rect")
       .data(function(d) { return d.valores; })
@@ -120,7 +121,7 @@ angular.module('app')
       .attr("value", function(d){return d.name;})
       .attr("height", function(d) { return height - y(d.value); })
       .style("fill", function(d) { return z(d.name); });
-  //////////////////////////////////////////////
+
   bar
       .on("mousemove", function(d){
         var x = d3.event.pageX, y = d3.event.pageY
@@ -129,41 +130,104 @@ angular.module('app')
         l = l-1
         elementData = elements[l].__data__
           tip.show(d)
-          // console.log(elementData.value)
-          // if (elementData.value >= num) {
-          //     d3.select(this)
-          //       .attr("fill", "#297FAA");
-          //   } else {
-          //     d3.select(this)
-          //       .attr("fill", "#000");
-          //   }
           })
   bar
       .on("mouseout", function(d){
         tip.hide(d)
-        // if (elementData.value) {
-        //   d3.select(this)
-        //     .attr("fill", '#21AAE1');
-        // } else {
-        //   d3.select(this)
-        //     .attr("fill", "#3d3d3d");
-        // }
       });
   bar
       .transition()
       .duration(1000)
       .attr("width", x1.bandwidth())
-      // .attr("x", function(d) { return x1(d.name); })
       .attr("y", function(d) { return y(d.value); })
-      // .attr("value", function(d){return d.name;})
       .attr("height", function(d) { return height - y(d.value); })
       .style("fill", function(d) { return z(d.name); });
   
 
    
     changeBar = (surveyData) => {
+
+
       console.log(surveyData)
 
+      if(surveyData){
+      var filteredSurveyData = surveyData.map(e => {
+        var subtopicEdited = e.subtopic.split('').splice(2, 4).join('')
+        return  {
+          overall: e.overall,
+          prepared: e.prepared,
+          explained: e.explain,
+          subtopic: subtopicEdited
+        }
+      })
+      
+      var options = d3.keys(filteredSurveyData[0]).filter(function(key) { return key !== "subtopic"; });
+      
+      filteredSurveyData.forEach(function(d) {
+        d.valores = options.map(function(name) { return {name: name, value: +d[name]}; });
+      });
+
+      console.log(filteredSurveyData)
+
+      var x0 = d3.scaleBand()
+      .domain(filteredSurveyData.map(function(d) { return d.subtopic; }))
+      .rangeRound([0, width], .1)
+      .paddingInner(0.1);
+  
+  var x1 = d3.scaleBand()
+      .domain(options).rangeRound([0, x0.bandwidth()])
+      .padding(0.05)
+  
+  var y = d3.scaleLinear()
+      .domain([0,5])
+      .range([height, 0]);
+  
+  var z = d3.scaleOrdinal()
+      .range(["#21AAE1", "#1b6689", "#0f4a66"]);
+  
+  var xAxis = d3.axisBottom(x0)
+  var yAxis = d3.axisLeft(y)
+    
+      console.log(filteredSurveyData)
+        
+  var bar = svg.selectAll(".bar")
+      .data(filteredSurveyData)
+      .enter().append("g")
+      .attr("class", "rect")
+      .attr("transform", function(d) { console.log(d.subtopic)
+        return "translate(" + x0(d.subtopic) + ",0)"; });
+  
+  bar.selectAll("rect")
+      .data(function(d) { return d.valores; })
+      .enter().append("rect")
+      .attr("width", x1.bandwidth())
+      .attr("x", function(d) { return x1(d.name); })
+      .attr("y", function(d) { return y(d.value); })
+      .attr("value", function(d){return d.name;})
+      .attr("height", function(d) { return height - y(d.value); })
+      .style("fill", function(d) { return z(d.name); });
+
+  bar
+      .on("mousemove", function(d){
+        var x = d3.event.pageX, y = d3.event.pageY
+        var elements = document.querySelectorAll(':hover');
+        l = elements.length
+        l = l-1
+        elementData = elements[l].__data__
+          tip.show(d)
+          })
+  bar
+      .on("mouseout", function(d){
+        tip.hide(d)
+      });
+  bar
+      .transition()
+      .duration(1000)
+      .attr("width", x1.bandwidth())
+      .attr("y", function(d) { return y(d.value); })
+      .attr("height", function(d) { return height - y(d.value); })
+      .style("fill", function(d) { return z(d.name); });
+    }
     }
 
       $scope.$watch('instructordata', function (newValue, oldValue) {
