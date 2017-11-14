@@ -462,37 +462,47 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     }
     $scope.getBarChartSurveyData()
     
-    ///////////////////
+    //---------------- All Weekly Survey Chart.js ----------------//
 
     var ctx = document.getElementById('surveyLineChart');
     if (ctx) {
     var surveyLineChart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'],
         datasets: [{
-          label: 'apples',
-          data: [12, 19, 3, 17, 6, 3, 7],
-          borderColor: "#3e95cd",
+          label: 'OSAT',
+          data: [10, 9, 8, 7, 10, 8, 7],
+          borderColor: "#21AAE1",
           fill: false
         }, {
-          label: 'oranges',
-          data: [2, 29, 5, 5, 2, 3, 10],
-          borderColor: "#3cba9f",
+          label: 'FSAT',
+          data: [8, 9, 9.5, 10, 9, 7, 10],
+          borderColor: "#1b6689",
           fill: false
         }, {
-            label: 'lemons',
-            data: [3,4,3,23,5,3,5],
-            borderColor: "#e8c3b9",
+            label: 'MSAT',
+            data: [10, 8, 7, 10, 9.5, 10, 8.5],
+            borderColor: "#435760",
             fill: false
         }, {
-            label: 'apricots',
-            data: [3,4,23,3,5,33,5],
-            borderColor: "#c45850",
+            label: 'CSAT',
+            data: [9, 8, 10, 8, 9, 10, 6],
+            borderColor: "#99c6db",
             fill: false
         }]
-      }
-      
+      },
+      options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true,
+                    min: 0,
+                    max: 10    
+                }
+              }]
+           }
+          }
     });
 
   }
