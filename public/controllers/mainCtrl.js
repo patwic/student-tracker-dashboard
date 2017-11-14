@@ -507,8 +507,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
           msatData.push(e.MSAT)
       })
 
-      console.log(csatData)
- 
     var ctx = document.getElementById('surveyLineChart');
     if (ctx) {
     var surveyLineChart = new Chart(ctx, {
@@ -528,12 +526,12 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         }, {
             label: 'MSAT',
             data: msatData,
-            borderColor: "#435760",
+            borderColor: "#6fbc80",
             fill: false
         }, {
             label: 'CSAT',
             data: csatData,
-            borderColor: "#99c6db",
+            borderColor: "#b67ec9",
             fill: false
         }]
       },
