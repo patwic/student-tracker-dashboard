@@ -108,3 +108,8 @@
     background: linear-gradient(-45deg, #222, #333); 
     
 }
+
+#surveyTopicLineContainer {
+    width: 75%;
+    margin: 20px auto 10px auto;
+  }

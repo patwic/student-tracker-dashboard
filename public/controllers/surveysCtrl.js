@@ -61,7 +61,7 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
     }
   
 
-    // -------------- Survey Topic Graph -------------- //
+    // -------------- Survey Topic Data -------------- //
 
     getTopicSurveyData = (selectedTopic, selectedLocation) => {
        $scope.topic = selectedTopic || 'Javascript'
@@ -70,8 +70,10 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
         $scope.topicData = surveyService.getSurveyByTopic($scope.topic).then(res => {
             if($scope.location === 'all') {
                 $scope.topicData = res.data
+                makeDataObject(res.data)
             } else {
                 $scope.topicData = res.data.filter(e => e.campus.split(',')[0] === $scope.location)
+                makeDataObject(res.data)
             }
         })
     }
@@ -86,34 +88,96 @@ angular.module('app').controller('surveysCtrl', function($scope, surveyService) 
         getTopicSurveyData($scope.topic, event.target.value)
     }
 
-    $scope.myChart = {
-        width : 500,
-        height : 500,
-        options : {},
-        data : [
-        {
-          value: 30,
-          color:"#F7464A"
-        },
-        {
-          value : 50,
-          color : "#E2EAE9"
-        },
-        {
-          value : 100,
-          color : "#D4CCC5"
-        },
-        {
-          value : 40,
-          color : "#949FB1"
-        },
-        {
-          value : 120,
-          color : "#4D5360"
+    // -------------- Survey Topic Graph -------------- //
+
+    makeDataObject = (arr) => {
+        let allDataArr = [];
+        for (let i = 0; i < arr.length; i++) {
+            
+          allDataArr.push({
+            'date': arr[i].date,
+            'overall': Number(arr[i].overall),
+            'explained': Number(arr[i].explain),
+            'prepared': Number(arr[i].prepared),
+            'instructor': arr[i].instructor
+          })
         }
-  
-        ]
-      }
+        console.log(allDataArr)
+        
+
+    averages = (dataArr) => {
+
+        var today = new Date()
+        var priorDate = new Date().setDate(today.getDate()-90)
+
+        let arr = []
+        let obj = {}
+        let max = today;
+        let min = priorDate;
+        for (let i = 0; i < dataArr.length; i++) {
+          let u = dataArr[i].date
+          if (u > max) max = u
+          if (u < min) min = u
+          let d = dataArr[i]
+          if (!obj[u]) obj[u] = {}
+          obj[u].overall = obj[u].overall ? obj[u].overall + d.overall : d.overall
+          obj[u].explained = obj[u].explained ? obj[u].explained + d.explained : d.explained
+          obj[u].prepared = obj[u].prepared ? obj[u].prepared + d.prepared : d.prepared
+          obj[u].overallcount = obj[u].overallcount ? obj[u].overallcount += 1 : 1
+          obj[u].explainedcount = obj[u].explainedcount ? obj[u].explainedcount += 1 : 1
+          obj[u].preparedcount = obj[u].preparedcount ? obj[u].preparedcount += 1 : 1
+        }
+        console.log(obj)
+        for (let i = min; i <= max; i++) {
+            console.log(obj)
+            obj[i].overall = (obj[i].overall / obj[i].overallcount).toFixed(2)
+            obj[i].explained = (obj[i].explained / obj[i].explainedcount).toFixed(2)
+            obj[i].prepared = (obj[i].prepared / obj[i].preparedcount).toFixed(2)
+            obj[i].unit = i
+            arr.push(obj[i])
+        }
+
+
+        console.log(arr)
+    }
+
+    averages(allDataArr)
+
+      var ctx = document.getElementById('surveyTopicLineChart');
+      var surveyLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'],
+          datasets: [{
+            label: 'Overall',
+            data: [1,2,3],
+            borderColor: "#21AAE1",
+            fill: false
+          }, {
+            label: 'Prepared',
+            data: [4,2,5],
+            borderColor: "#1b6689",
+            fill: false
+          }, {
+              label: 'Explained',
+              data: [5, 2, 4],
+              borderColor: "#6fbc80",
+              fill: false
+          }]
+        },
+        options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true,
+                      min: 0,
+                      max: 5    
+                  }
+                }]
+             }
+            }
+      });
+    }
 
     // -------------- Instructors Graph -------------- //
 

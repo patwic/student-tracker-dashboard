@@ -109,7 +109,7 @@ angular.module('app')
       .data(dataset)
       .enter().append("g")
       .attr("class", "rect")
-      .attr("transform", function(d) { console.log(d.subtopic)
+      .attr("transform", function(d) { 
         return "translate(" + x0(d.subtopic) + ",0)"; });
   
   bar.selectAll("rect")
@@ -147,9 +147,6 @@ angular.module('app')
    
     changeBar = (surveyData) => {
 
-
-      console.log(surveyData)
-
       if(surveyData){
       var filteredSurveyData = surveyData.map(e => {
         var subtopicEdited = e.subtopic.split('').splice(2, 4).join('')
@@ -166,8 +163,6 @@ angular.module('app')
       filteredSurveyData.forEach(function(d) {
         d.valores = options.map(function(name) { return {name: name, value: +d[name]}; });
       });
-
-      console.log(filteredSurveyData)
 
       var x0 = d3.scaleBand()
       .domain(filteredSurveyData.map(function(d) { return d.subtopic; }))
@@ -188,13 +183,12 @@ angular.module('app')
   var xAxis = d3.axisBottom(x0)
   var yAxis = d3.axisLeft(y)
     
-      console.log(filteredSurveyData)
-        
+
   var bar = svg.selectAll(".bar")
       .data(filteredSurveyData)
       .enter().append("g")
       .attr("class", "rect")
-      .attr("transform", function(d) { console.log(d.subtopic)
+      .attr("transform", function(d) {
         return "translate(" + x0(d.subtopic) + ",0)"; });
   
   bar.selectAll("rect")

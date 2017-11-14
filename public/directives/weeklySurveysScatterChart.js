@@ -215,7 +215,7 @@ angular
                 // console.log(+d[survey])
                 return y(+ d[survey]);
               })
-              .attr("fill", "#bc4866")
+              .attr("fill", "#1b6689")
               .on('mouseover', function (d) {
                 tip.show(d)
               })
@@ -239,7 +239,7 @@ angular
                 // console.log(+d[survey])
                 return y(+ d[survey]);
               })
-              .attr("fill", "#6cba75")
+              .attr("fill", "#6fbc80")
               .on('mouseover', function (d) {
                 tip.show(d)
               })
@@ -263,7 +263,7 @@ angular
                 // console.log(+d[survey])
                 return y(+ d[survey]);
               })
-              .attr("fill", "#c4c4c4")
+              .attr("fill", "#b67ec9")
               .on('mouseover', function (d) {
                 tip.show(d)
               })
@@ -299,11 +299,11 @@ angular
                   case "webdev":
                     return "#21AAE1"
                   case "ios":
-                    return "#bc4866"
+                    return "#1b6689"
                   case "qa":
-                    return "#6cba75"
+                    return "#6fbc80"
                   case "ux":
-                    return "#c4c4c4"
+                    return "#b67ec9"
                 }
               })
               .on('mouseover', function (d) {
