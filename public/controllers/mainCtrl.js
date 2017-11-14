@@ -508,7 +508,16 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       })
 
     var ctx = document.getElementById('surveyLineChart');
-    if (ctx) {
+    // var margin = {
+    //   top: 30,
+    //   right: 30,
+    //   bottom: 30,
+    //   left: 50
+    // }
+
+    // var width = document.getElementById('surveyLineChart').offsetWidth - margin.right - margin.left;
+    // var height = document.getElementById('surveyLineChart').offsetHeight - margin.top - margin.bottom - 80;
+
     var surveyLineChart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -547,8 +556,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
            }
           }
     });
-
-  }
 }
     //---------------- get data for weekly survey comments ----------------//
 
