@@ -102,15 +102,15 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
         let allDataArr = [];
         for (let i = 0; i < arr.length; i++) {
-            if(arr[i].instructor.split(' ')[0] !== "Patience") {
-            allDataArr.push({
-                'date': arr[i].date,
-                'overall': Number(arr[i].overall),
-                'explained': Number(arr[i].explain),
-                'prepared': Number(arr[i].prepared),
-                'instructor': arr[i].instructor
-            })
-        }
+            if (arr[i].instructor.split(' ')[0] !== "Patience") {
+                allDataArr.push({
+                    'date': arr[i].date,
+                    'overall': Number(arr[i].overall),
+                    'explained': Number(arr[i].explain),
+                    'prepared': Number(arr[i].prepared),
+                    'instructor': arr[i].instructor
+                })
+            }
         }
 
         averages = (dataArr) => {
@@ -142,12 +142,12 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
             }
 
-            for(let prop in obj) {
+            for (let prop in obj) {
                 obj[prop].overall = (obj[prop].overall / obj[prop].overallcount).toFixed(2)
                 obj[prop].explained = (obj[prop].explained / obj[prop].explainedcount).toFixed(2)
                 obj[prop].prepared = (obj[prop].prepared / obj[prop].preparedcount).toFixed(2)
 
-                if(Date.parse(obj[prop].date) > Date.parse(pastDate)) {
+                if (Date.parse(obj[prop].date) > Date.parse(pastDate)) {
                     arr.push(obj[prop])
                 }
             }
@@ -231,42 +231,107 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
         getInstructorTopicData($scope.selectedInstructor, event.target.value)
     }
 
-    makeInstructorObject = (data) => {
-        console.log(data)
-    }
+    makeInstructorObject = (arr) => {
 
+        arr.map(e => {
+            e.date = new Date(e.date).toDateString()
+        })
 
-    var ctx = document.getElementById("instructorBar").getContext("2d");
-    
-    var instructorBar = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ["Chocolate", "Vanilla", "Strawberry"],
-        datasets: [{
-          label: "Overall",
-          backgroundColor: "#21AAE1",
-          data: [3, 4, 4]
-        }, {
-          label: "Prepared",
-          backgroundColor: "#1b6689",
-          data: [4, 3, 5]
-        }, {
-          label: "Explained",
-          backgroundColor: '#0f4a66',
-          data: [4, 2, 4]
-        }]
-      },
-      options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        min: 0,
-                        max: 5
-                    }
-                }]
+        let allDataArr = [];
+        for (let i = 0; i < arr.length; i++) {
+            allDataArr.push({
+                'date': arr[i].date.toString().split(' ').splice(1).join(' '),
+                'overall': Number(arr[i].overall),
+                'explained': Number(arr[i].explain),
+                'prepared': Number(arr[i].prepared),
+            })
+        }
+
+        averages = (dataArr) => {
+
+            var today = new Date().toDateString()
+
+            var priorDate = new Date();
+            priorDate.setDate(priorDate.getDate() - 180);
+            var pastDate = priorDate.toDateString()
+
+            let arr = []
+            let obj = {}
+            let max = today;
+            let min = pastDate;
+            for (let i = 0; i < dataArr.length; i++) {
+                let u = dataArr[i].date
+                if (u > max) max = u
+                if (u < min) min = u
+                let d = dataArr[i]
+                if (!obj[u]) obj[u] = {}
+                obj[u].overall = obj[u].overall ? obj[u].overall + d.overall : d.overall
+                obj[u].explained = obj[u].explained ? obj[u].explained + d.explained : d.explained
+                obj[u].prepared = obj[u].prepared ? obj[u].prepared + d.prepared : d.prepared
+                obj[u].overallcount = obj[u].overallcount ? obj[u].overallcount += 1 : 1
+                obj[u].explainedcount = obj[u].explainedcount ? obj[u].explainedcount += 1 : 1
+                obj[u].preparedcount = obj[u].preparedcount ? obj[u].preparedcount += 1 : 1
+                obj[u].instructor = d.instructor
+                obj[u].date = d.date
+
             }
-      }
-    });
-    
+
+            for (let prop in obj) {
+                console.log(obj)
+                obj[prop].overall = (obj[prop].overall / obj[prop].overallcount).toFixed(2)
+                obj[prop].explained = (obj[prop].explained / obj[prop].explainedcount).toFixed(2)
+                obj[prop].prepared = (obj[prop].prepared / obj[prop].preparedcount).toFixed(2)
+
+                // if (Date.parse(obj[prop].date) > Date.parse(pastDate)) {
+                    arr.push(obj[prop])
+                // }
+            }
+
+            var overallData = [];
+            var preparedData = [];
+            let explainedData = [];
+            let dates = [];
+
+            arr.map(e => {
+                overallData.push(e.overall)
+                preparedData.push(e.prepared)
+                explainedData.push(e.explained)
+                dates.push(e.date)
+            })
+
+            var ctx = document.getElementById("instructorBar").getContext("2d");
+
+            var instructorBar = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: "Overall",
+                        backgroundColor: "#21AAE1",
+                        data: overallData
+                    }, {
+                        label: "Prepared",
+                        backgroundColor: "#1b6689",
+                        data: preparedData
+                    }, {
+                        label: "Explained",
+                        backgroundColor: '#0f4a66',
+                        data: explainedData
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                min: 0,
+                                max: 5
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+        averages(allDataArr)
+    }
 })
