@@ -102,7 +102,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
         let allDataArr = [];
         for (let i = 0; i < arr.length; i++) {
-
+            if(arr[i].instructor.split(' ')[0] !== "Patience") {
             allDataArr.push({
                 'date': arr[i].date,
                 'overall': Number(arr[i].overall),
@@ -111,13 +111,14 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 'instructor': arr[i].instructor
             })
         }
+        }
 
         averages = (dataArr) => {
 
             var today = new Date().toDateString()
 
             var priorDate = new Date();
-            priorDate.setDate(priorDate.getDate() - 200);
+            priorDate.setDate(priorDate.getDate() - 180);
             var pastDate = priorDate.toDateString()
 
             let arr = []
@@ -145,14 +146,11 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 obj[prop].overall = (obj[prop].overall / obj[prop].overallcount).toFixed(2)
                 obj[prop].explained = (obj[prop].explained / obj[prop].explainedcount).toFixed(2)
                 obj[prop].prepared = (obj[prop].prepared / obj[prop].preparedcount).toFixed(2)
-                // obj[prop].date = obj[prop].date
 
-                arr.push(obj[prop])
-
+                if(Date.parse(obj[prop].date) > Date.parse(pastDate)) {
+                    arr.push(obj[prop])
+                }
             }
-
-            console.log(arr)
-
 
             var overallData = [];
             var preparedData = [];
@@ -163,9 +161,8 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 overallData.push(e.overall)
                 preparedData.push(e.prepared)
                 explainedData.push(e.explained)
-                dates.push(e.date)
+                dates.push(e.date.toString().split(' ').splice(1).join(' ') + ': ' + e.instructor)
             })
-
 
             var ctx = document.getElementById('surveyTopicLineChart');
             var surveyLineChart = new Chart(ctx, {
@@ -221,6 +218,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
         surveyService.getInstructorGraphData().then(res => {
             $scope.instructorData = res.data.filter(e => e.instructorId === $scope.selectedInstructor && e.topic === $scope.instructorTopic)
+            makeInstructorObject($scope.instructorData)
         })
     }
     getInstructorTopicData()
@@ -232,4 +230,43 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     $scope.changeSelectedInstructorTopic = () => {
         getInstructorTopicData($scope.selectedInstructor, event.target.value)
     }
+
+    makeInstructorObject = (data) => {
+        console.log(data)
+    }
+
+
+    var ctx = document.getElementById("instructorBar").getContext("2d");
+    
+    var instructorBar = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ["Chocolate", "Vanilla", "Strawberry"],
+        datasets: [{
+          label: "Overall",
+          backgroundColor: "#21AAE1",
+          data: [3, 4, 4]
+        }, {
+          label: "Prepared",
+          backgroundColor: "#1b6689",
+          data: [4, 3, 5]
+        }, {
+          label: "Explained",
+          backgroundColor: '#0f4a66',
+          data: [4, 2, 4]
+        }]
+      },
+      options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 5
+                    }
+                }]
+            }
+      }
+    });
+    
 })
