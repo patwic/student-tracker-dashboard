@@ -137,60 +137,54 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 obj[u].explainedcount = obj[u].explainedcount ? obj[u].explainedcount += 1 : 1
                 obj[u].preparedcount = obj[u].preparedcount ? obj[u].preparedcount += 1 : 1
                 obj[u].instructor = d.instructor
-            }
- 
-            for (let i = min; i <= max; i++) {
-                console.log(min)
-                console.log(max)
-                console.log(obj)
-                console.log(obj[i])
-                obj[i].overall = (obj[i].overall / obj[i].overallcount).toFixed(2)
-                obj[i].explained = (obj[i].explained / obj[i].explainedcount).toFixed(2)
-                obj[i].prepared = (obj[i].prepared / obj[i].preparedcount).toFixed(2)
-                obj[i].date = i
+                obj[u].date = d.date
 
-                arr.push(obj[i])
             }
 
+            for(let prop in obj) {
+                obj[prop].overall = (obj[prop].overall / obj[prop].overallcount).toFixed(2)
+                obj[prop].explained = (obj[prop].explained / obj[prop].explainedcount).toFixed(2)
+                obj[prop].prepared = (obj[prop].prepared / obj[prop].preparedcount).toFixed(2)
+                // obj[prop].date = obj[prop].date
 
+                arr.push(obj[prop])
 
+            }
 
             console.log(arr)
 
 
-            var csatData = [];
-            var osatData = [];
-            let fsatData = [];
-            let msatData = [];
+            var overallData = [];
+            var preparedData = [];
+            let explainedData = [];
+            let dates = [];
 
             arr.map(e => {
-                csatData.push(e.CSAT)
-                osatData.push(e.OSAT)
-                fsatData.push(e.FSAT)
-                msatData.push(e.MSAT)
+                overallData.push(e.overall)
+                preparedData.push(e.prepared)
+                explainedData.push(e.explained)
+                dates.push(e.date)
             })
 
-
-            /////
 
             var ctx = document.getElementById('surveyTopicLineChart');
             var surveyLineChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'],
+                    labels: dates,
                     datasets: [{
                         label: 'Overall',
-                        data: [1, 2, 3],
+                        data: overallData,
                         borderColor: "#21AAE1",
                         fill: false
                     }, {
                         label: 'Prepared',
-                        data: [4, 2, 5],
+                        data: preparedData,
                         borderColor: "#1b6689",
                         fill: false
                     }, {
                         label: 'Explained',
-                        data: [5, 2, 4],
+                        data: explainedData,
                         borderColor: "#6fbc80",
                         fill: false
                     }]
