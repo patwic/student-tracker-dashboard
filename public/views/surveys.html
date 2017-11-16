@@ -50,20 +50,20 @@
         <div class='surveys-graphBox' id="topicDiv">
             <div class='surveys-boxBar'>
                 <h3>SURVEY TOPIC SCORES</h3>
-                <div class='survey-ScatterSelectsContainer'>
+                <div class='survey-ScatterSelectsContainer' style='width: 216px;'>
                     <div class='survey-ScatterSelectorBackground'>
                         <select ng-model='topic' class='cohort-ScatterGraphSelector' ng-change='changeSelectedTopic()'>
                                 <option ng-repeat='topic in topics' value='{{topic._id}}'>{{topic.name}}</option>
                         </select>
                     </div>
-                    <div class='survey-ScatterSelectorBackground'>
+                    <!-- <div class='survey-ScatterSelectorBackground'>
                         <select ng-model='location' class='cohort-ScatterGraphSelector' ng-change='changeSelectedLocation()'>
                                 <option selected value='all'>All Locations</option>
                                 <option value="Provo">Provo</option>
                                 <option value="Dallas">Dallas</option>
                                 <option value="Phoenix">Phoenix</option>
                         </select>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div id='surveyTopicLineContainer'>

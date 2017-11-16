@@ -50,8 +50,6 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 } 
             }
         }
-        console.log($scope.topics)
-        console.log($scope.instructorTopics)
     })
 
 
@@ -232,6 +230,8 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     getTopicSurveyData = (selectedTopic, selectedLocation) => {
         $scope.topic = selectedTopic || '56fb1628c63976af2f88b31c'
         $scope.location = selectedLocation || 'all'
+
+/////FIX SELECT HERE/////////
 
         $scope.topicData = surveyService.getSurveyByTopic($scope.topic).then(res => {
             if ($scope.location === 'all') {
