@@ -362,33 +362,54 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
     // -------------- Instructors Data -------------- //
 
-    getInstructorTopicData = (instructor, topic) => {
+    // $scope.selectedModule;
+    // $scope.filteredModules;
+
+    getInstructorTopicData = (instructor, topic, sModule) => {
         $scope.instructorTopic = topic || '56fb1628c63976af2f88b31c'
         $scope.selectedInstructor = instructor || '59f24cb377f2691d80dab8c9'
+        $scope.selectedModule = sModule || '1.1 Javascript 1'
 
         surveyService.getInstructorGraphData().then(res => {
-            $scope.instructorData = res.data.filter(e => e.instructorId === $scope.selectedInstructor && e.topic._id === $scope.instructorTopic)
+            console.log(res)
+            $scope.instructorData = res.data.filter(e => e.instructorId === $scope.selectedInstructor && e.topic._id === $scope.instructorTopic )
             makeInstructorObject($scope.instructorData)
         })
     }
     getInstructorTopicData()
 
     $scope.changeSelectedInstructor = () => {
-        getInstructorTopicData(event.target.value, $scope.instructorTopic)
+        getInstructorTopicData(event.target.value, $scope.instructorTopic, $scope.selectedModule)
     }
 
     $scope.changeSelectedInstructorTopic = () => {
-        console.log(event.target.value)
-        getInstructorTopicData($scope.selectedInstructor, event.target.value)
+        getInstructorTopicData($scope.selectedInstructor, event.target.value, $scope.selectedModule)
+
+        $scope.filteredModules = $scope.modules.filter(e => {
+            return e.topicId === $scope.instructorTopic
+        })
     }
 
-    $scope.changeSelectedModule = () => {
-        console.log(event.target.value)
-    }
 
      // -------------- Instructors Graph -------------- //
 
+    //  $scope.selectedModule = 'all';
+     
+          $scope.changeSelectedModule = () => {
+             $scope.selectedModule = event.target.value
+             console.log($scope.selectedModule)
+             getInstructorTopicData($scope.selectedInstructor, $scope.instructorTopic, event.target.value)
+         }
+
     makeInstructorObject = (arr) => {
+
+
+
+        // arr.map(e => {
+        //     console.log(e)
+        //     // return e.module.name === $scope.selectedModule;
+        // })
+        // console.log(arr)
 
         arr.map(e => {
             e.date = new Date(e.date).toDateString()
