@@ -12,6 +12,10 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     $scope.modules;
     $scope.topics;
 
+    const approvedInstructorTopics = ['Javascript', 'Git', 'HTML/CSS', 'CSS', 'React', 'Angular', 'Passport', 'Node', 'SQL', 'Data structures and Algorithms', 'Unit Testing']
+
+    const approvedTopics = ['Javascript', 'Git', 'HTML/CSS', 'CSS', 'React', 'Angular', 'Passport', 'Node', 'SQL', 'Data structures and Algorithms', 'Unit Testing', 'SQL - Mini', 'Big O Notation', 'Amazon Web Services', 'jQuery', 'Mini-Lectures']
+
     // -------------- Get Modules -------------- //
 
     surveyService.getModules().then(res => {
@@ -31,7 +35,23 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
     surveyService.getTopics().then(res => {
         console.log(res.data)
-        $scope.topics = res.data
+        let topics = res.data
+        $scope.topics = [];
+        $scope.instructorTopics = [];
+        for(var i = 0; i < topics.length; i++) {
+            for(var j = 0; j < approvedInstructorTopics.length; j++) {
+                if(topics[i].name === approvedTopics[j]){
+                    $scope.instructorTopics.push(topics[i])
+                }
+            }
+            for(var x = 0; x < approvedTopics.length; x++) {
+                if(topics[i].name === approvedTopics[x]) {
+                    $scope.topics.push(topics[i])
+                } 
+            }
+        }
+        console.log($scope.topics)
+        console.log($scope.instructorTopics)
     })
 
 
@@ -210,7 +230,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     // -------------- Survey Topic Data -------------- //
 
     getTopicSurveyData = (selectedTopic, selectedLocation) => {
-        $scope.topic = selectedTopic || 'Javascript'
+        $scope.topic = selectedTopic || '56fb1628c63976af2f88b31c'
         $scope.location = selectedLocation || 'all'
 
         $scope.topicData = surveyService.getSurveyByTopic($scope.topic).then(res => {
@@ -436,7 +456,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 overallData.push(e.overall)
                 preparedData.push(e.prepared)
                 explainedData.push(e.explained)
-                dates.push(e.date + ' ' + 'hello')
+                dates.push(e.date)
             })
 
             $scope.instructorBar;
