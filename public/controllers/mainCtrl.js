@@ -440,15 +440,12 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     //---------------- get data for cohort surveys bar chart -------------//
 
     $scope.surveyName = ""
-    console.log($scope.cohortId)
     
     if($scope.cohortId) {
       getCohortSurveyData = () => {
         surveyService.getWeeklySurveyDataByCohortId($scope.cohortId).then(res => {
             $scope.sd = res.data;
             averages(res.data)
-           
-
         })
       }
       getCohortSurveyData()
@@ -460,7 +457,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       if(event) {
         $scope.surveyColumn = event.target.value || "OSAT";
       }
-      // console.log($scope.surveyColumn)
     }
     $scope.getBarChartSurveyData()
     
@@ -507,8 +503,10 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
           msatData.push(e.MSAT)
       })
 
+    $scope.surveyLineChart
     var ctx = document.getElementById('surveyLineChart');
-    var surveyLineChart = new Chart(ctx, {
+    if($scope.surveyLineChart) {$scope.surveyLineChart.destroy();}
+    $scope.surveyLineChart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'],
@@ -561,7 +559,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     $scope.getCommentsByWeek = () => {
       let week = event.target.value || 1
-      // console.log($scope.allComm)
       $scope.comments = $scope.allComments.filter(e => e.unit == week)
     }
    

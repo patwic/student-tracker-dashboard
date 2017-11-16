@@ -66,25 +66,24 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
     // -------------- Survey Line Chart -------------- //
 
+    $scope.selectedLineProgram;
+
+    $scope.changeSelectedLineProgram = () => {
+        $scope.selectedLineProgram = event.target.value;
+        makeSurveyLineChart($scope.allData)
+    }
 
     makeSurveyLineChart = (arr) => {
         let data = arr
-        console.log(data)
-
-        $scope.selectedLineProgram = 'webdev'
+        !$scope.selectedLineProgram ? $scope.selectedLineProgram = 'webdev' : null
         let surveyData = [];
-    
             surveyData = $scope.allPrograms[$scope.selectedLineProgram].filter(e => {
                 return e.program === $scope.selectedLineProgram
             })
-
         filteredData = surveyData
-        console.log(filteredData)
-
 
 
         let averages = (dataArr) => {
-            console.log(dataArr)
             let arr = []
             let obj = {}
             let max = 0;
@@ -134,9 +133,12 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
             fsatData.push(e.FSAT)
             msatData.push(e.MSAT)
         })
-  
-      var ctx = document.getElementById('lineWeeklyChart');
-      var lineWeeklyChart = new Chart(ctx, {
+
+        
+    $scope.lineWeeklyChart;
+    var ctx = document.getElementById('lineWeeklyChart');
+      if ($scope.lineWeeklyChart) { $scope.lineWeeklyChart.destroy(); }
+      $scope.lineWeeklyChart = new Chart(ctx, {
         type: 'line',
         data: {
           labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'],
@@ -278,8 +280,11 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 dates.push(e.date.toString().split(' ').splice(1).join(' ') + ': ' + e.instructor)
             })
 
+            
+            $scope.surveyLineChart;
             var ctx = document.getElementById('surveyTopicLineChart');
-            var surveyLineChart = new Chart(ctx, {
+            if ($scope.surveyLineChart) { $scope.surveyLineChart.destroy(); }
+            $scope.surveyLineChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: dates,
@@ -413,9 +418,10 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 dates.push(e.date)
             })
 
+            $scope.instructorBar;
             var ctx = document.getElementById("instructorBar").getContext("2d");
-
-            var instructorBar = new Chart(ctx, {
+            if ($scope.instructorBar) { $scope.instructorBar.destroy(); }
+            $scope.instructorBar = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: dates,

@@ -1,11 +1,11 @@
 <div ng-controller='surveysCtrl'>
 
         <div class='surveys-section'> 
-                <div class='surveys-graphBox' style='margin-top: 70px;' id='surveyInstructorBarChart'>
+                <div class='surveys-graphBox' style='margin-top: 50px;' id='surveyInstructorBarChart'>
                     <div class='surveys-boxBar'>
                         <h3>ALL WEEKLY AVERAGE SCORES</h3>
                         <div class='survey-ScatterSelectorBackground'>
-                                <select ng-model='selectedLineProgram' class='cohort-ScatterGraphSelector'>
+                                <select ng-model='selectedLineProgram' ng-change='changeSelectedLineProgram()' class='cohort-ScatterGraphSelector'>
                                     <option value="webdev">Web Development</option>
                                     <option value="ux">UX-UI</option>
                                     <option value="ios">IOS</option>
@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-       <div class='survey-lower-sections'>
+       <div class='survey-lower-sections' style='padding-top: 5vh;'>
         <div class='surveys-graphBox' id="graphBoxDiv">
             <div class='surveys-boxBar'>
                 <h3>WEEKLY SURVEY SCORES BY TYPE</h3>
@@ -46,7 +46,7 @@
             <survey-scatter sd='sd' survey='surveyName'></survey-scatter>
         </div>
     </div>
-    <div class='survey-lower-sections' style='padding-top: 5vh;'>
+    <div class='survey-lower-sections'>
         <div class='surveys-graphBox' id="topicDiv">
             <div class='surveys-boxBar'>
                 <h3>SURVEY TOPIC SCORES</h3>
