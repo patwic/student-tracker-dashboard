@@ -24,4 +24,12 @@ angular.module('app').service('surveyService', function ($http) {
     return $http.get('/api/surveys/instructorData')
   }
 
+  this.getModules = () => {
+    return $http.get('/api/surveys/modules')
+  }
+
+  this.getTopics = () => {
+    return $http.get('/api/surveys/topics')
+  }
+
 })

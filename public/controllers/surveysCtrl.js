@@ -9,6 +9,31 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
         qa: [],
         webdev: []
     };
+    $scope.modules;
+    $scope.topics;
+
+    // -------------- Get Modules -------------- //
+
+    surveyService.getModules().then(res => {
+        console.log(res.data)
+        $scope.modules = res.data
+    })
+
+
+    // -------------- Get Instructors -------------- //
+
+        surveyService.getInstructors().then(res => {
+            $scope.instructors = res.data
+        })
+
+
+    // -------------- Get Topics -------------- //
+
+    surveyService.getTopics().then(res => {
+        console.log(res.data)
+        $scope.topics = res.data
+    })
+
 
     // -------------- Weekly Survey Graph -------------- //
 
@@ -323,13 +348,6 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     }
 
     // -------------- Instructors Graph -------------- //
-
-    getInstructors = () => {
-        surveyService.getInstructors().then(res => {
-            $scope.instructors = res.data
-        })
-    }
-    getInstructors()
 
     getInstructorTopicData = (instructor, topic) => {
         $scope.instructorTopic = topic || 'React'

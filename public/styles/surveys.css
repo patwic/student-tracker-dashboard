@@ -12,6 +12,12 @@
     padding-bottom: 10vh;
 }
 
+.survey-barSelectorContainer {
+    display: flex;
+    width: 680px;
+    justify-content: space-between;
+}
+
 .surveys-graphBox {
     width: 90%;
     height: 75vh;

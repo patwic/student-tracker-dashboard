@@ -91,7 +91,7 @@
         <div class='surveys-graphBox' id='surveyInstructorBarChart'>
             <div class='surveys-boxBar'>
                 <h3>INSTRUCTOR SCORES</h3>
-                <div class='survey-ScatterSelectsContainer'>
+                <div class='survey-barSelectorContainer'>
                     <div class='survey-ScatterSelectorBackground'>
 
                         <select class='cohort-ScatterGraphSelector' ng-model='selectedInstructor' ng-change='changeSelectedInstructor()'>
@@ -99,7 +99,7 @@
                         </select>
                                                 
                     </div>
-                    <div class='survey-ScatterSelectorBackground'>
+                    <div class='survey-ScatterSelectorBackground' >
                         <select ng-model='instructorTopic' class='cohort-ScatterGraphSelector' ng-change='changeSelectedInstructorTopic()'>
                                 <option selected value="Javascript">Javascript</option>
                                 <option value='Git'>Git</option>
@@ -121,14 +121,7 @@
                     </div>
                     <div class='survey-ScatterSelectorBackground'>
                         <select class='cohort-ScatterGraphSelector' >
-                            <option value='' >1.1 Git</option>
-                            <option value='' ></option>
-                            <option value='' ></option>
-                            <option value='' ></option>
-                            <option value='' ></option>
-                            <option value='' ></option>
-                            <option value='' ></option>
-                            <option value='' ></option>
+                                <option ng-repeat='module in modules' value='{{module.name}}'>{{module.name}}</option>
                         </select>
                     </div>
                 </div>

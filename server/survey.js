@@ -4,57 +4,77 @@ app = require('./server')
 
 module.exports = {
     getWeekly: (req, res) => {
-            var options = {
+            let info = {
                 uri: `${config.surveyAPI}tableau/data`,
                 json: true // Automatically parses the JSON string in the response
             }; 
-        request(options).then(function (resp) {
+        request(info).then(function (resp) {
             res.send(resp)
         })
     },
 
     getWeeklyByCohortId: (req, res) => {
-        var options = {
+        let info = {
             uri: `${config.surveyAPI}tableau/data?cohort=` + req.query.id,
             json: true 
         };
-        request(options).then(function (resp) {
+        request(info).then(function (resp) {
             res.send(resp)
         })
     },
 
     getWeeklyCommentsById: (req, res) => {
-        var options = {
+        let info = {
             uri: `${config.surveyAPI}tableau/data?cohort=${req.query.id}&comment=all`,
             json: true
         }
-        request(options).then(function(resp) {
+        request(info).then(function(resp) {
             res.send(resp)
         })
     },
 
     getSurveyByTopic: (req, res) => {
-        var options = {
+        let info = {
             uri: `${config.surveyAPI}tableau/data/topic?topic=${req.query.topic}`,
             json: true
         }
-        request(options).then(function(resp) {
+        request(info).then(function(resp) {
             res.send(resp)
         })
     },
 
     getInstructorsForSurveys: (req, res) => {
-        var options = {
+        let info = {
             uri: `${config.surveyAPI}admin/instructor`,
             json: true
         }
-        request(options).then(function(resp) {
+        request(info).then(function(resp) {
             res.send(resp)
         })
     },
 
     getInstructorData: (req, res) => {
         res.send(instructorSurveys)
+    },
+
+    getModules: (req, res) => {
+        let info = {
+            uri: `${config.surveyAPI}admin/modules`,
+            json: true
+        }
+        request(info).then(function(resp) {
+            res.send(resp)
+        })
+    },
+
+    getTopics: (req, res) => {
+        let info = {
+            uri: `${config.surveyAPI}topics`,
+            json: true
+        }
+        request(info).then(resp => {
+            res.send(resp)
+        })
     }
 }
 

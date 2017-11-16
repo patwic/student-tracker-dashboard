@@ -212,6 +212,8 @@ app.get('/api/surveys/getCommentsById', survey.getWeeklyCommentsById) //gets all
 app.get('/api/surveys/getSurveyByTopic', survey.getSurveyByTopic) //gets all surveys by specific topic. 
 app.get('/api/surveys/instructors', survey.getInstructorsForSurveys) //get instructors.
 app.get('/api/surveys/instructorData', survey.getInstructorData)
+app.get('/api/surveys/modules', survey.getModules)
+app.get('/api/surveys/topics', survey.getTopics)
 
 //for testing purposes; remove once live
 app.put('/api/reset', (req, res) => {
