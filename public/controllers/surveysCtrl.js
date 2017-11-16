@@ -360,7 +360,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
         averages(allDataArr)
     }
 
-    // -------------- Instructors Graph -------------- //
+    // -------------- Instructors Data -------------- //
 
     getInstructorTopicData = (instructor, topic) => {
         $scope.instructorTopic = topic || '56fb1628c63976af2f88b31c'
@@ -381,6 +381,12 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
         console.log(event.target.value)
         getInstructorTopicData($scope.selectedInstructor, event.target.value)
     }
+
+    $scope.changeSelectedModule = () => {
+        console.log(event.target.value)
+    }
+
+     // -------------- Instructors Graph -------------- //
 
     makeInstructorObject = (arr) => {
 
@@ -429,7 +435,6 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
             }
 
             for (let prop in obj) {
-                console.log(obj)
                 obj[prop].overall = (obj[prop].overall / obj[prop].overallcount).toFixed(2)
                 obj[prop].explained = (obj[prop].explained / obj[prop].explainedcount).toFixed(2)
                 obj[prop].prepared = (obj[prop].prepared / obj[prop].preparedcount).toFixed(2)

@@ -89,9 +89,11 @@
                             </select>
                     </div>
                     <div class='survey-ScatterSelectorBackground'>
-                        <select class='cohort-ScatterGraphSelector' >
-                                <option value='' >All by Selected Topic</option>
-                                <option ng-repeat='module in modules' value='{{module.name}}'>{{module.name}}</option>
+                        <select ng-options="module.name as module.name for module in modules track by module.name" 
+                        class='cohort-ScatterGraphSelector'
+                        ng-change='changeSelectedModule()'
+                        ng-model="selectedModule">
+
                         </select>
                     </div>
                 </div>
