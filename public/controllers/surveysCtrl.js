@@ -255,7 +255,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
             b = new Date(b.date);
             return a-b;
         });
-        
+
         arr.map(e => {
             e.date = new Date(e.date).toDateString()
         })
@@ -407,13 +407,18 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
      // -------------- Instructors Graph -------------- //
      
      $scope.changeSelectedModule = () => {
+         if(!event.target.value) {
+            makeInstructorObject($scope.instructorData)    
+         } else {
         let moduleData = $scope.instructorData.filter(e => {
             return e.module.name == event.target.value
         })
-        makeInstructorObject(moduleData)        
+        makeInstructorObject(moduleData)  
+    }      
     }
 
     makeInstructorObject = (arr) => {
+        console.log(arr)
 
         arr.sort((a,b) => {
             a = new Date(a.date);
