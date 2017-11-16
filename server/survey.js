@@ -70,7 +70,8 @@ var instructorSurveys = [{
     "prepared": 5,
     "explain": 5,
     "overall": 5,
-    "date": "2016-11-17T20:08:27.596Z"
+    "date": "2016-11-17T20:08:27.596Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
@@ -83,7 +84,8 @@ var instructorSurveys = [{
     "prepared": 4,
     "explain": 4,
     "overall": 5,
-    "date": "2016-11-17T20:08:27.596Z"
+    "date": "2016-11-17T20:08:27.596Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
@@ -96,7 +98,8 @@ var instructorSurveys = [{
     "prepared": 5,
     "explain": 5,
     "overall": 5,
-    "date": "2016-11-17T20:08:27.596Z"
+    "date": "2016-11-17T20:08:27.596Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
@@ -109,7 +112,8 @@ var instructorSurveys = [{
     "prepared": 4,
     "explain": 5,
     "overall": 5,
-    "date": "2016-11-17T20:08:27.596Z"
+    "date": "2016-11-17T20:08:27.596Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
@@ -122,7 +126,8 @@ var instructorSurveys = [{
     "prepared": 5,
     "explain": 4,
     "overall": 5,
-    "date": "2016-11-17T20:08:27.596Z"
+    "date": "2016-11-17T20:08:27.596Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
@@ -135,7 +140,8 @@ var instructorSurveys = [{
     "prepared": 3,
     "explain": 3,
     "overall": 3,
-    "date": "2016-11-17T20:08:27.596Z"
+    "date": "2016-11-17T20:08:27.596Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
@@ -148,7 +154,8 @@ var instructorSurveys = [{
     "prepared": 5,
     "explain": 4,
     "overall": 3,
-    "date": "2016-11-17T20:08:27.596Z"
+    "date": "2016-11-17T20:08:27.596Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
@@ -161,7 +168,8 @@ var instructorSurveys = [{
     "prepared": 3,
     "explain": 5,
     "overall": 5,
-    "date": "2016-11-17T20:08:27.596Z"
+    "date": "2016-11-17T20:08:27.596Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
@@ -174,7 +182,8 @@ var instructorSurveys = [{
     "prepared": 3,
     "explain": 3,
     "overall": 3,
-    "date": "2016-11-17T20:08:27.596Z"
+    "date": "2016-11-17T20:08:27.596Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
@@ -187,7 +196,8 @@ var instructorSurveys = [{
     "prepared": 5,
     "explain": 5,
     "overall": 5,
-    "date": "2016-11-17T20:08:27.596Z"
+    "date": "2016-11-17T20:08:27.596Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }, {
     "instructorId": "59f24cb377f2691d80dab8c9",
     "subtopic": "w-2.1",
@@ -200,7 +210,8 @@ var instructorSurveys = [{
     "prepared": 4,
     "explain": 5,
     "overall": 4,
-    "date": "2016-10-31T18:00:32.553Z"
+    "date": "2016-10-31T18:00:32.553Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }, {
     "instructorId": "59f24cb377f2691d80dab8c9",
     "subtopic": "w-2.1",
@@ -213,7 +224,8 @@ var instructorSurveys = [{
     "prepared": 4,
     "explain": 4,
     "overall": 4,
-    "date": "2016-12-14T20:50:04.823Z"
+    "date": "2016-12-14T20:50:04.823Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }, {
     "instructorId": "59f24cb377f2691d80dab8c9",
     "subtopic": "w-2.1",
@@ -226,7 +238,8 @@ var instructorSurveys = [{
     "prepared": 5,
     "explain": 5,
     "overall": 5,
-    "date": "2016-12-14T20:50:04.823Z"
+    "date": "2016-12-14T20:50:04.823Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }, {
     "instructorId": "59f24cb377f2691d80dab8c9",
     "subtopic": "w-2.1",
@@ -239,7 +252,8 @@ var instructorSurveys = [{
     "prepared": 4,
     "explain": 4,
     "overall": 4,
-    "date": "2016-12-14T20:50:04.823Z"
+    "date": "2016-12-14T20:50:04.823Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }, {
     "instructorId": "59f24cb377f2691d80dab8c9",
     "subtopic": "w-2.1",
@@ -252,5 +266,6 @@ var instructorSurveys = [{
     "prepared": 4,
     "explain": 4,
     "overall": 4,
-    "date": "2016-12-14T20:50:04.823Z"
+    "date": "2016-12-14T20:50:04.823Z",
+    "module": {_id: '34jdi9s3', name: '1.1 Git'}
   }]

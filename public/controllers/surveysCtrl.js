@@ -363,6 +363,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 'overall': Number(arr[i].overall),
                 'explained': Number(arr[i].explain),
                 'prepared': Number(arr[i].prepared),
+                'module': arr[i].module.name
             })
         }
 
@@ -390,8 +391,8 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 obj[u].overallcount = obj[u].overallcount ? obj[u].overallcount += 1 : 1
                 obj[u].explainedcount = obj[u].explainedcount ? obj[u].explainedcount += 1 : 1
                 obj[u].preparedcount = obj[u].preparedcount ? obj[u].preparedcount += 1 : 1
-                obj[u].instructor = d.instructor
                 obj[u].date = d.date
+                obj[u].module = d.module
 
             }
 
@@ -412,10 +413,11 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
             let dates = [];
 
             arr.map(e => {
+                console.log(e)
                 overallData.push(e.overall)
                 preparedData.push(e.prepared)
                 explainedData.push(e.explained)
-                dates.push(e.date)
+                dates.push(e.date + ' ' + 'hello')
             })
 
             $scope.instructorBar;
