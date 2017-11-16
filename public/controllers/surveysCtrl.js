@@ -229,18 +229,11 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
     getTopicSurveyData = (selectedTopic, selectedLocation) => {
         $scope.topic = selectedTopic || '56fb1628c63976af2f88b31c'
-        $scope.location = selectedLocation || 'all'
-
-/////FIX SELECT HERE/////////
+        $scope.location = selectedLocation || 'Provo'
 
         $scope.topicData = surveyService.getSurveyByTopic($scope.topic).then(res => {
-            if ($scope.location === 'all') {
-                $scope.topicData = res.data
-                makeDataObject(res.data)
-            } else {
                 $scope.topicData = res.data.filter(e => e.campus.split(',')[0] === $scope.location)
-                makeDataObject(res.data)
-            }
+                makeDataObject($scope.topicData)
         })
     }
     getTopicSurveyData()
