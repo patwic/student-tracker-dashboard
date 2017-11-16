@@ -21,6 +21,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     surveyService.getModules().then(res => {
         console.log(res.data)
         $scope.modules = res.data
+        getInitialModuleList()
     })
 
 
@@ -362,13 +363,20 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
     // -------------- Instructors Data -------------- //
 
-    // $scope.selectedModule;
+    $scope.selectedModule = '';
     // $scope.filteredModules;
+
+    getInitialModuleList = () => {
+        $scope.filteredModules = $scope.modules.filter(e => {
+            return e.topicId === '56fb1628c63976af2f88b31c'
+        })
+   }   
 
     getInstructorTopicData = (instructor, topic, sModule) => {
         $scope.instructorTopic = topic || '56fb1628c63976af2f88b31c'
         $scope.selectedInstructor = instructor || '59f24cb377f2691d80dab8c9'
-        $scope.selectedModule = sModule || '1.1 Javascript 1'
+        $scope.selectedModule = sModule || ''
+        console.log($scope.selectedModule)
 
         surveyService.getInstructorGraphData().then(res => {
             console.log(res)
@@ -396,8 +404,6 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     //  $scope.selectedModule = 'all';
      
           $scope.changeSelectedModule = () => {
-             $scope.selectedModule = event.target.value
-             console.log($scope.selectedModule)
              getInstructorTopicData($scope.selectedInstructor, $scope.instructorTopic, event.target.value)
          }
 
