@@ -101,7 +101,8 @@
                     </div>
                     <div class='survey-ScatterSelectorBackground' >
                         <select ng-model='instructorTopic' class='cohort-ScatterGraphSelector' ng-change='changeSelectedInstructorTopic()'>
-                                <option selected value="Javascript">Javascript</option>
+                                <option ng-repeat='topic in topics' value='{{topic._id}}'>{{topic.name}}</option>
+                                <!-- <option selected value="Javascript">Javascript</option>
                                 <option value='Git'>Git</option>
                                 <option value='CSS'>HTML/CSS</option>
                                 <option value='CSS'>CSS</option>
@@ -116,11 +117,12 @@
                                 <option value='jQuery'>jQuery</option>
                                 <option value='Mini-Lectures'>Mini-Lectures</option>
                                 <option value='Data structures and Algorithms'>Data structures and Algorithms</option> -->
-                                <option value='Unit Testing'>Unit Testing</option>
+                                <!-- <option value='Unit Testing'>Unit Testing</option> --> 
                             </select>
                     </div>
                     <div class='survey-ScatterSelectorBackground'>
                         <select class='cohort-ScatterGraphSelector' >
+                                <option value='' >All Under Selected Topic</option>
                                 <option ng-repeat='module in modules' value='{{module.name}}'>{{module.name}}</option>
                         </select>
                     </div>

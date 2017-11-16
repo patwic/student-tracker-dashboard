@@ -350,11 +350,11 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     // -------------- Instructors Graph -------------- //
 
     getInstructorTopicData = (instructor, topic) => {
-        $scope.instructorTopic = topic || 'React'
+        $scope.instructorTopic = topic || '56fb1628c63976af2f88b31c'
         $scope.selectedInstructor = instructor || '59f24cb377f2691d80dab8c9'
 
         surveyService.getInstructorGraphData().then(res => {
-            $scope.instructorData = res.data.filter(e => e.instructorId === $scope.selectedInstructor && e.topic === $scope.instructorTopic)
+            $scope.instructorData = res.data.filter(e => e.instructorId === $scope.selectedInstructor && e.topic._id === $scope.instructorTopic)
             makeInstructorObject($scope.instructorData)
         })
     }
@@ -365,6 +365,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     }
 
     $scope.changeSelectedInstructorTopic = () => {
+        console.log(event.target.value)
         getInstructorTopicData($scope.selectedInstructor, event.target.value)
     }
 

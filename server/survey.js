@@ -80,8 +80,8 @@ module.exports = {
 
 var instructorSurveys = [{
     "instructorId": "59f8d79f6ce02767109b8446",
-    "subtopic": "w-2.1",
-    "topic": "Javascript",
+    "subtopic": "w-2.1", 
+    "topic": {name: "Javascript", _id: '56fb1628c63976af2f88b31c'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
@@ -95,7 +95,7 @@ var instructorSurveys = [{
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
-    "topic": "React",
+    "topic": {name: "React", _id: '5745c5fc2690f1a264651f91'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
@@ -109,7 +109,7 @@ var instructorSurveys = [{
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
-    "topic": "React",
+    "topic": {name: "React", _id: '5745c5fc2690f1a264651f91'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
@@ -123,7 +123,7 @@ var instructorSurveys = [{
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
-    "topic": "React",
+    "topic": {name: "React", _id: '5745c5fc2690f1a264651f91'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
@@ -137,7 +137,7 @@ var instructorSurveys = [{
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
-    "topic": "React",
+    "topic": {name: "React", _id: '5745c5fc2690f1a264651f91'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
@@ -151,7 +151,7 @@ var instructorSurveys = [{
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
-    "topic": "React",
+    "topic": {name: "React", _id: '5745c5fc2690f1a264651f91'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
@@ -165,7 +165,7 @@ var instructorSurveys = [{
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
-    "topic": "React",
+    "topic": {name: "React", _id: '5745c5fc2690f1a264651f91'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
@@ -179,7 +179,7 @@ var instructorSurveys = [{
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
-    "topic": "Javascript",
+    "topic": {name: "Javascript", _id: '56fb1628c63976af2f88b31c'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
@@ -193,7 +193,7 @@ var instructorSurveys = [{
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
-    "topic": "React",
+    "topic": {name: "Javascript", _id: '56fb1628c63976af2f88b31c'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
@@ -207,7 +207,7 @@ var instructorSurveys = [{
   }, {
     "instructorId": "59f8d79f6ce02767109b8446",
     "subtopic": "w-2.1",
-    "topic": "React",
+    "topic": {name: "React", _id: '5745c5fc2690f1a264651f91'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
@@ -221,7 +221,7 @@ var instructorSurveys = [{
   }, {
     "instructorId": "59f24cb377f2691d80dab8c9",
     "subtopic": "w-2.1",
-    "topic": "React",
+    "topic": {name: "React", _id: '5745c5fc2690f1a264651f91'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
@@ -235,7 +235,7 @@ var instructorSurveys = [{
   }, {
     "instructorId": "59f24cb377f2691d80dab8c9",
     "subtopic": "w-2.1",
-    "topic": "React",
+    "topic": {name: "React", _id: '5745c5fc2690f1a264651f91'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
@@ -249,7 +249,7 @@ var instructorSurveys = [{
   }, {
     "instructorId": "59f24cb377f2691d80dab8c9",
     "subtopic": "w-2.1",
-    "topic": "Javascript",
+    "topic": {name: "Javascript", _id: '56fb1628c63976af2f88b31c'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
@@ -263,7 +263,7 @@ var instructorSurveys = [{
   }, {
     "instructorId": "59f24cb377f2691d80dab8c9",
     "subtopic": "w-2.1",
-    "topic": "React",
+    "topic": {name: "React", _id: '5745c5fc2690f1a264651f91'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
@@ -277,7 +277,7 @@ var instructorSurveys = [{
   }, {
     "instructorId": "59f24cb377f2691d80dab8c9",
     "subtopic": "w-2.1",
-    "topic": "React",
+    "topic": {name: "React", _id: '5745c5fc2690f1a264651f91'},
     "campus": "Provo, UT",
     "program": "webdev",
     "format": "Immersive",
