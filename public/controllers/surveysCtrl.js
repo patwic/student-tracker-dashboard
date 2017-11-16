@@ -19,7 +19,6 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     // -------------- Get Modules -------------- //
 
     surveyService.getModules().then(res => {
-        console.log(res.data)
         $scope.modules = res.data
         getInitialModuleList()
     })
@@ -35,7 +34,6 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     // -------------- Get Topics -------------- //
 
     surveyService.getTopics().then(res => {
-        console.log(res.data)
         let topics = res.data
         $scope.topics = [];
         $scope.instructorTopics = [];
@@ -313,10 +311,13 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
             let dates = [];
 
             arr.map(e => {
+
+                let date = e.date.toString().split(' ').splice(1).join(' ')
+
                 overallData.push(e.overall)
                 preparedData.push(e.prepared)
                 explainedData.push(e.explained)
-                dates.push(e.date.toString().split(' ').splice(1).join(' ') + ': ' + e.instructor)
+                dates.push(date.toString().split(' ').splice(0, 2).join(' ') + ': ' + e.instructor)
             })
 
             
@@ -364,22 +365,19 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     // -------------- Instructors Data -------------- //
 
     $scope.selectedModule = '';
-    // $scope.filteredModules;
+    $scope.instructorData;
 
     getInitialModuleList = () => {
         $scope.filteredModules = $scope.modules.filter(e => {
             return e.topicId === '56fb1628c63976af2f88b31c'
         })
-   }   
+    }   
 
-    getInstructorTopicData = (instructor, topic, sModule) => {
+    getInstructorTopicData = (instructor, topic) => {
         $scope.instructorTopic = topic || '56fb1628c63976af2f88b31c'
         $scope.selectedInstructor = instructor || '59f24cb377f2691d80dab8c9'
-        $scope.selectedModule = sModule || ''
-        console.log($scope.selectedModule)
 
         surveyService.getInstructorGraphData().then(res => {
-            console.log(res)
             $scope.instructorData = res.data.filter(e => e.instructorId === $scope.selectedInstructor && e.topic._id === $scope.instructorTopic )
             makeInstructorObject($scope.instructorData)
         })
@@ -387,11 +385,11 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     getInstructorTopicData()
 
     $scope.changeSelectedInstructor = () => {
-        getInstructorTopicData(event.target.value, $scope.instructorTopic, $scope.selectedModule)
+        getInstructorTopicData(event.target.value, $scope.instructorTopic)
     }
 
     $scope.changeSelectedInstructorTopic = () => {
-        getInstructorTopicData($scope.selectedInstructor, event.target.value, $scope.selectedModule)
+        getInstructorTopicData($scope.selectedInstructor, event.target.value)
 
         $scope.filteredModules = $scope.modules.filter(e => {
             return e.topicId === $scope.instructorTopic
@@ -400,22 +398,15 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
 
      // -------------- Instructors Graph -------------- //
-
-    //  $scope.selectedModule = 'all';
      
-          $scope.changeSelectedModule = () => {
-             getInstructorTopicData($scope.selectedInstructor, $scope.instructorTopic, event.target.value)
-         }
+     $scope.changeSelectedModule = () => {
+        let moduleData = $scope.instructorData.filter(e => {
+            return e.module.name == event.target.value
+        })
+        makeInstructorObject(moduleData)        
+    }
 
     makeInstructorObject = (arr) => {
-
-
-
-        // arr.map(e => {
-        //     console.log(e)
-        //     // return e.module.name === $scope.selectedModule;
-        // })
-        // console.log(arr)
 
         arr.map(e => {
             e.date = new Date(e.date).toDateString()
@@ -423,8 +414,9 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
         let allDataArr = [];
         for (let i = 0; i < arr.length; i++) {
+            let date = arr[i].date.toString().split(' ').splice(1).join(' ')
             allDataArr.push({
-                'date': arr[i].date.toString().split(' ').splice(1).join(' '),
+                'date': date.toString().split(' ').splice(0, 2).join(' '),
                 'overall': Number(arr[i].overall),
                 'explained': Number(arr[i].explain),
                 'prepared': Number(arr[i].prepared),
@@ -477,11 +469,10 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
             let dates = [];
 
             arr.map(e => {
-                console.log(e)
                 overallData.push(e.overall)
                 preparedData.push(e.prepared)
                 explainedData.push(e.explained)
-                dates.push(e.date)
+                dates.push(e.date + ': ' + e.module)
             })
 
             $scope.instructorBar;
