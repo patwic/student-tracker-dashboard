@@ -249,6 +249,13 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     // -------------- Survey Topic Graph -------------- //
 
     makeDataObject = (arr) => {
+
+        arr.sort((a,b) => {
+            a = new Date(a.date);
+            b = new Date(b.date);
+            return a-b;
+        });
+        
         arr.map(e => {
             e.date = new Date(e.date).toDateString()
         })
@@ -408,9 +415,17 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
     makeInstructorObject = (arr) => {
 
+        arr.sort((a,b) => {
+            a = new Date(a.date);
+            b = new Date(b.date);
+            return a-b;
+        });
+
         arr.map(e => {
             e.date = new Date(e.date).toDateString()
         })
+
+
 
         let allDataArr = [];
         for (let i = 0; i < arr.length; i++) {
