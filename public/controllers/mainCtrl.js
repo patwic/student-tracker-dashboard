@@ -513,22 +513,22 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       data: {
         labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'],
         datasets: [{
-          label: 'OSAT',
+          label: 'Overall',
           data: osatData,
           borderColor: "#21AAE1",
           fill: false
         }, {
-          label: 'FSAT',
+          label: 'Instructor',
           data: fsatData,
           borderColor: "#1b6689",
           fill: false
         }, {
-            label: 'MSAT',
+            label: 'Mentor',
             data: msatData,
             borderColor: "#6fbc80",
             fill: false
         }, {
-            label: 'CSAT',
+            label: 'Curriculum',
             data: csatData,
             borderColor: "#b67ec9",
             fill: false

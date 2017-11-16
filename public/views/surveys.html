@@ -1,8 +1,27 @@
 <div ng-controller='surveysCtrl'>
-    <div class='surveys-section'>
+
+        <div class='surveys-section'> 
+                <div class='surveys-graphBox' style='margin-top: 70px;' id='surveyInstructorBarChart'>
+                    <div class='surveys-boxBar'>
+                        <h3>ALL WEEKLY AVERAGE SCORES</h3>
+                        <div class='survey-ScatterSelectorBackground'>
+                                <select ng-model='selectedLineProgram' class='cohort-ScatterGraphSelector'>
+                                    <option value="webdev">Web Development</option>
+                                    <option value="ux">UX-UI</option>
+                                    <option value="ios">IOS</option>
+                                    <option value="qa">QA</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id='surveyTopicLineContainer'>
+                    <canvas id="lineWeeklyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+       <div class='survey-lower-sections'>
         <div class='surveys-graphBox' id="graphBoxDiv">
             <div class='surveys-boxBar'>
-                <h3>WEEKLY SURVEY SCORES</h3>
+                <h3>WEEKLY SURVEY SCORES BY TYPE</h3>
                 <div class='survey-ScatterSelectsContainer'>
                     <div class='survey-ScatterSelectorBackground'>
                         <select ng-model='surveyName' class='cohort-ScatterGraphSelector' ng-change='changeSurveyName()'>
@@ -88,8 +107,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <survey-instructor-bar-chart instructordata='instructorData'></survey-instructor-bar-chart> -->
-
             <div id='surveyTopicLineContainer'>
             <canvas id="instructorBar"></canvas>
             </div>

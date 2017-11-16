@@ -26,15 +26,14 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
         let ux = $scope.allData.filter(e => {
             return e.program === "ux"
         })
-
         $scope.allPrograms = {
             ios,
             webdev,
             qa,
             ux
         }
-
-        $scope.sd = $scope.allPrograms
+        $scope.sd = $scope.allPrograms  
+        makeSurveyLineChart($scope.allData)
     })
 
 
@@ -63,6 +62,121 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
     $scope.changeselectedProgram = () => {
         getAllSurveyData(event.target.value, $scope.surveyName)
+    }
+
+    // -------------- Survey Line Chart -------------- //
+
+
+    makeSurveyLineChart = (arr) => {
+        let data = arr
+        console.log(data)
+
+        $scope.selectedLineProgram = 'webdev'
+        let surveyData = [];
+    
+            surveyData = $scope.allPrograms[$scope.selectedLineProgram].filter(e => {
+                return e.program === $scope.selectedLineProgram
+            })
+
+        filteredData = surveyData
+        console.log(filteredData)
+
+
+
+        let averages = (dataArr) => {
+            console.log(dataArr)
+            let arr = []
+            let obj = {}
+            let max = 0;
+            let min = 7;
+            for (let i = 0; i < dataArr.length; i++) {
+                let u = dataArr[i].unit
+                if (u > max && u < 14)
+                    max = u
+                if (u > max && u > 13)
+                    max = 13
+                if (u < min)
+                    min = u
+                let d = dataArr[i]
+                if (!obj[u])
+                    obj[u] = {}
+                obj[u].CSAT = obj[u].CSAT ? obj[u].CSAT + d.CSAT : d.CSAT
+                obj[u].FSAT = obj[u].FSAT ? obj[u].FSAT + d.FSAT : d.FSAT
+                obj[u].MSAT = obj[u].MSAT ? obj[u].MSAT + d.MSAT : d.MSAT
+                obj[u].OSAT = obj[u].OSAT ? obj[u].OSAT + d.OSAT : d.OSAT
+                obj[u].CSATcount = obj[u].CSATcount ? obj[u].CSATcount += 1 : 1
+                obj[u].FSATcount = obj[u].FSATcount ? obj[u].FSATcount += 1 : 1
+                obj[u].MSATcount = obj[u].MSATcount ? obj[u].MSATcount += 1 : 1
+                obj[u].OSATcount = obj[u].OSATcount ? obj[u].OSATcount += 1 : 1
+            }
+            for (let i = min; i <= max; i++) {
+                if (dataArr[i].program === 'ios' && i === 8) {
+                    if (!obj[i])
+                        continue
+                }
+                obj[i].CSAT = (obj[i].CSAT / obj[i].CSATcount).toFixed(2)
+                obj[i].FSAT = (obj[i].FSAT / obj[i].FSATcount).toFixed(2)
+                obj[i].MSAT = (obj[i].MSAT / obj[i].MSATcount).toFixed(2)
+                obj[i].OSAT = (obj[i].OSAT / obj[i].OSATcount).toFixed(2)
+                obj[i].unit = i
+                obj[i].program = dataArr[i].program;
+                arr.push(obj[i])
+            }
+  
+        var csatData = [];
+        var osatData = [];
+        let fsatData = [];
+        let msatData = [];
+  
+        arr.map(e => {
+            csatData.push(e.CSAT)
+            osatData.push(e.OSAT)
+            fsatData.push(e.FSAT)
+            msatData.push(e.MSAT)
+        })
+  
+      var ctx = document.getElementById('lineWeeklyChart');
+      var lineWeeklyChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'],
+          datasets: [{
+            label: 'Overall',
+            data: osatData,
+            borderColor: "#21AAE1",
+            fill: false
+          }, {
+            label: 'Instructor',
+            data: fsatData,
+            borderColor: "#1b6689",
+            fill: false
+          }, {
+              label: 'Mentor',
+              data: msatData,
+              borderColor: "#6fbc80",
+              fill: false
+          }, {
+              label: 'Curriculum',
+              data: csatData,
+              borderColor: "#b67ec9",
+              fill: false
+          }]
+        },
+        options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true,
+                      min: 0,
+                      max: 10    
+                  }
+                }]
+             }
+            }
+      });
+    }
+      averages(filteredData)
+
     }
 
 
@@ -113,7 +227,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
             }
         }
 
-        averages = (dataArr) => {
+       let averages = (dataArr) => {
 
             var today = new Date().toDateString()
 
@@ -247,7 +361,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
             })
         }
 
-        averages = (dataArr) => {
+        let averages = (dataArr) => {
 
             var today = new Date().toDateString()
 
@@ -283,7 +397,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 obj[prop].prepared = (obj[prop].prepared / obj[prop].preparedcount).toFixed(2)
 
                 // if (Date.parse(obj[prop].date) > Date.parse(pastDate)) {
-                    arr.push(obj[prop])
+                arr.push(obj[prop])
                 // }
             }
 

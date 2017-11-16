@@ -7,6 +7,8 @@ angular.module('app')
     },
     controller: function ($scope, surveyService) {
 
+      ///D3 Instructor graph in progress///
+
       dataset = [{
         "overall": 0,
         "explained": 0,
