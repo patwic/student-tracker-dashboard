@@ -150,10 +150,23 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 obj[u].MSATcount = obj[u].MSATcount ? obj[u].MSATcount += 1 : 1
                 obj[u].OSATcount = obj[u].OSATcount ? obj[u].OSATcount += 1 : 1
             }
+  
             for (let i = min; i <= max; i++) {
-                if (dataArr[i].program === 'ios' && i === 8) {
-                    if (!obj[i])
-                        continue
+                if (dataArr[i].program === 'ios'){
+                    if (!obj[i]) {
+                        obj[i] = {
+                           CSAT: 0,
+                            FSAT : 0,
+                            MSAT : 0,
+                            OSAT : 0,
+                            CSATcount : 0,
+                            FSATcount : 0,
+                            MSATcount : 0,
+                            OSATcount : 0,
+                            program : "ios",
+                            unit : i
+                        }
+                    }
                 }
                 obj[i].CSAT = (obj[i].CSAT / obj[i].CSATcount).toFixed(2)
                 obj[i].FSAT = (obj[i].FSAT / obj[i].FSATcount).toFixed(2)
@@ -168,14 +181,13 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
         var osatData = [];
         let fsatData = [];
         let msatData = [];
-  
+        
         arr.map(e => {
             csatData.push(e.CSAT)
             osatData.push(e.OSAT)
             fsatData.push(e.FSAT)
             msatData.push(e.MSAT)
         })
-
         
     $scope.lineWeeklyChart;
     var ctx = document.getElementById('lineWeeklyChart');
@@ -418,7 +430,6 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     }
 
     makeInstructorObject = (arr) => {
-        console.log(arr)
 
         arr.sort((a,b) => {
             a = new Date(a.date);

@@ -11,20 +11,16 @@ angular
 
         let survey = $scope.survey //OSAT || MSAT || FSAT || CSAT
         let filteredData = $scope.sd //All data;
-        // console.log('filtered data: ', filteredData)
-        // console.log('survey', survey);
 
         //Builds graph with initial data.
         let arrLength;
         let averages = (dataArr) => {
-          // console.log('Averages dataArr: ', dataArr)
           let arr = []
           let obj = {}
           let max = 0;
           let min = 7;
           for (let i = 0; i < dataArr.length; i++) {
             let u = dataArr[i].unit
-            // console.log(u);
             if (u > max && u < 14) 
               max = u
             if (u > max && u > 13) 
@@ -34,34 +30,17 @@ angular
             let d = dataArr[i]
             if (!obj[u]) 
               obj[u] = {}
-            obj[u].CSAT = obj[u].CSAT
-              ? obj[u].CSAT + d.CSAT
-              : d.CSAT
-            obj[u].FSAT = obj[u].FSAT
-              ? obj[u].FSAT + d.FSAT
-              : d.FSAT
-            obj[u].MSAT = obj[u].MSAT
-              ? obj[u].MSAT + d.MSAT
-              : d.MSAT
-            obj[u].OSAT = obj[u].OSAT
-              ? obj[u].OSAT + d.OSAT
-              : d.OSAT
-            obj[u].CSATcount = obj[u].CSATcount
-              ? obj[u].CSATcount += 1
-              : 1
-            obj[u].FSATcount = obj[u].FSATcount
-              ? obj[u].FSATcount += 1
-              : 1
-            obj[u].MSATcount = obj[u].MSATcount
-              ? obj[u].MSATcount += 1
-              : 1
-            obj[u].OSATcount = obj[u].OSATcount
-              ? obj[u].OSATcount += 1
-              : 1
+            obj[u].CSAT = obj[u].CSAT ? obj[u].CSAT + d.CSAT : d.CSAT
+            obj[u].FSAT = obj[u].FSAT ? obj[u].FSAT + d.FSAT : d.FSAT
+            obj[u].MSAT = obj[u].MSAT ? obj[u].MSAT + d.MSAT : d.MSAT
+            obj[u].OSAT = obj[u].OSAT ? obj[u].OSAT + d.OSAT : d.OSAT
+            obj[u].CSATcount = obj[u].CSATcount ? obj[u].CSATcount += 1 : 1
+            obj[u].FSATcount = obj[u].FSATcount ? obj[u].FSATcount += 1 : 1
+            obj[u].MSATcount = obj[u].MSATcount ? obj[u].MSATcount += 1 : 1
+            obj[u].OSATcount = obj[u].OSATcount ? obj[u].OSATcount += 1 : 1
           }
           for (let i = min; i <= max; i++) {
-            // console.log("min: ", min) console.log("max: ", max)
-            if (dataArr[i].program === 'ios' && i === 8) {
+            if (dataArr[i].program === 'ios') {
               if (!obj[i]) 
                 continue
             }
@@ -72,12 +51,10 @@ angular
             obj[i].unit = i
             obj[i].program = dataArr[i].program;
             arr.push(obj[i])
-            // console.log("arr: ", arr);
           }
           return arr
         }
         let data = averages(filteredData)
-        // let data = filteredData
         var margin = {
           top: 40,
           right: 40,
@@ -108,8 +85,6 @@ angular
           .offset([-15, 0])
           .html(function (d) {
             let count = survey + 'count'
-            console.log("THIS IS AFTER THE D", $scope.sd);
-            console.log(d);
             return "Average Rating: <span style='color:#21AAE1; line-height: 1.5;'> " + d[survey] + "</span><br>Responded: <span style='color:#21AAE1; line-height: 1.5;'> " + d[count] + "</span></span><br>Program: <span style='color:#21AAE1; line-height: 1.5;'> " + d.program.toUpperCase() + "</span>"
           })
 
@@ -131,7 +106,6 @@ angular
             return x(+ d.unit);
           })
           .attr("cy", function (d) {
-            // console.log(+d[survey])
             return y(+ d[survey]);
           })
           .attr("fill", "#21AAE1")
@@ -167,7 +141,6 @@ angular
           let newFilteredData = newSd
 
           if (Object.prototype.toString.call(newFilteredData) !== '[object Array]') {
-            // console.log("OBJECT", newFilteredData);
             webdev = averages(newFilteredData.webdev);
             ios = averages(newFilteredData.ios);
             qa = averages(newFilteredData.qa);
@@ -188,7 +161,6 @@ angular
                 return x(+ d.unit);
               })
               .attr("cy", function (d) {
-                // console.log(+d[survey])
                 return y(+ d[survey]);
               })
               .attr("fill", "#21AAE1")
@@ -212,7 +184,6 @@ angular
                 return x(+ d.unit);
               })
               .attr("cy", function (d) {
-                // console.log(+d[survey])
                 return y(+ d[survey]);
               })
               .attr("fill", "#1b6689")
@@ -236,7 +207,6 @@ angular
                 return x(+ d.unit);
               })
               .attr("cy", function (d) {
-                // console.log(+d[survey])
                 return y(+ d[survey]);
               })
               .attr("fill", "#6fbc80")
@@ -260,7 +230,6 @@ angular
                 return x(+ d.unit);
               })
               .attr("cy", function (d) {
-                // console.log(+d[survey])
                 return y(+ d[survey]);
               })
               .attr("fill", "#b67ec9")
@@ -275,7 +244,6 @@ angular
 
           } else {
             newData = averages(newFilteredData)
-            console.log('ARRAY: ', newData)
 
             svg
               .selectAll('circle')
@@ -291,7 +259,6 @@ angular
                 return x(+ d.unit);
               })
               .attr("cy", function (d) {
-                // console.log(+d[survey])
                 return y(+ d[survey]);
               })
               .attr("fill", function(d) {
@@ -326,7 +293,6 @@ angular
 
         $scope
           .$watch('survey', function (newValue, oldValue) {
-            // console.log('scope.sd: ', $scope.sd)
             changeScatter($scope.survey, $scope.sd)
           })
         $scope.$watch('sd', function (newValue, oldValue) {

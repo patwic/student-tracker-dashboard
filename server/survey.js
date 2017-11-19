@@ -245,7 +245,7 @@ var instructorSurveys = [{
     "explain": 4,
     "overall": 4,
     "date": "2016-12-14T20:50:04.823Z",
-    "module": {"_id":"59f8d42d6ce02767109b8435","name":"4.1 React 5","topicId":"5745c5fc2690f1a264651f91","__v":0}
+    "module": {"_id":"59f8d3716ce02767109b842e","name":"2.1 React 2","topicId":"5745c5fc2690f1a264651f91","__v":0}
   }, {
     "instructorId": "59f24cb377f2691d80dab8c9",
     "subtopic": "w-2.1",
