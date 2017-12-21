@@ -5,7 +5,7 @@ app = require('./server')
 module.exports = {
     getWeekly: (req, res) => {
             let info = {
-                uri: `${config.surveyAPI}tableau/data`,
+                uri: `${config.surveyAPIT}/data`,
                 json: true // Automatically parses the JSON string in the response
             }; 
         request(info).then(function (resp) {
@@ -15,7 +15,7 @@ module.exports = {
 
     getWeeklyByCohortId: (req, res) => {
         let info = {
-            uri: `${config.surveyAPI}tableau/data?cohort=` + req.query.id,
+            uri: `${config.surveyAPIT}/data?cohort=` + req.query.id,
             json: true 
         };
         request(info).then(function (resp) {
@@ -25,7 +25,7 @@ module.exports = {
 
     getWeeklyCommentsById: (req, res) => {
         let info = {
-            uri: `${config.surveyAPI}tableau/data?cohort=${req.query.id}&comment=all`,
+            uri: `${config.surveyAPIT}/data?cohort=${req.query.id}&comment=all`,
             json: true
         }
         request(info).then(function(resp) {
@@ -35,7 +35,7 @@ module.exports = {
 
     getSurveyByTopic: (req, res) => {
         let info = {
-            uri: `${config.surveyAPI}tableau/data/topic?topic=${req.query.topic}`,
+            uri: `${config.surveyAPIT}/data/topic?topic=${req.query.topic}`,
             json: true
         }
         request(info).then(function(resp) {
@@ -45,7 +45,7 @@ module.exports = {
 
     getInstructorsForSurveys: (req, res) => {
         let info = {
-            uri: `${config.surveyAPI}admin/instructor`,
+            uri: `${config.surveyAPIA}/instructor`,
             json: true
         }
         request(info).then(function(resp) {
@@ -56,7 +56,7 @@ module.exports = {
     getInstructorData: (req, res) => {
 
         // let info = {
-        //     uri: `${config.surveyAPI}tableau/data/moduleTopic?topic=${req.query.topic}`,
+        //     uri: `${config.surveyAPIT}/data/moduleTopic?topic=${req.query.topic}`,
         //     json: true
         // }
         // request(info).then(function(resp) {
@@ -79,7 +79,7 @@ module.exports = {
 
     getModules: (req, res) => {
         let info = {
-            uri: `${config.surveyAPI}admin/modules`,
+            uri: `${config.surveyAPIA}/modules`,
             json: true
         }
         request(info).then(function(resp) {

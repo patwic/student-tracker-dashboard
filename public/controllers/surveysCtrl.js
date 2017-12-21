@@ -395,10 +395,6 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     getInstructorTopicData = (instructor, topic) => {
         $scope.instructorTopic = topic || '56fb1628c63976af2f88b31c'
         $scope.selectedInstructor = instructor || '59f24cb377f2691d80dab8c9'
-
-        console.log($scope.instructorTopic)
-        console.log($scope.selectedInstructor)
-
         surveyService.getInstructorGraphData().then(res => {
             console.log(res.data)
             $scope.instructorData = res.data.filter(e => e.instructor._id === $scope.selectedInstructor && e.topic._id === $scope.instructorTopic )
