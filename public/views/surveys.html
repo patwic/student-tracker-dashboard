@@ -1,8 +1,27 @@
 <div ng-controller='surveysCtrl'>
-    <div class='surveys-section'>
+
+        <div class='surveys-section'> 
+                <div class='surveys-graphBox' style='margin-top: 50px;' id='surveyInstructorBarChart'>
+                    <div class='surveys-boxBar'>
+                        <h3>ALL WEEKLY AVERAGE SCORES</h3>
+                        <div class='survey-ScatterSelectorBackground'>
+                                <select ng-model='selectedLineProgram' ng-change='changeSelectedLineProgram()' class='cohort-ScatterGraphSelector'>
+                                    <option value="webdev">Web Development</option>
+                                    <option value="ux">UX-UI</option>
+                                    <option value="ios">IOS</option>
+                                    <option value="qa">QA</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id='surveyTopicLineContainer'>
+                    <canvas id="lineWeeklyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+       <div class='survey-lower-sections' style='padding-top: 5vh;'>
         <div class='surveys-graphBox' id="graphBoxDiv">
             <div class='surveys-boxBar'>
-                <h3>WEEKLY SURVEY SCORES</h3>
+                <h3>WEEKLY SURVEY SCORES BY TYPE</h3>
                 <div class='survey-ScatterSelectsContainer'>
                     <div class='survey-ScatterSelectorBackground'>
                         <select ng-model='surveyName' class='cohort-ScatterGraphSelector' ng-change='changeSurveyName()'>
@@ -27,34 +46,18 @@
             <survey-scatter sd='sd' survey='surveyName'></survey-scatter>
         </div>
     </div>
-    <div class='survey-lower-sections' style='padding-top: 5vh;'>
+    <div class='survey-lower-sections'>
         <div class='surveys-graphBox' id="topicDiv">
             <div class='surveys-boxBar'>
                 <h3>SURVEY TOPIC SCORES</h3>
-                <div class='survey-ScatterSelectsContainer'>
+                <div class='survey-ScatterSelectsContainer' >
                     <div class='survey-ScatterSelectorBackground'>
                         <select ng-model='topic' class='cohort-ScatterGraphSelector' ng-change='changeSelectedTopic()'>
-                                <option selected value="Javascript">Javascript</option>
-                                <option value='Git'>Git</option>
-                                <option value='CSS'>HTML/CSS</option>
-                                <option value='CSS'>CSS</option>
-                                <option value="React">React</option>
-                                <option value="Angular">Angular</option>
-                                <option value='Passport'>Passport</option>
-                                <option value='Node'>Node</option>
-                                <option value='SQL'>SQL</option>
-                                <option value='SQL - Mini'>SQL - Mini</option>
-                                <option value='Big O Notation'>Big O Notation</option>
-                                <option value='Amazon Web Services'>Amazon Web Services</option>
-                                <option value='jQuery'>jQuery</option>
-                                <option value='Mini-Lectures'>Mini-Lectures</option>
-                                <!-- <option value='Data structures and Algorithms'>Data structures and Algorithms</option> -->
-                                <!-- <option value='Unit Testing'>Unit Testing</option> -->
+                                <option ng-repeat='topic in topics' value='{{topic._id}}'>{{topic.name}}</option>
                         </select>
                     </div>
                     <div class='survey-ScatterSelectorBackground'>
                         <select ng-model='location' class='cohort-ScatterGraphSelector' ng-change='changeSelectedLocation()'>
-                                <option selected value='all'>All Locations</option>
                                 <option value="Provo">Provo</option>
                                 <option value="Dallas">Dallas</option>
                                 <option value="Phoenix">Phoenix</option>
@@ -62,7 +65,9 @@
                     </div>
                 </div>
             </div>
-            <!-- <topic-line-chart topicdata="topicData"></topic-line-chart> -->
+            <div id='surveyTopicLineContainer'>
+                    <canvas id="surveyTopicLineChart"></canvas>
+            </div>           
         </div>
     </div>
 
@@ -70,7 +75,7 @@
         <div class='surveys-graphBox' id='surveyInstructorBarChart'>
             <div class='surveys-boxBar'>
                 <h3>INSTRUCTOR SCORES</h3>
-                <div class='survey-ScatterSelectsContainer'>
+                <div class='survey-barSelectorContainer'>
                     <div class='survey-ScatterSelectorBackground'>
 
                         <select class='cohort-ScatterGraphSelector' ng-model='selectedInstructor' ng-change='changeSelectedInstructor()'>
@@ -78,89 +83,25 @@
                         </select>
                                                 
                     </div>
-                    <div class='survey-ScatterSelectorBackground'>
+                    <div class='survey-ScatterSelectorBackground' >
                         <select ng-model='instructorTopic' class='cohort-ScatterGraphSelector' ng-change='changeSelectedInstructorTopic()'>
-                                    <option value="React">React</option>
-                                    <option value="Javascript">Javascript</option>
+                                <option ng-repeat='topic in instructorTopics' value='{{topic._id}}'>{{topic.name}}</option>
                             </select>
                     </div>
-                </div>
-            </div>
-            <survey-instructor-bar-chart instructordata='instructorData'></survey-instructor-bar-chart>
-        </div>
-    </div>
-
-
-    <!-- <section class='surveys-alertSection'>
-    <div class='surveys-alertsContainer'>
-        <div class='surveys-alertBox'>
-            <div class='surveys-boxBar'>
-                <h2>ALERTS (<span></span>)</h2>
-            </div>
-            <div class='surveys-alertFeed'>
-                <div class='surveys-alerts'>
-                    <div>
-                        <div class='surveys-alertDisplay'>
-                            <h4>SURVEY ALERT</h4>
-                            <h5>Alert Information...</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class='surveys-alerts'>
-                    <div>
-                        <div class='surveys-alertDisplay'>
-                            <h4>SURVEY ALERT</h4>
-                            <h5>Alert Information...</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class='surveys-alerts'>
-                    <div>
-                        <div class='surveys-alertDisplay'>
-                            <h4>SURVEY ALERT</h4>
-                            <h5>Alert Information...</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class='surveys-alerts'>
-                    <div>
-                        <div class='surveys-alertDisplay'>
-                            <h4>SURVEY ALERT</h4>
-                            <h5>Alert Information...</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class='surveys-alerts'>
-                    <div>
-                        <div class='surveys-alertDisplay'>
-                            <h4>SURVEY ALERT</h4>
-                            <h5>Alert Information...</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class='surveys-alerts'>
-                    <div>
-                        <div class='surveys-alertDisplay'>
-                            <h4>SURVEY ALERT</h4>
-                            <h5>Alert Information...</h5>
-                        </div>
+                    <div class='survey-ScatterSelectorBackground'>
+                        <select ng-options="module.name as module.name for module in filteredModules track by module.name" 
+                        class='cohort-ScatterGraphSelector'
+                        ng-change='changeSelectedModule()'
+                        ng-model="selectedModule">
+                            <option value=''>All Modules</option>
+                        </select>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class='surveys-barGraphBox'>
-            <div class='surveys-boxBar'>
-                <h3>COMPLETED SURVEYS</h3>
-                <div class='cohort-SelectorBackground'>
-                    <select class='cohort-ScatterGraphSelector'>
-                            <option value="dm23">DM23</option>
-                            <option value="dm24">DM24</option>
-                            <option value="dm25">DM25</option>
-                    </select>
-                </div>
+            <div id='surveyTopicLineContainer'>
+            <canvas id="instructorBar"></canvas>
             </div>
         </div>
     </div>
-    </section> -->
 
 </div>

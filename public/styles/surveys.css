@@ -4,14 +4,18 @@
   width: 100%;
   padding-top: 90px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
 }
 
+
 .survey-lower-sections {
-    background: #1a1a1a;
-   
+    background: #1a1a1a; 
     padding-bottom: 10vh;
+}
+
+.survey-barSelectorContainer {
+    display: flex;
+    width: 680px;
+    justify-content: space-between;
 }
 
 .surveys-graphBox {
@@ -108,3 +112,8 @@
     background: linear-gradient(-45deg, #222, #333); 
     
 }
+
+#surveyTopicLineContainer {
+    width: 75%;
+    margin: 20px auto 10px auto;
+  }

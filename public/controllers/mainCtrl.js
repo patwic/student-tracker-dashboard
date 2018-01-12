@@ -436,16 +436,16 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     let filteredStudents;
 
+
     //---------------- get data for cohort surveys bar chart -------------//
 
     $scope.surveyName = ""
-    console.log($scope.cohortId)
     
     if($scope.cohortId) {
       getCohortSurveyData = () => {
         surveyService.getWeeklySurveyDataByCohortId($scope.cohortId).then(res => {
-          // console.log(res.data)
             $scope.sd = res.data;
+            averages(res.data)
         })
       }
       getCohortSurveyData()
@@ -457,11 +457,94 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       if(event) {
         $scope.surveyColumn = event.target.value || "OSAT";
       }
-      // console.log($scope.surveyColumn)
     }
     $scope.getBarChartSurveyData()
+    
+    //---------------- All Weekly Survey Chart.js ----------------//
 
+    let averages = (dataArr) => {
+      let arr = []
+      let obj = {}
+      let max = 0;
+      let min = 13;
+      for (let i = 0; i < dataArr.length; i++) {
+        let u = dataArr[i].unit
+        if (u > max) max = u
+        if (u < min) min = u
+        let d = dataArr[i]
+        if (!obj[u]) obj[u] = {}
+        obj[u].CSAT = obj[u].CSAT ? obj[u].CSAT + d.CSAT : d.CSAT
+        obj[u].FSAT = obj[u].FSAT ? obj[u].FSAT + d.FSAT : d.FSAT
+        obj[u].MSAT = obj[u].MSAT ? obj[u].MSAT + d.MSAT : d.MSAT
+        obj[u].OSAT = obj[u].OSAT ? obj[u].OSAT + d.OSAT : d.OSAT
+        obj[u].CSATcount = obj[u].CSATcount ? obj[u].CSATcount += 1 : 1
+        obj[u].FSATcount = obj[u].FSATcount ? obj[u].FSATcount += 1 : 1
+        obj[u].MSATcount = obj[u].MSATcount ? obj[u].MSATcount += 1 : 1
+        obj[u].OSATcount = obj[u].OSATcount ? obj[u].OSATcount += 1 : 1
+      }
+      for (let i = min; i <= max; i++) {
+        obj[i].CSAT = (obj[i].CSAT / obj[i].CSATcount).toFixed(2)
+        obj[i].FSAT = (obj[i].FSAT / obj[i].FSATcount).toFixed(2)
+        obj[i].MSAT = (obj[i].MSAT / obj[i].MSATcount).toFixed(2)
+        obj[i].OSAT = (obj[i].OSAT / obj[i].OSATcount).toFixed(2)
+        obj[i].unit = i
+        arr.push(obj[i])
+      }
 
+      var csatData = [];
+      var osatData = [];
+      let fsatData = [];
+      let msatData = [];
+
+      arr.map(e => {
+          csatData.push(e.CSAT)
+          osatData.push(e.OSAT)
+          fsatData.push(e.FSAT)
+          msatData.push(e.MSAT)
+      })
+
+    $scope.surveyLineChart
+    var ctx = document.getElementById('surveyLineChart');
+    if($scope.surveyLineChart) {$scope.surveyLineChart.destroy();}
+    $scope.surveyLineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'],
+        datasets: [{
+          label: 'Overall',
+          data: osatData,
+          borderColor: "#21AAE1",
+          fill: false
+        }, {
+          label: 'Instructor',
+          data: fsatData,
+          borderColor: "#1b6689",
+          fill: false
+        }, {
+            label: 'Mentor',
+            data: msatData,
+            borderColor: "#6fbc80",
+            fill: false
+        }, {
+            label: 'Curriculum',
+            data: csatData,
+            borderColor: "#b67ec9",
+            fill: false
+        }]
+      },
+      options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true,
+                    min: 0,
+                    max: 10    
+                }
+              }]
+           }
+          }
+    });
+}
     //---------------- get data for weekly survey comments ----------------//
 
     if($scope.cohortId) {
@@ -476,7 +559,6 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
     $scope.getCommentsByWeek = () => {
       let week = event.target.value || 1
-      // console.log($scope.allComm)
       $scope.comments = $scope.allComments.filter(e => e.unit == week)
     }
    
