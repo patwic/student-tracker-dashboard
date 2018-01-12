@@ -20,8 +20,8 @@ angular.module('app').service('surveyService', function ($http) {
     return $http.get('/api/surveys/instructors')
   }
 
-  this.getInstructorGraphData = () => {
-    return $http.get('/api/surveys/instructorData')
+  this.getInstructorGraphData = (topic) => {
+    return $http.get(`/api/surveys/instructorData?topic=${topic}`)
   }
 
   this.getModules = () => {

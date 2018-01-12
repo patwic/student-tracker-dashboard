@@ -274,15 +274,25 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
         let allDataArr = [];
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i].instructor.split(' ')[0] !== "Patience") {
+            if (arr[i].instructor.name) {
+                console.log(arr[i])
                 allDataArr.push({
                     'date': arr[i].date,
                     'overall': Number(arr[i].overall),
                     'explained': Number(arr[i].explain),
                     'prepared': Number(arr[i].prepared),
-                    'instructor': arr[i].instructor
+                    'instructor': arr[i].instructor.name
                 })
             }
+            // } else {
+            //     allDataArr.push({
+            //         'date': arr[i].date,
+            //         'overall': Number(arr[i].overall),
+            //         'explained': Number(arr[i].explain),
+            //         'prepared': Number(arr[i].prepared),
+            //         'instructor': arr[i].instructor
+            //     })
+            // }
         }
 
        let averages = (dataArr) => {
@@ -395,9 +405,9 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
     getInstructorTopicData = (instructor, topic) => {
         $scope.instructorTopic = topic || '56fb1628c63976af2f88b31c'
         $scope.selectedInstructor = instructor || '59f24cb377f2691d80dab8c9'
-        surveyService.getInstructorGraphData().then(res => {
-            console.log(res.data)
-            $scope.instructorData = res.data.filter(e => e.instructor._id === $scope.selectedInstructor && e.topic._id === $scope.instructorTopic )
+
+        surveyService.getInstructorGraphData($scope.instructorTopic).then(res => {
+            $scope.instructorData = res.data.filter(e => e.instructor._id === $scope.selectedInstructor)
             makeInstructorObject($scope.instructorData)
         })
     }
@@ -498,7 +508,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
             var preparedData = [];
             let explainedData = [];
             let dates = [];
-
+            console.log(arr)
             arr.map(e => {
                 overallData.push(e.overall)
                 preparedData.push(e.prepared)
