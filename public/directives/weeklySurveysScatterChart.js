@@ -40,10 +40,9 @@ angular
             obj[u].OSATcount = obj[u].OSATcount ? obj[u].OSATcount += 1 : 1
           }
           for (let i = min; i <= max; i++) {
-            if (dataArr[i].program === 'ios') {
               if (!obj[i]) 
                 continue
-            }
+
             obj[i].CSAT = (obj[i].CSAT / obj[i].CSATcount).toFixed(2)
             obj[i].FSAT = (obj[i].FSAT / obj[i].FSATcount).toFixed(2)
             obj[i].MSAT = (obj[i].MSAT / obj[i].MSATcount).toFixed(2)
