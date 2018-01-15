@@ -13,7 +13,8 @@ const express = require('express'),
       port = config.port,
       conn = massive.connectSync({
             connectionString: config.eleSql
-      });
+      }),
+      devmtnCtrl = require('./devMtnAuthCtrl.js');
 
 
 app.use(bodyParser.json())
@@ -54,13 +55,15 @@ passport.use('devmtn', new devAuth({
                               console.log('USER CREATED', createdUser);
                               createdUser[0].name = user.first_name + " " + user.last_name
                               createdUser[0].id = user.id
-                              return done(err, createdUser[0]);
+                              let userWithRoles = Object.assign({}, createdUser[0], {roles: user.roles})
+                              return done(err, userWithRoles);
                         })
                   } else {
                         returnedUser[0].id = user.id
                         returnedUser[0].name = user.first_name + " " + user.last_name
                         console.log('FOUND USER', returnedUser[0]);
-                        return done(err, returnedUser[0]);
+                        let userWithRoles = Object.assign({}, returnedUser[0], {roles: user.roles})
+                        return done(err, userWithRoles);
                   }
             })
       }
@@ -88,12 +91,12 @@ app.get('/auth/devmtn', passport.authenticate('devmtn'), function (req, res) {
 
 app.get('/auth/devmtn/callback',
       passport.authenticate('devmtn', {
-            successRedirect: '/',
-            // failureRedirect: "/#/"
+            failureRedirect: "/#!/login"
       }),
-      function (req, res) {
-            res.status(200).send(req.user);
-      })
+      devmtnCtrl.loginSuccessRouter)
+      // function (req, res) {
+      //       res.status(200).send(req.user);
+      // })
 
 app.get('/auth/me', function (req, res) {
       s
