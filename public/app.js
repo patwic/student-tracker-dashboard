@@ -45,7 +45,17 @@ angular.module('app', ['ui.router', '720kb.datepicker'])
 
             .state('surveys', {
                 url: '/surveys',
-                templateUrl: "./views/surveys.html"
+                templateUrl: "./views/surveys.html",
+                resolve: {
+                    authenticate: function (userService, $state, $rootScope) {
+                        userService.getUser().then(response => {
+                            if (response === 'NOPE') {
+                                event.preventDefault()
+                                $state.go("login")
+                            }
+                        })
+                    }
+                }
             })
 
 
