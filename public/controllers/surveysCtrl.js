@@ -275,7 +275,6 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
         let allDataArr = [];
         for (let i = 0; i < arr.length; i++) {
             if (arr[i].instructor.name) {
-                console.log(arr[i])
                 allDataArr.push({
                     'date': arr[i].date,
                     'overall': Number(arr[i].overall),
@@ -284,15 +283,6 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                     'instructor': arr[i].instructor.name
                 })
             }
-            // } else {
-            //     allDataArr.push({
-            //         'date': arr[i].date,
-            //         'overall': Number(arr[i].overall),
-            //         'explained': Number(arr[i].explain),
-            //         'prepared': Number(arr[i].prepared),
-            //         'instructor': arr[i].instructor
-            //     })
-            // }
         }
 
        let averages = (dataArr) => {
@@ -508,7 +498,6 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
             var preparedData = [];
             let explainedData = [];
             let dates = [];
-            console.log(arr)
             arr.map(e => {
                 overallData.push(e.overall)
                 preparedData.push(e.prepared)
