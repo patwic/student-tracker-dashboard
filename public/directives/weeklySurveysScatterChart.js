@@ -48,11 +48,12 @@ angular
             obj[i].MSAT = (obj[i].MSAT / obj[i].MSATcount).toFixed(2)
             obj[i].OSAT = (obj[i].OSAT / obj[i].OSATcount).toFixed(2)
             obj[i].unit = i
-            obj[i].program = dataArr[i].program;
+            obj[i].program = dataArr[i] && dataArr[i].program 
             arr.push(obj[i])
           }
           return arr
         }
+      
         let data = averages(filteredData)
         var margin = {
           top: 40,
