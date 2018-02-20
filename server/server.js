@@ -40,7 +40,7 @@ const q = require('./q'),
 
 // ---------------------------------
 passport.use('devmtn', new devAuth({
-            app: 'surveys',
+            app: config.app,
             client_token: config.client_token,
             callbackURL: config.callbackURL,
             jwtSecret: config.jwtSecret
@@ -87,6 +87,7 @@ passport.deserializeUser(function (userB, done) {
 app.get('/auth/devmtn', passport.authenticate('devmtn'), function (req, res) {
 
 });
+
 
 app.get('/auth/devmtn/callback',
       passport.authenticate('devmtn', {
