@@ -37,6 +37,7 @@ dbComms = require('./dbComms')
 
 const q = require('./q'),
       alert = require('./alert')
+      survey = require('./survey')
 
 // ---------------------------------
 passport.use('devmtn', new devAuth({
@@ -208,6 +209,15 @@ app.post('/api/prefs/', (req, res) => {
             else res.status(200).send('User updated.')
       })
 }) //for user preference database
+
+app.get('/api/surveys/getWeekly', survey.getWeekly) //gets all weekly surveys results
+app.get('/api/surveys/getWeeklyById', survey.getWeeklyByCohortId) //gets all weekly surveys results by cohort id.
+app.get('/api/surveys/getCommentsById', survey.getWeeklyCommentsById) //gets all weekly comments by cohort id. 
+app.get('/api/surveys/getSurveyByTopic', survey.getSurveyByTopic) //gets all surveys by specific topic. 
+app.get('/api/surveys/instructors', survey.getInstructorsForSurveys) //get instructors.
+app.get('/api/surveys/instructorData', survey.getInstructorData)
+app.get('/api/surveys/modules', survey.getModules)
+app.get('/api/surveys/topics', survey.getTopics)
 
 //for testing purposes; remove once live
 app.put('/api/reset', (req, res) => {

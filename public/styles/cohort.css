@@ -370,7 +370,7 @@
     color: #a0a0a0;
 }
 
-.cohort-attencenceGraphKey div {
+.cohort-attencenceGraphKey div{
     width: 33%;
     padding-top: 3px;
     border-top: 3px solid #c41c1c;
@@ -996,3 +996,15 @@
 
 }
 
+.cohort-SurveyLineGraphBox {
+    width: 100%;
+    height: 78vh;
+    background: #282828;
+    box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
+    text-align: center;
+}
+
+#surveyLineContainer {
+    width: 75%;
+    margin: 20px auto 10px auto;
+  }

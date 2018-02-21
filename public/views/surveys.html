@@ -1,85 +1,107 @@
-<section class='surveys-section'>
-    <div class='surveys-graphBox'>
-        <div class='surveys-boxBar'>
-            <h3>WEEKLY SURVEY SCORES</h3>
-                <div class='cohort-SelectorBackground'>
-                    <select class='cohort-ScatterGraphSelector'>
-                            <option value="all">All Cohorts</option>
-                            <option value="active">Active Cohorts</option>
-                            <option value="past">Past Cohorts</option>
-                    </select>
+<div ng-controller='surveysCtrl'>
+
+        <div class='surveys-section'> 
+                <div class='surveys-graphBox' style='margin-top: 50px;' id='surveyInstructorBarChart'>
+                    <div class='surveys-boxBar'>
+                        <h3>ALL WEEKLY AVERAGE SCORES</h3>
+                        <div class='survey-ScatterSelectorBackground'>
+                                <select ng-model='selectedLineProgram' ng-change='changeSelectedLineProgram()' class='cohort-ScatterGraphSelector'>
+                                    <option value="webdev">Web Development</option>
+                                    <option value="ux">UX-UI</option>
+                                    <option value="ios">IOS</option>
+                                    <option value="qa">QA</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id='surveyTopicLineContainer'>
+                    <canvas id="lineWeeklyChart"></canvas>
+                    </div>
                 </div>
+            </div>
+       <div class='survey-lower-sections' style='padding-top: 5vh;'>
+        <div class='surveys-graphBox' id="graphBoxDiv">
+            <div class='surveys-boxBar'>
+                <h3>WEEKLY SURVEY SCORES BY TYPE</h3>
+                <div class='survey-ScatterSelectsContainer'>
+                    <div class='survey-ScatterSelectorBackground'>
+                        <select ng-model='surveyName' class='cohort-ScatterGraphSelector' ng-change='changeSurveyName()'>
+                                <option selected value="OSAT">Overall Satisfaction</option>
+                                <option value="MSAT">Mentor Satisfaction</option>
+                                <option value="FSAT">Instructor Satisfaction</option>
+                                <option value="CSAT">Curriculum Satisfaction</option>
+                    </select>
+                    </div>
+
+                    <div class='survey-ScatterSelectorBackground'>
+                        <select ng-model='selectedProgram' class='cohort-ScatterGraphSelector' ng-change='changeselectedProgram()'>
+                            <option selected value="all">All Programs</option>
+                            <option value="webdev">Web Development</option>
+                            <option value="ux">UX-UI</option>
+                            <option value="ios">IOS</option>
+                            <option value="qa">QA</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+            <survey-scatter sd='sd' survey='surveyName'></survey-scatter>
         </div>
     </div>
-</section>
-<section class='surveys-alertSection'>
-    <div class='surveys-alertsContainer'>
-        <div class='surveys-alertBox'>
+    <div class='survey-lower-sections'>
+        <div class='surveys-graphBox' id="topicDiv">
             <div class='surveys-boxBar'>
-                <h2>ALERTS (<span></span>)</h2>
-            </div>
-            <div class='surveys-alertFeed'>
-                <div class='surveys-alerts'>
-                    <div>
-                        <div class='surveys-alertDisplay'>
-                            <h4>SURVEY ALERT</h4>
-                            <h5>Alert Information...</h5>
-                        </div>
+                <h3>SURVEY TOPIC SCORES</h3>
+                <div class='survey-ScatterSelectsContainer' >
+                    <div class='survey-ScatterSelectorBackground'>
+                        <select ng-model='topic' class='cohort-ScatterGraphSelector' ng-change='changeSelectedTopic()'>
+                                <option ng-repeat='topic in topics' value='{{topic._id}}'>{{topic.name}}</option>
+                        </select>
                     </div>
-                </div>
-                <div class='surveys-alerts'>
-                    <div>
-                        <div class='surveys-alertDisplay'>
-                            <h4>SURVEY ALERT</h4>
-                            <h5>Alert Information...</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class='surveys-alerts'>
-                    <div>
-                        <div class='surveys-alertDisplay'>
-                            <h4>SURVEY ALERT</h4>
-                            <h5>Alert Information...</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class='surveys-alerts'>
-                    <div>
-                        <div class='surveys-alertDisplay'>
-                            <h4>SURVEY ALERT</h4>
-                            <h5>Alert Information...</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class='surveys-alerts'>
-                    <div>
-                        <div class='surveys-alertDisplay'>
-                            <h4>SURVEY ALERT</h4>
-                            <h5>Alert Information...</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class='surveys-alerts'>
-                    <div>
-                        <div class='surveys-alertDisplay'>
-                            <h4>SURVEY ALERT</h4>
-                            <h5>Alert Information...</h5>
-                        </div>
+                    <div class='survey-ScatterSelectorBackground'>
+                        <select ng-model='location' class='cohort-ScatterGraphSelector' ng-change='changeSelectedLocation()'>
+                                <option value="Provo">Provo</option>
+                                <option value="Dallas">Dallas</option>
+                                <option value="Phoenix">Phoenix</option>
+                        </select>
                     </div>
                 </div>
             </div>
+            <div id='surveyTopicLineContainer'>
+                    <canvas id="surveyTopicLineChart"></canvas>
+            </div>           
         </div>
-        <div class='surveys-barGraphBox'>
+    </div>
+
+    <div class='survey-lower-sections'>
+        <div class='surveys-graphBox' id='surveyInstructorBarChart'>
             <div class='surveys-boxBar'>
-                <h3>COMPLETED SURVEYS</h3>
-                 <div class='cohort-SelectorBackground'>
-                    <select class='cohort-ScatterGraphSelector'>
-                            <option value="dm23">DM23</option>
-                            <option value="dm24">DM24</option>
-                            <option value="dm25">DM25</option>
-                    </select>
+                <h3>INSTRUCTOR SCORES</h3>
+                <div class='survey-barSelectorContainer'>
+                    <div class='survey-ScatterSelectorBackground'>
+
+                        <select class='cohort-ScatterGraphSelector' ng-model='selectedInstructor' ng-change='changeSelectedInstructor()'>
+                            <option ng-repeat='instructor in instructors' value='{{instructor._id}}'>{{instructor.name}}</option>
+                        </select>
+                                                
+                    </div>
+                    <div class='survey-ScatterSelectorBackground' >
+                        <select ng-model='instructorTopic' class='cohort-ScatterGraphSelector' ng-change='changeSelectedInstructorTopic()'>
+                                <option ng-repeat='topic in instructorTopics' value='{{topic._id}}'>{{topic.name}}</option>
+                            </select>
+                    </div>
+                    <div class='survey-ScatterSelectorBackground'>
+                        <select ng-options="module.name as module.name for module in filteredModules track by module.name" 
+                        class='cohort-ScatterGraphSelector'
+                        ng-change='changeSelectedModule()'
+                        ng-model="selectedModule">
+                            <option value=''>All Modules</option>
+                        </select>
+                    </div>
                 </div>
+            </div>
+            <div id='surveyTopicLineContainer'>
+            <canvas id="instructorBar"></canvas>
             </div>
         </div>
     </div>
-</section>
+
+</div>

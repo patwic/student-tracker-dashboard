@@ -90,7 +90,7 @@
     </div>
 
     <div id="login-sidenavOverlay" class="login-sidenavOverlay"></div>
-    <ui-view></ui-view>
+    <ui-view autoscroll='true'></ui-view>
 
     
     <script src='./libraries/angular.js'></script>
@@ -106,14 +106,18 @@
     <script src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/angular-charts/0.2.7/angular-charts.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.js"></script>
     <script src='./app.js'></script>
     <script src='./app.config.js'></script>
     <script src='./controllers/mainCtrl.js'></script>
+    <script src='./controllers/surveysCtrl.js'></script>
     <script src='./services/qService.js'></script>
     <script src='./services/attendanceService.js'></script>
     <script src='./services/sheetsService.js'></script>
     <script src='./services/alertService.js'></script>
     <script src="./services/userService.js"></script>
+    <script src="./services/surveyService.js"></script>
     <script src="./directives/projectScoresBarChart.js"></script>
     <script src="./directives/totalLineChart.js"></script>
     <script src="./directives/waitLineChart.js"></script>
@@ -124,6 +128,9 @@
     <script src="./directives/requestsPieChart.js"></script>
     <script src='./directives/cohortLineChart.js'></script>
     <script src="./directives/progressScatterChart.js"></script>
+    <script src="./directives/cohortSurveyBarChart.js"></script>
+    <script src="./directives/weeklySurveysScatterChart.js"></script>
+    <script src="./directives/instructorTopicBarChart.js"></script>
    
 </body>
 </html>

@@ -1,11 +1,21 @@
 .surveys-section {
-  /*background: linear-gradient(-45deg, #282828, #1a1a1a);*/
   background: #1a1a1a;
   height: 100vh;
   width: 100%;
   padding-top: 90px;
   display: flex;
-  align-items: center;
+}
+
+
+.survey-lower-sections {
+    background: #1a1a1a; 
+    padding-bottom: 10vh;
+}
+
+.survey-barSelectorContainer {
+    display: flex;
+    width: 680px;
+    justify-content: space-between;
 }
 
 .surveys-graphBox {
@@ -22,7 +32,6 @@
   width: 100%;
   padding-top: 20px;
   display: flex;
-  /*align-items: center;*/
 }
 
 .surveys-alertsContainer {
@@ -92,3 +101,19 @@
   box-shadow: 6px 6px 17px 2px rgba(0, 0, 0, .4);
   background: #282828;
 }
+
+.survey-ScatterSelectsContainer {
+    display: flex;
+    width: 450px;
+    justify-content: space-between;
+}
+
+.survey-ScatterSelectorBackground  {
+    background: linear-gradient(-45deg, #222, #333); 
+    
+}
+
+#surveyTopicLineContainer {
+    width: 75%;
+    margin: 20px auto 10px auto;
+  }
