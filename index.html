@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
-    <!-- <link href="./reset.css" rel="stylesheet">
+    <link href="./reset.css" rel="stylesheet">
     <link href="./styles/main.css" rel="stylesheet">
     <link href="./styles/fonts.css" rel="stylesheet">
     <link href="./styles/home.css" rel="stylesheet">
@@ -20,8 +20,7 @@
     <link rel="stylesheet" href="./styles/attendanceCalendar.css">
     <link rel="stylesheet" href="./styles/jquery-ui.css">
     <link rel="stylesheet" href="./styles/jquery-ui.structure.css">
-    <link rel="stylesheet" href="./styles/angular-datepicker.css"> -->
-    <link rel="stylesheet" href="./bundle.min.css">
+    <link rel="stylesheet" href="./styles/angular-datepicker.css">
 </head>
 
 <body ng-controller='mainCtrl'>
@@ -110,8 +109,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/angular-charts/0.2.7/angular-charts.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.js"></script>
-
-    <script src="./bundle.min.js"></script>
+    <script src='./app.js'></script>
+    <script src='./app.config.js'></script>
+    <script src='./controllers/mainCtrl.js'></script>
+    <script src='./controllers/surveysCtrl.js'></script>
+    <script src='./services/qService.js'></script>
+    <script src='./services/attendanceService.js'></script>
+    <script src='./services/sheetsService.js'></script>
+    <script src='./services/alertService.js'></script>
+    <script src="./services/userService.js"></script>
+    <script src="./services/surveyService.js"></script>
+    <script src="./directives/projectScoresBarChart.js"></script>
+    <script src="./directives/totalLineChart.js"></script>
+    <script src="./directives/waitLineChart.js"></script>
+    <script src="./directives/helpLineChart.js"></script>
+    <script src="./directives/mentorAvgPieChart.js"></script>
+    <script src="./directives/averagePieChart.js"></script>
+    <script src="./directives/helpPieChart.js"></script>
+    <script src="./directives/requestsPieChart.js"></script>
+    <script src='./directives/cohortLineChart.js'></script>
+    <script src="./directives/progressScatterChart.js"></script>
+    <script src="./directives/cohortSurveyBarChart.js"></script>
+    <script src="./directives/weeklySurveysScatterChart.js"></script>
+    <script src="./directives/instructorTopicBarChart.js"></script>
 
 </body>
 </html>
