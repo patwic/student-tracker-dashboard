@@ -20,6 +20,7 @@
     "body-parser": "^1.17.1",
     "devmtn-auth": "^1.0.2",
     "dotenv": "^5.0.1",
+    "eslint-config-angular": "^0.5.0",
     "express": "^4.16.3",
     "express-session": "^1.15.2",
     "express-sessions": "^1.0.6",
@@ -36,9 +37,15 @@
     "gulp-uglify": "^3.0.0",
     "massive": "^4.7.1",
     "passport": "=0.4.0",
+    "prettier": "^1.11.1",
     "q": "^1.5.0",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",
     "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.7.0"
   }
 }

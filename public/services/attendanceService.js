@@ -10,7 +10,7 @@ angular.module('app').service('attendanceService', function($http, config) {
           'Access-Control-Allow-Origin': '*',
         },
       })
-      .catch((err) => {
+      .catch(err => {
         console.log('Error');
       });
 
