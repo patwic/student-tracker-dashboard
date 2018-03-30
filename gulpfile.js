@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
 const sourcemaps = require('gulp-sourcemaps');
-// const sass = require('gulp-sass');
+const sass = require('gulp-sass');
 const annotate = require('gulp-ng-annotate');
 const autoprefixer = require('gulp-autoprefixer');
 const uglify = require('gulp-uglify');
@@ -18,7 +18,7 @@ const paths = {
     './public/services/**/*.js',
     './public/directives/**/*.js',
   ],
-  cssSource: ['./public/styles/**/*.css'],
+  cssSource: ['./public/styles/**/*.scss'],
   indexSource: ['./public/index.html'],
   viewsSource: ['./public/views/**/*.html'],
   picturesSource: ['./public/assets/**/*'],
@@ -26,8 +26,9 @@ const paths = {
 
 gulp.task('css', () =>
   gulp
-    .src(paths.css)
+    .src(paths.cssSource)
     .pipe(plumber())
+    .pipe(sass())
     .pipe(
       autoprefixer({
         browsers: ['last 2 versions'],
@@ -77,4 +78,4 @@ gulp.task('watch', () => {
   gulp.watch(paths.picturesSource, ['pictures']);
 });
 
-gulp.task('default', ['js', 'jsLibraries', 'css', 'index', 'views', 'pictures', 'watch']);
+gulp.task('default', ['js', 'css', 'index', 'views', 'pictures', 'watch']);

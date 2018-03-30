@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express'),
   session = require('express-session'),
   DevAuth = require('devmtn-auth'),
@@ -9,12 +11,14 @@ const express = require('express'),
   server = http.createServer(app),
   io = require('socket.io').listen(server),
   path = require('path'),
-  config = require('./config'),
-  port = config.port,
-  conn = massive.connectSync({
-    connectionString: config.eleSql,
-  }),
-  devmtnCtrl = require('./devMtnAuthCtrl.js');
+  // config = require('./config'),
+  port = process.env.PORT;
+
+massive(process.env.ELESQL).then(db => {
+  app.set('db', db);
+});
+
+devmtnCtrl = require('./devMtnAuthCtrl.js');
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '..', '/dist')));
@@ -22,7 +26,7 @@ app.use(
   session({
     resave: true,
     saveUninitialized: true,
-    secret: config.secret,
+    secret: process.env.SECRET,
   })
 );
 app.use(passport.initialize());
@@ -30,9 +34,9 @@ app.use(passport.session());
 
 // ------------Database stuff-------------
 
-app.set('db', conn);
-const db = app.get('db'),
-  dbComms = require('./dbComms');
+// app.set('db', conn);
+// const db = app.get('db'),
+//   dbComms = require('./dbComms');
 
 // ------------Dependencies-------------
 
@@ -45,34 +49,30 @@ passport.use(
   'devmtn',
   new DevAuth(
     {
-      app: config.app,
-      client_token: config.client_token,
-      callbackURL: config.callbackURL,
-      jwtSecret: config.jwtSecret,
+      app: process.env.APP,
+      client_token: process.env.CLIENT_TOKEN,
+      callbackURL: process.env.CALLBACK_URL,
+      jwtSecret: process.env.JWT_SECRET,
     },
-    (jwtoken, user, done) => {
-      console.log('hi');
+    async (jwtoken, user, done) => {
+      // try {
+      const db = app.get('db');
       // authenticate
-      db.selectPrefsByUser([user.id], (err, rU) => {
-        const returnedUser = rU;
-        if (!returnedUser[0]) {
-          console.log('CREATING USER');
-          db.upsertPrefsByUser([user.id, []], (createUserErr, cU) => {
-            const createdUser = cU;
-            console.log('USER CREATED', createdUser);
-            createdUser[0].name = `${user.first_name} ${user.last_name}`;
-            createdUser[0].id = user.id;
-            const userWithRoles = Object.assign({}, createdUser[0], { roles: user.roles });
-            return done(createUserErr, userWithRoles);
-          });
-        } else {
-          returnedUser[0].id = user.id;
-          returnedUser[0].name = `${user.first_name} ${user.last_name}`;
-          console.log('FOUND USER', returnedUser[0]);
-          const userWithRoles = Object.assign({}, returnedUser[0], { roles: user.roles });
-          return done(err, userWithRoles);
-        }
-      });
+      const returnedUser = await db.selectPrefsByUser([user.id]);
+      if (!returnedUser[0]) {
+        console.log('CREATING USER');
+        const createdUser = await db.upsertPrefsByUser([user.id, []]);
+        console.log('USER CREATED', createdUser);
+        createdUser[0].name = `${user.first_name} ${user.last_name}`;
+        createdUser[0].id = user.id;
+        const userWithRoles = Object.assign({}, createdUser[0], { roles: user.roles });
+        return done(createUserErr, userWithRoles);
+      }
+      returnedUser[0].id = user.id;
+      returnedUser[0].name = `${user.first_name} ${user.last_name}`;
+      console.log('FOUND USER', returnedUser[0]);
+      const userWithRoles = Object.assign({}, returnedUser[0], { roles: user.roles });
+      return done(null, userWithRoles);
     }
   )
 );
@@ -89,7 +89,6 @@ passport.deserializeUser((userB, done) => {
   //       if (!err) userC.prefs = prefs
 
   // })
-
   done(null, userC);
 });
 
@@ -138,6 +137,7 @@ io.on('connection', socket => {
 });
 
 // checks each hour if new day; if yes, does a daily reset
+const MILLISECONDS_IN_AN_HOUR = 3600000;
 setTimeout(function dailyTasks() {
   const currentDate = new Date().toISOString().substring(0, 10);
   if (date !== currentDate) {
@@ -147,8 +147,8 @@ setTimeout(function dailyTasks() {
     totalQ = [];
     waitQ = [];
   } else console.log('Same day');
-  setTimeout(dailyTasks, 3600000);
-}, 3600000);
+  setTimeout(dailyTasks, MILLISECONDS_IN_AN_HOUR);
+}, MILLISECONDS_IN_AN_HOUR);
 
 // updates the daily Q every so often
 function updateQ() {
@@ -196,12 +196,15 @@ app.get('/api/studentprogress', alert.progressAlert); // gets student progress a
 app.get('/api/studentexcessq', alert.studentQAlert); // gets student excess q time alerts
 app.get('/api/attendancerecorded', alert.noAttendanceAlert); // gets alerts related to absent attendance data
 app.get('/api/attendance', alert.attendanceAlert); // gets alerts related to absent students
-app.post('/api/prefs/', (req, res) => {
-  req.user.cohort_ids = req.body.prefs;
-  db.upsertPrefsByUser([req.user.id, req.body.prefs], err => {
-    if (err) res.status(500).send(err);
-    else res.status(200).send('User updated.');
-  });
+app.post('/api/prefs/', async (req, res) => {
+  try {
+    req.user.cohort_ids = req.body.prefs;
+    const db = req.app.get('db');
+    await db.upsertPrefsByUser([req.user.id, req.body.prefs]);
+    res.status(200).send('User updated.');
+  } catch (err) {
+    res.status(500).send(err);
+  }
 }); // for user preference database
 
 app.get('/api/surveys/getWeekly', survey.getWeekly); // gets all weekly surveys results
@@ -213,4 +216,4 @@ app.get('/api/surveys/instructorData', survey.getInstructorData);
 app.get('/api/surveys/modules', survey.getModules);
 app.get('/api/surveys/topics', survey.getTopics);
 
-server.listen(port, () => console.log(`Today is ${date}. Listening on port ${port} . . .`));
+server.listen(port, () => console.log(`Today is ${date}. Listening on port ${port}`));

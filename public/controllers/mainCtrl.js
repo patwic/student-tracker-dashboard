@@ -32,7 +32,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
   getUser()
 
-  
+
   //---------------get cohorts---------------//
 
 
@@ -67,7 +67,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
         }
       }
     }
-    return user; 
+    return user;
   }
 
 
@@ -95,7 +95,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     $scope.removeAllCohorts = function(user) {
       getUser()
       $scope.sideNavFilter.location = ''
-      $scope.sideNavFilter.program = ''      
+      $scope.sideNavFilter.program = ''
     }
 
     $scope.getAllCohorts = function() {
@@ -162,7 +162,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
 
 
 // *************************** USE WHEN SHEETS API IS WORKING!!!!!!!!!
-  
+
 
   // sheetsService.getSheet().then((res) => {
   //   $scope.progressData = sheetsService.getProgress(res)
@@ -383,7 +383,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       })
   }
 
-  //--------------Most Reqested Requests DatePicker----------------//
+  //--------------Most Requested Requests DatePicker----------------//
 
   let loadRequestsDatePicker = () => {
     $('#daterange3').daterangepicker({
@@ -440,7 +440,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
     //---------------- get data for cohort surveys bar chart -------------//
 
     $scope.surveyName = ""
-    
+
     if($scope.cohortId) {
       getCohortSurveyData = () => {
         surveyService.getWeeklySurveyDataByCohortId($scope.cohortId).then(res => {
@@ -451,7 +451,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       getCohortSurveyData()
 
     }
-   
+
 
     $scope.getBarChartSurveyData = () => {
       if(event) {
@@ -459,7 +459,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       }
     }
     $scope.getBarChartSurveyData()
-    
+
     //---------------- All Weekly Survey Chart.js ----------------//
 
     let averages = (dataArr) => {
@@ -538,7 +538,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
                 ticks: {
                     beginAtZero:true,
                     min: 0,
-                    max: 10    
+                    max: 10
                 }
               }]
            }
@@ -561,7 +561,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       let week = event.target.value || 1
       $scope.comments = $scope.allComments.filter(e => e.unit == week)
     }
-   
+
 
 
     //----------------get data for cohort line chart-------------//
@@ -689,7 +689,7 @@ angular.module('app').controller('mainCtrl', function ($scope, attendanceService
       document.getElementById("login-sidenavOverlay").style.display = "none";
       document.body.style.overflow = 'visible';
       document.getElementById('cohort-sidenavStudent').style.boxShadow = 'none'
-      document.getElementById('cohort-sidenav').style.boxShadow = 'none'      
+      document.getElementById('cohort-sidenav').style.boxShadow = 'none'
       getStudentPieData()
       getMentorPieData(apiStartDate, apiEndDate, $scope.cohortId)
       loadAllDatePickers()
@@ -729,8 +729,8 @@ $scope.openStudentList = function () {
 $scope.closeStudentList = function () {
     document.getElementById("myNav").style.height = "0%";
 }
-  
- $scope.openMidStudentList = function() { 
+
+ $scope.openMidStudentList = function() {
     document.getElementById("myNav2").style.height = "100%";
  }
 
@@ -739,7 +739,7 @@ $scope.closeStudentList = function () {
 
  }
 
-  $scope.openLastStudentList = function() { 
+  $scope.openLastStudentList = function() {
     document.getElementById("myNav3").style.height = "100%";
  }
 

@@ -1,4 +1,4 @@
-angular.module('app').controller('surveysCtrl', function ($scope, surveyService) {
+angular.module('app').controller('surveysCtrl', ($scope, surveyService) => {
 
     $scope.surveyName;
     $scope.selectedProgram;
@@ -46,7 +46,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
             for(var x = 0; x < approvedTopics.length; x++) {
                 if(topics[i].name === approvedTopics[x]) {
                     $scope.topics.push(topics[i])
-                } 
+                }
             }
         }
     })
@@ -74,7 +74,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
             qa,
             ux
         }
-        $scope.sd = $scope.allPrograms  
+        $scope.sd = $scope.allPrograms
         makeSurveyLineChart($scope.allData)
     })
 
@@ -150,7 +150,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 obj[u].MSATcount = obj[u].MSATcount ? obj[u].MSATcount += 1 : 1
                 obj[u].OSATcount = obj[u].OSATcount ? obj[u].OSATcount += 1 : 1
             }
-  
+
             for (let i = min; i <= max; i++) {
                 if (dataArr[i].program === 'ios'){
                     if (!obj[i]) {
@@ -176,19 +176,19 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 obj[i].program = dataArr[i].program;
                 arr.push(obj[i])
             }
-  
+
         var csatData = [];
         var osatData = [];
         let fsatData = [];
         let msatData = [];
-        
+
         arr.map(e => {
             csatData.push(e.CSAT)
             osatData.push(e.OSAT)
             fsatData.push(e.FSAT)
             msatData.push(e.MSAT)
         })
-        
+
     $scope.lineWeeklyChart;
     var ctx = document.getElementById('lineWeeklyChart');
       if ($scope.lineWeeklyChart) { $scope.lineWeeklyChart.destroy(); }
@@ -224,7 +224,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                   ticks: {
                       beginAtZero:true,
                       min: 0,
-                      max: 10    
+                      max: 10
                   }
                 }]
              }
@@ -339,7 +339,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
                 dates.push(date.toString().split(' ').splice(0, 2).join(' ') + ': ' + e.instructor)
             })
 
-            
+
             $scope.surveyLineChart;
             var ctx = document.getElementById('surveyTopicLineChart');
             if ($scope.surveyLineChart) { $scope.surveyLineChart.destroy(); }
@@ -390,7 +390,7 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
         $scope.filteredModules = $scope.modules.filter(e => {
             return e.topicId === '56fb1628c63976af2f88b31c'
         })
-    }   
+    }
 
     getInstructorTopicData = (instructor, topic) => {
         $scope.instructorTopic = topic || '56fb1628c63976af2f88b31c'
@@ -417,16 +417,16 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
 
 
      // -------------- Instructors Graph -------------- //
-     
+
      $scope.changeSelectedModule = () => {
          if(!event.target.value) {
-            makeInstructorObject($scope.instructorData)    
+            makeInstructorObject($scope.instructorData)
          } else {
         let moduleData = $scope.instructorData.filter(e => {
             return e.module.name == event.target.value
         })
-        makeInstructorObject(moduleData)  
-    }      
+        makeInstructorObject(moduleData)
+    }
     }
 
     makeInstructorObject = (arr) => {
@@ -541,4 +541,4 @@ angular.module('app').controller('surveysCtrl', function ($scope, surveyService)
         }
         averages(allDataArr)
     }
-})
+});
